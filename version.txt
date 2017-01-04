@@ -3,5 +3,5 @@ Ray Tracing : v.0.1
 Todo for next patch:
 	# Choses a faire pour la prochaine version
 
-Patch Notes 0.1 -> 0.2:
+Patch Notes 0.1 -> 0.2: (login / date / id commit)
 	# description des modifications
