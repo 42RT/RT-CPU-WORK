@@ -8,12 +8,13 @@ SDL2 :
 		--> https://github.com/42RT/SDL2.git
 	
 	Include :
-		#include "SDL2/SDL.h"
+		#include "SDL2/include/SDL.h"
 	
 	Compilation :
 		Ajoutez les flags suivants pour compiler :
 		-> -I SDL2/include
 		-> -L SDL2/lib -lSDL2
+		ou bien linker SDL2/lib/libSDL2.a
 
 OpenCL :
 	Installation :
