@@ -58,9 +58,7 @@ ifeq ($(UNAME_S),Darwin)
 	INCLUDES +=	-I ~/.brew/include/SDL2
 	LDFLAGS +=	-L ~/.brew/lib -lSDL2
 else ifeq ($(UNAME_S),Linux)
-	INCLUDES +=	-I lib/minilibx
-	LDFLAGS +=	-L ./lib/minilibx -lmlx -L/usr/X11/lib -lXext -lX11
-	MLX_DIR =	lib/minilibx/
+	LDFLAGS +=	-lSDL2
 endif
 
 CFLAGS += $(INCLUDES)

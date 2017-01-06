@@ -81,7 +81,11 @@
 
 # include <math.h>
 # include <fcntl.h>
-# include <SDL.h>
+# ifdef __APPLE__
+# 	include <SDL.h>
+# else
+#	include <SDL2/SDL.h>
+# endif
 # include <libft.h>
 # include <lib_vec.h>
 

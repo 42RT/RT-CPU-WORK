@@ -16,9 +16,7 @@ t_vec	rot(t_vec v, float hor_angle, float vert_angle)
 {
 	float tmpx;
 	float tmpy;
-	float tmpz;
 
-	tmpz = v.z;
 	tmpx = v.x;
 	tmpy = v.y;
 	v.y = (v.y * cos(hor_angle)) - (v.z * sin(hor_angle));

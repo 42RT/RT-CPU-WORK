@@ -53,8 +53,6 @@ int			event2(int n, t_env *env)
 		rotcam(env, 0, 0, -0.1);
 		camangle(env, 0, 0, -0.1);
 	}
-	else
-		;
 	return (0);
 }
 
