@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 13:26:09 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/06 14:16:29 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/01/06 17:23:41 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,7 @@
 
 # include <math.h>
 # include <fcntl.h>
-# ifdef __APPLE__
-#  include "../lib/minilibx_macos/mlx.h"
-# else
-#  include "../lib/minilibx/mlx.h"
-# endif
+# include "../lib/SDL2/include/SDL.h"
 # include "../lib/libft/includes/libft.h"
 # include "../lib/libvec/include/lib_vec.h"
 
@@ -94,6 +90,7 @@ typedef struct		s_color
 	double			r;
 	double			g;
 	double			b;
+	double			a;
 }					t_color;
 
 typedef struct		s_line
@@ -156,9 +153,9 @@ typedef struct		s_spot
 
 typedef struct		s_env
 {
-	void			*mlx;
-	void			*img;
-	void			*win;
+	SDL_Renderer	*img;
+	SDL_Window		*win;
+	SDL_Event		event;
 	char			*img_data;
 	int				bits_per_pixel;
 	int				size_line;
@@ -177,13 +174,13 @@ void				raycaster(t_env *env);
 t_color				trace(t_env *env, t_ray *ray, int i);
 int					lightcaster(t_env *env, t_vec pos, t_ray ray, t_obj *obj);
 void				reflect(t_env *env, int i);
-void				mlx_pixel_put_img(t_env *env, t_color color);
+void				pixel_put(t_env *env, t_color color);
 t_ray				init_ray(t_env *env);
 t_color				calc_color(t_ray *ray, t_color cobj, t_color clight,
 		double angle);
 t_color				calc_shadow(t_ray *ray, t_color cobj);
 t_color				extract_color(int color);
-int					event(int n, t_env *env);
+int					event(SDL_Event event, t_env *env);
 void				error(int n);
 t_line				*ft_new_line(char *line, int size);
 t_line				*save_file(int fd);
@@ -203,7 +200,7 @@ t_vec				calc_ncylinder(t_ray *ray, t_obj *obj);
 ** PARSER FUNCTIONS
 */
 
-t_vec			get_vector(t_env *env);
+t_vec				get_vector(t_env *env);
 t_color				get_color(t_env *env);
 t_color				get_color_spot(t_env *env);
 t_color				color_correc_spot(t_color color);

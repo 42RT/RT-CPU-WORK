@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:22:46 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/06 13:51:23 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/01/06 17:24:10 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ void	raycaster(t_env *env)
 		{
 			*ray = init_ray(env);
 			color = trace(env, ray, 0);
-			mlx_pixel_put_img(env, color);
+			pixel_put(env, color);
 			++env->y;
 		}
 		env->y = 0;
 		++env->x;
 	}
+	SDL_RenderPresent(env->img);
 	free(ray);
 }
