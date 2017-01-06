@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
+#include <rt.h>
 
 double	ft_atof_ext(char *str, int i, double a, int sign)
 {

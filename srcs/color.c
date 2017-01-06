@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
+#include <rt.h>
 
 t_color		calc_shadow(t_ray *ray, t_color cobj)
 {

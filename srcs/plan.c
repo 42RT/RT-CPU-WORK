@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
+#include <rt.h>
 
 void	create_plan(t_env *env, t_vec pos, t_color color, t_vec n)
 {

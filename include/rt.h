@@ -81,9 +81,9 @@
 
 # include <math.h>
 # include <fcntl.h>
-# include "../lib/SDL2/include/SDL.h"
-# include "../lib/libft/includes/libft.h"
-# include "../lib/libvec/include/lib_vec.h"
+# include <SDL.h>
+# include <libft.h>
+# include <lib_vec.h>
 
 typedef struct		s_color
 {

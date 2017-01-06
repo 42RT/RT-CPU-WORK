@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
+#include <rt.h>
 
 t_vec	calc_ncylinder(t_ray *ray, t_obj *obj)
 {

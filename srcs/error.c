@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
+#include <rt.h>
 
 void	expand_error(int n)
 {
-	;
+	(void)n;
 }
 
 void	error(int n)

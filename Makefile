@@ -12,66 +12,79 @@
 
 NAME = RT
 
-PATH_SRC = srcs/
-PATH_LIB = lib/
+PATH_SRC =	srcs/
+PATH_LIB =	lib/
+UNAME_S =	$(shell uname -s)
 
-LIBFT = $(PATH_LIB)libft/libft.a
-LIBVEC = $(PATH_LIB)libvec/lib_vec.a
-SDL2 = -I/Users/$(USER)/.brew/include/SDL2 -L/Users/$(USER)/.brew/lib -lSDL2
+INCLUDES =	-I lib/libft/includes -I lib/libvec/include -I include
+CFLAGS =	-Wall -Werror -Wextra
+LDFLAGS = 	-lm -L ./lib/libft -lft -L ./lib/libvec -l_vec
+FRAMEWORK =
 
-SRC = $(PATH_SRC)main.c\
-	  $(PATH_SRC)atof.c\
-	  $(PATH_SRC)calc_ncone.c\
-	  $(PATH_SRC)calc_ncylinder.c\
-	  $(PATH_SRC)camera.c\
-	  $(PATH_SRC)color_correction.c\
-	  $(PATH_SRC)color.c\
-	  $(PATH_SRC)cone.c\
-	  $(PATH_SRC)cylinder.c\
-	  $(PATH_SRC)default.c\
-	  $(PATH_SRC)error.c\
-	  $(PATH_SRC)event.c\
-	  $(PATH_SRC)ft_new_line.c\
-	  $(PATH_SRC)pixel_put.c\
-	  $(PATH_SRC)otherfunctions.c\
-	  $(PATH_SRC)parse_camera.c\
-	  $(PATH_SRC)parse_cone.c\
-	  $(PATH_SRC)parse_cylinder.c\
-	  $(PATH_SRC)parse_file.c\
-	  $(PATH_SRC)parse_plane.c\
-	  $(PATH_SRC)parse_sphere.c\
-	  $(PATH_SRC)parse_spot.c\
-	  $(PATH_SRC)plan.c\
-	  $(PATH_SRC)raycaster.c\
-	  $(PATH_SRC)save_file.c\
-	  $(PATH_SRC)sphere.c\
-	  $(PATH_SRC)spot.c\
-	  $(PATH_SRC)test_obj.c\
-	  $(PATH_SRC)test_spot.c\
-	  $(PATH_SRC)trace.c
+SRC =	$(PATH_SRC)main.c \
+		$(PATH_SRC)atof.c \
+		$(PATH_SRC)calc_ncone.c \
+		$(PATH_SRC)calc_ncylinder.c \
+		$(PATH_SRC)camera.c \
+		$(PATH_SRC)color_correction.c \
+		$(PATH_SRC)color.c \
+		$(PATH_SRC)cone.c \
+		$(PATH_SRC)cylinder.c \
+		$(PATH_SRC)default.c \
+		$(PATH_SRC)error.c \
+		$(PATH_SRC)event.c \
+		$(PATH_SRC)ft_new_line.c \
+		$(PATH_SRC)pixel_put.c \
+		$(PATH_SRC)otherfunctions.c \
+		$(PATH_SRC)parse_camera.c \
+		$(PATH_SRC)parse_cone.c \
+		$(PATH_SRC)parse_cylinder.c \
+		$(PATH_SRC)parse_file.c \
+		$(PATH_SRC)parse_plane.c \
+		$(PATH_SRC)parse_sphere.c \
+		$(PATH_SRC)parse_spot.c \
+		$(PATH_SRC)plan.c \
+		$(PATH_SRC)raycaster.c \
+		$(PATH_SRC)save_file.c \
+		$(PATH_SRC)sphere.c \
+		$(PATH_SRC)spot.c \
+		$(PATH_SRC)test_obj.c \
+		$(PATH_SRC)test_spot.c \
+		$(PATH_SRC)trace.c
 
-SRCO = $(SRC:.c=.o)
+OBJ =	$(SRC:.c=.o)
 
-FLAG = -Wall -Werror -Wextra
-MLX_FLAG = -framework OpenGL -framework Appkit
+ifeq ($(UNAME_S),Darwin)
+	INCLUDES +=	-I ~/.brew/include/SDL2
+	LDFLAGS +=	-L ~/.brew/lib -lSDL2
+else ifeq ($(UNAME_S),Linux)
+	INCLUDES +=	-I lib/minilibx
+	LDFLAGS +=	-L ./lib/minilibx -lmlx -L/usr/X11/lib -lXext -lX11
+	MLX_DIR =	lib/minilibx/
+endif
+
+CFLAGS += $(INCLUDES)
 
 all: $(NAME)
 
-$(NAME): $(SRCO)
-	make -C $(PATH_LIB)libft
-	make -C $(PATH_LIB)libvec
-	brew install sdl2
-	gcc -o $(NAME) $(SRCO) $(LIBFT) $(LIBVEC) $(FLAG) $(SDL2)
+$(NAME): $(OBJ)
+	@make -C $(PATH_LIB)libft > /dev/null 2>&1
+	@make -C $(PATH_LIB)libvec > /dev/null 2>&1
+	@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS) $(FRAMEWORK) > /dev/null 2>&1
+	@echo "\033[1;32m$(NAME) Compiled !\033[0m"
 
 clean:
-	make -C $(PATH_LIB)libft clean
-	make -C $(PATH_LIB)libvec clean
-	rm -f $(SRCO)
+	@make -C $(PATH_LIB)libft clean > /dev/null 2>&1
+	@make -C $(PATH_LIB)libvec clean > /dev/null 2>&1
+	@rm -f $(OBJ)
+	@echo "\033[31mclean\033[0m"
 
-fclean: clean
-	make -C $(PATH_LIB)libft fclean
-	make -C $(PATH_LIB)libvec fclean
-	/bin/rm -f $(NAME)
+fclean:
+	@make -C $(PATH_LIB)libft fclean > /dev/null 2>&1
+	@make -C $(PATH_LIB)libvec fclean > /dev/null 2>&1
+	@rm -f $(OBJ)
+	@rm -f $(NAME)
+	@echo "\033[31mfclean\033[0m"
 
 re: fclean all
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
+#include <rt.h>
 
 int		lightcaster2(t_env *env, t_vec pos, t_ray ray)
 {

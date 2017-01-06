@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
+#include <rt.h>
 
 void	create_sphere(t_env *env, t_vec pos, t_color color, double r)
 {
