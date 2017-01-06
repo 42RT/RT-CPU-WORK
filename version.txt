@@ -1,7 +1,7 @@
-Ray Tracing : v.0.1
+Ray Tracing : v.1.0
 
 Todo for next patch:
-	# Choses a faire pour la prochaine version
+	Passage SDL2 !!
 
 Patch Notes 0.1 -> 0.2: (login / date / id commit)
 	# description des modifications

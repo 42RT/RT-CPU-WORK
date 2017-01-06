@@ -1,0 +1,6 @@
+camera
+t(0, 0, -20)
+spot
+t(0, 0, -20)
+cylinder
+cone
