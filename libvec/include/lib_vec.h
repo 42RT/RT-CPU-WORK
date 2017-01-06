@@ -6,7 +6,7 @@
 /*   By: tjarross <tjarross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/29 17:05:06 by tjarross          #+#    #+#             */
-/*   Updated: 2016/11/23 03:34:19 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/06 12:29:03 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,10 @@ t_vec			dot_div(t_vec v1, t_vec v2);
 t_vec			not_vec(t_vec v);
 t_vec			get_inters(t_vec origin, t_vec raydir, float t);
 t_vec			product_vec(t_vec v1, t_vec v2);
+t_vec			reflect_vec(t_vec dir, t_vec n);
+t_vec			rotx(t_vec vec, float angle);
+t_vec			roty(t_vec vec, float angle);
+t_vec			rotz(t_vec vec, float angle);
+t_vec			calc_vec(t_vec p1, t_vec p2);
 
 #endif

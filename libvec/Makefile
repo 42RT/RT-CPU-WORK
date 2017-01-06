@@ -10,7 +10,12 @@ SRC_NAME =	normalize.c \
 			not_vec.c \
 			rot.c \
 			product_vec.c \
-			get_dist.c
+			get_dist.c \
+			reflect_vec.c \
+			rotx.c \
+			roty.c \
+			rotz.c \
+			calc_vec.c
 
 SRC =		$(addprefix src/, $(SRC_NAME))
 
