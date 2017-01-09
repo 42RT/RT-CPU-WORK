@@ -51,7 +51,7 @@ int			main(int argc, char **argv)
 		raycaster(env);
 		while (1)
 		{
-			SDL_PollEvent(&env->event);
+			SDL_WaitEvent(&env->event);
 			event(env->event, env);
 		}
 	}

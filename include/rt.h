@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 13:26:09 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/06 17:23:41 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/09 12:07:03 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@
 # include <math.h>
 # include <fcntl.h>
 # ifdef __APPLE__
-# 	include <SDL.h>
+#  include <SDL.h>
 # else
-#	include <SDL2/SDL.h>
+#  include <SDL2/SDL.h>
 # endif
 # include <libft.h>
 # include <lib_vec.h>
@@ -173,6 +173,15 @@ typedef struct		s_env
 	t_camera		cam;
 	t_spot			*spot;
 }					t_env;
+
+/*
+** COLOR_UTILS
+*/
+void				color_mix_k(unsigned int *src, unsigned int color,
+								unsigned int k);
+void				color_mix_float(t_color *src, t_color *color,
+								float k);
+unsigned int		limit_nb(unsigned int nb, unsigned int max);
 
 void				raycaster(t_env *env);
 t_color				trace(t_env *env, t_ray *ray, int i);

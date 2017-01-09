@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 13:36:02 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/06 14:12:27 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/01/09 12:08:42 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void		reflect_ray(t_ray *ray, t_obj *obj, t_vec point)
 t_color		trace(t_env *env, t_ray *ray, int i)
 {
 	t_color		color;
+	t_color		color2;
 	t_obj		*obj;
 	t_vec	point;
 
@@ -60,10 +61,14 @@ t_color		trace(t_env *env, t_ray *ray, int i)
 	if ((obj = test_obj(env, ray)) == NULL)
 		return (color);
 	point = calc_point(ray);
+	RCOLOR = init_color_black();
 	if (obj->reflect == 1)
 	{
 		reflect_ray(ray, obj, point);
-		color = trace(env, ray, i + 1);
+		color = test_spot(env, ray, obj, point);
+		color2 = trace(env, ray, i + 1);
+		//color = trace(env, ray, i + 1);
+		color_mix_float(&color, &color2, 0.35);
 		return (color);
 	}
 	color = test_spot(env, ray, obj, point);

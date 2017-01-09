@@ -90,6 +90,6 @@ int			event(SDL_Event event, t_env *env)
 		trans_event(n, env);
 	else
 		event2(n, env);*/
-	raycaster(env);
+	//raycaster(env);
 	return (0);
 }
