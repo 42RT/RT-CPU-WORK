@@ -50,7 +50,9 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_SRC)spot.c \
 		$(PATH_SRC)test_obj.c \
 		$(PATH_SRC)test_spot.c \
-		$(PATH_SRC)trace.c
+		$(PATH_SRC)trace.c \
+		$(PATH_SRC)color_utils.c \
+		$(PATH_SRC)utils.c
 
 OBJ =	$(SRC:.c=.o)
 
