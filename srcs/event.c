@@ -62,18 +62,31 @@ void		event3(t_env *env)
 	camangle(env, 0, 0.1, 0);
 }
 
+void		rt_exit(t_env *env)
+{
+	SDL_DestroyRenderer(env->img);
+	SDL_DestroyWindow(env->win);
+	SDL_Quit();
+	exit(1);
+}
+
+static int	event_keydown(SDL_Event event, t_env *env)
+{
+	if (event.key.keysym.sym == SDLK_ESCAPE)
+		rt_exit(env);
+	return (0);
+}
+
 int			event(SDL_Event event, t_env *env)
 {
 	if (event.type == SDL_WINDOWEVENT)
 	{
 		if (event.window.event == SDL_WINDOWEVENT_CLOSE)
-		{
-			SDL_DestroyRenderer(env->img);
-			SDL_DestroyWindow(env->win);
-			SDL_Quit();
-			exit(1);
-		}
+			rt_exit(env);
 	}
+	else if (event.type == SDL_KEYDOWN)
+		event_keydown(event, env);
+
 	/*else if (n == 124)
 	{
 		rotcam(env, 0.1, 0, 0);

@@ -65,7 +65,7 @@ void		transcam(t_env *env, t_vec trans)
 	env->cam.vpul = vpupleft(env->cam);
 }
 
-t_camera	init_cam(double x, double y, double z)
+t_camera	init_cam(t_env *env, double x, double y, double z)
 {
 	t_camera	cam;
 
@@ -82,7 +82,7 @@ t_camera	init_cam(double x, double y, double z)
 	cam.vecdirz.y = 0;
 	cam.vecdirz.z = 1;
 	cam.vpul = vpupleft(cam);
-	cam.xindent = VPHEIGHT / (double)HEIGHT;
-	cam.yindent = VPWIDTH / (double)WIDTH;
+	cam.xindent = VPHEIGHT / (double)env->set->height;
+	cam.yindent = VPWIDTH / (double)env->set->width;
 	return (cam);
 }

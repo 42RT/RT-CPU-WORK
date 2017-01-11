@@ -14,8 +14,6 @@
 # define RT_H
 
 # define EPS 0.01
-# define WIDTH 640
-# define HEIGHT 480
 # define VPWIDTH 10
 # define VPHEIGHT 7.2
 # define VPDIST 20
@@ -89,6 +87,26 @@
 # include <libft.h>
 # include <lib_vec.h>
 
+/*
+** Unused now, but needed for compilation
+*/
+
+typedef struct		s_vector
+{
+	float			x;
+	float			y;
+	float			z;
+}					t_vector;
+
+typedef struct		s_cam
+{
+	t_vector		pos;
+	t_vector		ang;
+}					t_cam;
+/*
+**end of unused structs
+*/
+
 typedef struct		s_color
 {
 	double			r;
@@ -148,22 +166,44 @@ typedef struct		s_camera
 
 typedef struct		s_spot
 {
-	t_vec		spotpos;
+	t_vec			spotpos;
 	t_color			color;
 	t_ray			ray;
 	struct s_spot	*first;
 	struct s_spot	*next;
 }					t_spot;
 
+typedef struct		s_settings
+{
+	unsigned int	width;
+	unsigned int	height;
+	unsigned int	aa;
+	unsigned int	deph;
+	unsigned int	reflect;
+	unsigned int	refract;
+	unsigned int	fov;
+	unsigned int	d3_mode;
+	float			d3_offset;
+	float			d3_conv;
+	char			*name;
+	unsigned int	focus;
+	int				focus_dst;
+	int				focus_range;
+	float			focus_k;
+	t_cam			*cam;
+	t_cam			*cam2;
+	int				preview;
+	int				display;
+	int				threads;
+	int				verbose;
+}					t_settings;
+
 typedef struct		s_env
 {
 	SDL_Renderer	*img;
 	SDL_Window		*win;
 	SDL_Event		event;
-	char			*img_data;
-	int				bits_per_pixel;
-	int				size_line;
-	int				endian;
+	t_settings		*set;
 	int				i;
 	double			x;
 	double			y;
@@ -226,11 +266,13 @@ void				parse_cylinder(t_env *env);
 void				parse_cone(t_env *env);
 void				parse_file(t_env *env);
 
+t_settings			*new_settings(void);
+
 /*
 ** CAMERA FUNCTIONS
 */
 
-t_camera			init_cam(double x, double y, double z);
+t_camera			init_cam(t_env *env, double x, double y, double z);
 void				transcam(t_env *env, t_vec trans);
 void				rotcam(t_env *env, double rx, double ry, double rz);
 void				camangle(t_env *env, double rx, double ry, double rz);

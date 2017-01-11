@@ -53,9 +53,9 @@ void	raycaster(t_env *env)
 	color = init_color_black();
 	env->y = 0;
 	env->x = 0;
-	while (env->x < HEIGHT)
+	while (env->x < env->set->height)
 	{
-		while (env->y < WIDTH)
+		while (env->y < env->set->width)
 		{
 			*ray = init_ray(env);
 			color = trace(env, ray, 0);

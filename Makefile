@@ -52,7 +52,8 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_SRC)test_spot.c \
 		$(PATH_SRC)trace.c \
 		$(PATH_SRC)color_utils.c \
-		$(PATH_SRC)utils.c
+		$(PATH_SRC)utils.c \
+		$(PATH_SRC)new_settings.c
 
 OBJ =	$(SRC:.c=.o)
 

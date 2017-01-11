@@ -18,6 +18,7 @@ void		init_env(t_env *env, int fd)
 	env->obj = NULL;
 	env->spot = NULL;
 	env->win = NULL;
+	env->set = new_settings();
 	parse_file(env);
 	if (env->obj == NULL)
 		error(6);
@@ -43,8 +44,8 @@ int			main(int argc, char **argv)
 		error(7);
 		return (-1);
 	}
-	env->win = SDL_CreateWindow("RT", SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
+	env->win = SDL_CreateWindow(env->set->name, SDL_WINDOWPOS_CENTERED,
+			SDL_WINDOWPOS_CENTERED, env->set->width, env->set->height, SDL_WINDOW_SHOWN);
 	if (env->win)
 	{
 		env->img = SDL_CreateRenderer(env->win, -1, SDL_RENDERER_SOFTWARE);

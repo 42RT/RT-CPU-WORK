@@ -17,7 +17,7 @@ void	parse_camera(t_env *env)
 	t_vec	trans;
 	t_line		*file;
 
-	env->cam = init_cam(0, 0, 0);
+	env->cam = init_cam(env, 0, 0, 0);
 	while (env->file->next && (LINENEXT[0] == 't' || LINENEXT[0] == 'r'))
 	{
 		file = env->file->next;
