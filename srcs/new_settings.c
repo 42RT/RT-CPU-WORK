@@ -6,12 +6,10 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 07:05:07 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/11/28 07:05:07 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/01/11 16:59:04 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <libft.h>
 #include <rtdefs.h>
 #include <rt.h>
 
@@ -41,8 +39,8 @@ t_settings	*new_settings(void)
 	res = (t_settings *)malloc(sizeof(t_settings));
 	if (!res)
 		return (0);
-	res->width = DEF_WIDTH;
-	res->height = DEF_HEIGHT;
+	res->width = DEF_IMG_WIDTH;
+	res->height = DEF_IMG_HEIGHT;
 	res->aa = DEF_AA;
 	res->deph = DEF_DEPH;
 	res->reflect = DEF_REFLECT;

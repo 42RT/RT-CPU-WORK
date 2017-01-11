@@ -6,7 +6,7 @@
 #    By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/24 13:16:13 by rdieulan          #+#    #+#              #
-#    Updated: 2017/01/06 17:56:13 by rdieulan         ###   ########.fr        #
+#    Updated: 2017/01/11 16:52:04 by rdieulan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,9 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_SRC)test_spot.c \
 		$(PATH_SRC)trace.c \
 		$(PATH_SRC)color_utils.c \
+		$(PATH_SRC)new_settings.c \
 		$(PATH_SRC)utils.c \
-		$(PATH_SRC)new_settings.c
+		$(PATH_SRC)gui_main.c
 
 OBJ =	$(SRC:.c=.o)
 

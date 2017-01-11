@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 13:26:09 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/09 12:07:03 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/01/11 18:01:46 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,10 +198,36 @@ typedef struct		s_settings
 	int				verbose;
 }					t_settings;
 
+typedef struct		s_widget
+{
+	void			*next;
+	char			*name;
+	char			*type;
+	char			*action;
+	int				x;
+	int				y;
+	int				width;
+	int				height;
+}					t_widget
+
+typedef struct		s_gui
+{
+	SDL_Window		*win;
+	SDL_Renderer	*img;
+	SDL_Event		event;
+	SDL_DisplayMode	*display;
+	t_widget		*widget;
+	t_color			*color;
+	int				width;
+	int				height;
+	int				anchor_x;
+	int				anchor_y;
+}					t_gui;
+
 typedef struct		s_env
 {
-	SDL_Renderer	*img;
 	SDL_Window		*win;
+	SDL_Renderer	*img;
 	SDL_Event		event;
 	t_settings		*set;
 	int				i;
@@ -248,6 +274,16 @@ t_color				init_color_black(void);
 
 t_vec				calc_ncone(t_ray *ray, t_obj *obj);
 t_vec				calc_ncylinder(t_ray *ray, t_obj *obj);
+
+t_env				*init_env(int fd);
+void				init_graphics(t_env *env);
+
+/*
+** GUI FUNCTIONS
+*/
+
+t_gui				*gui_init();
+void				pixel_put_gui(t_gui *gui, int x, int y);
 
 /*
 ** PARSER FUNCTIONS
