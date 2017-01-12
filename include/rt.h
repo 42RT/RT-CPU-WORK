@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 13:26:09 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/11 18:01:46 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/12 12:09:28 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,7 @@ typedef struct		s_widget
 	int				y;
 	int				width;
 	int				height;
-}					t_widget
+}					t_widget;
 
 typedef struct		s_gui
 {
