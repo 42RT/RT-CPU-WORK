@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 13:26:09 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/12 12:09:28 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/01/14 20:15:42 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,25 @@
 
 # define LINE env->file->line
 # define LINENEXT env->file->next->line
+
+/*
+** DEFINE GUI
+*/
+
+# define DEF_GUI_WIDTH 300
+# define DEF_GUI_THEME 0
+# define DEF_GUI_DYNAMIC 1
+# define DEF_GUI_CONSTANT 0
+# define DEF_GUI_CONTAINER_TOTAL_NB 6
+# define DEF_GUI_CONTAINER_DYNAMIC_NB 3
+# define DEF_GUI_CONTAINER_HEADER 80
+# define DEF_GUI_CONTAINER_FOOT 40
+# define DEF_GUI_CONTAINER_MIDDLE 0
+# define DEF_GUI_CONTAINER_RESERVED (DEF_GUI_CONTAINER_HEADER \
+		+ (DEF_GUI_CONTAINER_FOOT * 2))
+# define DEF_GUI_CONTAINER_RESIZED ((gui->height - \
+			DEF_GUI_CONTAINER_RESERVED) / DEF_GUI_CONTAINER_DYNAMIC_NB)
+# define CONTAINER gui->container[gui->cbcnt]
 
 # include <math.h>
 # include <fcntl.h>
@@ -198,31 +217,6 @@ typedef struct		s_settings
 	int				verbose;
 }					t_settings;
 
-typedef struct		s_widget
-{
-	void			*next;
-	char			*name;
-	char			*type;
-	char			*action;
-	int				x;
-	int				y;
-	int				width;
-	int				height;
-}					t_widget;
-
-typedef struct		s_gui
-{
-	SDL_Window		*win;
-	SDL_Renderer	*img;
-	SDL_Event		event;
-	SDL_DisplayMode	*display;
-	t_widget		*widget;
-	t_color			*color;
-	int				width;
-	int				height;
-	int				anchor_x;
-	int				anchor_y;
-}					t_gui;
 
 typedef struct		s_env
 {
@@ -239,6 +233,35 @@ typedef struct		s_env
 	t_camera		cam;
 	t_spot			*spot;
 }					t_env;
+
+typedef struct		s_container
+{
+	int				up_lim;
+	int				bot_lim;
+	int				px;
+	SDL_Surface		*surface;
+	SDL_Texture		*bmp;
+	SDL_Rect		dest;
+}					t_container;
+
+typedef struct		s_gui
+{
+	SDL_Window		*win;
+	SDL_Renderer	*img;
+	SDL_Event		gui_event;
+	SDL_DisplayMode	*display;
+	SDL_Surface		*bg_surface;
+	SDL_Texture		*bg_bmp;
+	SDL_Rect		bg_dest;
+	t_color			*color;
+	t_container		**container;
+	int				cbcnt;
+	int				width;
+	int				height;
+	int				anchor_x;
+	int				anchor_y;
+	int				tmp_lim;
+}					t_gui;
 
 /*
 ** COLOR_UTILS
@@ -279,13 +302,6 @@ t_env				*init_env(int fd);
 void				init_graphics(t_env *env);
 
 /*
-** GUI FUNCTIONS
-*/
-
-t_gui				*gui_init();
-void				pixel_put_gui(t_gui *gui, int x, int y);
-
-/*
 ** PARSER FUNCTIONS
 */
 
@@ -312,6 +328,17 @@ t_camera			init_cam(t_env *env, double x, double y, double z);
 void				transcam(t_env *env, t_vec trans);
 void				rotcam(t_env *env, double rx, double ry, double rz);
 void				camangle(t_env *env, double rx, double ry, double rz);
+
+/*
+** GUI FUNCTIONS
+*/
+
+t_gui				*gui_init();
+void				gui_pixel_put(t_gui *gui, int x, int y);
+void				gui_color_set(t_gui *gui, char *type, char *style);
+void				gui_background_get_set_n_display(t_gui *gui);
+void				gui_build_container(t_gui *gui, int mode, int px);
+void				gui_error(int n);
 
 /*
 ** OBJECTS FUNCTIONS

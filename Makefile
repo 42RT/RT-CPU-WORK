@@ -6,7 +6,7 @@
 #    By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/24 13:16:13 by rdieulan          #+#    #+#              #
-#    Updated: 2017/01/11 16:52:04 by rdieulan         ###   ########.fr        #
+#    Updated: 2017/01/14 20:28:15 by rdieulan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ UNAME_S =	$(shell uname -s)
 
 INCLUDES =	-I lib/libft/includes -I lib/libvec/include -I include
 CFLAGS =	-Wall -Werror -Wextra
-LDFLAGS = 	-lm -L ./lib/libft -lft -L ./lib/libvec -l_vec
+LDFLAGS =	-lm -L ./lib/libft -lft -L ./lib/libvec -l_vec
 FRAMEWORK =
 
 SRC =	$(PATH_SRC)main.c \
@@ -54,6 +54,9 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_SRC)color_utils.c \
 		$(PATH_SRC)new_settings.c \
 		$(PATH_SRC)utils.c \
+		$(PATH_SRC)gui_error.c \
+		$(PATH_SRC)gui_background.c \
+		$(PATH_SRC)gui_container.c \
 		$(PATH_SRC)gui_main.c
 
 OBJ =	$(SRC:.c=.o)
@@ -72,7 +75,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make -C $(PATH_LIB)libft > /dev/null 2>&1
 	@make -C $(PATH_LIB)libvec > /dev/null 2>&1
-	@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS) $(FRAMEWORK) > /dev/null 2>&1
+	@gcc $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS) $(FRAMEWORK)
 	@echo "\033[1;32m$(NAME) Compiled !\033[0m"
 
 clean:

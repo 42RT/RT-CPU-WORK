@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/22 14:59:45 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/11 17:45:16 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/14 19:17:25 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	pixel_put(t_env *env, t_color color)
 	SDL_RenderDrawPoint(env->img, env->y, env->x);
 }
 
-void	pixel_put_gui(t_gui	*gui, int x, int y)
+void	gui_pixel_put(t_gui	*gui, int x, int y)
 {
 	SDL_SetRenderDrawColor(gui->img, gui->color->r, gui->color->g, gui->color->b, 
 			gui->color->a);

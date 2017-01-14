@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/07 13:19:38 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/11 17:16:00 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/14 18:19:43 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,6 @@ void	error(int n)
 		ft_putstr("Failed to initialize SDL.\n");
 	else if (n == 8)
 		ft_putstr("Failed to create an SDL Window\n");
-	else if (n == 9)
-	{
-		ft_putstr("GUI unable to get actual display.\n");
-		ft_putstr(SDL_GetError());
-	}
 	else
 		expand_error(n);
 	exit(1);
