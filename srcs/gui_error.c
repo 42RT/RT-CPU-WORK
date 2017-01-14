@@ -14,7 +14,7 @@
 
 void	gui_expand_error(int n)
 {
-	n = 0;
+	(void)n;
 }
 
 void	gui_error(int n)

@@ -62,5 +62,6 @@ int			main(int argc, char **argv)
 		SDL_WaitEvent(&env->event);
 		event(env->event, env);
 	}
+	(void)gui;
 	return (0);
 }

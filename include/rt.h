@@ -144,8 +144,8 @@ typedef struct		s_line
 typedef struct		s_obj
 {
 	char			type;
-	t_vec		vec1;
-	t_vec		vec2;
+	t_vec			vec1;
+	t_vec			vec2;
 	int				reflect;
 	double			r;
 	double			d1;
@@ -157,28 +157,28 @@ typedef struct		s_obj
 
 typedef struct		s_parse
 {
-	t_vec		pos;
-	t_vec		n;
+	t_vec			pos;
+	t_vec			n;
 	t_color			color;
 	double			r;
 }					t_parse;
 
 typedef struct		s_ray
 {
-	t_vec		vecdir;
-	t_vec		pos;
-	t_vec		reflect;
+	t_vec			vecdir;
+	t_vec			pos;
+	t_vec			reflect;
 	double			dist;
 	t_color			color;
 }					t_ray;
 
 typedef struct		s_camera
 {
-	t_vec		campos;
-	t_vec		vecdirx;
-	t_vec		vecdiry;
-	t_vec		vecdirz;
-	t_vec		vpul;
+	t_vec			campos;
+	t_vec			vecdirx;
+	t_vec			vecdiry;
+	t_vec			vecdirz;
+	t_vec			vpul;
 	double			xindent;
 	double			yindent;
 }					t_camera;
@@ -269,7 +269,7 @@ typedef struct		s_gui
 void				color_mix_k(unsigned int *src, unsigned int color,
 								unsigned int k);
 void				color_mix_float(t_color *src, t_color *color,
-								float k);
+									float k);
 unsigned int		limit_nb(unsigned int nb, unsigned int max);
 
 void				raycaster(t_env *env);
@@ -279,7 +279,7 @@ void				reflect(t_env *env, int i);
 void				pixel_put(t_env *env, t_color color);
 t_ray				init_ray(t_env *env);
 t_color				calc_color(t_ray *ray, t_color cobj, t_color clight,
-		double angle);
+								double angle);
 t_color				calc_shadow(t_ray *ray, t_color cobj);
 t_color				extract_color(int color);
 int					event(SDL_Event event, t_env *env);
@@ -345,15 +345,15 @@ void				gui_error(int n);
 */
 
 void				create_sphere(t_env *env, t_vec pos, t_color color,
-		double r);
+									double r);
 t_obj				*test_sphere(t_env *env, t_ray *ray);
 int					test_sphere2(t_env *env, t_vec pos, t_ray ray);
 int					test_sphere3(t_env *env, t_vec pos);
 void				create_spot(t_env *env, t_vec pos, t_color color);
 t_color				test_spot(t_env *env, t_ray *ray, t_obj *obj,
-		t_vec point);
+								t_vec point);
 void				create_plan(t_env *env, t_vec pos, t_color color,
-		t_vec n);
+								t_vec n);
 t_obj				*test_plan(t_env *env, t_ray *ray);
 int					test_plan2(t_env *env, t_vec pos, t_ray ray);
 int					test_plan3(t_env *env, t_vec pos);
