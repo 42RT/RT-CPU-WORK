@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_spot.c                                       :+:      :+:    :+:   */
+/*   parse_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/12 12:50:46 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/06 14:06:20 by rfriscca         ###   ########.fr       */
+/*   Created: 2016/10/12 12:00:24 by rfriscca          #+#    #+#             */
+/*   Updated: 2017/01/06 14:13:06 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void	parse_spot(t_env *env)
+void	old_parse_camera(t_env *env)
 {
-	t_vec	pos;
 	t_vec	trans;
-	t_color		color;
 	t_line		*file;
 
-	color = default_color_spot();
-	pos = default_pos();
-	while (env->file->next && (LINENEXT[0] == 't' || LINENEXT[0] == 'c')
-			&& !ft_isalpha(LINENEXT[1]))
+	env->cam = init_cam(env, 0, 0, 0);
+	while (env->file->next && (LINENEXT[0] == 't' || LINENEXT[0] == 'r'))
 	{
 		file = env->file->next;
 		free_file(env);
 		env->file = file;
-		if (LINE[0] == 't')
+		if (LINE[0] == 't' || LINE[0] == 'r')
 		{
 			trans = get_vector(env);
-			pos = add_vec(pos, trans);
+			if (LINE[0] == 't')
+				transcam(env, trans);
+			if (LINE[0] == 'r')
+				camangle(env, M_PI * trans.x / 180, M_PI * trans.y / 180
+						, M_PI * trans.z / 180);
 		}
-		else if (LINE[0] == 'c')
-			color = get_color_spot(env);
 	}
-	create_spot(env, pos, color);
 }

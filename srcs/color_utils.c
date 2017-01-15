@@ -79,7 +79,7 @@ unsigned int	color_attenuate(unsigned int color, float k)
 	return (res);
 }
 
-/*
+
 unsigned int	get_color(char *str)
 {
 	if (str && *str)
@@ -91,7 +91,7 @@ unsigned int	get_color(char *str)
 	}
 	else
 		return (0);
-}*/
+}
 
 unsigned int	mod_light(unsigned int color, float dst, float coef2)
 {

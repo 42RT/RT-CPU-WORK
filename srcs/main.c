@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <rt.h>
+#include <parser.h>
 
 t_env		*init_env(int fd)
 {
@@ -23,7 +24,7 @@ t_env		*init_env(int fd)
 	env->spot = NULL;
 	env->win = NULL;
 	env->set = new_settings();
-	parse_file(env);
+	old_parse_file(env);
 	if (env->obj == NULL)
 		error(6);
 	if (env->spot == NULL)
@@ -54,7 +55,9 @@ int			main(int argc, char **argv)
 		error(2);
 	fd = open(argv[1], O_RDONLY);
 	env = init_env(fd);
+	parse(env, ".default.rtc");
 	init_graphics(env);
+	aff_settings(env->set);
 	gui = gui_init();
 	raycaster(env);
 	while (1)

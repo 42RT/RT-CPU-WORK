@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/27 15:08:56 by rfriscca          #+#    #+#             */
-/*   Updated: 2015/12/03 18:13:35 by rfriscca         ###   ########.fr       */
+/*   Created: 2013/11/21 12:55:18 by jrouilly          #+#    #+#             */
+/*   Updated: 2013/11/21 12:55:19 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
 
 void	ft_putchar_fd(char c, int fd)
 {
-	if (ft_isascii(c))
-		write(fd, &c, 1);
+	write(fd, &c, 1);
 }

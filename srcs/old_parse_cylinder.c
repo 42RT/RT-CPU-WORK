@@ -12,7 +12,7 @@
 
 #include <rt.h>
 
-void	parse_cylinder(t_env *env)
+void	old_parse_cylinder(t_env *env)
 {
 	t_line		*file;
 
@@ -30,9 +30,9 @@ void	parse_cylinder(t_env *env)
 		if (LINE[0] == 't' || LINE[0] == 'r')
 			trans_rotation(env);
 		else if (LINE[0] == 'c')
-			env->data.color = get_color(env);
+			env->data.color = get_color_t(env);
 		else if (LINE[0] == 'o')
-			env->data.r = ft_atof(LINE);
+			env->data.r = ft_atod(LINE);
 	}
 	create_cylinder(env, env->data);
 }

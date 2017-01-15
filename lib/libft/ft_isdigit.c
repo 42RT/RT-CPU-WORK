@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/24 12:47:36 by rfriscca          #+#    #+#             */
-/*   Updated: 2015/11/24 13:42:02 by rfriscca         ###   ########.fr       */
+/*   Created: 2013/11/19 12:49:35 by jrouilly          #+#    #+#             */
+/*   Updated: 2013/11/26 14:38:51 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	return ((c >= 0x30 && c < 0x3A));
 }

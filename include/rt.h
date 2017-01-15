@@ -13,6 +13,8 @@
 #ifndef RT_H
 # define RT_H
 
+# include <rtdefs.h>
+
 # define EPS 0.01
 # define VPWIDTH 10
 # define VPHEIGHT 7.2
@@ -122,6 +124,19 @@ typedef struct		s_cam
 	t_vector		pos;
 	t_vector		ang;
 }					t_cam;
+
+typedef struct		s_light
+{
+	int				type;
+	t_vector		pos;
+	t_vector		ang;
+	unsigned int	color;
+	float			mod;
+	float			k1;
+	float			k2;
+	float			k3;
+	struct s_light	*next;
+}					t_light;
 /*
 **end of unused structs
 */
@@ -143,15 +158,34 @@ typedef struct		s_line
 
 typedef struct		s_obj
 {
-	char			type;
+	int				type;
+	void			(*func)();
+	void			(*normale)();
+	int				**base;
+	int				negative;
+	t_vector		pos;
+	t_vector		ang;
+	t_vector		exp;
+	unsigned int	color;
+	unsigned int	color2;
+	unsigned int	color3;
+	unsigned int	color_refract;
+	unsigned int	size;
+	float			mod;
+	float			reflect_k;
+	float			refract_k;
+	float			refract_ind;
+	float			dst;
+	struct s_obj	*next;
+
+
 	t_vec			vec1;
 	t_vec			vec2;
 	int				reflect;
 	double			r;
 	double			d1;
 	double			d2;
-	t_color			color;
-	struct s_obj	*next;
+	t_color			color_t;
 	struct s_obj	*first;
 }					t_obj;
 
@@ -230,6 +264,8 @@ typedef struct		s_env
 	t_parse			data;
 	t_line			*file;
 	t_obj			*obj;
+	t_obj			*neg_obj;/////compilation only
+	t_light			*light;//unused now
 	t_camera		cam;
 	t_spot			*spot;
 }					t_env;
@@ -264,6 +300,17 @@ typedef struct		s_gui
 }					t_gui;
 
 /*
+** NOT SORTED - DAWNAUR
+*/
+
+t_env				*get_env(void);
+//void				*get_normale(unsigned int i);
+//void				*get_func(unsigned int i);
+int					**new_base(void);
+unsigned int		get_color(char *str);
+void				aff_settings(t_settings *set);
+
+/*
 ** COLOR_UTILS
 */
 void				color_mix_k(unsigned int *src, unsigned int color,
@@ -286,7 +333,7 @@ int					event(SDL_Event event, t_env *env);
 void				error(int n);
 t_line				*ft_new_line(char *line, int size);
 t_line				*save_file(int fd);
-double				ft_atof(char *str);
+double				ft_atod(char *str);
 t_color				default_color(void);
 t_color				default_color_spot(void);
 t_vec				default_pos(void);
@@ -306,19 +353,17 @@ void				init_graphics(t_env *env);
 */
 
 t_vec				get_vector(t_env *env);
-t_color				get_color(t_env *env);
+t_color				get_color_t(t_env *env);
 t_color				get_color_spot(t_env *env);
 t_color				color_correc_spot(t_color color);
 t_color				color_correc_obj(t_color color);
-void				parse_camera(t_env *env);
-void				parse_sphere(t_env *env);
-void				parse_spot(t_env *env);
-void				parse_plane(t_env *env);
-void				parse_cylinder(t_env *env);
-void				parse_cone(t_env *env);
-void				parse_file(t_env *env);
-
-t_settings			*new_settings(void);
+void				old_parse_camera(t_env *env);
+void				old_parse_sphere(t_env *env);
+void				old_parse_spot(t_env *env);
+void				old_parse_plane(t_env *env);
+void				old_parse_cylinder(t_env *env);
+void				old_parse_cone(t_env *env);
+void				old_parse_file(t_env *env);
 
 /*
 ** CAMERA FUNCTIONS

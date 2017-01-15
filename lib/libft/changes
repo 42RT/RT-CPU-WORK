@@ -1,0 +1,32 @@
+v2.2
+	ft_strsplit modifié
+	mise à la norme
+
+v2.3
+	ajout ft_printf
+	ajout ft_newstrcpy (strcpy en allouant une nouvelle zone mémoire)
+
+v2.4
+	mise a la norme de la nouvelle norminette
+
+v2.5
+	ajout get next line a la norme
+
+v2.8
+	reprise d'une autre version
+	amelioration makefile
+	amelioration fr_printf
+
+v2.9
+	ajout ft_readfile
+	mise a la norme
+
+v3.0
+	suppression ft_newstrcpy (doublon ft_strdup)
+	ajout ft_newstrcat
+	correction ft_strncmp
+
+v3.1
+	ajout ft_ishex
+	ajout ft_hextoi
+	ajout ft_hexval

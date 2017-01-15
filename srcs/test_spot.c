@@ -83,9 +83,9 @@ t_color	test_spot2(t_env *env, t_ray *ray, t_obj *obj, t_vec point)
 	angle = dot(vec_otol, vec_ctoo);
 	env->spot->ray = init_lightray(env, vec_otol, point);
 	if (lightcaster(env, point, env->spot->ray, env->obj) == 0)
-		return (RCOLOR = calc_color(ray, obj->color, env->spot->color, angle));
+		return (RCOLOR = calc_color(ray, obj->color_t, env->spot->color, angle));
 	else
-		return (RCOLOR = calc_shadow(ray, obj->color));
+		return (RCOLOR = calc_shadow(ray, obj->color_t));
 }
 
 t_color	test_spot(t_env *env, t_ray *ray, t_obj *obj, t_vec point)

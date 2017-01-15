@@ -3,89 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/27 14:41:30 by rfriscca          #+#    #+#             */
-/*   Updated: 2015/12/14 17:30:46 by rfriscca         ###   ########.fr       */
+/*   Created: 2013/11/21 13:04:07 by jrouilly          #+#    #+#             */
+/*   Updated: 2013/12/30 19:14:34 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-static char	**ft_taballoc_line(char **tab, char const *s, char c, int k)
+static char	*split_strcpy(char **s, char c)
 {
-	int		i;
-	int		j;
+	char	*result;
+	char	*ptr;
+	int		size;
 
-	i = 0;
-	j = 0;
-	while (s[i])
+	while (**s == c)
+		++(*s);
+	ptr = *s;
+	size = 0;
+	while (*ptr != c && *ptr)
 	{
-		while (s[i] == c && s[i])
-			i++;
-		while (s[i] != c && s[i])
-		{
-			j++;
-			i++;
-		}
-		if (j != 0)
-		{
-			if ((tab[k] = ft_strnew(j)) == NULL)
-				return (NULL);
-			++k;
-		}
-		j = 0;
+		++size;
+		++ptr;
 	}
-	tab[k] = NULL;
-	return (tab);
-}
-
-static char	**ft_taballoc(char const *s, char c)
-{
-	int		i;
-	int		j;
-	char	**tab;
-
-	i = 0;
-	j = 0;
-	while (s[i])
+	result = (char *)malloc((size + 1) * sizeof(char));
+	ptr = result;
+	while (**s != c && **s)
 	{
-		if (s[i] != c && (s[i + 1] == c || i == 0))
-			j++;
-		i++;
+		*ptr = **s;
+		++(*s);
+		++ptr;
 	}
-	if ((tab = (char**)malloc((j + 1) * sizeof(*tab))) == NULL)
-		return (NULL);
-	if ((tab = ft_taballoc_line(tab, s, c, 0)) == NULL)
-		return (NULL);
-	return (tab);
+	*ptr = '\0';
+	return (result);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
+	int		nb;
 	int		i;
-	int		j;
-	int		k;
-	char	**tab;
+	char	*s1;
+	char	**result;
 
+	s1 = (char *)s;
+	nb = (*s1 != c);
 	i = 0;
-	j = 0;
-	k = 0;
-	if ((tab = ft_taballoc(s, c)) == NULL)
+	while (*++s1)
+		nb += (*s1 != c && *(s1 - 1) == c);
+	result = (char **)malloc((nb + 1) * sizeof(char *));
+	if (result == NULL)
 		return (NULL);
-	while (s[i])
+	s1 = (char *)s;
+	while (i < nb)
 	{
-		while (s[i] == c && s[i])
-			i++;
-		while (s[i] != c && s[i])
-		{
-			tab[k][j] = ((char*)s)[i];
-			i++;
-			j++;
-		}
-		if (j != 0)
-			k++;
-		j = 0;
+		*(result + i) = split_strcpy(&s1, c);
+		if (*(result + i) == NULL)
+			return (NULL);
+		++i;
 	}
-	return (tab);
+	*(result + i) = 0;
+	return (result);
 }

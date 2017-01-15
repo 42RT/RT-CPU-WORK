@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/25 16:40:10 by rfriscca          #+#    #+#             */
-/*   Updated: 2015/11/25 16:42:52 by rfriscca         ###   ########.fr       */
+/*   Created: 2013/11/21 13:01:54 by jrouilly          #+#    #+#             */
+/*   Updated: 2013/12/12 15:22:54 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	unsigned int		i;
+	int	i;
 
 	i = 0;
-	while (s[i])
+	while (*(s + i))
 	{
-		f(i, &s[i]);
-		i++;
+		(*f)(i, s + i);
+		++i;
 	}
 }

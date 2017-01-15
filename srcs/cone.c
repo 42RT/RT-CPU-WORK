@@ -25,7 +25,7 @@ void	create_cone(t_env *env, t_parse data)
 	obj->reflect = 0;
 	obj->d1 = 0;
 	obj->d2 = 0;
-	obj->color = data.color;
+	obj->color_t = data.color;
 	obj->next = NULL;
 	if (env->obj == NULL)
 	{

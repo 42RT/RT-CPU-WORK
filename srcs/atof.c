@@ -12,7 +12,7 @@
 
 #include <rt.h>
 
-double	ft_atof_ext(char *str, int i, double a, int sign)
+static double	ft_atod_ext(char *str, int i, double a, int sign)
 {
 	int		j;
 
@@ -30,7 +30,7 @@ double	ft_atof_ext(char *str, int i, double a, int sign)
 	return (a);
 }
 
-double	ft_atof(char *str)
+double			ft_atod(char *str)
 {
 	double	a;
 	int		i;
@@ -47,6 +47,6 @@ double	ft_atof(char *str)
 	while (str[i] != '.' && (ft_isdigit(str[i]) || str[i] == ' ' ||
 				str[i] == '-'))
 		++i;
-	a = ft_atof_ext(str, i, a, sign);
+	a = ft_atod_ext(str, i, a, sign);
 	return (a);
 }

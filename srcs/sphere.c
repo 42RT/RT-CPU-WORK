@@ -25,7 +25,7 @@ void	create_sphere(t_env *env, t_vec pos, t_color color, double r)
 	obj->reflect = 1;
 	obj->d1 = 0;
 	obj->d2 = 0;
-	obj->color = color;
+	obj->color_t = color;
 	obj->next = NULL;
 	if (env->obj == NULL)
 	{

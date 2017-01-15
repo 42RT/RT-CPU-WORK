@@ -3,50 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/25 18:05:44 by rfriscca          #+#    #+#             */
-/*   Updated: 2015/12/01 11:29:11 by rfriscca         ###   ########.fr       */
+/*   Created: 2013/11/21 13:04:35 by jrouilly          #+#    #+#             */
+/*   Updated: 2013/12/31 20:40:18 by amaurer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
+#include <string.h>
+#include <libft.h>
 
-static char	*ft_stralloc(char *str, int k)
+char	*ft_strtrim(char const *s)
 {
-	if (k >= 0)
-		if ((str = ft_strnew(k)) == NULL)
-			return (NULL);
-	if (k < 0)
-		if ((str = ft_strnew(0)) == NULL)
-			return (NULL);
-	return (str);
-}
-
-char		*ft_strtrim(char const *s)
-{
-	int		l;
 	int		i;
-	int		j;
-	int		k;
-	char	*str;
+	char	*ptr;
+	char	*result;
 
-	i = 0;
-	j = 0;
-	str = NULL;
-	l = ft_strlen(s);
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		i++;
-	while (s[l - j - 1] == ' ' || s[l - j - 1] == '\n' || s[l - j - 1] == '\t')
-		j++;
-	k = l - i - j;
-	if ((str = ft_stralloc(str, k)) == NULL)
+	if (!s || !*s)
 		return (NULL);
-	while (i < l - j)
+	i = 0;
+	ptr = (char *)(s - 1);
+	while (*ptr == ' ' || *ptr == '\n' || *ptr == '\t')
+		++ptr;
+	result = (char *)malloc(ft_strlen(ptr) * sizeof(char));
+	ptr -= 1;
+	i = -1;
+	while (*++ptr)
+		*(++i + result) = *ptr;
+	ptr = i + result;
+	while (*ptr == ' ' || *ptr == '\n' || *ptr == '\t')
 	{
-		*str = ((char*)s)[i];
-		str++;
-		i++;
+		*ptr = '\0';
+		--ptr;
 	}
-	return (str - k);
+	return (result);
 }

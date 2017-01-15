@@ -36,13 +36,13 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_SRC)ft_new_line.c \
 		$(PATH_SRC)pixel_put.c \
 		$(PATH_SRC)otherfunctions.c \
-		$(PATH_SRC)parse_camera.c \
-		$(PATH_SRC)parse_cone.c \
-		$(PATH_SRC)parse_cylinder.c \
-		$(PATH_SRC)parse_file.c \
-		$(PATH_SRC)parse_plane.c \
-		$(PATH_SRC)parse_sphere.c \
-		$(PATH_SRC)parse_spot.c \
+		$(PATH_SRC)old_parse_camera.c \
+		$(PATH_SRC)old_parse_cone.c \
+		$(PATH_SRC)old_parse_cylinder.c \
+		$(PATH_SRC)old_parse_file.c \
+		$(PATH_SRC)old_parse_plane.c \
+		$(PATH_SRC)old_parse_sphere.c \
+		$(PATH_SRC)old_parse_spot.c \
 		$(PATH_SRC)plan.c \
 		$(PATH_SRC)raycaster.c \
 		$(PATH_SRC)save_file.c \
@@ -52,12 +52,25 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_SRC)test_spot.c \
 		$(PATH_SRC)trace.c \
 		$(PATH_SRC)color_utils.c \
-		$(PATH_SRC)new_settings.c \
 		$(PATH_SRC)utils.c \
 		$(PATH_SRC)gui_error.c \
 		$(PATH_SRC)gui_background.c \
 		$(PATH_SRC)gui_container.c \
-		$(PATH_SRC)gui_main.c
+		$(PATH_SRC)gui_main.c \
+		$(PATH_SRC)parse.c \
+		$(PATH_SRC)parse_settings.c \
+		$(PATH_SRC)parse_settings_utils.c \
+		$(PATH_SRC)parse_utils.c \
+		$(PATH_SRC)parse_utils_2.c \
+		$(PATH_SRC)parse_file.c \
+		$(PATH_SRC)parse_obj.c \
+		$(PATH_SRC)parse_obj_utils.c \
+		$(PATH_SRC)parse_light.c \
+		$(PATH_SRC)get_utils.c \
+		$(PATH_SRC)new_obj.c \
+		$(PATH_SRC)new_settings.c \
+		$(PATH_SRC)new_light.c \
+		$(PATH_SRC)aff_settings.c
 
 OBJ =	$(SRC:.c=.o)
 

@@ -3,55 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/27 14:52:12 by rfriscca          #+#    #+#             */
-/*   Updated: 2015/12/01 10:47:19 by rfriscca         ###   ########.fr       */
+/*   Created: 2013/11/21 12:58:32 by jrouilly          #+#    #+#             */
+/*   Updated: 2013/12/12 15:20:31 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-static void	ft_write_str(char *str, int n, int start, int end)
+static int		ft_itoa_size(int n)
 {
-	unsigned int	n2;
+	int		size;
 
-	if (n == 0)
-		str[0] = '0';
-	if (n > 0)
-		n2 = n;
-	if (n < 0)
+	size = 0;
+	while (n)
 	{
-		str[0] = '-';
-		n2 = -n;
-		start++;
-		end++;
+		++size;
+		n /= 10;
 	}
-	while (start < end)
-	{
-		str[end - 1] = n2 % 10 + '0';
-		n2 = n2 / 10;
-		end--;
-	}
+	return (size);
 }
 
-char		*ft_itoa(int n)
+char			*ft_itoa(int n)
 {
-	int				i;
-	unsigned int	n2;
-	char			*str;
+	int		size;
+	int		zero;
+	int		min;
+	char	*result;
 
-	n2 = n;
-	i = 0;
-	if (n < 0)
-		n2 = -n;
-	while (n2 > 0)
+	size = (n < 0);
+	min = (n == -2147483648);
+	n += min;
+	n = ((n < 0) ? -n : n);
+	size += ft_itoa_size(n);
+	zero = (size == 0);
+	result = (char *)malloc((size + 1 + zero) * sizeof(char));
+	*(result) = 0x30 - (3 * (n != 0));
+	*(result + size-- + zero) = '\0';
+	*(result + size + zero) = n % 10 + 0x30 + min;
+	n /= 10;
+	while (n)
 	{
-		n2 = n2 / 10;
-		i++;
+		--size;
+		*(result + size) = n % 10 + 0x30;
+		n /= 10;
 	}
-	if ((str = ft_strnew(i + 1)) == NULL)
-		return (NULL);
-	ft_write_str(str, n, 0, i);
-	return (str);
+	return (result);
 }

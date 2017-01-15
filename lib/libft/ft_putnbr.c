@@ -3,31 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/27 15:04:37 by rfriscca          #+#    #+#             */
-/*   Updated: 2015/11/30 17:40:21 by rfriscca         ###   ########.fr       */
+/*   Created: 2013/11/21 12:55:51 by jrouilly          #+#    #+#             */
+/*   Updated: 2013/12/15 15:56:27 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 void	ft_putnbr(int n)
 {
-	unsigned int	n2;
-
-	if (n >= 0)
-		n2 = n;
-	if (n < 0)
-	{
-		ft_putchar('-');
-		n2 = -n;
-	}
-	if (n2 > 9)
-	{
-		ft_putnbr(n2 / 10);
-		ft_putnbr(n2 % 10);
-	}
-	if (n2 <= 9)
-		ft_putchar(n2 + 48);
+	ft_putstr(ft_itoa(n));
 }

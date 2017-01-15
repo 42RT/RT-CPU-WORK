@@ -20,7 +20,7 @@ t_line	*ft_new_line(char *line, int size)
 	i = 0;
 	if ((file = (t_line*)malloc(sizeof(*file))) == NULL)
 		error(1);
-	if ((file->line = ft_strnew(size)) == NULL)
+	if ((file->line = ft_strnew(size + 1)) == NULL)
 		error(1);
 	file->next = NULL;
 	while (i < size)

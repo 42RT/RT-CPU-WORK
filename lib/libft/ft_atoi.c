@@ -3,38 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/28 12:33:51 by rfriscca          #+#    #+#             */
-/*   Updated: 2015/12/10 15:14:29 by rfriscca         ###   ########.fr       */
+/*   Created: 2013/12/29 21:49:16 by jrouilly          #+#    #+#             */
+/*   Updated: 2013/12/29 21:49:17 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int		ft_atoi(const char *str)
+static char	*ft_atoi_filter(const char *str)
 {
-	int		signe;
-	int		c;
+	char	*ptr;
 
-	c = 0;
-	signe = 1;
-	while (ft_isascii(*str) && !ft_isalnum(*str) && *str != '-' && *str != '+')
-		str++;
-	if (*str == '-')
+	ptr = (char *)str;
+	while ((*ptr < 0x30 || *ptr >= 0x3A) && *ptr != '-')
 	{
-		signe = -1;
-		str++;
+		if (*ptr == ' ' || *ptr == '+' || (*ptr > 0x06 && *ptr <= 0x0D))
+			++ptr;
+		else
+			return (0);
 	}
-	if (*str == '+' && *(str - 1) != '-')
-		str++;
-	while (ft_isdigit(*str))
+	return (ptr);
+}
+
+int			ft_atoi(const char *str)
+{
+	int		result;
+	int		negatif;
+	char	*ptr;
+
+	result = 0;
+	ptr = ft_atoi_filter(str);
+	if (ptr == 0)
+		return (0);
+	negatif = (*ptr == 0x2D);
+	if (negatif)
+		++ptr;
+	while (*ptr >= 0x30 && *ptr < 0x3A)
 	{
-		c = c + *str - '0';
-		if (ft_isdigit(*(str + 1)))
-			c = c * 10;
-		str++;
+		result *= 10;
+		result += (int)*ptr - 0x30;
+		++ptr;
 	}
-	c = c * signe;
-	return (c);
+	if (negatif)
+		result = -result;
+	return (result);
 }

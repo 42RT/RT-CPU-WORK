@@ -19,3 +19,23 @@ unsigned int	limit_nb(unsigned int nb, unsigned int max)
 		nb = max;
 	return (nb);
 }
+
+int				**new_base(void)
+{
+	int		**res;
+
+	res = (int **)malloc(3 * sizeof(int *));
+	res[0] = (int *)malloc(3 * sizeof(int));
+	res[1] = (int *)malloc(3 * sizeof(int));
+	res[2] = (int *)malloc(3 * sizeof(int));
+	res[0][0] = 1;
+	res[0][1] = 0;
+	res[0][2] = 0;
+	res[1][0] = 0;
+	res[1][1] = 1;
+	res[1][2] = 0;
+	res[2][0] = 0;
+	res[2][1] = 0;
+	res[2][2] = 1;
+	return (res);
+}

@@ -6,12 +6,14 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 07:05:07 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/01/11 16:59:04 by rdieulan         ###   ########.fr       */
+/*   Updated: 2014/11/28 07:05:07 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <libft.h>
+#include <parser.h>
 #include <rtdefs.h>
-#include <rt.h>
 
 static void	set_def_cam(t_settings *res)
 {

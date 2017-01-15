@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/25 16:13:22 by rfriscca          #+#    #+#             */
-/*   Updated: 2015/12/03 18:20:57 by rfriscca         ###   ########.fr       */
+/*   Created: 2013/11/21 12:59:46 by jrouilly          #+#    #+#             */
+/*   Updated: 2013/12/12 15:22:19 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-void	ft_strdel(char **as)
+void	ft_strdel(char **ap)
 {
-	free(*as);
-	*as = NULL;
+	free(*ap);
+	*ap = NULL;
 }

@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_sphere.c                                     :+:      :+:    :+:   */
+/*   parse_spot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/12 12:45:49 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/06 14:06:07 by rfriscca         ###   ########.fr       */
+/*   Created: 2016/10/12 12:50:46 by rfriscca          #+#    #+#             */
+/*   Updated: 2017/01/06 14:06:20 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void	parse_sphere(t_env *env)
+void	old_parse_spot(t_env *env)
 {
+	t_vec	pos;
 	t_vec	trans;
+	t_color		color;
 	t_line		*file;
 
-	env->data.color = default_color();
-	env->data.pos = default_pos();
-	env->data.r = 1;
-	while (env->file->next && (LINENEXT[0] == 't' || LINENEXT[0] == 'c'
-				|| LINENEXT[0] == 'o') && !ft_isalpha(LINENEXT[1]))
+	color = default_color_spot();
+	pos = default_pos();
+	while (env->file->next && (LINENEXT[0] == 't' || LINENEXT[0] == 'c')
+			&& !ft_isalpha(LINENEXT[1]))
 	{
 		file = env->file->next;
 		free_file(env);
@@ -29,12 +30,10 @@ void	parse_sphere(t_env *env)
 		if (LINE[0] == 't')
 		{
 			trans = get_vector(env);
-			env->data.pos = add_vec(env->data.pos, trans);
+			pos = add_vec(pos, trans);
 		}
 		else if (LINE[0] == 'c')
-			env->data.color = get_color(env);
-		else if (LINE[0] == 'o')
-			env->data.r = ft_atof(LINE);
+			color = get_color_spot(env);
 	}
-	create_sphere(env, env->data.pos, env->data.color, env->data.r);
+	create_spot(env, pos, color);
 }
