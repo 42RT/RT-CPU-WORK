@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 13:26:09 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/17 14:28:01 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/17 15:15:04 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@
 # include <fcntl.h>
 # ifdef __APPLE__
 #  include <SDL.h>
+#  include <SDL_ttf.h>
 # else
 #  include <SDL2/SDL.h>
 # endif

@@ -6,7 +6,7 @@
 #    By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/24 13:16:13 by rdieulan          #+#    #+#              #
-#    Updated: 2017/01/17 13:39:52 by rfriscca         ###   ########.fr        #
+#    Updated: 2017/01/17 15:14:22 by rdieulan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ OBJ =	$(SRC:.c=.o)
 
 ifeq ($(UNAME_S),Darwin)
 	INCLUDES +=	-I ~/.brew/include/SDL2
-	LDFLAGS +=	-L ~/.brew/lib -lSDL2
+	LDFLAGS +=	-L ~/.brew/lib -lSDL2 -lSDL2_ttf
 else ifeq ($(UNAME_S),Linux)
 	LDFLAGS +=	-lSDL2
 endif
