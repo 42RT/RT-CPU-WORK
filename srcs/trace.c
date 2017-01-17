@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 13:36:02 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/17 14:40:25 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/17 14:49:27 by rfriscca         ###   ########.fr       */
 /*   Updated: 2017/01/12 13:32:49 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -52,7 +52,6 @@ void		reflect_ray(t_ray *ray, t_obj *obj, t_vec point)
 
 t_color		trace(t_env *env, t_ray *ray, int i)
 {
-	printf("RAYCAST : Tracing.. : \n");
 	t_color		color;
 	t_color		color2;
 	t_obj		*obj;

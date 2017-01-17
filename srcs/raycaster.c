@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:22:46 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/17 14:41:12 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/17 14:48:50 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_color	init_color_black(void)
 
 t_ray	init_ray(t_env *env)
 {
-	printf("RAYCAST : Calculating Ray[%d][%d] ... : ", env->x, env->y);
 	t_ray	ray;
 	double	x;
 	double	y;
@@ -42,7 +41,6 @@ t_ray	init_ray(t_env *env)
 	ray.vecdir.z = z / sqrt(x * x + y * y + z * z);
 	ray.dist = 1000000;
 	ray.color = init_color_black();
-	printf("DONE.\n");
 	return (ray);
 }
 
