@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 13:26:09 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/14 20:15:42 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/17 13:45:25 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@
 # define RS env->obj->r
 # define D1 env->obj->d1
 # define D2 env->obj->d2
+
+/*
+** COMPOSED OBJECTS DEFINE
+*/
+
+# define COMPOSEPOS env->obj->compose->vec1
+# define COMPOSEN env->obj->compose->vec2
 
 /*
 ** ray define
@@ -181,11 +188,15 @@ typedef struct		s_obj
 
 	t_vec			vec1;
 	t_vec			vec2;
+	int				cap1;
+	int				cap2;
 	int				reflect;
 	double			r;
 	double			d1;
 	double			d2;
 	t_color			color_t;
+	char			*textures;
+	struct s_obj	*compose;
 	struct s_obj	*first;
 }					t_obj;
 
@@ -412,5 +423,20 @@ int					test_cone2(t_env *env, t_vec pos, t_ray ray);
 int					test_cone3(t_env *env, t_vec pos);
 void				trans_rotation(t_env *env);
 t_obj				*test_obj(t_env *env, t_ray *ray);
+
+/*
+** COMPOSED OBJECTS
+*/
+
+int					compose_obj(t_env *env, t_ray *ray, float dist);
+t_obj				*create_plan_compose(t_vec pos, t_color color, t_vec n);
+t_obj				*create_sphere_compose(t_vec pos, t_color color, float r);
+
+/*
+** PROCEDURAL TEXTURES
+*/
+
+t_color				stripe(t_vec point);
+t_color				square(t_vec point);
 
 #endif

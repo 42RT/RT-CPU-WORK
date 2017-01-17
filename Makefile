@@ -6,7 +6,7 @@
 #    By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/24 13:16:13 by rdieulan          #+#    #+#              #
-#    Updated: 2017/01/14 20:28:15 by rdieulan         ###   ########.fr        #
+#    Updated: 2017/01/17 13:39:52 by rfriscca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,10 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_SRC)new_obj.c \
 		$(PATH_SRC)new_settings.c \
 		$(PATH_SRC)new_light.c \
+		$(PATH_SRC)compose.c \
+		$(PATH_SRC)create_plan_compose.c \
+		$(PATH_SRC)create_sphere_compose.c \
+		$(PATH_SRC)procedural_textures.c \
 		$(PATH_SRC)aff_settings.c
 
 OBJ =	$(SRC:.c=.o)

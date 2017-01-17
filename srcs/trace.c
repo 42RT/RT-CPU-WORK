@@ -6,7 +6,8 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 13:36:02 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/09 12:08:42 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/01/17 13:59:06 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/01/12 13:32:49 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +37,8 @@ t_vec	calc_reflect_vect(t_ray *ray, t_obj *obj, t_vec point)
 		norm = normalize(calc_ncylinder(ray, obj));
 	else if (obj->type == 'k')
 		norm = normalize(calc_ncone(ray, obj));
+	//if (obj->type == 's' && dot(VDIR, norm) > 0)
+	//	VDIR = norm;
 	vdir_reflect = normalize(reflect_vec(ray->vecdir, norm));
 	return (vdir_reflect);
 }
