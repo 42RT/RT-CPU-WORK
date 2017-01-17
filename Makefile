@@ -6,7 +6,7 @@
 #    By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/24 13:16:13 by rdieulan          #+#    #+#              #
-#    Updated: 2017/01/17 15:14:22 by rdieulan         ###   ########.fr        #
+#    Updated: 2017/01/17 16:50:05 by rdieulan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_SRC)gui_background.c \
 		$(PATH_SRC)gui_container.c \
 		$(PATH_SRC)gui_main.c \
+		$(PATH_SRC)gui_ttf.c \
 		$(PATH_SRC)parse.c \
 		$(PATH_SRC)parse_settings.c \
 		$(PATH_SRC)parse_settings_utils.c \

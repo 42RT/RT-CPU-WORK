@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 06:39:09 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/01/17 13:29:39 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/17 20:55:09 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define LEGACY				0
 
 # define DEF_IMG_WIDTH		800
-# define DEF_IMG_HEIGHT		600
+# define DEF_IMG_HEIGHT		1000
 # define DEF_AA				0
 # define DEF_DEPH			2
 # define DEF_REFLECT		0

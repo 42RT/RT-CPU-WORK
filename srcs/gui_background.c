@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:48:19 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/14 20:30:50 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/17 16:39:18 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		gui_background_get_set_n_display(t_gui *gui)
 {
-	gui->bg_surface = SDL_LoadBMP("./ressources/container/font2.bmp");
+	gui->bg_surface = SDL_LoadBMP("./ressources/gui_texture/font2.bmp");
 	if (!gui->bg_surface)
 		gui_error(2);
 	gui->bg_bmp = SDL_CreateTextureFromSurface(gui->img, gui->bg_surface);

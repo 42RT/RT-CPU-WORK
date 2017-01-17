@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 18:13:36 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/14 20:13:41 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/17 17:32:04 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	gui_error(int n)
 		printf("Failed to Create texture : %s\n", SDL_GetError());
 	else if (n == 4)
 		printf("Failed to Create a Renderer : %s\n", SDL_GetError());
+	else if (n == 5)
+		printf("\033[31mFailed\033[0m : %s\n", SDL_GetError());
+	else if (n == 6)
+		printf("Failed to load Font : %s\n", SDL_GetError());
 	else
 		gui_expand_error(n);
 	exit(1);

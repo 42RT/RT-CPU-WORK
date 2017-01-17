@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 13:26:09 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/17 15:15:04 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/17 21:21:46 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,30 @@
 ** DEFINE GUI
 */
 
-# define DEF_GUI_WIDTH 300
+# define DEF_GUI_WIDTH 400
 # define DEF_GUI_THEME 0
 # define DEF_GUI_DYNAMIC 1
 # define DEF_GUI_CONSTANT 0
+# define DEF_RESS_PATH "./ressources/"
+# define DEF_FONT_SIZE 18
+# define DEF_FONT_FILE "gui_font/Xenotron.ttf"
+# define DEF_FONT_STYLE
+# define DEF_FONT_BORDER_STEP 5
+# define DEF_FONT_ALIGN_LEFT 0
+# define DEF_FONT_ALIGN_MID 1
+# define DEF_FONT_ALIGN_RIGHT 2
 # define DEF_GUI_CONTAINER_TOTAL_NB 6
-# define DEF_GUI_CONTAINER_DYNAMIC_NB 3
+# define DEF_GUI_CONTAINER_DYNAMIC_NB 2
 # define DEF_GUI_CONTAINER_HEADER 80
 # define DEF_GUI_CONTAINER_FOOT 40
 # define DEF_GUI_CONTAINER_MIDDLE 0
-# define DEF_GUI_CONTAINER_RESERVED (DEF_GUI_CONTAINER_HEADER \
+# define DEF_GUI_CONTAINER_RESERVED ((DEF_GUI_CONTAINER_HEADER * 2) \
 		+ (DEF_GUI_CONTAINER_FOOT * 2))
 # define DEF_GUI_CONTAINER_RESIZED ((gui->height - \
 			DEF_GUI_CONTAINER_RESERVED) / DEF_GUI_CONTAINER_DYNAMIC_NB)
 # define CONTAINER gui->container[gui->cbcnt]
+# define BLOCK gui->container
+# define TTF gui->ttf
 
 # include <math.h>
 # include <fcntl.h>
@@ -145,6 +155,7 @@ typedef struct		s_light
 	float			k3;
 	struct s_light	*next;
 }					t_light;
+
 /*
 **end of unused structs
 */
@@ -185,8 +196,6 @@ typedef struct		s_obj
 	float			refract_ind;
 	float			dst;
 	struct s_obj	*next;
-
-
 	t_vec			vec1;
 	t_vec			vec2;
 	int				cap1;
@@ -263,7 +272,6 @@ typedef struct		s_settings
 	int				verbose;
 }					t_settings;
 
-
 typedef struct		s_env
 {
 	SDL_Window		*win;
@@ -281,6 +289,15 @@ typedef struct		s_env
 	t_camera		cam;
 	t_spot			*spot;
 }					t_env;
+
+typedef struct		s_ttf
+{
+	TTF_Font		*font;
+	SDL_Texture		*texture;
+	SDL_Rect		rect;
+	int				h_px;
+	int				w_px;
+}					t_ttf;
 
 typedef struct		s_container
 {
@@ -303,6 +320,7 @@ typedef struct		s_gui
 	SDL_Rect		bg_dest;
 	t_color			*color;
 	t_container		**container;
+	t_ttf			*ttf;
 	int				cbcnt;
 	int				width;
 	int				height;
@@ -390,12 +408,14 @@ void				camangle(t_env *env, double rx, double ry, double rz);
 ** GUI FUNCTIONS
 */
 
-t_gui				*gui_init();
+t_gui				*get_gui(void);
+t_gui				*gui_init(void);
 void				gui_pixel_put(t_gui *gui, int x, int y);
 void				gui_color_set(t_gui *gui, char *type, char *style);
 void				gui_background_get_set_n_display(t_gui *gui);
 void				gui_build_container(t_gui *gui, int mode, int px);
 void				gui_error(int n);
+void				gui_build_font(t_gui *gui);
 
 /*
 ** OBJECTS FUNCTIONS

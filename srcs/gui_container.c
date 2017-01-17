@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:57:23 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/14 20:43:16 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/17 16:39:44 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void		gui_container_bmp_set_n_display(t_gui *gui)
 void		gui_container_get_bmp(t_gui *gui, int type)
 {
 	if (type == DEF_GUI_CONTAINER_HEADER)
-		CONTAINER->surface = SDL_LoadBMP("./ressources/container/header.bmp");
+		CONTAINER->surface = SDL_LoadBMP("./ressources/gui_texture/header.bmp");
 	else if (type == DEF_GUI_CONTAINER_MIDDLE)
-		CONTAINER->surface = SDL_LoadBMP("./ressources/container/middle.bmp");
+		CONTAINER->surface = SDL_LoadBMP("./ressources/gui_texture/middle.bmp");
 	else
-		CONTAINER->surface = SDL_LoadBMP("./ressources/container/footer.bmp");
+		CONTAINER->surface = SDL_LoadBMP("./ressources/gui_texture/footer.bmp");
 	if (!CONTAINER->surface)
 		gui_error(2);
 	CONTAINER->bmp = SDL_CreateTextureFromSurface(gui->img, CONTAINER->surface);
