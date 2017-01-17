@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 13:26:09 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/17 13:45:25 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/01/17 14:28:01 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,8 +270,8 @@ typedef struct		s_env
 	SDL_Event		event;
 	t_settings		*set;
 	int				i;
-	double			x;
-	double			y;
+	unsigned int	x;
+	unsigned int	y;
 	t_parse			data;
 	t_line			*file;
 	t_obj			*obj;

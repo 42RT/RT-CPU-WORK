@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:22:46 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/06 17:24:10 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/17 14:41:12 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_color	init_color_black(void)
 
 t_ray	init_ray(t_env *env)
 {
+	printf("RAYCAST : Calculating Ray[%d][%d] ... : ", env->x, env->y);
 	t_ray	ray;
 	double	x;
 	double	y;
@@ -41,11 +42,14 @@ t_ray	init_ray(t_env *env)
 	ray.vecdir.z = z / sqrt(x * x + y * y + z * z);
 	ray.dist = 1000000;
 	ray.color = init_color_black();
+	printf("DONE.\n");
 	return (ray);
 }
 
 void	raycaster(t_env *env)
 {
+
+	printf("RAYCAST : Preparing environnement.\n");
 	t_ray	*ray;
 	t_color	color;
 
@@ -65,6 +69,7 @@ void	raycaster(t_env *env)
 		env->y = 0;
 		++env->x;
 	}
+	printf("RAYCAST : Applying Render...\n");
 	SDL_RenderPresent(env->img);
 	free(ray);
 }

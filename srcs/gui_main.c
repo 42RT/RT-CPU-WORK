@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/14 20:42:43 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/17 14:19:34 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ void		gui_build(t_gui	*gui)
 	gui->cbcnt = 0;
 	gui->container = (t_container **)malloc(sizeof(t_container *)
 			* DEF_GUI_CONTAINER_TOTAL_NB);
-	printf("building container\n");
+	printf("GUI : Start building container.\n");
 	gui_build_container(gui, DEF_GUI_CONSTANT, DEF_GUI_CONTAINER_HEADER);
 	gui_build_container(gui, DEF_GUI_DYNAMIC, DEF_GUI_CONTAINER_MIDDLE);
 	gui_build_container(gui, DEF_GUI_DYNAMIC, DEF_GUI_CONTAINER_MIDDLE);
 	gui_build_container(gui, DEF_GUI_DYNAMIC, DEF_GUI_CONTAINER_MIDDLE);
 	gui_build_container(gui, DEF_GUI_CONSTANT, DEF_GUI_CONTAINER_FOOT);
 	gui_build_container(gui, DEF_GUI_CONSTANT, DEF_GUI_CONTAINER_FOOT);
+	printf("GUI : Container successfully built.\n");
+	printf("GUI : Applying Render...\n");
 	SDL_RenderPresent(gui->img);
 	SDL_DestroyRenderer(gui->img);
 }
@@ -61,6 +63,7 @@ t_gui		*gui_init()
 {
 	t_gui			*gui;
 
+	printf("\nGUI : Initializing interface....\n");
 	gui = gui_alloc();
 	if (SDL_GetCurrentDisplayMode(0, gui->display) != 0)
 		gui_error(1);
@@ -75,6 +78,7 @@ t_gui		*gui_init()
 	else
 		gui_error(4);
 	gui->tmp_lim = 0;
+	printf("GUI : interface successfully initialized.\n");
 	gui_build(gui);
 	return (gui);
 }

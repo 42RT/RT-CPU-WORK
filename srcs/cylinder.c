@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/05 13:57:47 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/06 13:58:35 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/01/17 14:40:01 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	create_cylinder(t_env *env, t_parse data)
 	obj->d2 = 0;
 	obj->color_t = data.color;
 	obj->next = NULL;
+	obj->textures = NULL;
+	obj->compose = NULL;
 	if (env->obj == NULL)
 	{
 		obj->first = obj;

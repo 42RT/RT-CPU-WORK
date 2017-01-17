@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 06:39:09 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/01/14 15:37:12 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/01/17 13:29:39 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define PROGRESSIVE		1
 # define LEGACY				0
 
-# define DEF_IMG_WIDTH		1280
-# define DEF_IMG_HEIGHT		720
+# define DEF_IMG_WIDTH		800
+# define DEF_IMG_HEIGHT		600
 # define DEF_AA				0
 # define DEF_DEPH			2
 # define DEF_REFLECT		0
