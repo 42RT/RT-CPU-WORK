@@ -16,8 +16,8 @@
 # define PROGRESSIVE		1
 # define LEGACY				0
 
-# define DEF_IMG_WIDTH		800
-# define DEF_IMG_HEIGHT		1000
+# define DEF_IMG_WIDTH		1024
+# define DEF_IMG_HEIGHT		800
 # define DEF_AA				0
 # define DEF_DEPH			2
 # define DEF_REFLECT		0

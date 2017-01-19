@@ -22,7 +22,7 @@ void		gui_background_get_set_n_display(t_gui *gui)
 		gui_error(3);
 	gui->bg_dest.x = 0;
 	gui->bg_dest.y = 0;
-	gui->bg_dest.w = DEF_GUI_WIDTH;
+	gui->bg_dest.w = GUI_WIDTH;
 	gui->bg_dest.h = gui->height;
 	SDL_RenderCopy(gui->img, gui->bg_bmp, NULL, &gui->bg_dest);
 	SDL_DestroyTexture(gui->bg_bmp);

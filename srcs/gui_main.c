@@ -40,16 +40,17 @@ void		gui_build(t_gui	*gui)
 	gui_background_get_set_n_display(gui);
 	gui->cbcnt = 0;
 	gui->container = (t_container **)malloc(sizeof(t_container *)
-			* DEF_GUI_CONTAINER_TOTAL_NB);
+			* GUI_CONTAINER_TOTAL_NB);
 	printf("GUI : \033[33mContainer \033[0m: ");
-	gui_build_container(gui, DEF_GUI_CONSTANT, DEF_GUI_CONTAINER_HEADER);
-	gui_build_container(gui, DEF_GUI_DYNAMIC, DEF_GUI_CONTAINER_MIDDLE);
-	gui_build_container(gui, DEF_GUI_DYNAMIC, DEF_GUI_CONTAINER_MIDDLE);
-	gui_build_container(gui, DEF_GUI_CONSTANT, DEF_GUI_CONTAINER_HEADER);
-	gui_build_container(gui, DEF_GUI_CONSTANT, DEF_GUI_CONTAINER_FOOT);
-	gui_build_container(gui, DEF_GUI_CONSTANT, DEF_GUI_CONTAINER_FOOT);
+	gui_container_build(gui, GUI_CONSTANT, GUI_CONTAINER_HEADER);
+	gui_container_build(gui, GUI_DYNAMIC, GUI_CONTAINER_MIDDLE);
+	gui_container_build(gui, GUI_DYNAMIC, GUI_CONTAINER_MIDDLE);
+	gui_container_build(gui, GUI_CONSTANT, GUI_CONTAINER_HEADER);
+	gui_container_build(gui, GUI_CONSTANT, GUI_CONTAINER_FOOT);
+	gui_container_build(gui, GUI_CONSTANT, GUI_CONTAINER_FOOT);
 	printf("\033[1;32mOK\033[0m\n");
-	gui_build_font(gui);
+	gui_button_build(gui);
+	gui_font_build(gui);
 }
 
 void		gui_alloc(void)
@@ -71,6 +72,7 @@ t_gui		*gui_init(void)
 {
 	t_gui *gui;
 
+	setbuf(stdout, NULL);
 	printf("\nGUI : \033[33mINITIALIZING COMPONENT...\033[0m\n");
 	printf("GUI : \033[33mSDL_TTF ... \033[0m: ");
 	if (TTF_Init() == 0)
@@ -81,7 +83,7 @@ t_gui		*gui_init(void)
 	gui = get_gui();
 	if (SDL_GetCurrentDisplayMode(0, gui->display) != 0)
 		gui_error(1);
-	gui->width = DEF_GUI_WIDTH;
+	gui->width = GUI_WIDTH;
 	gui->height = DEF_IMG_HEIGHT;
 	gui->anchor_x = (gui->display->w + DEF_IMG_WIDTH) / 2;
 	gui->anchor_y = SDL_WINDOWPOS_CENTERED;

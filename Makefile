@@ -56,6 +56,7 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_SRC)gui_error.c \
 		$(PATH_SRC)gui_background.c \
 		$(PATH_SRC)gui_container.c \
+		$(PATH_SRC)gui_button.c \
 		$(PATH_SRC)gui_main.c \
 		$(PATH_SRC)gui_ttf.c \
 		$(PATH_SRC)parse.c \
@@ -83,7 +84,7 @@ ifeq ($(UNAME_S),Darwin)
 	INCLUDES +=	-I ~/.brew/include/SDL2
 	LDFLAGS +=	-L ~/.brew/lib -lSDL2 -lSDL2_ttf
 else ifeq ($(UNAME_S),Linux)
-	LDFLAGS +=	-lSDL2
+	LDFLAGS +=	-lSDL2 -lSDL2_ttf
 endif
 
 CFLAGS += $(INCLUDES)

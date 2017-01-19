@@ -90,30 +90,32 @@
 ** DEFINE GUI
 */
 
-# define DEF_GUI_WIDTH 400
-# define DEF_GUI_THEME 0
-# define DEF_GUI_DYNAMIC 1
-# define DEF_GUI_CONSTANT 0
-# define DEF_RESS_PATH "./ressources/"
-# define DEF_FONT_SIZE 18
-# define DEF_FONT_FILE "gui_font/Xenotron.ttf"
-# define DEF_FONT_STYLE
-# define DEF_FONT_BORDER_STEP 5
-# define DEF_FONT_ALIGN_LEFT 0
-# define DEF_FONT_ALIGN_MID 1
-# define DEF_FONT_ALIGN_RIGHT 2
-# define DEF_GUI_CONTAINER_TOTAL_NB 6
-# define DEF_GUI_CONTAINER_DYNAMIC_NB 2
-# define DEF_GUI_CONTAINER_HEADER 80
-# define DEF_GUI_CONTAINER_FOOT 40
-# define DEF_GUI_CONTAINER_MIDDLE 0
-# define DEF_GUI_CONTAINER_RESERVED ((DEF_GUI_CONTAINER_HEADER * 2) \
-		+ (DEF_GUI_CONTAINER_FOOT * 2))
-# define DEF_GUI_CONTAINER_RESIZED ((gui->height - \
-			DEF_GUI_CONTAINER_RESERVED) / DEF_GUI_CONTAINER_DYNAMIC_NB)
+# define GUI_WIDTH 400
+# define GUI_THEME 0
+# define GUI_DYNAMIC 1
+# define GUI_CONSTANT 0
+# define GUI_RESS_PATH "./ressources/"
+# define GUI_TEXTURE_PATH GUI_RESS_PATH"gui_texture/"
+# define GUI_FONT_SIZE 18
+# define GUI_FONT_FILE "gui_font/Xenotron.ttf"
+# define GUI_FONT_STYLE
+# define GUI_FONT_BORDER_STEP 5
+# define GUI_ALIGN_LEFT 0
+# define GUI_ALIGN_MID 1
+# define GUI_ALIGN_RIGHT 2
+# define GUI_CONTAINER_TOTAL_NB 6
+# define GUI_CONTAINER_DYNAMIC_NB 2
+# define GUI_CONTAINER_HEADER 80
+# define GUI_CONTAINER_FOOT 40
+# define GUI_CONTAINER_MIDDLE 0
+# define GUI_CONTAINER_RESERVED ((GUI_CONTAINER_HEADER * 2) \
+		+ (GUI_CONTAINER_FOOT * 2))
+# define GUI_CONTAINER_RESIZED ((gui->height - \
+			GUI_CONTAINER_RESERVED) / GUI_CONTAINER_DYNAMIC_NB)
 # define CONTAINER gui->container[gui->cbcnt]
 # define BLOCK gui->container
 # define TTF gui->ttf
+# define BUTTON BLOCK[id]->button
 
 # include <math.h>
 # include <fcntl.h>
@@ -122,6 +124,7 @@
 #  include <SDL_ttf.h>
 # else
 #  include <SDL2/SDL.h>
+#  include <SDL2/SDL_ttf.h>
 # endif
 # include <libft.h>
 # include <lib_vec.h>
@@ -299,14 +302,40 @@ typedef struct		s_ttf
 	int				w_px;
 }					t_ttf;
 
+typedef struct		s_scroll
+{
+	int				align;
+}					t_scroll;
+
+typedef struct		s_button
+{
+	int				align;
+	int				w;
+	int				h;
+	SDL_Surface		*surface;
+	SDL_Texture		*bmp;
+	SDL_Rect		dest;
+}					t_button;
+
+typedef struct		s_textbox
+{
+	int				align;
+}					t_textbox;
+
 typedef struct		s_container
 {
 	int				up_lim;
 	int				bot_lim;
 	int				px;
+	int				button_qt;
+	int				scroll_qt;
+	int				textbox_qt;
 	SDL_Surface		*surface;
 	SDL_Texture		*bmp;
 	SDL_Rect		dest;
+	t_button		**button;
+	t_scroll		**scroll;
+	t_textbox		**textbox;
 }					t_container;
 
 typedef struct		s_gui
@@ -413,9 +442,10 @@ t_gui				*gui_init(void);
 void				gui_pixel_put(t_gui *gui, int x, int y);
 void				gui_color_set(t_gui *gui, char *type, char *style);
 void				gui_background_get_set_n_display(t_gui *gui);
-void				gui_build_container(t_gui *gui, int mode, int px);
+void				gui_container_build(t_gui *gui, int mode, int px);
 void				gui_error(int n);
-void				gui_build_font(t_gui *gui);
+void				gui_font_build(t_gui *gui);
+void				gui_button_build(t_gui *gui);
 
 /*
 ** OBJECTS FUNCTIONS

@@ -25,9 +25,9 @@ void		gui_container_bmp_set_n_display(t_gui *gui)
 
 void		gui_container_get_bmp(t_gui *gui, int type)
 {
-	if (type == DEF_GUI_CONTAINER_HEADER)
+	if (type == GUI_CONTAINER_HEADER)
 		CONTAINER->surface = SDL_LoadBMP("./ressources/gui_texture/header.bmp");
-	else if (type == DEF_GUI_CONTAINER_MIDDLE)
+	else if (type == GUI_CONTAINER_MIDDLE)
 		CONTAINER->surface = SDL_LoadBMP("./ressources/gui_texture/middle.bmp");
 	else
 		CONTAINER->surface = SDL_LoadBMP("./ressources/gui_texture/footer.bmp");
@@ -38,14 +38,25 @@ void		gui_container_get_bmp(t_gui *gui, int type)
 		gui_error(3);
 }
 
-void		gui_build_container(t_gui *gui, int mode, int px)
+void		gui_container_init(t_gui *gui)
+{
+	if ((CONTAINER = (t_container *)malloc(sizeof(t_container))) == NULL)
+		error(1);
+	CONTAINER->surface = NULL;
+	CONTAINER->bmp = NULL;
+	CONTAINER->button = NULL;
+	CONTAINER->scroll = NULL;
+	CONTAINER->textbox = NULL;
+}
+
+void		gui_container_build(t_gui *gui, int mode, int px)
 {
 	int i;
 
-	CONTAINER = (t_container *)malloc(sizeof(t_container));
+	gui_container_init(gui);
 	//gui_container_get_bmp(gui, px);
 	if (mode == 1)
-		CONTAINER->px = DEF_GUI_CONTAINER_RESIZED;
+		CONTAINER->px = GUI_CONTAINER_RESIZED;
 	else
 		CONTAINER->px = px;
 	CONTAINER->up_lim = gui->tmp_lim;
