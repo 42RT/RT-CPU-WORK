@@ -25,7 +25,7 @@ void	gui_button_get_bmp(t_gui *gui, int id, int i)
 	if (!BUTTON[i]->surface)
 		gui_error(2);
 	BUTTON[i]->bmp = SDL_CreateTextureFromSurface(gui->img,
-	BUTTON[i]->surface);
+		BUTTON[i]->surface);
 	if (!BUTTON[i]->bmp)
 		gui_error(3);
 }
@@ -96,18 +96,16 @@ void	gui_button_build(t_gui *gui)
 	int w;
 	int h;
 
-	printf("GUI : \033[33mButton \033[0m: ");
-	gui_block_button_init(gui, 4, 3);
-	gui_block_button_init(gui, 5, 3);
-	w = (GUI_WIDTH - (10 * (3 + 1))) / 3;
-	h = BLOCK[4]->px - 20;
-	gui_button_set(4, "DEL", GUI_ALIGN_LEFT, w, h);
-	gui_button_set(4, "SAVE", GUI_ALIGN_MID, w, h);
-	gui_button_set(4, "APPLY", GUI_ALIGN_RIGHT, w, h);
-	h = BLOCK[5]->px - 20;
-	gui_button_set(5, "PARAM", GUI_ALIGN_LEFT, w, h);
-	gui_button_set(5, "HELP", GUI_ALIGN_MID, w, h);
-	gui_button_set(5, "EXIT", GUI_ALIGN_RIGHT, w, h);
+	gui_block_button_init(gui, 8, 3);
+	gui_block_button_init(gui, 9, 3);
+	w = (GUI_WIDTH - (GUI_FONT_BORDER_STEP * 4)) / 3;
+	h = BLOCK[8]->px - 18;
+	gui_button_set(8, "DEL", GUI_ALIGN_LEFT, w, h);
+	gui_button_set(8, "SAVE", GUI_ALIGN_MID, w, h);
+	gui_button_set(8, "APPLY", GUI_ALIGN_RIGHT, w, h);
+	h = BLOCK[9]->px - 18;
+	gui_button_set(9, "PARAM", GUI_ALIGN_LEFT, w, h);
+	gui_button_set(9, "HELP", GUI_ALIGN_MID, w, h);
+	gui_button_set(9, "EXIT", GUI_ALIGN_RIGHT, w, h);
 	gui_button_create_all(gui);
-	printf("\033[1;32mOK\033[0m\n");
 }

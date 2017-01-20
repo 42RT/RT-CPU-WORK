@@ -42,14 +42,24 @@ void		gui_build(t_gui	*gui)
 	gui->container = (t_container **)malloc(sizeof(t_container *)
 			* GUI_CONTAINER_TOTAL_NB);
 	printf("GUI : \033[33mContainer \033[0m: ");
-	gui_container_build(gui, GUI_CONSTANT, GUI_CONTAINER_HEADER);
-	gui_container_build(gui, GUI_DYNAMIC, GUI_CONTAINER_MIDDLE);
-	gui_container_build(gui, GUI_DYNAMIC, GUI_CONTAINER_MIDDLE);
-	gui_container_build(gui, GUI_CONSTANT, GUI_CONTAINER_HEADER);
-	gui_container_build(gui, GUI_CONSTANT, GUI_CONTAINER_FOOT);
-	gui_container_build(gui, GUI_CONSTANT, GUI_CONTAINER_FOOT);
+	/* compter 40 px par ligne dans le conteneur*/
+	gui_container_build(gui, GUI_CONSTANT, 80);
+	gui_container_build(gui, GUI_CONSTANT, 80);
+	gui_container_build(gui, GUI_CONSTANT, 80);
+	gui_container_build(gui, GUI_CONSTANT, 120);
+	gui_container_build(gui, GUI_CONSTANT, 40);
+	gui_container_build(gui, GUI_CONSTANT, 40);
+	gui_container_build(gui, GUI_CONSTANT, 40);
+	gui_container_build(gui, GUI_CONSTANT, 80);
+	gui_container_build(gui, GUI_CONSTANT, 40);
+	gui_container_build(gui, GUI_CONSTANT, 40);
 	printf("\033[1;32mOK\033[0m\n");
+	printf("GUI : \033[33mTextbox \033[0m: ");
+	gui_textbox_build(gui);
+	printf("\033[1;32mOK\033[0m\n");
+	printf("GUI : \033[33mButton \033[0m: ");
 	gui_button_build(gui);
+	printf("\033[1;32mOK\033[0m\n");
 	printf("GUI : \033[33mFont \033[0m: ");
 	gui_font_build(gui);
 	printf("\033[1;32mOK\033[0m\n");
@@ -86,7 +96,7 @@ t_gui		*gui_init(void)
 	if (SDL_GetCurrentDisplayMode(0, gui->display) != 0)
 		gui_error(1);
 	gui->width = GUI_WIDTH;
-	gui->height = DEF_IMG_HEIGHT;
+	gui->height = GUI_HEIGHT;
 	gui->anchor_x = ALT_SCREEN_CENTERED + 800;//(gui->display->w + DEF_IMG_WIDTH) / 2;
 	gui->anchor_y = SDL_WINDOWPOS_CENTERED;
 	gui->win = SDL_CreateWindow("Tool box", gui->anchor_x, gui->anchor_y,

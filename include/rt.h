@@ -91,31 +91,32 @@
 */
 
 # define GUI_WIDTH 400
+# define GUI_HEIGHT 640
 # define GUI_THEME 0
 # define GUI_DYNAMIC 1
 # define GUI_CONSTANT 0
 # define GUI_RESS_PATH "./ressources/"
 # define GUI_TEXTURE_PATH GUI_RESS_PATH"gui_texture/"
+# define GUI_FONT_PATH GUI_RESS_PATH"gui_font/"
 # define GUI_FONT_SIZE 18
-# define GUI_FONT_FILE "gui_font/Xenotron.ttf"
+# define GUI_FONT_FILE "Starjedi"
 # define GUI_FONT_STYLE
-# define GUI_FONT_BORDER_STEP 5
+# define GUI_FONT_BORDER_STEP 15
 # define GUI_ALIGN_LEFT 0
 # define GUI_ALIGN_MID 1
 # define GUI_ALIGN_RIGHT 2
-# define GUI_CONTAINER_TOTAL_NB 6
-# define GUI_CONTAINER_DYNAMIC_NB 2
-# define GUI_CONTAINER_HEADER 80
-# define GUI_CONTAINER_FOOT 40
-# define GUI_CONTAINER_MIDDLE 0
-# define GUI_CONTAINER_RESERVED ((GUI_CONTAINER_HEADER * 2) \
-		+ (GUI_CONTAINER_FOOT * 2))
+# define GUI_TEXTBOX_W GUI_WIDTH / 9
+# define GUI_TEXTBOX_H 20
+# define GUI_CONTAINER_TOTAL_NB 10
+# define GUI_CONTAINER_DYNAMIC_NB 1
+# define GUI_CONTAINER_RESERVED 640
 # define GUI_CONTAINER_RESIZED ((gui->height - \
 			GUI_CONTAINER_RESERVED) / GUI_CONTAINER_DYNAMIC_NB)
 # define CONTAINER gui->container[gui->cbcnt]
 # define BLOCK gui->container
 # define TTF gui->ttf
 # define BUTTON BLOCK[id]->button
+# define TEXTBOX BLOCK[id]->textbox
 # define ALT_SCREEN_CENTERED 2325
 
 # include <math.h>
@@ -320,6 +321,10 @@ typedef struct		s_button
 typedef struct		s_textbox
 {
 	int				align;
+	SDL_Surface		*surface;
+	SDL_Texture		*bmp;
+	SDL_Rect		dest;
+	char			*target;
 }					t_textbox;
 
 typedef struct		s_container
@@ -446,6 +451,7 @@ void				gui_container_build(t_gui *gui, int mode, int px);
 void				gui_error(int n);
 void				gui_font_build(t_gui *gui);
 void				gui_button_build(t_gui *gui);
+void				gui_textbox_build(t_gui *gui);
 
 /*
 ** OBJECTS FUNCTIONS

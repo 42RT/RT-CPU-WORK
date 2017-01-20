@@ -25,12 +25,8 @@ void		gui_container_bmp_set_n_display(t_gui *gui)
 
 void		gui_container_get_bmp(t_gui *gui, int type)
 {
-	if (type == GUI_CONTAINER_HEADER)
-		CONTAINER->surface = SDL_LoadBMP("./ressources/gui_texture/header.bmp");
-	else if (type == GUI_CONTAINER_MIDDLE)
-		CONTAINER->surface = SDL_LoadBMP("./ressources/gui_texture/middle.bmp");
-	else
-		CONTAINER->surface = SDL_LoadBMP("./ressources/gui_texture/footer.bmp");
+	(void)type;
+	CONTAINER->surface = SDL_LoadBMP("./ressources/gui_texture/container.bmp");
 	if (!CONTAINER->surface)
 		gui_error(2);
 	CONTAINER->bmp = SDL_CreateTextureFromSurface(gui->img, CONTAINER->surface);
