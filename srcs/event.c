@@ -12,97 +12,86 @@
 
 #include <rt.h>
 
-int			trans_event2(int n, t_env *env)
-{
-	if (n == 15)
-		transcam(env, env->cam.vecdirz);
-	else if (n == 3)
-		transcam(env, not_vec(env->cam.vecdirz));
-	else if (n == 1)
-		transcam(env, not_vec(env->cam.vecdirx));
-	return (0);
-}
-
-int			trans_event(int n, t_env *env)
-{
-	if (n == 0)
-		transcam(env, not_vec(env->cam.vecdiry));
-	else if (n == 2)
-		transcam(env, env->cam.vecdiry);
-	else if (n == 13)
-		transcam(env, env->cam.vecdirx);
-	else
-		trans_event2(n, env);
-	return (0);
-}
-
-int			event2(int n, t_env *env)
-{
-	if (n == 125)
-	{
-		rotcam(env, 0, -0.1, 0);
-		camangle(env, 0, -0.1, 0);
-	}
-	else if (n == 116)
-	{
-		rotcam(env, 0, 0, 0.1);
-		camangle(env, 0, 0, 0.1);
-	}
-	else if (n == 121)
-	{
-		rotcam(env, 0, 0, -0.1);
-		camangle(env, 0, 0, -0.1);
-	}
-	return (0);
-}
-
-void		event3(t_env *env)
-{
-	rotcam(env, 0, 0.1, 0);
-	camangle(env, 0, 0.1, 0);
-}
-
-void		rt_exit(t_env *env)
+void		rt_exit(t_env *env, t_gui *gui)
 {
 	SDL_DestroyRenderer(env->img);
 	SDL_DestroyWindow(env->win);
+	SDL_DestroyRenderer(gui->img);
+	SDL_DestroyWindow(gui->win);
 	SDL_Quit();
 	exit(1);
 }
 
-static int	event_keydown(SDL_Event event, t_env *env)
+static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 {
 	if (event.key.keysym.sym == SDLK_ESCAPE)
-		rt_exit(env);
+		rt_exit(env, gui);
 	return (0);
+}
+
+void		button_perform_action(t_env *env, t_gui *gui, char *action)
+{
+	if (ft_strstr(action, "DEL") != NULL)
+		return;
+	else if (ft_strstr(action, "SAVE") != NULL)
+		return;
+	else if (ft_strstr(action, "APPLY") != NULL)
+		return;
+	else if (ft_strstr(action, "PARAM") != NULL)
+		return;
+	else if (ft_strstr(action, "HELP") != NULL)
+		return;
+	else if (ft_strstr(action, "EXIT") != NULL)
+		rt_exit(env, gui);
+}
+
+void		event_mouse_button(SDL_Event event, t_env *env, t_gui *gui)
+{
+	int id;
+	int i;
+
+	id = 0;
+	if (event.button.button == SDL_BUTTON_LEFT)
+		while (id < GUI_CONTAINER_TOTAL_NB)
+		{
+			if (BLOCK[id]->button == NULL)
+				id++;
+			else
+			{
+				i = 0;
+				while (i < BLOCK[id]->button_qt)
+				{
+					if ((event.button.x >= BUTTON[i]->dest.x) &&
+					(event.button.x <= BUTTON[i]->dest.x + BUTTON[i]->dest.w) &&
+					(event.button.y >= BUTTON[i]->dest.y) &&
+					(event.button.y <= BUTTON[i]->dest.y + BUTTON[i]->dest.h))
+					{
+						printf("EVENT : BUTTON [%d][%d] -> %s\n", id, i,
+							BUTTON[i]->action);
+						button_perform_action(env, gui, BUTTON[i]->action);
+						i = BLOCK[id]->button_qt;
+						id = GUI_CONTAINER_TOTAL_NB;
+					}
+					i++;
+				}
+				id++;
+			}
+		}
 }
 
 int			event(SDL_Event event, t_env *env)
 {
+	t_gui *gui;
+
+	gui = get_gui();
 	if (event.type == SDL_WINDOWEVENT)
 	{
 		if (event.window.event == SDL_WINDOWEVENT_CLOSE)
-			rt_exit(env);
+			rt_exit(env, gui);
 	}
 	else if (event.type == SDL_KEYDOWN)
-		event_keydown(event, env);
-
-	/*else if (n == 124)
-	{
-		rotcam(env, 0.1, 0, 0);
-		camangle(env, 0.1, 0, 0);
-	}
-	else if (n == 123)
-	{
-		rotcam(env, -0.1, 0, 0);
-		camangle(env, -0.1, 0, 0);
-	}
-	else if (n == 126)
-		event3(env);
-	else if (n >= 0 && n <= 15)
-		trans_event(n, env);
-	else
-		event2(n, env);*/
-	//raycaster(env);
+		event_keydown(event, env, gui);
+	else if (event.type == SDL_MOUSEBUTTONDOWN)
+		event_mouse_button(event, env, gui);
 	return (0);
 }

@@ -50,6 +50,7 @@ void	raycaster(t_env *env)
 	t_ray	*ray;
 	t_color	color;
 
+	printf("RT : START CALCULATING THE SCENE... \n");
 	ray = (t_ray*)malloc(sizeof(t_ray));
 	color = init_color_black();
 	env->y = 0;
@@ -66,6 +67,8 @@ void	raycaster(t_env *env)
 		env->y = 0;
 		++env->x;
 	}
+	printf("RT : Applying Render ... : ");
 	SDL_RenderPresent(env->img);
+	printf("DISPLAYED\n");
 	free(ray);
 }

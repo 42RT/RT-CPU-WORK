@@ -32,14 +32,12 @@ void	gui_button_get_bmp(t_gui *gui, int id, int i)
 
 void	gui_button_display(t_gui *gui, int id, int i)
 {
-	BUTTON[i]->dest.w = BUTTON[i]->w;
-	BUTTON[i]->dest.h = BUTTON[i]->h;
 	if (BUTTON[i]->align == GUI_ALIGN_LEFT)
 		BUTTON[i]->dest.x = 10;
 	else if (BUTTON[i]->align == GUI_ALIGN_MID)
-		BUTTON[i]->dest.x = (GUI_WIDTH / 2) - (BUTTON[i]->w / 2);
+		BUTTON[i]->dest.x = (GUI_WIDTH / 2) - (BUTTON[i]->dest.w / 2);
 	else if (BUTTON[i]->align == GUI_ALIGN_RIGHT)
-		BUTTON[i]->dest.x = GUI_WIDTH - (BUTTON[i]->w + 10);
+		BUTTON[i]->dest.x = GUI_WIDTH - (BUTTON[i]->dest.w + 10);
 	else
 		BUTTON[i]->dest.x = BUTTON[i]->align;
 	BUTTON[i]->dest.y = BLOCK[id]->up_lim + (BLOCK[id]->px / 4);
@@ -72,7 +70,7 @@ void	gui_button_create_all(t_gui *gui)
 	}
 }
 
-void	gui_button_set(int id, int align, int w, int h)
+void	gui_button_set(int id, char *action, int align, int w, int h)
 {
 	t_gui	*gui;
 	int		i;
@@ -84,8 +82,9 @@ void	gui_button_set(int id, int align, int w, int h)
 		if (BUTTON[i]->align == -1)
 		{
 			BUTTON[i]->align = align;
-			BUTTON[i]->w = w;
-			BUTTON[i]->h = h;
+			BUTTON[i]->dest.w = w;
+			BUTTON[i]->dest.h = h;
+			BUTTON[i]->action = action;
 			i = BLOCK[id]->button_qt;
 		}
 		i++;
@@ -94,15 +93,21 @@ void	gui_button_set(int id, int align, int w, int h)
 
 void	gui_button_build(t_gui *gui)
 {
+	int w;
+	int h;
+
 	printf("GUI : \033[33mButton \033[0m: ");
 	gui_block_button_init(gui, 4, 3);
 	gui_block_button_init(gui, 5, 3);
-	gui_button_set(4, GUI_ALIGN_LEFT, (GUI_WIDTH - 40) / 3, BLOCK[4]->px - 20);
-	gui_button_set(4, GUI_ALIGN_MID, (GUI_WIDTH - 40) / 3, BLOCK[4]->px - 20);
-	gui_button_set(4, GUI_ALIGN_RIGHT, (GUI_WIDTH - 40) / 3, BLOCK[4]->px - 20);
-	gui_button_set(5, GUI_ALIGN_LEFT, (GUI_WIDTH - 40) / 3, BLOCK[5]->px - 20);
-	gui_button_set(5, GUI_ALIGN_MID, (GUI_WIDTH - 40) / 3, BLOCK[5]->px - 20);
-	gui_button_set(5, GUI_ALIGN_RIGHT, (GUI_WIDTH - 40) / 3, BLOCK[5]->px - 20);
+	w = (GUI_WIDTH - (10 * (3 + 1))) / 3;
+	h = BLOCK[4]->px - 20;
+	gui_button_set(4, "DEL", GUI_ALIGN_LEFT, w, h);
+	gui_button_set(4, "SAVE", GUI_ALIGN_MID, w, h);
+	gui_button_set(4, "APPLY", GUI_ALIGN_RIGHT, w, h);
+	h = BLOCK[5]->px - 20;
+	gui_button_set(5, "PARAM", GUI_ALIGN_LEFT, w, h);
+	gui_button_set(5, "HELP", GUI_ALIGN_MID, w, h);
+	gui_button_set(5, "EXIT", GUI_ALIGN_RIGHT, w, h);
 	gui_button_create_all(gui);
 	printf("\033[1;32mOK\033[0m\n");
 }

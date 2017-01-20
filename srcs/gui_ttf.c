@@ -85,11 +85,11 @@ void	gui_font_build(t_gui *gui)
 	gui_write("Texture :", BLOCK[3], GUI_ALIGN_LEFT, 15);
 	gui_write("P", BLOCK[3], GUI_ALIGN_LEFT, 45);
 	gui_write("N", BLOCK[3], GUI_ALIGN_MID, 45);
-	gui_write("APPLY", BLOCK[4], GUI_ALIGN_LEFT, 10);
-	gui_write("DEL", BLOCK[4], GUI_ALIGN_MID, 10);
-	gui_write("SAVE", BLOCK[4], GUI_ALIGN_RIGHT, 10);
-	gui_write("APPLY", BLOCK[5], GUI_ALIGN_LEFT, 10);
-	gui_write("APPLY", BLOCK[5], GUI_ALIGN_MID, 10);
-	gui_write("APPLY", BLOCK[5], GUI_ALIGN_RIGHT, 10);
+	gui_write("DEL", BLOCK[4], GUI_ALIGN_LEFT, 10);
+	gui_write("SAVE", BLOCK[4], GUI_ALIGN_MID, 10);
+	gui_write("APPLY", BLOCK[4], GUI_ALIGN_RIGHT, 10);
+	gui_write("PARAM", BLOCK[5], GUI_ALIGN_LEFT, 10);
+	gui_write("HELP", BLOCK[5], GUI_ALIGN_MID, 10);
+	gui_write("EXIT", BLOCK[5], GUI_ALIGN_RIGHT, 10);
 	TTF_CloseFont(TTF->font);
 }

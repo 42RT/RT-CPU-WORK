@@ -36,7 +36,7 @@ void		init_graphics(t_env *env)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		error(7);
-	env->win = SDL_CreateWindow(env->set->name, SDL_WINDOWPOS_CENTERED,
+	env->win = SDL_CreateWindow(env->set->name, ALT_SCREEN_CENTERED,
 			SDL_WINDOWPOS_CENTERED, env->set->width, env->set->height,
 			SDL_WINDOW_SHOWN);
 	if (env->win)

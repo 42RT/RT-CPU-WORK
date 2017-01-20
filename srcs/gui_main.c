@@ -85,7 +85,7 @@ t_gui		*gui_init(void)
 		gui_error(1);
 	gui->width = GUI_WIDTH;
 	gui->height = DEF_IMG_HEIGHT;
-	gui->anchor_x = (gui->display->w + DEF_IMG_WIDTH) / 2;
+	gui->anchor_x = ALT_SCREEN_CENTERED + 800;//(gui->display->w + DEF_IMG_WIDTH) / 2;
 	gui->anchor_y = SDL_WINDOWPOS_CENTERED;
 	gui->win = SDL_CreateWindow("Tool box", gui->anchor_x, gui->anchor_y,
 			gui->width, gui->height, SDL_WINDOW_SHOWN);

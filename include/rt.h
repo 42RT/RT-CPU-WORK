@@ -116,6 +116,7 @@
 # define BLOCK gui->container
 # define TTF gui->ttf
 # define BUTTON BLOCK[id]->button
+# define ALT_SCREEN_CENTERED 2325
 
 # include <math.h>
 # include <fcntl.h>
@@ -310,11 +311,10 @@ typedef struct		s_scroll
 typedef struct		s_button
 {
 	int				align;
-	int				w;
-	int				h;
 	SDL_Surface		*surface;
 	SDL_Texture		*bmp;
 	SDL_Rect		dest;
+	char			*action;
 }					t_button;
 
 typedef struct		s_textbox
