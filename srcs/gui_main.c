@@ -50,7 +50,9 @@ void		gui_build(t_gui	*gui)
 	gui_container_build(gui, GUI_CONSTANT, GUI_CONTAINER_FOOT);
 	printf("\033[1;32mOK\033[0m\n");
 	gui_button_build(gui);
+	printf("GUI : \033[33mFont \033[0m: ");
 	gui_font_build(gui);
+	printf("\033[1;32mOK\033[0m\n");
 }
 
 void		gui_alloc(void)
@@ -96,7 +98,7 @@ t_gui		*gui_init(void)
 	gui->tmp_lim = 0;
 	printf("GUI : \033[1;32mCOMPONENT INITIALIZED\033[0m\n\n");
 	gui_build(gui);
-	printf("GUI : \033[1;32mCONTENT BUILT\033[0m\n\n");
+	printf("GUI : \033[1;32mCONTENT BUILT\033[0m\n");
 	printf("GUI : \033[33mApplying Render...\033[0m : ");
 	SDL_RenderPresent(gui->img);
 	printf("\033[1;32mDISPLAYED\033[0m\n\n");

@@ -49,12 +49,19 @@ void	raycaster(t_env *env)
 
 	t_ray	*ray;
 	t_color	color;
+	int		cnt;
+	int		bar;
+	int		percent;
 
-	printf("RT : START CALCULATING THE SCENE... \n");
+	printf("RT : \033[33mSTART CALCULATING THE SCENE : \033[0m");
 	ray = (t_ray*)malloc(sizeof(t_ray));
 	color = init_color_black();
 	env->y = 0;
 	env->x = 0;
+	percent = 20;
+	cnt = 0;
+	bar = 0;
+	printf("\033[33m%d PIXEL ...\033[0m\n", env->set->height * env->set->width);
 	while (env->x < env->set->height)
 	{
 		while (env->y < env->set->width)
@@ -63,12 +70,18 @@ void	raycaster(t_env *env)
 			color = trace(env, ray, 0);
 			pixel_put(env, color);
 			++env->y;
+			cnt++;
+			if (cnt % (env->set->height * env->set->width * percent / 100) == 0)
+			{
+				bar++;
+				printf("RT : \033[1;32m%d\033[0m %%\n", percent * bar);
+			}
 		}
 		env->y = 0;
 		++env->x;
 	}
-	printf("RT : Applying Render ... : ");
+	printf("RT : \033[33mApplying Render ... \033[0m: ");
 	SDL_RenderPresent(env->img);
-	printf("DISPLAYED\n");
+	printf("\033[1;32mDISPLAYED\033[0m\n");
 	free(ray);
 }
