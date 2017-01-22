@@ -57,7 +57,7 @@ int			main(int argc, char **argv)
 	env = init_env(fd);
 	parse(env, ".default.rtc");
 	init_graphics(env);
-	aff_settings(env->set);
+	//aff_settings(env->set);
 	gui = gui_init();
 	raycaster(env);
 	while (1)

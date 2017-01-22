@@ -12,24 +12,37 @@
 
 #include <rt.h>
 
-SDL_Color	gui_font_color_select()
+SDL_Color	gui_color(char *choice)
 {
 	SDL_Color color;
 
-	color.r = 255;
-	color.g = 255;
-	color.b = 255;
-	color.a = 255;
+	if (ft_strstr(choice, "white"))
+	{
+		color.r = 255;
+		color.g = 255;
+		color.b = 255;
+		color.a = 255;
+	}
+	if (ft_strstr(choice, "black"))
+	{
+		color.r = 0;
+		color.g = 0;
+		color.b = 0;
+		color.a = 255;
+	}
 	return (color);
 }
 
-void	gui_font_get_px(t_gui *gui)
+void	gui_font_init(t_gui *gui, char *ttf, int size)
 {
-	TTF->font = TTF_OpenFont(GUI_FONT_PATH""GUI_FONT_FILE".ttf", GUI_FONT_SIZE);
+	char *path;
+
+	path = ft_strjoin(GUI_FONT_PATH, ttf);
+	path = ft_strjoin(path, ".ttf");
+	TTF->font = TTF_OpenFont(path, size);
 	if (TTF->font == NULL)
 		gui_error(6);
 	TTF_SizeText(TTF->font, "editor", NULL, &TTF->h_px);
-	TTF->h_px += 10;
 }
 
 void	gui_write_container(char *text, t_container *container, int x, int y)
@@ -39,7 +52,7 @@ void	gui_write_container(char *text, t_container *container, int x, int y)
 	gui = get_gui();
 	TTF_SizeText(TTF->font, text, &TTF->w_px, NULL);
 	TTF->texture = SDL_CreateTextureFromSurface(gui->img, 
-			TTF_RenderText_Blended(TTF->font, text, gui_font_color_select()));
+			TTF_RenderText_Blended(TTF->font, text, gui_color("white")));
 	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
 	if (x == GUI_ALIGN_LEFT)
 		TTF->rect.x = GUI_FONT_BORDER_STEP;
@@ -51,6 +64,7 @@ void	gui_write_container(char *text, t_container *container, int x, int y)
 		TTF->rect.x = x;
 	TTF->rect.y = y + container->up_lim;
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	SDL_DestroyTexture(TTF->texture);
 }
 
 void	gui_write_button(char *text, t_button *button)
@@ -60,11 +74,13 @@ void	gui_write_button(char *text, t_button *button)
 	gui = get_gui();
 	TTF_SizeText(TTF->font, text, &TTF->w_px, &TTF->h_px);
 	TTF->texture = SDL_CreateTextureFromSurface(gui->img,
-		TTF_RenderText_Blended(TTF->font, text, gui_font_color_select()));
+		TTF_RenderText_Blended(TTF->font, text, gui_color("white")));
 	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
 	TTF->rect.x = button->dest.x + ((button->dest.w - TTF->w_px) / 2);
 	TTF->rect.y = button->dest.y + ((button->dest.h - TTF->h_px - 4) / 2);
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	SDL_DestroyTexture(TTF->texture);
+
 }
 
 void	gui_write_textbox_tag(char *text, t_textbox *textbox, int align)
@@ -74,7 +90,7 @@ void	gui_write_textbox_tag(char *text, t_textbox *textbox, int align)
 	gui = get_gui();
 	TTF_SizeText(TTF->font, text, &TTF->w_px, &TTF->h_px);
 	TTF->texture = SDL_CreateTextureFromSurface(gui->img,
-		TTF_RenderText_Blended(TTF->font, text, gui_font_color_select()));
+		TTF_RenderText_Blended(TTF->font, text, gui_color("white")));
 	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
 	if (align == GUI_ALIGN_LEFT)
 		TTF->rect.x = textbox->dest.x - TTF->w_px - GUI_FONT_BORDER_STEP;
@@ -82,12 +98,29 @@ void	gui_write_textbox_tag(char *text, t_textbox *textbox, int align)
 		TTF->rect.x = align;
 	TTF->rect.y = textbox->dest.y + ((textbox->dest.h - TTF->h_px) / 2);
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	SDL_DestroyTexture(TTF->texture);
+
+}
+
+void	gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color)
+{
+	TTF_SizeText(TTF->font, textbox->value, &TTF->w_px, &TTF->h_px);
+	TTF->texture = SDL_CreateTextureFromSurface(gui->img,
+		TTF_RenderText_Blended(TTF->font, textbox->value, gui_color(color)));
+	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
+	if (textbox->value[0] == ' ')
+		TTF->rect.x = textbox->dest.x + 2;
+	else
+		TTF->rect.x = textbox->dest.x + 3;
+	TTF->rect.y = textbox->dest.y + ((textbox->dest.h - TTF->h_px) / 2);
+	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	SDL_DestroyTexture(TTF->texture);
+
 }
 
 void	gui_font_build(t_gui *gui)
 {
-	
-	gui_font_get_px(gui);
+	gui_font_init(gui, "Starjedi", GUI_FONT_SIZE);
 	gui_write_container("scene", BLOCK[0], GUI_ALIGN_LEFT, 10);
 	gui_write_container("object", BLOCK[0], GUI_ALIGN_LEFT, 40);
 	gui_write_container("position :", BLOCK[1], GUI_ALIGN_LEFT, 10);

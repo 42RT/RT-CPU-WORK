@@ -105,7 +105,7 @@
 # define GUI_ALIGN_LEFT 0
 # define GUI_ALIGN_MID 1
 # define GUI_ALIGN_RIGHT 2
-# define GUI_TEXTBOX_W GUI_WIDTH / 9
+# define GUI_TEXTBOX_W GUI_WIDTH / 8
 # define GUI_TEXTBOX_H 20
 # define GUI_CONTAINER_TOTAL_NB 10
 # define GUI_CONTAINER_DYNAMIC_NB 1
@@ -325,8 +325,9 @@ typedef struct		s_textbox
 	SDL_Texture		*bmp;
 	SDL_Rect		dest;
 	char			*tag;
-	int				selected;
-	int				value;
+	char			*value;
+	int				vlen;
+	int				edited;
 }					t_textbox;
 
 typedef struct		s_container
@@ -357,7 +358,7 @@ typedef struct		s_gui
 	t_color			*color;
 	t_container		**container;
 	t_ttf			*ttf;
-	t_textbox		*textbox_selected;
+	void			*widget_active;
 	int				cbcnt;
 	int				width;
 	int				height;
@@ -452,11 +453,14 @@ void				gui_color_set(t_gui *gui, char *type, char *style);
 void				gui_background_get_set_n_display(t_gui *gui);
 void				gui_container_build(t_gui *gui, int mode, int px);
 void				gui_error(int n);
+void				gui_font_init(t_gui *gui, char *ttf, int size);
 void				gui_font_build(t_gui *gui);
 void				gui_button_build(t_gui *gui);
 void				gui_textbox_build(t_gui *gui);
 void				gui_textbox_get_bmp(t_gui *gui, t_textbox *textbox);
 void				gui_textbox_display(t_gui *gui, t_textbox *textbox);
+void				gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color);
+void				event_textbox_edit(t_gui *gui, t_textbox *textbox, char *color);
 
 /*
 ** OBJECTS FUNCTIONS
