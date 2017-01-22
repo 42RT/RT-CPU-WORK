@@ -324,7 +324,9 @@ typedef struct		s_textbox
 	SDL_Surface		*surface;
 	SDL_Texture		*bmp;
 	SDL_Rect		dest;
-	char			*target;
+	char			*tag;
+	int				selected;
+	int				value;
 }					t_textbox;
 
 typedef struct		s_container
@@ -355,6 +357,7 @@ typedef struct		s_gui
 	t_color			*color;
 	t_container		**container;
 	t_ttf			*ttf;
+	t_textbox		*textbox_selected;
 	int				cbcnt;
 	int				width;
 	int				height;
@@ -452,6 +455,8 @@ void				gui_error(int n);
 void				gui_font_build(t_gui *gui);
 void				gui_button_build(t_gui *gui);
 void				gui_textbox_build(t_gui *gui);
+void				gui_textbox_get_bmp(t_gui *gui, t_textbox *textbox);
+void				gui_textbox_display(t_gui *gui, t_textbox *textbox);
 
 /*
 ** OBJECTS FUNCTIONS

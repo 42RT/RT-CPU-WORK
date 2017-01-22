@@ -19,7 +19,7 @@ void	gui_block_textbox_init(t_gui *gui, int id, int nb)
 	}
 }
 
-void	gui_textbox_set(int id, char *target, int align_v, int align_h)
+void	gui_textbox_set(int id, char *tag, int align_v, int align_h)
 {
 	t_gui	*gui;
 	int		i;
@@ -33,7 +33,9 @@ void	gui_textbox_set(int id, char *target, int align_v, int align_h)
 			TEXTBOX[i]->align = align_v;
 			TEXTBOX[i]->dest.w = GUI_TEXTBOX_W;
 			TEXTBOX[i]->dest.h = GUI_TEXTBOX_H;
-			TEXTBOX[i]->target = target;
+			TEXTBOX[i]->tag = tag;
+			TEXTBOX[i]->selected = 0;
+			TEXTBOX[i]->value = 10;
 			TEXTBOX[i]->dest.y = BLOCK[id]->up_lim + align_h;
 			i = BLOCK[id]->textbox_qt;
 		}
@@ -41,31 +43,34 @@ void	gui_textbox_set(int id, char *target, int align_v, int align_h)
 	}
 }
 
-void	gui_textbox_get_bmp(t_gui *gui, int id, int i)
+void	gui_textbox_get_bmp(t_gui *gui, t_textbox *textbox)
 {
-	TEXTBOX[i]->surface = SDL_LoadBMP(GUI_TEXTURE_PATH"textbox_white.bmp");
-	if (!TEXTBOX[i]->surface)
+	if (gui->textbox_selected == textbox)
+		textbox->surface = SDL_LoadBMP(GUI_TEXTURE_PATH"textbox_black.bmp");
+	else
+		textbox->surface = SDL_LoadBMP(GUI_TEXTURE_PATH"textbox_white.bmp");
+	if (!textbox->surface)
 		gui_error(2);
-	TEXTBOX[i]->bmp = SDL_CreateTextureFromSurface(gui->img,
-		TEXTBOX[i]->surface);
-	if (!TEXTBOX[i]->bmp)
+	textbox->bmp = SDL_CreateTextureFromSurface(gui->img,
+		textbox->surface);
+	if (!textbox->bmp)
 		gui_error(3);
 }
 
 
-void	gui_textbox_display(t_gui *gui, int id, int i)
+void	gui_textbox_display(t_gui *gui, t_textbox *textbox)
 {
-	if (TEXTBOX[i]->align == GUI_ALIGN_LEFT)
-		TEXTBOX[i]->dest.x = 50;
-	else if (TEXTBOX[i]->align == GUI_ALIGN_MID)
-		TEXTBOX[i]->dest.x = (GUI_WIDTH / 2) - (TEXTBOX[i]->dest.w / 2) + 10;
-	else if (TEXTBOX[i]->align == GUI_ALIGN_RIGHT)
-		TEXTBOX[i]->dest.x = GUI_WIDTH - (TEXTBOX[i]->dest.w + 20);
+	if (textbox->align == GUI_ALIGN_LEFT)
+		textbox->dest.x = 50;
+	else if (textbox->align == GUI_ALIGN_MID)
+		textbox->dest.x = (GUI_WIDTH / 2) - (textbox->dest.w / 2) + 10;
+	else if (textbox->align == GUI_ALIGN_RIGHT)
+		textbox->dest.x = GUI_WIDTH - (textbox->dest.w + 20);
 	else
-		TEXTBOX[i]->dest.x = TEXTBOX[i]->align;
-	SDL_RenderCopy(gui->img, TEXTBOX[i]->bmp, NULL, &TEXTBOX[i]->dest);
-	SDL_DestroyTexture(TEXTBOX[i]->bmp);
-	SDL_FreeSurface(TEXTBOX[i]->surface);
+		textbox->dest.x = textbox->align;
+	SDL_RenderCopy(gui->img, textbox->bmp, NULL, &textbox->dest);
+	SDL_DestroyTexture(textbox->bmp);
+	SDL_FreeSurface(textbox->surface);
 }
 
 void	gui_textbox_create_all(t_gui *gui)
@@ -83,8 +88,8 @@ void	gui_textbox_create_all(t_gui *gui)
 			i = 0;
 			while (i < BLOCK[id]->textbox_qt)
 			{
-				gui_textbox_get_bmp(gui, id, i);
-				gui_textbox_display(gui, id ,i);
+				gui_textbox_get_bmp(gui, TEXTBOX[i]);
+				gui_textbox_display(gui, TEXTBOX[i]);
 				i++;
 			}
 			id++;

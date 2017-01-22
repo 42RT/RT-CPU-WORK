@@ -45,39 +45,106 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 		rt_exit(env, gui);
 }
 
-void		event_mouse_button(SDL_Event event, t_env *env, t_gui *gui)
+
+
+int			event_is_button(SDL_Event event, t_env *env, t_gui *gui)
 {
 	int id;
 	int i;
 
 	id = 0;
-	if (event.button.button == SDL_BUTTON_LEFT)
-		while (id < GUI_CONTAINER_TOTAL_NB)
+	while (id < GUI_CONTAINER_TOTAL_NB)
+	{
+		if (BLOCK[id]->button == NULL)
+			id++;
+		else
 		{
-			if (BLOCK[id]->button == NULL)
-				id++;
-			else
+			i = 0;
+			while (i < BLOCK[id]->button_qt)
 			{
-				i = 0;
-				while (i < BLOCK[id]->button_qt)
+				if ((event.button.x >= BUTTON[i]->dest.x) &&
+				(event.button.x <= BUTTON[i]->dest.x + BUTTON[i]->dest.w) &&
+				(event.button.y >= BUTTON[i]->dest.y) &&
+				(event.button.y <= BUTTON[i]->dest.y + BUTTON[i]->dest.h))
 				{
-					if ((event.button.x >= BUTTON[i]->dest.x) &&
-					(event.button.x <= BUTTON[i]->dest.x + BUTTON[i]->dest.w) &&
-					(event.button.y >= BUTTON[i]->dest.y) &&
-					(event.button.y <= BUTTON[i]->dest.y + BUTTON[i]->dest.h))
-					{
-						printf("EVENT : BUTTON [%d][%d] -> %s\n", id, i,
-							BUTTON[i]->action);
-						button_perform_action(env, gui, BUTTON[i]->action);
-						i = BLOCK[id]->button_qt;
-						id = GUI_CONTAINER_TOTAL_NB;
-					}
-					i++;
+					printf("EVENT : BUTTON [%d][%d] -> %s\n", id, i,
+						BUTTON[i]->action);
+					button_perform_action(env, gui, BUTTON[i]->action);
+					return (1);
 				}
-				id++;
+				i++;
 			}
+			id++;
 		}
+	}
+	return (0);
 }
+
+void		event_textbox_deselect(t_gui *gui)
+{
+	t_textbox *tmp;
+	// save value
+	tmp = gui->textbox_selected;
+	gui->textbox_selected = NULL;
+	gui_textbox_get_bmp(gui, tmp);
+	gui_textbox_display(gui, tmp);
+}
+
+void		event_textbox_select(t_gui *gui, t_textbox *textbox)
+{
+	if (textbox == gui->textbox_selected)
+		event_textbox_deselect(gui);
+	else
+	{
+		if (gui->textbox_selected != NULL)
+			event_textbox_deselect(gui);
+		gui->textbox_selected = textbox;
+	}
+	gui_textbox_get_bmp(gui, textbox);
+	gui_textbox_display(gui, textbox);
+	SDL_RenderPresent(gui->img);
+}
+
+int			event_is_textbox(SDL_Event event, t_gui *gui)
+{
+	int id;
+	int i;
+
+	id = 0;
+	while (id < GUI_CONTAINER_TOTAL_NB)
+	{
+		if (BLOCK[id]->textbox == NULL)
+			id++;
+		else
+		{
+			i = 0;
+			while (i < BLOCK[id]->textbox_qt)
+			{
+				if ((event.button.x >= TEXTBOX[i]->dest.x) &&
+				(event.button.x <= TEXTBOX[i]->dest.x + TEXTBOX[i]->dest.w) &&
+				(event.button.y >= TEXTBOX[i]->dest.y) &&
+				(event.button.y <= TEXTBOX[i]->dest.y + TEXTBOX[i]->dest.h))
+				{
+					printf("EVENT : TEXTBOX [%d][%d]\n", id, i);
+					event_textbox_select(gui, TEXTBOX[i]);
+					return (1);
+				}
+				i++;
+			}
+			id++;
+		}
+	}
+	return (0);
+}
+
+
+void		event_mouse_click(SDL_Event event, t_env *env, t_gui *gui)
+{
+	if (event.button.button == SDL_BUTTON_LEFT)
+		if (!event_is_button(event, env, gui))
+			event_is_textbox(event, gui);
+}
+
 
 int			event(SDL_Event event, t_env *env)
 {
@@ -92,6 +159,6 @@ int			event(SDL_Event event, t_env *env)
 	else if (event.type == SDL_KEYDOWN)
 		event_keydown(event, env, gui);
 	else if (event.type == SDL_MOUSEBUTTONDOWN)
-		event_mouse_button(event, env, gui);
+		event_mouse_click(event, env, gui);
 	return (0);
 }

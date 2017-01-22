@@ -112,6 +112,5 @@ t_gui		*gui_init(void)
 	printf("GUI : \033[33mApplying Render...\033[0m : ");
 	SDL_RenderPresent(gui->img);
 	printf("\033[1;32mDISPLAYED\033[0m\n\n");
-	SDL_DestroyRenderer(gui->img);
 	return (gui);
 }
