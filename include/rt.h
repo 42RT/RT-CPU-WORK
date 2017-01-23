@@ -109,6 +109,14 @@
 # define GUI_TEXTBOX_W GUI_WIDTH / 8
 # define GUI_TEXTBOX_H 20
 # define GUI_BUTTON_H 20
+# define GUI_XYZ_MAX 99999
+# define GUI_XYZ_MIN -99999
+# define GUI_VH_MAX 180
+# define GUI_VH_MIN -180
+# define GUI_RGBA_MAX 255
+# define GUI_RGBA_MIN 0
+# define GUI_INDEX_MAX 100
+# define GUI_INDEX_MIN 0
 # define GUI_CONTAINER_TOTAL_NB 10
 # define GUI_CONTAINER_DYNAMIC_NB 1
 # define GUI_CONTAINER_RESERVED 640
@@ -120,6 +128,7 @@
 # define BUTTON BLOCK[id]->button
 # define TEXTBOX BLOCK[id]->textbox
 # define ALT_SCREEN_CENTERED 2325
+# define SCANCODE event.key.keysym.scancode
 
 # include <math.h>
 # include <fcntl.h>
@@ -328,7 +337,11 @@ typedef struct		s_textbox
 	SDL_Rect		dest;
 	char			*tag;
 	char			*value;
+	char			*value_tmp;
+	int				id;
+	int				p;
 	int				vlen;
+	int				maxlen;
 	int				edited;
 }					t_textbox;
 
@@ -463,7 +476,7 @@ void				gui_textbox_get_bmp(t_gui *gui, t_textbox *textbox);
 void				gui_textbox_display(t_gui *gui, t_textbox *textbox);
 void				gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color);
 void				event_textbox_edit(t_gui *gui, t_textbox *textbox, char *color);
-
+void				gui_textbox_value_clear(t_textbox *textbox, int len);
 /*
 ** OBJECTS FUNCTIONS
 */

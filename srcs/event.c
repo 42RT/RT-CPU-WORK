@@ -29,6 +29,58 @@ void		event_textbox_edit(t_gui *gui, t_textbox *textbox, char *color)
 	TTF_CloseFont(TTF->font);
 }
 
+void		event_textbox_value_force(t_textbox *textbox, char *forced_value)
+{
+	int i;
+	int j;
+
+	i = textbox->maxlen - 1;
+	j = ft_strlen(forced_value) - 1;
+	printf("[%s] value %s not allowed, forcing to %s\n", textbox->tag, textbox->value, forced_value);
+	while (j >= 0)
+	{
+		textbox->value[i] = forced_value[j];
+		j--;
+		i--;
+	}
+	while (i >= 0)
+		textbox->value[i--] = ' ';
+}
+
+void		event_textbox_value_allowed(t_textbox *textbox)
+{
+	if (ft_strstr(textbox->tag, "__X") || ft_strstr(textbox->tag, "__Y")
+		|| ft_strstr(textbox->tag, "__Z"))
+	{
+		if (ft_atoi(textbox->value) > GUI_XYZ_MAX)
+			event_textbox_value_force(textbox, ft_itoa(GUI_XYZ_MAX));
+		if (ft_atoi(textbox->value) < GUI_XYZ_MIN)
+			event_textbox_value_force(textbox, ft_itoa(GUI_XYZ_MIN));
+	}
+	if (ft_strstr(textbox->tag, "__V") || ft_strstr(textbox->tag, "__H"))
+	{
+		if (ft_atoi(textbox->value) > GUI_VH_MAX)
+			event_textbox_value_force(textbox, ft_itoa(GUI_VH_MAX));
+		if (ft_atoi(textbox->value) < GUI_VH_MIN)
+			event_textbox_value_force(textbox, ft_itoa(GUI_VH_MIN));
+	}
+	if (ft_strstr(textbox->tag, "__R") || ft_strstr(textbox->tag, "__G")
+		|| ft_strstr(textbox->tag, "__B") || ft_strstr(textbox->tag, "__A"))
+	{
+		if (ft_atoi(textbox->value) > GUI_RGBA_MAX)
+			event_textbox_value_force(textbox, ft_itoa(GUI_RGBA_MAX));
+		if (ft_atoi(textbox->value) < GUI_RGBA_MIN)
+			event_textbox_value_force(textbox, ft_itoa(GUI_RGBA_MIN));
+	}
+	if (ft_strstr(textbox->tag,"RFR") || ft_strstr(textbox->tag, "RFL"))
+	{
+		if (ft_atoi(textbox->value) > GUI_INDEX_MAX)
+			event_textbox_value_force(textbox, ft_itoa(GUI_INDEX_MAX));
+		if (ft_atoi(textbox->value) < GUI_INDEX_MIN)
+			event_textbox_value_force(textbox, ft_itoa(GUI_INDEX_MIN));
+	}
+}
+
 void		event_widget_deselect(t_gui *gui)
 {
 	t_textbox *tmp;
@@ -38,6 +90,7 @@ void		event_widget_deselect(t_gui *gui)
 	gui->widget_active = NULL;
 	gui_textbox_get_bmp(gui, tmp);
 	gui_textbox_display(gui, tmp);
+	event_textbox_value_allowed(tmp);
 	event_textbox_edit(gui, tmp, "black");
 }
 
@@ -57,71 +110,133 @@ void		event_textbox_select(t_gui *gui, t_textbox *textbox)
 	}
 }
 
-void		event_textbox_value_clear(t_textbox *textbox)
-{
-	textbox->value[1] = ' ';
-	textbox->value[2] = ' ';
-	textbox->value[3] = ' ';
-	textbox->vlen = 0;
-}
-
 void		event_textbox_value_rot(t_textbox *textbox, char nb)
 {
-	if (textbox->value[3] != ' ')
+	int i;
+	int reserved;
+
+	if (textbox->maxlen == 3)
+		reserved = 0;
+	else
+		reserved = 1;
+	i = textbox->maxlen - 1;
+	while (textbox->value[textbox->maxlen - 1] != ' ')
 	{
-		if (textbox->value[2] != ' ')
+		//printf("rot i : %d\n", i);
+		if (i == reserved && textbox->value[i] != ' ')
 		{
-			if (textbox->value[1] == ' ')
-				textbox->value[1] = textbox->value[2];
-			else
-				event_textbox_value_clear(textbox);
+			//printf("0 isnt free, clearing\n");
+			gui_textbox_value_clear(textbox, textbox->maxlen);
+			i = textbox->maxlen;
 		}
-		textbox->value[2] = textbox->value[3];
+		else if (i > reserved && textbox->value[i - 1] == ' ')
+		{
+			//printf("swapping %d to %d\n", i, i - 1);
+			textbox->value[i - 1] = textbox->value[i];
+			//printf("free %d\n", i);
+			textbox->value[i] = ' ';
+			i += 2;
+		}
+		i--;
 	}
-	textbox->value[3] = nb;
+	if (i != textbox->maxlen - 1)
+		i--;
+	textbox->value[i] = nb;
+}
+
+void		event_textbox_backspace(t_textbox *textbox)
+{
+	int i;
+	int reserved;
+
+	if (textbox->maxlen == 3)
+		reserved = 0;
+	else
+		reserved = 1;
+	i = textbox->maxlen - 1;
+	textbox->value[i] = ' ';
+	while (i > reserved)
+	{
+		textbox->value[i] = textbox->value[i - 1];
+		i--;
+	}
+	textbox->value[reserved] = ' ';
+}
+
+void		gui_textbox_switch_select(t_gui *gui, t_textbox *textbox)
+{
+	int i;
+
+	i = 1;
+	if (textbox->id < BLOCK[textbox->p]->textbox_qt - 1)
+		event_textbox_select(gui, BLOCK[textbox->p]->textbox[textbox->id + 1]);
+	else
+	{
+		while ((textbox->p + i) < GUI_CONTAINER_TOTAL_NB)
+		{
+			if (BLOCK[textbox->p + i]->textbox)
+			{
+				event_textbox_select(gui, BLOCK[textbox->p + i]->textbox[0]);
+				i = GUI_CONTAINER_TOTAL_NB;
+			}
+			i++;
+			if ((textbox->p + i) == GUI_CONTAINER_TOTAL_NB)
+				i = -textbox->p;
+		}
+	}
 }
 
 void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
 {
-	if (event.key.keysym.scancode == 40 || event.key.keysym.scancode == 88)
+	/* Touches ENTER clavier + pavnum*/
+	if (SCANCODE == 40 || SCANCODE == 88)
 		event_widget_deselect(gui);
 	else
 	{
-		if (event.key.keysym.scancode == 87 || event.key.keysym.scancode == 86)
-		{
-			if (event.key.keysym.scancode == 87)
-				textbox->value[0] = ' ';
-			else
-				textbox->value[0] = '-';
-		}
-		else
+		/* Touches "+" et "-" pavnum*/
+		if (SCANCODE == 87 && textbox->maxlen > 3)
+			textbox->value[0] = ' ';
+		if (SCANCODE == 86 && textbox->maxlen > 3)
+			textbox->value[0] = '-';
+		/* Touches BACKSPACE et DELETE du clavier */
+		if (SCANCODE == 42)
+			event_textbox_backspace(textbox);
+		if (SCANCODE == 76)
+			gui_textbox_value_clear(textbox, textbox->maxlen);
+		/* Touche TAB */
+		if (SCANCODE == 43)
+			gui_textbox_switch_select(gui, textbox);
+		/* Touches 0-9 clavier + pavnum */
+		if ((SCANCODE >= 30 && SCANCODE <= 39)
+		|| (SCANCODE >= 89 && SCANCODE <= 98))
 		{
 			if (textbox->edited == 0)
 			{
-				event_textbox_value_clear(textbox);
+				gui_textbox_value_clear(textbox, textbox->maxlen);
 				textbox->edited = 1;
 			}
-			if (event.key.keysym.scancode == 30 || event.key.keysym.scancode == 89)
+			if (SCANCODE == 30 || SCANCODE == 89)
 				event_textbox_value_rot(textbox, '1');
-			if (event.key.keysym.scancode == 31 || event.key.keysym.scancode == 90)
+			if (SCANCODE == 31 || SCANCODE == 90)
 				event_textbox_value_rot(textbox, '2');
-			if (event.key.keysym.scancode == 32 || event.key.keysym.scancode == 91)
+			if (SCANCODE == 32 || SCANCODE == 91)
 				event_textbox_value_rot(textbox, '3');
-			if (event.key.keysym.scancode == 33 || event.key.keysym.scancode == 92)
+			if (SCANCODE == 33 || SCANCODE == 92)
 				event_textbox_value_rot(textbox, '4');
-			if (event.key.keysym.scancode == 34 || event.key.keysym.scancode == 93)
+			if (SCANCODE == 34 || SCANCODE == 93)
 				event_textbox_value_rot(textbox, '5');
-			if (event.key.keysym.scancode == 35 || event.key.keysym.scancode == 94)
+			if (SCANCODE == 35 || SCANCODE == 94)
 				event_textbox_value_rot(textbox, '6');
-			if (event.key.keysym.scancode == 36 || event.key.keysym.scancode == 95)
+			if (SCANCODE == 36 || SCANCODE == 95)
 				event_textbox_value_rot(textbox, '7');
-			if (event.key.keysym.scancode == 37 || event.key.keysym.scancode == 96)
+			if (SCANCODE == 37 || SCANCODE == 96)
 				event_textbox_value_rot(textbox, '8');
-			if (event.key.keysym.scancode == 38 || event.key.keysym.scancode == 97)
+			if (SCANCODE == 38 || SCANCODE == 97)
 				event_textbox_value_rot(textbox, '9');
-			if (event.key.keysym.scancode == 39 || event.key.keysym.scancode == 98)
+			if (SCANCODE  == 39 || SCANCODE == 98)
 				event_textbox_value_rot(textbox, '0');
 		}
+		//printf("new total value = .%s.\n", textbox->value);
 		gui_textbox_get_bmp(gui, textbox);
 		gui_textbox_display(gui, textbox);
 		event_textbox_edit(gui, textbox, "white");
@@ -130,7 +245,7 @@ void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
 
 static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 {
-	//printf("EVENT : KEY = %d\n", event.key.keysym.scancode);
+	//printf("EVENT : KEY = %d\n", SCANCODE);
 	if (event.key.keysym.sym == SDLK_ESCAPE)
 		rt_exit(env, gui);
 	if (gui->widget_active)
@@ -153,8 +268,6 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 	else if (ft_strstr(action, "EXIT") != NULL)
 		rt_exit(env, gui);
 }
-
-
 
 int			event_is_button(SDL_Event event, t_env *env, t_gui *gui)
 {
@@ -209,7 +322,7 @@ int			event_is_textbox(SDL_Event event, t_gui *gui)
 				(event.button.y >= TEXTBOX[i]->dest.y) &&
 				(event.button.y <= TEXTBOX[i]->dest.y + TEXTBOX[i]->dest.h))
 				{
-					printf("EVENT : TEXTBOX [%d][%d]\n", id, i);
+					//printf("EVENT : TEXTBOX [%d][%d]\n", id, i);
 					event_textbox_select(gui, TEXTBOX[i]);
 					return (1);
 				}

@@ -12,22 +12,43 @@ void	gui_block_textbox_init(t_gui *gui, int id, int nb)
 	{
 		if ((TEXTBOX[i] = (t_textbox *)malloc(sizeof(t_textbox))) == NULL)
 			error(1);
-		if ((TEXTBOX[i]->value = (char *)malloc(sizeof(char) * 5)) == NULL)
+		if ((TEXTBOX[i]->value = (char *)malloc(sizeof(char) * 7)) == NULL)
+			error(1);
+		if ((TEXTBOX[i]->value_tmp = (char *)malloc(sizeof(char) * 7)) == NULL)
 			error(1);
 		if ((TEXTBOX[i]->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
 			error(1);
-		TEXTBOX[i]->value[0] = ' ';
-		TEXTBOX[i]->value[1] = ' ';
-		TEXTBOX[i]->value[2] = ' ';
-		TEXTBOX[i]->value[3] = ' ';
-		TEXTBOX[i]->value[4] = '\0';
 		TEXTBOX[i]->edited = 0;
 		TEXTBOX[i]->align = -1;
 		TEXTBOX[i]->surface = NULL;
 		TEXTBOX[i]->bmp = NULL;
-		TEXTBOX[i]->vlen = 0;
 		i++;
 	}
+}
+
+void	gui_textbox_value_clear(t_textbox *textbox, int len)
+{
+	int i;
+
+	i = 0;
+	while (i < len)
+		textbox->value[i++] = ' ';
+	textbox->value[i] = '\0';
+	textbox->vlen = 0;
+}
+
+void		gui_textbox_get_len(t_textbox *textbox)
+{
+	if (ft_strstr(textbox->tag, "__X") || ft_strstr(textbox->tag, "__Y")
+		|| ft_strstr(textbox->tag, "__Z"))
+		textbox->maxlen = 6;
+	if (ft_strstr(textbox->tag, "__V") || ft_strstr(textbox->tag, "__H"))
+		textbox->maxlen = 4;
+	if (ft_strstr(textbox->tag, "__R") || ft_strstr(textbox->tag, "__G")
+		|| ft_strstr(textbox->tag, "__B") || ft_strstr(textbox->tag, "__A"))
+		textbox->maxlen = 3;
+	if (ft_strstr(textbox->tag, "RFR") || ft_strstr(textbox->tag, "RFL"))
+		textbox->maxlen = 3;
 }
 
 void	gui_textbox_set(int id, char *tag, int align_v, int align_h)
@@ -41,10 +62,14 @@ void	gui_textbox_set(int id, char *tag, int align_v, int align_h)
 	{
 		if (TEXTBOX[i]->align == -1)
 		{
-			TEXTBOX[i]->align = align_v;
-			TEXTBOX[i]->dest.w = GUI_TEXTBOX_W;
-			TEXTBOX[i]->dest.h = GUI_TEXTBOX_H;
 			TEXTBOX[i]->tag = tag;
+			gui_textbox_get_len(TEXTBOX[i]);
+			gui_textbox_value_clear(TEXTBOX[i], TEXTBOX[i]->maxlen);
+			TEXTBOX[i]->align = align_v;
+			TEXTBOX[i]->p = id;
+			TEXTBOX[i]->id = i;
+			TEXTBOX[i]->dest.w = TEXTBOX[i]->maxlen * (GUI_TEXTBOX_W / 4);
+			TEXTBOX[i]->dest.h = GUI_TEXTBOX_H;
 			TEXTBOX[i]->dest.y = BLOCK[id]->up_lim + align_h;
 			i = BLOCK[id]->textbox_qt;
 		}
