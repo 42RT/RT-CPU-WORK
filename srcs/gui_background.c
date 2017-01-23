@@ -14,7 +14,7 @@
 
 void		gui_background_get_set_n_display(t_gui *gui)
 {
-	gui->bg_surface = SDL_LoadBMP("./ressources/gui_texture/font2.bmp");
+	gui->bg_surface = SDL_LoadBMP(GUI_TEXTURE_PATH"bg_deadrealm.bmp");
 	if (!gui->bg_surface)
 		gui_error(2);
 	gui->bg_bmp = SDL_CreateTextureFromSurface(gui->img, gui->bg_surface);

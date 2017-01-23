@@ -12,7 +12,7 @@
 
 #include <rt.h>
 
-void		gui_container_bmp_set_n_display(t_gui *gui)
+void		gui_container_display(t_gui *gui)
 {
 	CONTAINER->dest.x = 0;
 	CONTAINER->dest.y = CONTAINER->up_lim;
@@ -45,10 +45,22 @@ void		gui_container_init(t_gui *gui)
 	CONTAINER->textbox = NULL;
 }
 
-void		gui_container_build(t_gui *gui, int mode, int px)
+void		gui_container_draw_lim(t_gui *gui)
 {
 	int i;
+	
+	i = 0;
+	while (i < gui->width)
+	{
+		gui->color = gui_color("white");
+		gui_pixel_put(gui, i, gui->tmp_lim);
+		i++;
+	}
 
+}
+
+void		gui_container_build(t_gui *gui, int mode, int px)
+{
 	gui_container_init(gui);
 	//gui_container_get_bmp(gui, px);
 	if (mode == 1)
@@ -58,13 +70,7 @@ void		gui_container_build(t_gui *gui, int mode, int px)
 	CONTAINER->up_lim = gui->tmp_lim;
 	CONTAINER->bot_lim = gui->tmp_lim + CONTAINER->px;
 	gui->tmp_lim = CONTAINER->bot_lim;
-	//gui_container_bmp_set_n_display(gui);
-	i = 0;
-	while (i < gui->width)
-	{
-		gui_color_set(gui, "container", "basic");
-		gui_pixel_put(gui, i, gui->tmp_lim);
-		i++;
-	}
+	//gui_container_draw_lim(gui);
+	//gui_container_display(gui);
 	gui->cbcnt++;
 }

@@ -52,7 +52,7 @@ void		event_textbox_select(t_gui *gui, t_textbox *textbox)
 		gui->widget_active = textbox;
 		gui_textbox_get_bmp(gui, textbox);
 		gui_textbox_display(gui, textbox);
-		textbox->vlen = 0;;
+		textbox->vlen = 0;
 		event_textbox_edit(gui, gui->widget_active, "white");
 	}
 }

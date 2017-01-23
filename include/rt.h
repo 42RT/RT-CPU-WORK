@@ -102,11 +102,13 @@
 # define GUI_FONT_FILE "Starjedi"
 # define GUI_FONT_STYLE
 # define GUI_FONT_BORDER_STEP 15
+# define GUI_OUTLINE_PX 0
 # define GUI_ALIGN_LEFT 0
 # define GUI_ALIGN_MID 1
 # define GUI_ALIGN_RIGHT 2
 # define GUI_TEXTBOX_W GUI_WIDTH / 8
 # define GUI_TEXTBOX_H 20
+# define GUI_BUTTON_H 20
 # define GUI_CONTAINER_TOTAL_NB 10
 # define GUI_CONTAINER_DYNAMIC_NB 1
 # define GUI_CONTAINER_RESERVED 640
@@ -355,7 +357,7 @@ typedef struct		s_gui
 	SDL_Surface		*bg_surface;
 	SDL_Texture		*bg_bmp;
 	SDL_Rect		bg_dest;
-	t_color			*color;
+	SDL_Color		color;
 	t_container		**container;
 	t_ttf			*ttf;
 	void			*widget_active;
@@ -449,7 +451,7 @@ void				camangle(t_env *env, double rx, double ry, double rz);
 t_gui				*get_gui(void);
 t_gui				*gui_init(void);
 void				gui_pixel_put(t_gui *gui, int x, int y);
-void				gui_color_set(t_gui *gui, char *type, char *style);
+SDL_Color			gui_color(char *choice);
 void				gui_background_get_set_n_display(t_gui *gui);
 void				gui_container_build(t_gui *gui, int mode, int px);
 void				gui_error(int n);

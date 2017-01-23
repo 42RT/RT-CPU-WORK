@@ -19,9 +19,32 @@ void	gui_block_button_init(t_gui *gui, int id, int nb)
 	}
 }
 
+void	gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int outline)
+{
+	int i;
+	int j;
+	
+	i = widget.x - outline;
+	while (i < widget.w + widget.x + outline)
+	{
+		j = widget.y - outline;
+		while (j < widget.h + widget.y + outline)
+		{
+			if (i <= widget.x || i >= widget.x + widget.w
+			|| j <= widget.y || j >= widget.y + widget.h)
+			{
+				gui->color = gui_color("white");
+				gui_pixel_put(gui, i, j);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void	gui_button_get_bmp(t_gui *gui, int id, int i)
 {
-	BUTTON[i]->surface = SDL_LoadBMP(GUI_TEXTURE_PATH"button.bmp");
+	BUTTON[i]->surface = SDL_LoadBMP(GUI_TEXTURE_PATH"button_jade.bmp");
 	if (!BUTTON[i]->surface)
 		gui_error(2);
 	BUTTON[i]->bmp = SDL_CreateTextureFromSurface(gui->img,
@@ -40,7 +63,7 @@ void	gui_button_display(t_gui *gui, int id, int i)
 		BUTTON[i]->dest.x = GUI_WIDTH - (BUTTON[i]->dest.w + 10);
 	else
 		BUTTON[i]->dest.x = BUTTON[i]->align;
-	BUTTON[i]->dest.y = BLOCK[id]->up_lim + (BLOCK[id]->px / 4);
+	BUTTON[i]->dest.y = BLOCK[id]->up_lim + (BLOCK[id]->px / 7);
 	SDL_RenderCopy(gui->img, BUTTON[i]->bmp, NULL, &BUTTON[i]->dest);
 	SDL_DestroyTexture(BUTTON[i]->bmp);
 	SDL_FreeSurface(BUTTON[i]->surface);
@@ -63,6 +86,7 @@ void	gui_button_create_all(t_gui *gui)
 			{
 				gui_button_get_bmp(gui, id, i);
 				gui_button_display(gui, id ,i);
+				gui_widget_draw_outline(gui, BUTTON[i]->dest, GUI_OUTLINE_PX);
 				i++;
 			}
 			id++;
@@ -98,12 +122,11 @@ void	gui_button_build(t_gui *gui)
 
 	gui_block_button_init(gui, 8, 3);
 	gui_block_button_init(gui, 9, 3);
+	h = 25;//GUI_BUTTON_H;
 	w = (GUI_WIDTH - (GUI_FONT_BORDER_STEP * 4)) / 3;
-	h = BLOCK[8]->px - 18;
 	gui_button_set(8, "DEL", GUI_ALIGN_LEFT, w, h);
 	gui_button_set(8, "SAVE", GUI_ALIGN_MID, w, h);
 	gui_button_set(8, "APPLY", GUI_ALIGN_RIGHT, w, h);
-	h = BLOCK[9]->px - 18;
 	gui_button_set(9, "PARAM", GUI_ALIGN_LEFT, w, h);
 	gui_button_set(9, "HELP", GUI_ALIGN_MID, w, h);
 	gui_button_set(9, "EXIT", GUI_ALIGN_RIGHT, w, h);

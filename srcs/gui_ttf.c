@@ -30,6 +30,20 @@ SDL_Color	gui_color(char *choice)
 		color.b = 0;
 		color.a = 255;
 	}
+	if (ft_strstr(choice, "red"))
+	{
+		color.r = 255;
+		color.g = 0;
+		color.b = 0;
+		color.a = 255;
+	}
+	if (ft_strstr(choice, "red brick"))
+	{
+		color.r = 153;
+		color.g = 5;
+		color.b = 5;
+		color.a = 255;
+	}
 	return (color);
 }
 
@@ -139,8 +153,8 @@ void	gui_font_build(t_gui *gui)
 	gui_write_textbox_tag("refraction", BLOCK[5]->textbox[0], GUI_FONT_BORDER_STEP);
 	gui_write_container("material", BLOCK[6], GUI_ALIGN_LEFT, 5);
 	gui_write_container("texture :", BLOCK[7], GUI_ALIGN_LEFT, 5);
-	gui_write_container("p", BLOCK[7], GUI_ALIGN_LEFT, 45);
-	gui_write_container("n", BLOCK[7], GUI_ALIGN_MID, 45);
+	gui_write_container("p", BLOCK[7], GUI_ALIGN_LEFT, 42);
+	gui_write_container("n", BLOCK[7], GUI_ALIGN_MID, 42);
 	gui_write_button("del", BLOCK[8]->button[0]);
 	gui_write_button("save", BLOCK[8]->button[1]);
 	gui_write_button("apply", BLOCK[8]->button[2]);

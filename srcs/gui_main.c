@@ -20,20 +20,6 @@ t_gui		*get_gui(void)
 	return (&gui);
 }
 
-void		gui_color_set(t_gui *gui, char *type, char *style)
-{
-	if (ft_strstr(type, "container") != NULL)
-	{
-		if (ft_strstr(style, "basic") != NULL)
-		{
-			gui->color->r = 255;
-			gui->color->g = 255;
-			gui->color->b = 255;
-			gui->color->a = 255;
-		}
-	}
-}
-
 void		gui_build(t_gui	*gui)
 {
 	printf("GUI : \033[33mBUILDING CONTENT ...\033[0m\n");
@@ -70,10 +56,6 @@ void		gui_alloc(void)
 	t_gui	*gui;
 
 	gui = get_gui();
-	//if ((gui = (t_gui *)malloc(sizeof(t_gui))) == NULL)
-	//	error(1);
-	if ((gui->color = (t_color *)malloc(sizeof(t_color))) == NULL)
-		error(1);
 	if ((gui->display = (SDL_DisplayMode *)malloc(sizeof(SDL_DisplayMode))) == NULL)
 		error(1);
 	if ((gui->ttf = (t_ttf *)malloc(sizeof(t_ttf))) == NULL)
