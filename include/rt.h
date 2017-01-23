@@ -117,6 +117,8 @@
 # define GUI_RGBA_MIN 0
 # define GUI_INDEX_MAX 35
 # define GUI_INDEX_MIN 0
+# define GUI_HELP_W 360
+# define GUI_HELP_H 530
 # define GUI_CONTAINER_TOTAL_NB 10
 # define GUI_CONTAINER_DYNAMIC_NB 1
 # define GUI_CONTAINER_RESERVED 640
@@ -129,6 +131,7 @@
 # define TEXTBOX BLOCK[id]->textbox
 # define ALT_SCREEN_CENTERED 2325
 # define SCANCODE event.key.keysym.scancode
+# define HELP gui->help
 
 # include <math.h>
 # include <fcntl.h>
@@ -338,6 +341,7 @@ typedef struct		s_textbox
 	char			*tag;
 	char			*value;
 	char			*value_tmp;
+	char			*nature;
 	int				id;
 	int				p;
 	int				vlen;
@@ -361,6 +365,14 @@ typedef struct		s_container
 	t_textbox		**textbox;
 }					t_container;
 
+typedef struct		s_help
+{
+	SDL_Surface		*surface;
+	SDL_Texture		*bmp;
+	SDL_Rect		dest;
+	char			*nature;
+}					t_help;
+
 typedef struct		s_gui
 {
 	SDL_Window		*win;
@@ -373,6 +385,7 @@ typedef struct		s_gui
 	SDL_Color		color;
 	t_container		**container;
 	t_ttf			*ttf;
+	t_help			*help;
 	void			*widget_active;
 	int				cbcnt;
 	int				width;
@@ -477,6 +490,14 @@ void				gui_textbox_display(t_gui *gui, t_textbox *textbox);
 void				gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color);
 void				event_textbox_edit(t_gui *gui, t_textbox *textbox, char *color);
 void				gui_textbox_value_clear(t_textbox *textbox, int len);
+void				event_widget_deselect(t_gui *gui);
+void				gui_main_refresh(t_gui *gui);
+void				gui_textbox_create_all(t_gui *gui);
+void				gui_button_create_all(t_gui *gui);
+void				gui_help_toggle(t_gui *gui);
+void				gui_help_open(t_gui *gui);
+void				gui_help_close(t_gui *gui);
+void				gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int outline, char *color);
 /*
 ** OBJECTS FUNCTIONS
 */

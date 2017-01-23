@@ -20,6 +20,14 @@ t_gui		*get_gui(void)
 	return (&gui);
 }
 
+void		gui_main_refresh(t_gui *gui)
+{
+	gui_background_get_set_n_display(gui);
+	gui_textbox_create_all(gui);
+	gui_button_create_all(gui);
+	gui_font_build(gui);
+}
+
 void		gui_build(t_gui	*gui)
 {
 	printf("GUI : \033[33mBUILDING CONTENT ...\033[0m\n");

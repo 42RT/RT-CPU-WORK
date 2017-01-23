@@ -81,7 +81,7 @@ void		event_textbox_value_allowed(t_textbox *textbox)
 	}
 }
 
-void		event_widget_deselect(t_gui *gui)
+void		event_textbox_deselect(t_gui *gui)
 {
 	t_textbox *tmp;
 	// save value
@@ -92,6 +92,29 @@ void		event_widget_deselect(t_gui *gui)
 	gui_textbox_display(gui, tmp);
 	event_textbox_value_allowed(tmp);
 	event_textbox_edit(gui, tmp, "black");
+
+}
+
+void		event_widget_deselect(t_gui *gui)
+{
+	int	id;
+	int	i;
+
+	id = 0;
+	while (id < GUI_CONTAINER_TOTAL_NB)
+	{
+		if (BLOCK[id]->textbox)
+		{
+			i = 0;
+			while (i < BLOCK[id]->textbox_qt)
+			{
+				if (TEXTBOX[i] == gui->widget_active)
+					event_textbox_deselect(gui);
+				i++;
+			};
+		}
+		id++;
+	}
 }
 
 void		event_textbox_select(t_gui *gui, t_textbox *textbox)
@@ -264,7 +287,7 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 	else if (ft_strstr(action, "PARAM") != NULL)
 		return;
 	else if (ft_strstr(action, "HELP") != NULL)
-		return;
+		gui_help_toggle(gui);
 	else if (ft_strstr(action, "EXIT") != NULL)
 		rt_exit(env, gui);
 }
@@ -340,7 +363,7 @@ void		event_mouse_click(SDL_Event event, t_env *env, t_gui *gui)
 	if (event.button.button == SDL_BUTTON_LEFT)
 	{
 		if (!event_is_button(event, env, gui))
-			if(!event_is_textbox(event, gui))
+			if (!event_is_textbox(event, gui))
 				if (gui->widget_active)
 					event_widget_deselect(gui);
 	}

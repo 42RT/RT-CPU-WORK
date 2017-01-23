@@ -12,39 +12,29 @@
 
 #include <rt.h>
 
+SDL_Color	gui_color_data_set(int r, int g, int b, int a)
+{
+	SDL_Color	color;
+
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	color.a = a;
+	return (color);
+}
+
 SDL_Color	gui_color(char *choice)
 {
-	SDL_Color color;
-
 	if (ft_strstr(choice, "white"))
-	{
-		color.r = 255;
-		color.g = 255;
-		color.b = 255;
-		color.a = 255;
-	}
+		return (gui_color_data_set(255, 255, 255, 255));
 	if (ft_strstr(choice, "black"))
-	{
-		color.r = 0;
-		color.g = 0;
-		color.b = 0;
-		color.a = 255;
-	}
+		return (gui_color_data_set(0, 0, 0, 255));
 	if (ft_strstr(choice, "red"))
-	{
-		color.r = 255;
-		color.g = 0;
-		color.b = 0;
-		color.a = 255;
-	}
+		return (gui_color_data_set(255, 0, 0, 255));
 	if (ft_strstr(choice, "red brick"))
-	{
-		color.r = 153;
-		color.g = 5;
-		color.b = 5;
-		color.a = 255;
-	}
-	return (color);
+		return (gui_color_data_set(153, 5, 5, 255));
+	if (ft_strstr(choice, "purple deep"))
+		return (gui_color_data_set(31, 17, 70, 255));
 }
 
 void	gui_font_init(t_gui *gui, char *ttf, int size)

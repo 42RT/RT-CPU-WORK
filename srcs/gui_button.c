@@ -19,7 +19,7 @@ void	gui_block_button_init(t_gui *gui, int id, int nb)
 	}
 }
 
-void	gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int outline)
+void	gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int outline, char *color)
 {
 	int i;
 	int j;
@@ -33,7 +33,7 @@ void	gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int outline)
 			if (i <= widget.x || i >= widget.x + widget.w
 			|| j <= widget.y || j >= widget.y + widget.h)
 			{
-				gui->color = gui_color("white");
+				gui->color = gui_color(color);
 				gui_pixel_put(gui, i, j);
 			}
 			j++;
@@ -86,7 +86,7 @@ void	gui_button_create_all(t_gui *gui)
 			{
 				gui_button_get_bmp(gui, id, i);
 				gui_button_display(gui, id ,i);
-				gui_widget_draw_outline(gui, BUTTON[i]->dest, GUI_OUTLINE_PX);
+				gui_widget_draw_outline(gui, BUTTON[i]->dest, GUI_OUTLINE_PX, "white");
 				i++;
 			}
 			id++;
