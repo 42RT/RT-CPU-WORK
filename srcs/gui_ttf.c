@@ -122,6 +122,25 @@ void	gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color)
 
 }
 
+void	gui_write_help(t_gui *gui, char *text, int align, int y)
+{
+	TTF_SizeText(TTF->font, text, &TTF->w_px, &TTF->h_px);
+	TTF->texture = SDL_CreateTextureFromSurface(gui->img,
+		TTF_RenderText_Blended(TTF->font, text, gui_color("white")));
+	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
+	if (align == GUI_ALIGN_LEFT)
+		TTF->rect.x = HELP->dest.x + 10;
+	else if (align == GUI_ALIGN_MID)
+		TTF->rect.x = HELP->dest.x + (HELP->dest.w / 2) - (TTF->w_px / 2);
+	else if (align == GUI_ALIGN_RIGHT)
+		TTF->rect.x = HELP->dest.x + HELP->dest.w - TTF->w_px - 10;
+	else
+		TTF->rect.x = align;
+	TTF->rect.y = y;
+	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	SDL_DestroyTexture(TTF->texture);
+}
+
 void	gui_font_build(t_gui *gui)
 {
 	gui_font_init(gui, "Starjedi", GUI_FONT_SIZE);
