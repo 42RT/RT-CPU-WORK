@@ -22,7 +22,7 @@ void	gui_block_textbox_init(t_gui *gui, int id, int nb)
 		TEXTBOX[i]->align = -1;
 		TEXTBOX[i]->surface = NULL;
 		TEXTBOX[i]->bmp = NULL;
-		TEXTBOX[i]->nature = "T_TEXTBOX";
+		TEXTBOX[i]->nature = TXB;
 		i++;
 	}
 }

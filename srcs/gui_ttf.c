@@ -29,10 +29,10 @@ SDL_Color	gui_color(char *choice)
 		return (gui_color_data_set(255, 255, 255, 255));
 	if (ft_strstr(choice, "black"))
 		return (gui_color_data_set(0, 0, 0, 255));
+	if (ft_strstr(choice, "red brick"))
+		return (gui_color_data_set(130, 5, 5, 255));
 	if (ft_strstr(choice, "red"))
 		return (gui_color_data_set(255, 0, 0, 255));
-	if (ft_strstr(choice, "red brick"))
-		return (gui_color_data_set(153, 5, 5, 255));
 	if (ft_strstr(choice, "purple deep"))
 		return (gui_color_data_set(31, 17, 70, 255));
 }
@@ -71,14 +71,14 @@ void	gui_write_container(char *text, t_container *container, int x, int y)
 	SDL_DestroyTexture(TTF->texture);
 }
 
-void	gui_write_button(char *text, t_button *button)
+void	gui_write_button(char *text, t_button *button, char *color)
 {
 	t_gui *gui;
 
 	gui = get_gui();
 	TTF_SizeText(TTF->font, text, &TTF->w_px, &TTF->h_px);
 	TTF->texture = SDL_CreateTextureFromSurface(gui->img,
-		TTF_RenderText_Blended(TTF->font, text, gui_color("white")));
+		TTF_RenderText_Blended(TTF->font, text, gui_color(color)));
 	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
 	TTF->rect.x = button->dest.x + ((button->dest.w - TTF->w_px) / 2);
 	TTF->rect.y = button->dest.y + ((button->dest.h - TTF->h_px - 4) / 2);
@@ -117,9 +117,29 @@ void	gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color)
 	else
 		TTF->rect.x = textbox->dest.x + 3;
 	TTF->rect.y = textbox->dest.y + ((textbox->dest.h - TTF->h_px) / 2);
+	printf("writing textbox[%d][%d] %s\n", textbox->p, textbox->id, color);
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
 	SDL_DestroyTexture(TTF->texture);
 
+}
+
+void	gui_write_param(t_gui *gui, char *text, int align, int y)
+{
+	TTF_SizeText(TTF->font, text, &TTF->w_px, &TTF->h_px);
+	TTF->texture = SDL_CreateTextureFromSurface(gui->img,
+		TTF_RenderText_Blended(TTF->font, text, gui_color("white")));
+	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
+	if (align == GUI_ALIGN_LEFT)
+		TTF->rect.x = PARAM->dest.x + 10;
+	else if (align == GUI_ALIGN_MID)
+		TTF->rect.x = PARAM->dest.x + (PARAM->dest.w / 2) - (TTF->w_px / 2);
+	else if (align == GUI_ALIGN_RIGHT)
+		TTF->rect.x = PARAM->dest.x + PARAM->dest.w - TTF->w_px - 10;
+	else
+		TTF->rect.x = align;
+	TTF->rect.y = y;
+	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	SDL_DestroyTexture(TTF->texture);
 }
 
 void	gui_write_help(t_gui *gui, char *text, int align, int y)
@@ -164,11 +184,11 @@ void	gui_font_build(t_gui *gui)
 	gui_write_container("texture :", BLOCK[7], GUI_ALIGN_LEFT, 5);
 	gui_write_container("p", BLOCK[7], GUI_ALIGN_LEFT, 42);
 	gui_write_container("n", BLOCK[7], GUI_ALIGN_MID, 42);
-	gui_write_button("del", BLOCK[8]->button[0]);
-	gui_write_button("save", BLOCK[8]->button[1]);
-	gui_write_button("apply", BLOCK[8]->button[2]);
-	gui_write_button("param", BLOCK[9]->button[0]);
-	gui_write_button("help", BLOCK[9]->button[1]);
-	gui_write_button("exit", BLOCK[9]->button[2]);
+	gui_write_button("del", BLOCK[8]->button[0], "white");
+	gui_write_button("save", BLOCK[8]->button[1], "white");
+	gui_write_button("apply", BLOCK[8]->button[2], "white");
+	gui_write_button("param", BLOCK[9]->button[0], "white");
+	gui_write_button("help", BLOCK[9]->button[1], "white");
+	gui_write_button("exit", BLOCK[9]->button[2], "white");
 	TTF_CloseFont(TTF->font);
 }

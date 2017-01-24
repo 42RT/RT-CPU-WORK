@@ -68,6 +68,8 @@ void		gui_alloc(void)
 		error(1);
 	if ((gui->ttf = (t_ttf *)malloc(sizeof(t_ttf))) == NULL)
 		error(1);
+	HELP = NULL;
+	PARAM = NULL;
 }
 
 t_gui		*gui_init(void)

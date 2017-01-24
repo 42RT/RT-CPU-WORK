@@ -4,7 +4,7 @@ void	gui_help_build(t_gui *gui)
 {
 	gui_font_init(gui, "Audiowide-Regular", GUI_FONT_SIZE + 1);
 	gui_write_help(gui, "shortcut", GUI_ALIGN_MID, 20);
-	gui_write_help(gui, "[text input]", GUI_ALIGN_LEFT, 45);
+	gui_write_help(gui, "[text event]", GUI_ALIGN_LEFT, 45);
 	gui_write_help(gui, "(key)", GUI_ALIGN_RIGHT, 45);
 	gui_write_help(gui, "       -----------------------", GUI_ALIGN_LEFT, 60);
 	gui_write_help(gui, "[set pos/neg]", GUI_ALIGN_LEFT, 75);
@@ -29,7 +29,7 @@ void	gui_help_get_bmp_n_display(t_gui *gui)
 	if (!HELP->bmp)
 		gui_error(3);
 	SDL_SetTextureBlendMode(HELP->bmp, SDL_BLENDMODE_BLEND);
-	printf("%d\n", SDL_SetTextureAlphaMod(HELP->bmp, 240));
+	SDL_SetTextureAlphaMod(HELP->bmp, 240);
 	HELP->dest.x = 20;
 	HELP->dest.y = 20;
 	HELP->dest.w = GUI_HELP_W;
@@ -47,8 +47,8 @@ void	gui_help_open(t_gui *gui)
 		error(1);
 	if (gui->widget_active)
 		event_widget_deselect(gui);
-	HELP->nature = "T_HELP";
 	gui->widget_active = HELP;
+	gui_button_selected(gui, BLOCK[9]->button[1]);
 	gui_help_get_bmp_n_display(gui);
 	gui_help_build(gui);
 }

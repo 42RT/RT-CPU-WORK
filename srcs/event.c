@@ -97,24 +97,8 @@ void		event_textbox_deselect(t_gui *gui)
 
 void		event_widget_deselect(t_gui *gui)
 {
-	int	id;
-	int	i;
-
-	id = 0;
-	while (id < GUI_CONTAINER_TOTAL_NB)
-	{
-		if (BLOCK[id]->textbox)
-		{
-			i = 0;
-			while (i < BLOCK[id]->textbox_qt)
-			{
-				if (TEXTBOX[i] == gui->widget_active)
-					event_textbox_deselect(gui);
-				i++;
-			};
-		}
-		id++;
-	}
+	if (*(int *)gui->widget_active == TXB)
+		event_textbox_deselect(gui);
 }
 
 void		event_textbox_select(t_gui *gui, t_textbox *textbox)
@@ -214,6 +198,9 @@ void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
 	/* Touches ENTER clavier + pavnum*/
 	if (SCANCODE == 40 || SCANCODE == 88)
 		event_widget_deselect(gui);
+	/* Touche TAB */
+	else if (SCANCODE == 43)
+		gui_textbox_switch_select(gui, textbox);
 	else
 	{
 		/* Touches "+" et "-" pavnum*/
@@ -226,9 +213,6 @@ void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
 			event_textbox_backspace(textbox);
 		if (SCANCODE == 76)
 			gui_textbox_value_clear(textbox, textbox->maxlen);
-		/* Touche TAB */
-		if (SCANCODE == 43)
-			gui_textbox_switch_select(gui, textbox);
 		/* Touches 0-9 clavier + pavnum */
 		if ((SCANCODE >= 30 && SCANCODE <= 39)
 		|| (SCANCODE >= 89 && SCANCODE <= 98))
@@ -278,17 +262,25 @@ static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 
 void		button_perform_action(t_env *env, t_gui *gui, char *action)
 {
-	if (ft_strstr(action, "DEL") != NULL)
+	if (ft_strstr(action, "del") != NULL)
 		return;
-	else if (ft_strstr(action, "SAVE") != NULL)
+	else if (ft_strstr(action, "save") != NULL)
 		return;
-	else if (ft_strstr(action, "APPLY") != NULL)
+	else if (ft_strstr(action, "apply") != NULL)
 		return;
-	else if (ft_strstr(action, "PARAM") != NULL)
-		return;
-	else if (ft_strstr(action, "HELP") != NULL)
+	else if (ft_strstr(action, "param") != NULL)
+	{
+		if (gui->widget_active && gui->widget_active == gui->help)
+			gui_help_toggle(gui);
+		gui_param_toggle(gui);
+	}
+	else if (ft_strstr(action, "help") != NULL)
+	{
+		if (gui->widget_active && gui->widget_active == gui->param)
+			gui_param_toggle(gui);
 		gui_help_toggle(gui);
-	else if (ft_strstr(action, "EXIT") != NULL)
+	}
+	else if (ft_strstr(action, "exit") != NULL)
 		rt_exit(env, gui);
 }
 

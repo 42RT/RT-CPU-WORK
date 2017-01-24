@@ -1,5 +1,13 @@
 #include <rt.h>
 
+void	gui_button_selected(t_gui *gui, t_button *button)
+{
+	gui_font_init(gui, "Starjedi", GUI_FONT_SIZE);
+	gui_widget_draw_outline(gui, button->dest, 0, "red brick");
+	gui_write_button(button->action, button, "red brick");
+	TTF_CloseFont(TTF->font);
+}
+
 void	gui_block_button_init(t_gui *gui, int id, int nb)
 {
 	int i;
@@ -124,11 +132,11 @@ void	gui_button_build(t_gui *gui)
 	gui_block_button_init(gui, 9, 3);
 	h = 25;//GUI_BUTTON_H;
 	w = (GUI_WIDTH - (GUI_FONT_BORDER_STEP * 4)) / 3;
-	gui_button_set(8, "DEL", GUI_ALIGN_LEFT, w, h);
-	gui_button_set(8, "SAVE", GUI_ALIGN_MID, w, h);
-	gui_button_set(8, "APPLY", GUI_ALIGN_RIGHT, w, h);
-	gui_button_set(9, "PARAM", GUI_ALIGN_LEFT, w, h);
-	gui_button_set(9, "HELP", GUI_ALIGN_MID, w, h);
-	gui_button_set(9, "EXIT", GUI_ALIGN_RIGHT, w, h);
+	gui_button_set(8, "del", GUI_ALIGN_LEFT, w, h);
+	gui_button_set(8, "save", GUI_ALIGN_MID, w, h);
+	gui_button_set(8, "apply", GUI_ALIGN_RIGHT, w, h);
+	gui_button_set(9, "param", GUI_ALIGN_LEFT, w, h);
+	gui_button_set(9, "help", GUI_ALIGN_MID, w, h);
+	gui_button_set(9, "exit", GUI_ALIGN_RIGHT, w, h);
 	gui_button_create_all(gui);
 }

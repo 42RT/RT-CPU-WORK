@@ -132,6 +132,7 @@
 # define ALT_SCREEN_CENTERED 2325
 # define SCANCODE event.key.keysym.scancode
 # define HELP gui->help
+# define PARAM gui->param
 
 # include <math.h>
 # include <fcntl.h>
@@ -262,6 +263,7 @@ typedef struct		s_spot
 	t_vec			spotpos;
 	t_color			color;
 	t_ray			ray;
+	char			*nature;
 	struct s_spot	*first;
 	struct s_spot	*next;
 }					t_spot;
@@ -309,6 +311,12 @@ typedef struct		s_env
 	t_spot			*spot;
 }					t_env;
 
+typedef enum
+{
+					BTN,
+					TXB
+}					widget_type;
+
 typedef struct		s_ttf
 {
 	TTF_Font		*font;
@@ -325,6 +333,7 @@ typedef struct		s_scroll
 
 typedef struct		s_button
 {
+	widget_type		nature;
 	int				align;
 	SDL_Surface		*surface;
 	SDL_Texture		*bmp;
@@ -334,6 +343,7 @@ typedef struct		s_button
 
 typedef struct		s_textbox
 {
+	widget_type		nature;
 	int				align;
 	SDL_Surface		*surface;
 	SDL_Texture		*bmp;
@@ -341,7 +351,6 @@ typedef struct		s_textbox
 	char			*tag;
 	char			*value;
 	char			*value_tmp;
-	char			*nature;
 	int				id;
 	int				p;
 	int				vlen;
@@ -370,8 +379,14 @@ typedef struct		s_help
 	SDL_Surface		*surface;
 	SDL_Texture		*bmp;
 	SDL_Rect		dest;
-	char			*nature;
 }					t_help;
+
+typedef struct		s_param
+{
+	SDL_Surface		*surface;
+	SDL_Texture		*bmp;
+	SDL_Rect		dest;
+}					t_param;
 
 typedef struct		s_gui
 {
@@ -386,6 +401,7 @@ typedef struct		s_gui
 	t_container		**container;
 	t_ttf			*ttf;
 	t_help			*help;
+	t_param			*param;
 	void			*widget_active;
 	int				cbcnt;
 	int				width;
@@ -488,6 +504,7 @@ void				gui_textbox_build(t_gui *gui);
 void				gui_textbox_get_bmp(t_gui *gui, t_textbox *textbox);
 void				gui_textbox_display(t_gui *gui, t_textbox *textbox);
 void				gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color);
+void				gui_write_button(char *text, t_button *button, char *color);
 void				event_textbox_edit(t_gui *gui, t_textbox *textbox, char *color);
 void				gui_textbox_value_clear(t_textbox *textbox, int len);
 void				event_widget_deselect(t_gui *gui);
@@ -497,6 +514,11 @@ void				gui_button_create_all(t_gui *gui);
 void				gui_help_toggle(t_gui *gui);
 void				gui_help_open(t_gui *gui);
 void				gui_help_close(t_gui *gui);
+void				gui_write_help(t_gui *gui, char *text, int align, int y);
+void				gui_write_param(t_gui *gui, char *text, int align, int y);
+void				gui_param_toggle(t_gui *gui);
+void				gui_param_open(t_gui *gui);
+void				gui_param_close(t_gui *gui);
 void				gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int outline, char *color);
 /*
 ** OBJECTS FUNCTIONS
