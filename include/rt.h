@@ -102,13 +102,14 @@
 # define GUI_FONT_FILE "Starjedi"
 # define GUI_FONT_STYLE
 # define GUI_FONT_BORDER_STEP 15
-# define GUI_OUTLINE_PX 0
 # define GUI_ALIGN_LEFT 0
 # define GUI_ALIGN_MID 1
 # define GUI_ALIGN_RIGHT 2
 # define GUI_TEXTBOX_W GUI_WIDTH / 8
 # define GUI_TEXTBOX_H 20
+# define GUI_SCROLL_H 20
 # define GUI_BUTTON_H 20
+# define GUI_BUTTON_DEPTH 1
 # define GUI_XYZ_MAX 99999
 # define GUI_XYZ_MIN -99999
 # define GUI_VH_MAX 180
@@ -129,6 +130,7 @@
 # define TTF gui->ttf
 # define BUTTON BLOCK[id]->button
 # define TEXTBOX BLOCK[id]->textbox
+# define SCROLL BLOCK[id]->scroll
 # define ALT_SCREEN_CENTERED 2325
 # define SCANCODE event.key.keysym.scancode
 # define HELP gui->help
@@ -314,7 +316,8 @@ typedef struct		s_env
 typedef enum
 {
 					BTN,
-					TXB
+					TXB,
+					SCL
 }					widget_type;
 
 typedef struct		s_ttf
@@ -326,11 +329,6 @@ typedef struct		s_ttf
 	int				w_px;
 }					t_ttf;
 
-typedef struct		s_scroll
-{
-	int				align;
-}					t_scroll;
-
 typedef struct		s_button
 {
 	widget_type		nature;
@@ -341,6 +339,19 @@ typedef struct		s_button
 	char			*action;
 }					t_button;
 
+typedef struct		s_scroll
+{
+	widget_type		nature;
+	int				align;
+	SDL_Surface		*surface;
+	SDL_Texture		*bmp;
+	SDL_Rect		dest;
+	char			*tag;
+	t_button		*button;
+	int				id;
+	int				p;
+}					t_scroll;
+
 typedef struct		s_textbox
 {
 	widget_type		nature;
@@ -350,7 +361,6 @@ typedef struct		s_textbox
 	SDL_Rect		dest;
 	char			*tag;
 	char			*value;
-	char			*value_tmp;
 	int				id;
 	int				p;
 	int				vlen;
@@ -501,6 +511,7 @@ void				gui_font_init(t_gui *gui, char *ttf, int size);
 void				gui_font_build(t_gui *gui);
 void				gui_button_build(t_gui *gui);
 void				gui_textbox_build(t_gui *gui);
+void				gui_scroll_build(t_gui *gui);
 void				gui_textbox_get_bmp(t_gui *gui, t_textbox *textbox);
 void				gui_textbox_display(t_gui *gui, t_textbox *textbox);
 void				gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color);
@@ -519,7 +530,9 @@ void				gui_write_param(t_gui *gui, char *text, int align, int y);
 void				gui_param_toggle(t_gui *gui);
 void				gui_param_open(t_gui *gui);
 void				gui_param_close(t_gui *gui);
-void				gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int outline, char *color);
+void				gui_widget_draw_depth(t_gui *gui, SDL_Rect widget, int px, char *color);
+void				gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int px, char *color);
+void				gui_widget_draw_inline(t_gui *gui, SDL_Rect widget, int in, char *color);
 /*
 ** OBJECTS FUNCTIONS
 */

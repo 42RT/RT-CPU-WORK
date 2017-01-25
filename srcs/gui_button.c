@@ -3,7 +3,7 @@
 void	gui_button_selected(t_gui *gui, t_button *button)
 {
 	gui_font_init(gui, "Starjedi", GUI_FONT_SIZE);
-	gui_widget_draw_outline(gui, button->dest, 0, "red brick");
+	gui_widget_draw_outline(gui, button->dest, GUI_BUTTON_DEPTH, "red brick");
 	gui_write_button(button->action, button, "red brick");
 	TTF_CloseFont(TTF->font);
 }
@@ -27,19 +27,18 @@ void	gui_block_button_init(t_gui *gui, int id, int nb)
 	}
 }
 
-void	gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int outline, char *color)
+void	gui_widget_draw_depth(t_gui *gui, SDL_Rect widget, int px, char *color)
 {
 	int i;
 	int j;
 	
-	i = widget.x - outline;
-	while (i < widget.w + widget.x + outline)
+	i = widget.x - px;
+	while (i < widget.w + widget.x)
 	{
-		j = widget.y - outline;
-		while (j < widget.h + widget.y + outline)
+		j = widget.y - px;
+		while (j < widget.h + widget.y)
 		{
-			if (i <= widget.x || i >= widget.x + widget.w
-			|| j <= widget.y || j >= widget.y + widget.h)
+			if (i < widget.x || j < widget.y)
 			{
 				gui->color = gui_color(color);
 				gui_pixel_put(gui, i, j);
@@ -49,6 +48,53 @@ void	gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int outline, char *col
 		i++;
 	}
 }
+
+void	gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int px, char *color)
+{
+	int i;
+	int j;
+	
+	i = widget.x - px;
+	while (i < widget.w + widget.x + px)
+	{
+		j = widget.y - px;
+		while (j < widget.h + widget.y + px)
+		{
+			if (i < widget.x || i >= widget.x + widget.w
+			|| j < widget.y || j >= widget.y + widget.h)
+			{
+				gui->color = gui_color(color);
+				gui_pixel_put(gui, i, j);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	gui_widget_draw_in_line(t_gui *gui, SDL_Rect widget, int px, char *color)
+{
+	int i;
+	int j;
+	
+	i = widget.x;
+	while (i < widget.w + widget.x)
+	{
+		j = widget.y;
+		while (j < widget.h + widget.y)
+		{
+			if (i < widget.x + px || i >= widget.x + widget.w - px
+			|| j < widget.y + px || j >= widget.y + widget.h - px)
+			{
+				gui->color = gui_color(color);
+				gui_pixel_put(gui, i, j);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 
 void	gui_button_get_bmp(t_gui *gui, int id, int i)
 {
@@ -94,7 +140,7 @@ void	gui_button_create_all(t_gui *gui)
 			{
 				gui_button_get_bmp(gui, id, i);
 				gui_button_display(gui, id ,i);
-				gui_widget_draw_outline(gui, BUTTON[i]->dest, GUI_OUTLINE_PX, "white");
+				gui_widget_draw_depth(gui, BUTTON[i]->dest, GUI_BUTTON_DEPTH, "white");
 				i++;
 			}
 			id++;

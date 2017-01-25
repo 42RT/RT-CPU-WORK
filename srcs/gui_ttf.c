@@ -103,7 +103,24 @@ void	gui_write_textbox_tag(char *text, t_textbox *textbox, int align)
 	TTF->rect.y = textbox->dest.y + ((textbox->dest.h - TTF->h_px) / 2);
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
 	SDL_DestroyTexture(TTF->texture);
+}
 
+void	gui_write_scroll_tag(char *text, t_scroll *scroll, int align)
+{
+	t_gui *gui;
+
+	gui = get_gui();
+	TTF_SizeText(TTF->font, text, &TTF->w_px, &TTF->h_px);
+	TTF->texture = SDL_CreateTextureFromSurface(gui->img,
+		TTF_RenderText_Blended(TTF->font, text, gui_color("white")));
+	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
+	if (align == GUI_ALIGN_LEFT)
+		TTF->rect.x = scroll->dest.x - TTF->w_px - GUI_FONT_BORDER_STEP;
+	else
+		TTF->rect.x = align;
+	TTF->rect.y = scroll->dest.y + ((scroll->dest.h - TTF->h_px) / 2);
+	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	SDL_DestroyTexture(TTF->texture);
 }
 
 void	gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color)
@@ -117,7 +134,6 @@ void	gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color)
 	else
 		TTF->rect.x = textbox->dest.x + 3;
 	TTF->rect.y = textbox->dest.y + ((textbox->dest.h - TTF->h_px) / 2);
-	printf("writing textbox[%d][%d] %s\n", textbox->p, textbox->id, color);
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
 	SDL_DestroyTexture(TTF->texture);
 
@@ -180,10 +196,10 @@ void	gui_font_build(t_gui *gui)
 	gui_write_textbox_tag("a", BLOCK[3]->textbox[3], GUI_ALIGN_LEFT);
 	gui_write_textbox_tag("reflection", BLOCK[4]->textbox[0], GUI_FONT_BORDER_STEP);
 	gui_write_textbox_tag("refraction", BLOCK[5]->textbox[0], GUI_FONT_BORDER_STEP);
-	gui_write_container("material", BLOCK[6], GUI_ALIGN_LEFT, 5);
+	gui_write_scroll_tag("material", BLOCK[6]->scroll[0], GUI_FONT_BORDER_STEP);
 	gui_write_container("texture :", BLOCK[7], GUI_ALIGN_LEFT, 5);
-	gui_write_container("p", BLOCK[7], GUI_ALIGN_LEFT, 42);
-	gui_write_container("n", BLOCK[7], GUI_ALIGN_MID, 42);
+	gui_write_scroll_tag("p", BLOCK[7]->scroll[0], GUI_FONT_BORDER_STEP);
+	gui_write_scroll_tag("n", BLOCK[7]->scroll[1], GUI_ALIGN_LEFT);
 	gui_write_button("del", BLOCK[8]->button[0], "white");
 	gui_write_button("save", BLOCK[8]->button[1], "white");
 	gui_write_button("apply", BLOCK[8]->button[2], "white");

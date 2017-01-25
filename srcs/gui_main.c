@@ -54,6 +54,9 @@ void		gui_build(t_gui	*gui)
 	printf("GUI : \033[33mButton \033[0m: ");
 	gui_button_build(gui);
 	printf("\033[1;32mOK\033[0m\n");
+	printf("GUI : \033[33mScroll \033[0m: ");
+	gui_scroll_build(gui);
+	printf("\033[1;32mOK\033[0m\n");
 	printf("GUI : \033[33mFont \033[0m: ");
 	gui_font_build(gui);
 	printf("\033[1;32mOK\033[0m\n");

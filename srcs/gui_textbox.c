@@ -14,8 +14,6 @@ void	gui_block_textbox_init(t_gui *gui, int id, int nb)
 			error(1);
 		if ((TEXTBOX[i]->value = (char *)malloc(sizeof(char) * 7)) == NULL)
 			error(1);
-		if ((TEXTBOX[i]->value_tmp = (char *)malloc(sizeof(char) * 7)) == NULL)
-			error(1);
 		if ((TEXTBOX[i]->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
 			error(1);
 		TEXTBOX[i]->edited = 0;
@@ -65,7 +63,7 @@ void	gui_textbox_set(int id, char *tag, int align_v, int align_h)
 		{
 			TEXTBOX[i]->tag = tag;
 			gui_textbox_get_len(TEXTBOX[i]);
-			gui_textbox_value_clear(TEXTBOX[i], TEXTBOX[i]->maxlen);
+			gui_textbox_value_clear(TEXTBOX[i], TEXTBOX[i]->maxlen); // load sur conf plus tard
 			TEXTBOX[i]->align = align_v;
 			TEXTBOX[i]->p = id;
 			TEXTBOX[i]->id = i;
@@ -86,8 +84,7 @@ void	gui_textbox_get_bmp(t_gui *gui, t_textbox *textbox)
 		textbox->surface = SDL_LoadBMP(GUI_TEXTURE_PATH"textbox_white.bmp");
 	if (!textbox->surface)
 		gui_error(2);
-	textbox->bmp = SDL_CreateTextureFromSurface(gui->img,
-		textbox->surface);
+	textbox->bmp = SDL_CreateTextureFromSurface(gui->img, textbox->surface);
 	if (!textbox->bmp)
 		gui_error(3);
 }
@@ -125,6 +122,7 @@ void	gui_textbox_create_all(t_gui *gui)
 			{
 				gui_textbox_get_bmp(gui, TEXTBOX[i]);
 				gui_textbox_display(gui, TEXTBOX[i]);
+				gui_widget_draw_in_line(gui, TEXTBOX[i]->dest, 1, "black");
 				event_textbox_edit(gui, TEXTBOX[i], "black");
 				i++;
 			}

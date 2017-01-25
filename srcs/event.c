@@ -90,6 +90,7 @@ void		event_textbox_deselect(t_gui *gui)
 	gui->widget_active = NULL;
 	gui_textbox_get_bmp(gui, tmp);
 	gui_textbox_display(gui, tmp);
+	gui_widget_draw_in_line(gui, tmp->dest, 1, "black");
 	event_textbox_value_allowed(tmp);
 	event_textbox_edit(gui, tmp, "black");
 
@@ -112,6 +113,7 @@ void		event_textbox_select(t_gui *gui, t_textbox *textbox)
 		gui->widget_active = textbox;
 		gui_textbox_get_bmp(gui, textbox);
 		gui_textbox_display(gui, textbox);
+		gui_widget_draw_in_line(gui, textbox->dest, 1, "white");
 		textbox->vlen = 0;
 		event_textbox_edit(gui, gui->widget_active, "white");
 	}

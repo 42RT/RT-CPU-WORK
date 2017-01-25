@@ -58,6 +58,7 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_SRC)gui_container.c \
 		$(PATH_SRC)gui_button.c \
 		$(PATH_SRC)gui_textbox.c \
+		$(PATH_SRC)gui_scroll.c \
 		$(PATH_SRC)gui_help.c \
 		$(PATH_SRC)gui_param.c \
 		$(PATH_SRC)gui_main.c \
