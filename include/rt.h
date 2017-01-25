@@ -108,6 +108,7 @@
 # define GUI_TEXTBOX_W GUI_WIDTH / 8
 # define GUI_TEXTBOX_H 20
 # define GUI_SCROLL_H 20
+# define GUI_LIST_STEP 17
 # define GUI_BUTTON_H 20
 # define GUI_BUTTON_DEPTH 1
 # define GUI_XYZ_MAX 99999
@@ -131,6 +132,7 @@
 # define BUTTON BLOCK[id]->button
 # define TEXTBOX BLOCK[id]->textbox
 # define SCROLL BLOCK[id]->scroll
+# define SCROLL_B SCROLL[i]->button
 # define ALT_SCREEN_CENTERED 2325
 # define SCANCODE event.key.keysym.scancode
 # define HELP gui->help
@@ -348,6 +350,9 @@ typedef struct		s_scroll
 	SDL_Rect		dest;
 	char			*tag;
 	t_button		*button;
+	char			**value;
+	int				nb_value;
+	int				active_value;
 	int				id;
 	int				p;
 }					t_scroll;
@@ -522,6 +527,9 @@ void				event_widget_deselect(t_gui *gui);
 void				gui_main_refresh(t_gui *gui);
 void				gui_textbox_create_all(t_gui *gui);
 void				gui_button_create_all(t_gui *gui);
+void				gui_scroll_create_all(t_gui *gui);
+int					gui_scroll_value_select(t_gui *gui, SDL_Event event, t_scroll *scroll);
+void				gui_scroll_toggle(t_gui *gui, t_scroll *scroll);
 void				gui_help_toggle(t_gui *gui);
 void				gui_help_open(t_gui *gui);
 void				gui_help_close(t_gui *gui);
@@ -575,5 +583,4 @@ t_obj				*create_sphere_compose(t_vec pos, t_color color, float r);
 
 t_color				stripe(t_vec point);
 t_color				square(t_vec point);
-
-#endif
+ #endif

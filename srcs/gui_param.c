@@ -5,7 +5,6 @@ void	gui_param_build(t_gui *gui)
 	gui_font_init(gui, "Audiowide-Regular", GUI_FONT_SIZE + 1);
 	gui_write_param(gui, "options", GUI_ALIGN_MID, 20);
 	TTF_CloseFont(TTF->font);
-	printf("b\n");
 }
 
 void	gui_param_get_bmp_n_display(t_gui *gui)

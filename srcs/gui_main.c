@@ -25,6 +25,7 @@ void		gui_main_refresh(t_gui *gui)
 	gui_background_get_set_n_display(gui);
 	gui_textbox_create_all(gui);
 	gui_button_create_all(gui);
+	gui_scroll_create_all(gui);
 	gui_font_build(gui);
 }
 

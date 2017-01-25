@@ -100,6 +100,9 @@ void		event_widget_deselect(t_gui *gui)
 {
 	if (*(int *)gui->widget_active == TXB)
 		event_textbox_deselect(gui);
+	else if (*(int *)gui->widget_active == SCL)
+		gui_scroll_toggle(gui, (t_scroll *)gui->widget_active);
+
 }
 
 void		event_textbox_select(t_gui *gui, t_textbox *textbox)
@@ -252,18 +255,10 @@ void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
 	}
 }
 
-static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
-{
-	//printf("EVENT : KEY = %d\n", SCANCODE);
-	if (event.key.keysym.sym == SDLK_ESCAPE)
-		rt_exit(env, gui);
-	if (gui->widget_active)
-		event_textbox_insert(event, gui, gui->widget_active);
-	return (0);
-}
-
 void		button_perform_action(t_env *env, t_gui *gui, char *action)
 {
+	if (gui->widget_active)
+		event_widget_deselect(gui);
 	if (ft_strstr(action, "del") != NULL)
 		return;
 	else if (ft_strstr(action, "save") != NULL)
@@ -272,13 +267,14 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 		return;
 	else if (ft_strstr(action, "param") != NULL)
 	{
-		if (gui->widget_active && gui->widget_active == gui->help)
+		if (gui->help)
 			gui_help_toggle(gui);
+
 		gui_param_toggle(gui);
 	}
 	else if (ft_strstr(action, "help") != NULL)
 	{
-		if (gui->widget_active && gui->widget_active == gui->param)
+		if (gui->param)
 			gui_param_toggle(gui);
 		gui_help_toggle(gui);
 	}
@@ -319,13 +315,47 @@ int			event_is_button(SDL_Event event, t_env *env, t_gui *gui)
 	return (0);
 }
 
+int			event_is_scroll(SDL_Event event, t_gui *gui)
+{
+	int id;
+	int i;
+
+	id = 0;
+	while (id < GUI_CONTAINER_TOTAL_NB && !gui->param && !gui->help)
+	{
+		if (BLOCK[id]->scroll == NULL)
+			id++;
+		else
+		{
+			i = 0;
+			while (i < BLOCK[id]->scroll_qt)
+			{
+				if (SCROLL[i] == gui->widget_active)
+					return (gui_scroll_value_select(gui, event, SCROLL[i]));
+				if ((event.button.x >= SCROLL_B->dest.x) &&
+				(event.button.x <= SCROLL_B->dest.x + SCROLL_B->dest.w) &&
+				(event.button.y >= SCROLL_B->dest.y) &&
+				(event.button.y <= SCROLL_B->dest.y + SCROLL_B->dest.h))
+				{
+					printf("EVENT : SCROLL [%d][%d]\n", id, i);
+					gui_scroll_toggle(gui, SCROLL[i]);
+					return (1);
+				}
+				i++;
+			}
+			id++;
+		}
+	}
+	return (0);
+}
+
 int			event_is_textbox(SDL_Event event, t_gui *gui)
 {
 	int id;
 	int i;
 
 	id = 0;
-	while (id < GUI_CONTAINER_TOTAL_NB)
+	while (id < GUI_CONTAINER_TOTAL_NB && !gui->param && !gui->help)
 	{
 		if (BLOCK[id]->textbox == NULL)
 			id++;
@@ -339,7 +369,7 @@ int			event_is_textbox(SDL_Event event, t_gui *gui)
 				(event.button.y >= TEXTBOX[i]->dest.y) &&
 				(event.button.y <= TEXTBOX[i]->dest.y + TEXTBOX[i]->dest.h))
 				{
-					//printf("EVENT : TEXTBOX [%d][%d]\n", id, i);
+					printf("EVENT : TEXTBOX [%d][%d]\n", id, i);
 					event_textbox_select(gui, TEXTBOX[i]);
 					return (1);
 				}
@@ -351,18 +381,51 @@ int			event_is_textbox(SDL_Event event, t_gui *gui)
 	return (0);
 }
 
-
 void		event_mouse_click(SDL_Event event, t_env *env, t_gui *gui)
 {
 	if (event.button.button == SDL_BUTTON_LEFT)
 	{
-		if (!event_is_button(event, env, gui))
-			if (!event_is_textbox(event, gui))
-				if (gui->widget_active)
-					event_widget_deselect(gui);
+		if (!event_is_scroll(event, gui))
+			if (!event_is_button(event, env, gui))
+				if (!event_is_textbox(event, gui))
+					if (gui->widget_active)
+						event_widget_deselect(gui);
 	}
 }
 
+static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
+{
+	//printf("EVENT : KEY = %d\n", SCANCODE);
+	if (event.key.keysym.sym == SDLK_ESCAPE)
+		rt_exit(env, gui);
+	if (gui->widget_active)
+		event_textbox_insert(event, gui, gui->widget_active);
+	return (0);
+}
+
+/*void		event_mouse_motion(SDL_Event event, t_gui *gui)
+{
+	int id;
+	int i;
+
+	id = 0;
+	while ( && id < GUI_CONTAINER_TOTAL_NB && !gui->param && !gui->help)
+	{
+		i = 0;
+		while (i < BLOCK[id]->textbox_qt)
+		{
+			if ((event.button.x >= TEXTBOX[i]->dest.x) &&
+			(event.button.x <= TEXTBOX[i]->dest.x + TEXTBOX[i]->dest.w) &&
+			(event.button.y >= TEXTBOX[i]->dest.y) &&
+			(event.button.y <= TEXTBOX[i]->dest.y + TEXTBOX[i]->dest.h))
+			{
+				event_textbox_select(gui, TEXTBOX[i]);
+			}
+			i++;
+		}
+		id++;
+	}
+}*/
 
 int			event(SDL_Event event, t_env *env)
 {
@@ -376,6 +439,8 @@ int			event(SDL_Event event, t_env *env)
 		event_keydown(event, env, gui);
 	if (event.type == SDL_MOUSEBUTTONDOWN)
 		event_mouse_click(event, env, gui);
+	//if (event.type == SDL_MOUSEMOTION)
+	//	event_mouse_motion(event, gui);
 	SDL_RenderPresent(gui->img);
 	return (0);
 }
