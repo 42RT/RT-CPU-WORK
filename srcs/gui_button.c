@@ -8,6 +8,12 @@ void	gui_button_selected(t_gui *gui, t_button *button)
 	TTF_CloseFont(TTF->font);
 }
 
+void	gui_button_free(t_button *button)
+{
+	button->action = NULL;
+	free(button);
+}
+
 void	gui_block_button_init(t_gui *gui, int id, int nb)
 {
 	int i;

@@ -138,6 +138,8 @@
 # define SCANCODE event.key.keysym.scancode
 # define HELP gui->help
 # define PARAM gui->param
+# define PARAM_SCL PARAM->scroll[i]
+# define PARAM_SCL_B PARAM_SCL->button
 # define WIDGET gui->widget_active
 
 # include <math.h>
@@ -321,7 +323,9 @@ typedef enum
 {
 					BTN,
 					TXB,
-					SCL
+					SCL,
+					PRM,
+					HLP
 }					widget_type;
 
 typedef struct		s_ttf
@@ -394,6 +398,7 @@ typedef struct		s_container
 
 typedef struct		s_help
 {
+	widget_type		*nature;
 	SDL_Surface		*surface;
 	SDL_Texture		*bmp;
 	SDL_Rect		dest;
@@ -401,9 +406,13 @@ typedef struct		s_help
 
 typedef struct		s_param
 {
+	widget_type		nature;
+	int				active;
 	SDL_Surface		*surface;
 	SDL_Texture		*bmp;
 	SDL_Rect		dest;
+	t_scroll		**scroll;
+	int				scroll_qt;
 }					t_param;
 
 typedef struct		s_gui
@@ -519,6 +528,7 @@ void				gui_error(int n);
 void				gui_font_init(t_gui *gui, char *ttf, int size);
 void				gui_font_build(t_gui *gui);
 void				gui_button_build(t_gui *gui);
+void				gui_button_free(t_button *button);
 void				gui_textbox_build(t_gui *gui);
 void				gui_scroll_build(t_gui *gui);
 void				gui_textbox_get_bmp(t_gui *gui, t_textbox *textbox);
@@ -534,6 +544,7 @@ void				gui_button_create_all(t_gui *gui);
 void				gui_scroll_create_all(t_gui *gui);
 int					gui_scroll_value_select(t_gui *gui, SDL_Event event, t_scroll *scroll);
 void				gui_scroll_toggle(t_gui *gui, t_scroll *scroll);
+void				gui_scroll_free(t_scroll *scroll);
 void				gui_help_toggle(t_gui *gui);
 void				gui_help_open(t_gui *gui);
 void				gui_help_close(t_gui *gui);

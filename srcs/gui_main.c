@@ -22,11 +22,15 @@ t_gui		*get_gui(void)
 
 void		gui_main_refresh(t_gui *gui)
 {
+	//printf("Refreshing ...");
 	gui_background_get_set_n_display(gui);
 	gui_textbox_create_all(gui);
 	gui_button_create_all(gui);
 	gui_scroll_create_all(gui);
 	gui_font_build(gui);
+	if (PARAM && PARAM->active)
+		gui_param_refresh(gui);
+	//printf("Done\n");
 }
 
 void		gui_build(t_gui	*gui)
@@ -74,6 +78,7 @@ void		gui_alloc(void)
 		error(1);
 	HELP = NULL;
 	PARAM = NULL;
+	WIDGET = NULL;
 }
 
 t_gui		*gui_init(void)

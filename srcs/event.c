@@ -88,6 +88,7 @@ void		event_textbox_deselect(t_gui *gui)
 	tmp = gui->widget_active;
 	tmp->edited = 0;
 	gui->widget_active = NULL;
+	//printf("WIDGET NULL\n");
 	gui_textbox_get_bmp(gui, tmp);
 	gui_textbox_display(gui, tmp);
 	gui_widget_draw_in_line(gui, tmp->dest, 1, "black");
@@ -98,9 +99,10 @@ void		event_textbox_deselect(t_gui *gui)
 
 void		event_widget_deselect(t_gui *gui)
 {
-	if (*(int *)gui->widget_active == TXB)
+	//printf("EVENT WIDGET DESELECTOR : %d\n", *(int *)WIDGET);
+	if (*(int *)WIDGET == TXB)
 		event_textbox_deselect(gui);
-	else if (*(int *)gui->widget_active == SCL)
+	else if (*(int *)WIDGET == SCL)
 		gui_scroll_toggle(gui, (t_scroll *)gui->widget_active);
 
 }
@@ -114,6 +116,7 @@ void		event_textbox_select(t_gui *gui, t_textbox *textbox)
 		if (gui->widget_active)
 			event_widget_deselect(gui);
 		gui->widget_active = textbox;
+		//printf("WIDGET ACTIVE = %d\n", *(int *)WIDGET);
 		gui_textbox_get_bmp(gui, textbox);
 		gui_textbox_display(gui, textbox);
 		gui_widget_draw_in_line(gui, textbox->dest, 1, "white");
@@ -180,20 +183,23 @@ void		gui_textbox_switch_select(t_gui *gui, t_textbox *textbox)
 	int i;
 
 	i = 1;
-	if (textbox->id < BLOCK[textbox->p]->textbox_qt - 1)
-		event_textbox_select(gui, BLOCK[textbox->p]->textbox[textbox->id + 1]);
-	else
-	{
-		while ((textbox->p + i) < GUI_CONTAINER_TOTAL_NB)
+	if (*(int *)WIDGET == TXB)
 		{
-			if (BLOCK[textbox->p + i]->textbox)
+		if (textbox->id < BLOCK[textbox->p]->textbox_qt - 1)
+			event_textbox_select(gui, BLOCK[textbox->p]->textbox[textbox->id + 1]);
+		else
+		{
+			while ((textbox->p + i) < GUI_CONTAINER_TOTAL_NB)
 			{
-				event_textbox_select(gui, BLOCK[textbox->p + i]->textbox[0]);
-				i = GUI_CONTAINER_TOTAL_NB;
+				if (BLOCK[textbox->p + i]->textbox)
+				{
+					event_textbox_select(gui, BLOCK[textbox->p + i]->textbox[0]);
+					i = GUI_CONTAINER_TOTAL_NB;
+				}
+				i++;
+				if ((textbox->p + i) == GUI_CONTAINER_TOTAL_NB)
+					i = -textbox->p;
 			}
-			i++;
-			if ((textbox->p + i) == GUI_CONTAINER_TOTAL_NB)
-				i = -textbox->p;
 		}
 	}
 }
@@ -269,12 +275,11 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 	{
 		if (gui->help)
 			gui_help_toggle(gui);
-
 		gui_param_toggle(gui);
 	}
 	else if (ft_strstr(action, "help") != NULL)
 	{
-		if (gui->param)
+		if (PARAM && PARAM->active)
 			gui_param_toggle(gui);
 		gui_help_toggle(gui);
 	}
@@ -315,13 +320,38 @@ int			event_is_button(SDL_Event event, t_env *env, t_gui *gui)
 	return (0);
 }
 
+int			event_is_param_scroll(SDL_Event event, t_gui *gui)
+{
+	int	i;
+
+	i = 0;
+	while (i < PARAM->scroll_qt)
+	{
+		if (PARAM_SCL == gui->widget_active)
+			return (gui_scroll_value_select(gui, event, PARAM_SCL));
+		if ((event.button.x >= PARAM_SCL_B->dest.x) &&
+		(event.button.x <= PARAM_SCL_B->dest.x + PARAM_SCL_B->dest.w) &&
+		(event.button.y >= PARAM_SCL_B->dest.y) &&
+		(event.button.y <= PARAM_SCL_B->dest.y + PARAM_SCL_B->dest.h))
+		{
+			printf("EVENT : PARAM SCROLL [%d]\n", i);
+			gui_scroll_toggle(gui, PARAM_SCL);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int			event_is_scroll(SDL_Event event, t_gui *gui)
 {
 	int id;
 	int i;
 
 	id = 0;
-	while (id < GUI_CONTAINER_TOTAL_NB && !gui->param && !gui->help)
+	if (PARAM && PARAM->active)
+		return (event_is_param_scroll(event, gui));
+	while (id < GUI_CONTAINER_TOTAL_NB && !gui->help)
 	{
 		if (BLOCK[id]->scroll == NULL)
 			id++;
@@ -355,7 +385,9 @@ int			event_is_textbox(SDL_Event event, t_gui *gui)
 	int i;
 
 	id = 0;
-	while (id < GUI_CONTAINER_TOTAL_NB && !gui->param && !gui->help)
+	if (PARAM && PARAM->active)
+		return (0); // a changer si textbox dans param
+	while (id < GUI_CONTAINER_TOTAL_NB && !gui->help)
 	{
 		if (BLOCK[id]->textbox == NULL)
 			id++;
@@ -397,7 +429,7 @@ void		event_scroll_mouse_over(SDL_Event event, t_gui *gui, t_scroll *scroll)
 
 void		event_scroll_down(SDL_Event event, t_gui *gui, t_scroll *scroll)
 {
-	if (scroll->mod + 1 < scroll->nb_value - GUI_SCROLL_MAX_SHOWN)
+	if (scroll->mod < scroll->nb_value - GUI_SCROLL_MAX_SHOWN)
 	{
 		scroll->mod++;
 		gui_scroll_get_bmp(gui, scroll, "scroll_white.bmp");
@@ -408,7 +440,7 @@ void		event_scroll_down(SDL_Event event, t_gui *gui, t_scroll *scroll)
 
 void		event_scroll_up(SDL_Event event, t_gui *gui, t_scroll *scroll)
 {
-	if (scroll->mod - 1 >= 0)
+	if (scroll->mod > 0)
 	{
 		scroll->mod--;
 		gui_scroll_get_bmp(gui, scroll, "scroll_white.bmp");

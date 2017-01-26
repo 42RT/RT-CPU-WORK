@@ -1,5 +1,22 @@
 #include <rt.h>
 
+void	gui_scroll_value_free(char **value, int nb)
+{
+	int i;
+
+	i = nb - 1;
+	while (i >= 0)
+		value[i--] = NULL;
+}
+
+void	gui_scroll_free(t_scroll *scroll)
+{
+	gui_button_free(scroll->button);
+	scroll->tag = NULL;
+	gui_scroll_value_free(scroll->value, scroll->nb_value);
+	free(scroll);
+}
+
 void	gui_block_scroll_init(t_gui *gui, int id, int nb)
 {
 	int i;
@@ -146,7 +163,7 @@ int		gui_scroll_value_select(t_gui *gui, SDL_Event event, t_scroll *scroll)
 	(event.button.y <= scroll->dest.y + scroll->dest.h))
 	{
 		scroll->active_value = (event.button.y - scroll->dest.y + (scroll->mod * GUI_LIST_STEP)) / GUI_LIST_STEP;
-		printf("scroll select %s\n", scroll->value[scroll->active_value]);
+		//printf("scroll select %s\n", scroll->value[scroll->active_value]);
 		gui_scroll_toggle(gui, scroll);
 		return (1);
 	}
@@ -183,6 +200,7 @@ void	gui_scroll_open(t_gui *gui, t_scroll *scroll)
 	if (gui->widget_active)
 		event_widget_deselect(gui);
 	gui->widget_active = scroll;
+	//printf("WIDGET ACTIVE = %d\n", *(int *)WIDGET);
 	gui_button_get_bmp(gui, scroll->button, "scroll_jade_selected.bmp");
 	gui_button_display(gui, scroll->button);
 	gui_widget_draw_in_line(gui, scroll->button->dest, 1, "black");
@@ -200,6 +218,7 @@ void	gui_scroll_open(t_gui *gui, t_scroll *scroll)
 void	gui_scroll_close(t_gui *gui, t_scroll *scroll)
 {
 	gui->widget_active = NULL;
+	//printf("WIDGET NULL\n");
 	scroll->dest.y -= GUI_SCROLL_H;
 	if (scroll->nb_value < GUI_SCROLL_MAX_SHOWN)
 		scroll->dest.h /= scroll->nb_value;
