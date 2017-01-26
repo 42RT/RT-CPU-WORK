@@ -108,7 +108,8 @@
 # define GUI_TEXTBOX_W GUI_WIDTH / 8
 # define GUI_TEXTBOX_H 20
 # define GUI_SCROLL_H 20
-# define GUI_LIST_STEP 17
+# define GUI_SCROLL_MAX_SHOWN 5
+# define GUI_LIST_STEP 20
 # define GUI_BUTTON_H 20
 # define GUI_BUTTON_DEPTH 1
 # define GUI_XYZ_MAX 99999
@@ -137,6 +138,7 @@
 # define SCANCODE event.key.keysym.scancode
 # define HELP gui->help
 # define PARAM gui->param
+# define WIDGET gui->widget_active
 
 # include <math.h>
 # include <fcntl.h>
@@ -353,6 +355,7 @@ typedef struct		s_scroll
 	char			**value;
 	int				nb_value;
 	int				active_value;
+	int				mod;
 	int				id;
 	int				p;
 }					t_scroll;
@@ -407,6 +410,7 @@ typedef struct		s_gui
 {
 	SDL_Window		*win;
 	SDL_Renderer	*img;
+	int				winID;
 	SDL_Event		gui_event;
 	SDL_DisplayMode	*display;
 	SDL_Surface		*bg_surface;

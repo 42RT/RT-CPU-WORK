@@ -16,12 +16,21 @@ void	gui_block_scroll_init(t_gui *gui, int id, int nb)
 			error(1);
 		if ((SCROLL[i]->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
 			error(1);
-		if ((SCROLL[i]->value = (char **)malloc(sizeof(char *) * 3)) == NULL)
+		if ((SCROLL[i]->value = (char **)malloc(sizeof(char *) * 10)) == NULL)
 			error(1);
 		SCROLL[i]->value[0] = "valeur 1";
 		SCROLL[i]->value[1] = "valeur 2";
+		SCROLL[i]->value[2] = "valeur 3";
+		SCROLL[i]->value[3] = "valeur 4";
+		SCROLL[i]->value[4] = "valeur 5";
+		SCROLL[i]->value[5] = "valeur 6";
+		SCROLL[i]->value[6] = "valeur 7";
+		SCROLL[i]->value[7] = "valeur 8";
+		SCROLL[i]->value[8] = "valeur 9";
+		SCROLL[i]->value[9] = "valeur 10";
 		SCROLL[i]->active_value = 0;
-		SCROLL[i]->nb_value = 2;
+		SCROLL[i]->nb_value = 10;
+		SCROLL[i]->mod = 0;
 		SCROLL[i]->align = -1;
 		SCROLL[i]->nature = SCL;
 		SCROLL[i]->surface = NULL;
@@ -136,7 +145,7 @@ int		gui_scroll_value_select(t_gui *gui, SDL_Event event, t_scroll *scroll)
 	(event.button.y >= scroll->dest.y) &&
 	(event.button.y <= scroll->dest.y + scroll->dest.h))
 	{
-		scroll->active_value = (event.button.y - scroll->dest.y) / GUI_LIST_STEP;
+		scroll->active_value = (event.button.y - scroll->dest.y + (scroll->mod * GUI_LIST_STEP)) / GUI_LIST_STEP;
 		printf("scroll select %s\n", scroll->value[scroll->active_value]);
 		gui_scroll_toggle(gui, scroll);
 		return (1);
@@ -144,20 +153,24 @@ int		gui_scroll_value_select(t_gui *gui, SDL_Event event, t_scroll *scroll)
 	return (0);
 }
 
-void	gui_scroll_write_list(t_gui *gui, t_scroll *scroll)
+void	gui_scroll_write_list(t_gui *gui, t_scroll *scroll, int motion)
 {
 	int	i;
 
-	i = 0;
+	i = scroll->mod;
 	gui_font_init(gui, "Starjedi", 16);
-	while (i < scroll->nb_value)
+	while (i < scroll->nb_value + scroll->mod && i < GUI_SCROLL_MAX_SHOWN + scroll->mod)
 	{
 		TTF_SizeText(TTF->font, scroll->value[i], &TTF->w_px, &TTF->h_px);
-		TTF->texture = SDL_CreateTextureFromSurface(gui->img,
+		if (i == motion)
+			TTF->texture = SDL_CreateTextureFromSurface(gui->img,
+			TTF_RenderText_Solid(TTF->font, scroll->value[i], gui_color("teal")));
+		else
+			TTF->texture = SDL_CreateTextureFromSurface(gui->img,
 			TTF_RenderText_Solid(TTF->font, scroll->value[i], gui_color("black")));
 		SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
 		TTF->rect.x = scroll->dest.x + 3;
-		TTF->rect.y = (scroll->dest.y - GUI_SCROLL_H) + ((i + 1) * GUI_LIST_STEP);
+		TTF->rect.y = (scroll->dest.y - GUI_SCROLL_H - 4) + ((i - scroll->mod + 1) * GUI_LIST_STEP);
 		SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
 		SDL_DestroyTexture(TTF->texture);
 		i++;
@@ -176,16 +189,22 @@ void	gui_scroll_open(t_gui *gui, t_scroll *scroll)
 	gui_scroll_get_bmp(gui, scroll, "scroll_white.bmp");
 	scroll->align = scroll->dest.x;
 	scroll->dest.y += GUI_SCROLL_H;
-	scroll->dest.h *= scroll->nb_value;
+	if (scroll->nb_value < GUI_SCROLL_MAX_SHOWN)
+		scroll->dest.h *= scroll->nb_value;
+	else
+		scroll->dest.h *= GUI_SCROLL_MAX_SHOWN;
 	gui_scroll_display(gui, scroll);
-	gui_scroll_write_list(gui, scroll);
+	gui_scroll_write_list(gui, scroll, -1);
 }
 
 void	gui_scroll_close(t_gui *gui, t_scroll *scroll)
 {
 	gui->widget_active = NULL;
 	scroll->dest.y -= GUI_SCROLL_H;
-	scroll->dest.h /= scroll->nb_value;
+	if (scroll->nb_value < GUI_SCROLL_MAX_SHOWN)
+		scroll->dest.h /= scroll->nb_value;
+	else
+		scroll->dest.h /= GUI_SCROLL_MAX_SHOWN;
 	gui_main_refresh(gui);
 }
 

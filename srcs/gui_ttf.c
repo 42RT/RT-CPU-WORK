@@ -35,6 +35,8 @@ SDL_Color	gui_color(char *choice)
 		return (gui_color_data_set(255, 0, 0, 255));
 	if (ft_strstr(choice, "purple deep"))
 		return (gui_color_data_set(31, 17, 70, 255));
+	if (ft_strstr(choice, "teal"))
+		return (gui_color_data_set(43, 202, 189, 255));
 }
 
 void	gui_font_init(t_gui *gui, char *ttf, int size)

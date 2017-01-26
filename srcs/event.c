@@ -381,6 +381,66 @@ int			event_is_textbox(SDL_Event event, t_gui *gui)
 	return (0);
 }
 
+void		event_scroll_mouse_over(SDL_Event event, t_gui *gui, t_scroll *scroll)
+{
+	int	motion;
+
+	if ((event.motion.x >= scroll->dest.x) &&
+	(event.motion.x <= scroll->dest.x + scroll->dest.w) &&
+	(event.motion.y >= scroll->dest.y) &&
+	(event.motion.y <= scroll->dest.y + scroll->dest.h))
+	{
+		motion = (event.motion.y - scroll->dest.y + (scroll->mod * GUI_LIST_STEP)) / GUI_LIST_STEP;
+		gui_scroll_write_list(gui, scroll, motion);
+	}
+}
+
+void		event_scroll_down(SDL_Event event, t_gui *gui, t_scroll *scroll)
+{
+	if (scroll->mod + 1 < scroll->nb_value - GUI_SCROLL_MAX_SHOWN)
+	{
+		scroll->mod++;
+		gui_scroll_get_bmp(gui, scroll, "scroll_white.bmp");
+		gui_scroll_display(gui, scroll);
+		gui_scroll_write_list(gui, scroll, -1);
+	}
+}
+
+void		event_scroll_up(SDL_Event event, t_gui *gui, t_scroll *scroll)
+{
+	if (scroll->mod - 1 >= 0)
+	{
+		scroll->mod--;
+		gui_scroll_get_bmp(gui, scroll, "scroll_white.bmp");
+		gui_scroll_display(gui, scroll);
+		gui_scroll_write_list(gui, scroll, -1);
+	}
+}
+
+int			event_scroll_mouse_wheel(SDL_Event event, t_gui *gui)
+{
+	t_scroll	*tmp;
+	
+	if (WIDGET && *(int *)WIDGET == SCL)
+	{
+		tmp = WIDGET;
+		if (event.wheel.y > 0)
+			event_scroll_up(event, gui, tmp);
+		else if (event.wheel.y < 0)
+			event_scroll_down(event, gui, tmp);
+		else
+			return (0);
+		return (1);
+	}
+	return (0);
+}
+
+void		event_mouse_wheel(SDL_Event event, t_gui *gui)
+{
+	if (!event_scroll_mouse_wheel(event, gui))
+		return;
+}
+
 void		event_mouse_click(SDL_Event event, t_env *env, t_gui *gui)
 {
 	if (event.button.button == SDL_BUTTON_LEFT)
@@ -403,29 +463,16 @@ static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 	return (0);
 }
 
-/*void		event_mouse_motion(SDL_Event event, t_gui *gui)
+void		event_mouse_motion(SDL_Event event, t_gui *gui)
 {
-	int id;
-	int i;
+	t_scroll	*tmp;
 
-	id = 0;
-	while ( && id < GUI_CONTAINER_TOTAL_NB && !gui->param && !gui->help)
+	if (WIDGET && *(int *)WIDGET == SCL)
 	{
-		i = 0;
-		while (i < BLOCK[id]->textbox_qt)
-		{
-			if ((event.button.x >= TEXTBOX[i]->dest.x) &&
-			(event.button.x <= TEXTBOX[i]->dest.x + TEXTBOX[i]->dest.w) &&
-			(event.button.y >= TEXTBOX[i]->dest.y) &&
-			(event.button.y <= TEXTBOX[i]->dest.y + TEXTBOX[i]->dest.h))
-			{
-				event_textbox_select(gui, TEXTBOX[i]);
-			}
-			i++;
-		}
-		id++;
+		tmp = WIDGET;
+		event_scroll_mouse_over(event, gui, tmp);
 	}
-}*/
+}
 
 int			event(SDL_Event event, t_env *env)
 {
@@ -435,12 +482,17 @@ int			event(SDL_Event event, t_env *env)
 	if (event.type == SDL_WINDOWEVENT)
 		if (event.window.event == SDL_WINDOWEVENT_CLOSE)
 			rt_exit(env, gui);
-	if (event.type == SDL_KEYDOWN)
-		event_keydown(event, env, gui);
-	if (event.type == SDL_MOUSEBUTTONDOWN)
-		event_mouse_click(event, env, gui);
-	//if (event.type == SDL_MOUSEMOTION)
-	//	event_mouse_motion(event, gui);
+		if (event.type == SDL_KEYDOWN)
+			event_keydown(event, env, gui);
+		if (event.window.windowID == gui->winID)
+		{
+			if (event.type == SDL_MOUSEBUTTONDOWN)
+				event_mouse_click(event, env, gui);
+			if (event.type == SDL_MOUSEWHEEL)
+				event_mouse_wheel(event, gui);
+			if (event.type == SDL_MOUSEMOTION)
+				event_mouse_motion(event, gui);
+		}
 	SDL_RenderPresent(gui->img);
 	return (0);
 }

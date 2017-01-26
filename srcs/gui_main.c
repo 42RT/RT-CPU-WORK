@@ -101,6 +101,7 @@ t_gui		*gui_init(void)
 		gui->img = SDL_CreateRenderer(gui->win, -1, SDL_RENDERER_SOFTWARE);
 	else
 		gui_error(4);
+	gui->winID = SDL_GetWindowID(gui->win);
 	gui->tmp_lim = 0;
 	printf("GUI : \033[1;32mCOMPONENT INITIALIZED\033[0m\n\n");
 	gui_build(gui);
