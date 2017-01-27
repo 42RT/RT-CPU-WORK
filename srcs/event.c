@@ -206,58 +206,64 @@ void		gui_textbox_switch_select(t_gui *gui, t_textbox *textbox)
 
 void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
 {
+	int action;
+
+	action = 1;
 	/* Touches ENTER clavier + pavnum*/
 	if (SCANCODE == 40 || SCANCODE == 88)
 		event_widget_deselect(gui);
 	/* Touche TAB */
 	else if (SCANCODE == 43)
 		gui_textbox_switch_select(gui, textbox);
-	else
-	{
 		/* Touches "+" et "-" pavnum*/
-		if (SCANCODE == 87 && textbox->maxlen > 3)
+	else if (SCANCODE == 87 && textbox->maxlen > 3)
 			textbox->value[0] = ' ';
-		if (SCANCODE == 86 && textbox->maxlen > 3)
+	else if (SCANCODE == 86 && textbox->maxlen > 3)
 			textbox->value[0] = '-';
 		/* Touches BACKSPACE et DELETE du clavier */
-		if (SCANCODE == 42)
+	else if (SCANCODE == 42)
 			event_textbox_backspace(textbox);
-		if (SCANCODE == 76)
+	else if (SCANCODE == 76)
 			gui_textbox_value_clear(textbox, textbox->maxlen);
 		/* Touches 0-9 clavier + pavnum */
-		if ((SCANCODE >= 30 && SCANCODE <= 39)
-		|| (SCANCODE >= 89 && SCANCODE <= 98))
+	else if ((SCANCODE >= 30 && SCANCODE <= 39)
+	|| (SCANCODE >= 89 && SCANCODE <= 98))
+	{
+		if (textbox->edited == 0)
 		{
-			if (textbox->edited == 0)
-			{
-				gui_textbox_value_clear(textbox, textbox->maxlen);
-				textbox->edited = 1;
-			}
-			if (SCANCODE == 30 || SCANCODE == 89)
-				event_textbox_value_rot(textbox, '1');
-			if (SCANCODE == 31 || SCANCODE == 90)
-				event_textbox_value_rot(textbox, '2');
-			if (SCANCODE == 32 || SCANCODE == 91)
-				event_textbox_value_rot(textbox, '3');
-			if (SCANCODE == 33 || SCANCODE == 92)
-				event_textbox_value_rot(textbox, '4');
-			if (SCANCODE == 34 || SCANCODE == 93)
-				event_textbox_value_rot(textbox, '5');
-			if (SCANCODE == 35 || SCANCODE == 94)
-				event_textbox_value_rot(textbox, '6');
-			if (SCANCODE == 36 || SCANCODE == 95)
-				event_textbox_value_rot(textbox, '7');
-			if (SCANCODE == 37 || SCANCODE == 96)
-				event_textbox_value_rot(textbox, '8');
-			if (SCANCODE == 38 || SCANCODE == 97)
-				event_textbox_value_rot(textbox, '9');
-			if (SCANCODE  == 39 || SCANCODE == 98)
-				event_textbox_value_rot(textbox, '0');
+			gui_textbox_value_clear(textbox, textbox->maxlen);
+			textbox->edited = 1;
 		}
-		//printf("new total value = .%s.\n", textbox->value);
+		if (SCANCODE == 30 || SCANCODE == 89)
+			event_textbox_value_rot(textbox, '1');
+		if (SCANCODE == 31 || SCANCODE == 90)
+			event_textbox_value_rot(textbox, '2');
+		if (SCANCODE == 32 || SCANCODE == 91)
+			event_textbox_value_rot(textbox, '3');
+		if (SCANCODE == 33 || SCANCODE == 92)
+			event_textbox_value_rot(textbox, '4');
+		if (SCANCODE == 34 || SCANCODE == 93)
+			event_textbox_value_rot(textbox, '5');
+		if (SCANCODE == 35 || SCANCODE == 94)
+			event_textbox_value_rot(textbox, '6');
+		if (SCANCODE == 36 || SCANCODE == 95)
+			event_textbox_value_rot(textbox, '7');
+		if (SCANCODE == 37 || SCANCODE == 96)
+			event_textbox_value_rot(textbox, '8');
+		if (SCANCODE == 38 || SCANCODE == 97)
+			event_textbox_value_rot(textbox, '9');
+		if (SCANCODE  == 39 || SCANCODE == 98)
+			event_textbox_value_rot(textbox, '0');
+	}
+	else
+		action = 0;
+	//printf("new total value = .%s.\n", textbox->value);
+	if (action == 1)
+	{
 		gui_textbox_get_bmp(gui, textbox);
 		gui_textbox_display(gui, textbox);
 		event_textbox_edit(gui, textbox, "white");
+		SDL_RenderPresent(gui->img);
 	}
 }
 
@@ -379,6 +385,36 @@ int			event_is_scroll(SDL_Event event, t_gui *gui)
 	return (0);
 }
 
+int			event_is_param_checkbox(SDL_Event event, t_gui *gui)
+{
+	int	i;
+
+	i = 0;
+	while (i < PARAM->checkbox_qt)
+	{
+		if ((event.button.x >= PARAM_CBX->dest.x) &&
+		(event.button.x <= PARAM_CBX->dest.x + PARAM_CBX->dest.w) &&
+		(event.button.y >= PARAM_CBX->dest.y) &&
+		(event.button.y <= PARAM_CBX->dest.y + PARAM_CBX->dest.h))
+		{
+			printf("EVENT : PARAM CHECKBOX [%d]\n", i);
+			gui_param_checkbox_toggle(gui, PARAM_CBX);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+
+}
+
+int			event_is_checkbox(SDL_Event event, t_gui *gui)
+{
+	if (PARAM && PARAM->active)
+		return(event_is_param_checkbox(event, gui));
+	// main window checkbox research to be included here
+	return (0);
+}
+
 int			event_is_textbox(SDL_Event event, t_gui *gui)
 {
 	int id;
@@ -478,10 +514,11 @@ void		event_mouse_click(SDL_Event event, t_env *env, t_gui *gui)
 	if (event.button.button == SDL_BUTTON_LEFT)
 	{
 		if (!event_is_scroll(event, gui))
-			if (!event_is_button(event, env, gui))
-				if (!event_is_textbox(event, gui))
-					if (gui->widget_active)
-						event_widget_deselect(gui);
+			if (!event_is_checkbox(event, gui))
+				if (!event_is_button(event, env, gui))
+					if (!event_is_textbox(event, gui))
+						if (gui->widget_active)
+							event_widget_deselect(gui);
 	}
 }
 
@@ -513,9 +550,11 @@ int			event(SDL_Event event, t_env *env)
 	gui = get_gui();
 	if (event.type == SDL_WINDOWEVENT)
 		if (event.window.event == SDL_WINDOWEVENT_CLOSE)
-			rt_exit(env, gui);
-		if (event.type == SDL_KEYDOWN)
-			event_keydown(event, env, gui);
+				rt_exit(env, gui);
+	if (event.type == SDL_KEYDOWN)
+		event_keydown(event, env, gui);
+	else
+	{
 		if (event.window.windowID == gui->winID)
 		{
 			if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -525,6 +564,7 @@ int			event(SDL_Event event, t_env *env)
 			if (event.type == SDL_MOUSEMOTION)
 				event_mouse_motion(event, gui);
 		}
-	SDL_RenderPresent(gui->img);
+		SDL_RenderPresent(gui->img);
+	}
 	return (0);
 }

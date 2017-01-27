@@ -108,8 +108,7 @@ void	gui_button_get_bmp(t_gui *gui, t_button *button, char *file)
 	button->surface = SDL_LoadBMP(ft_strjoin(GUI_TEXTURE_PATH, file));
 	if (!button->surface)
 		gui_error(2);
-	button->bmp = SDL_CreateTextureFromSurface(gui->img,
-		button->surface);
+	button->bmp = SDL_CreateTextureFromSurface(gui->img, button->surface);
 	if (!button->bmp)
 		gui_error(3);
 }
@@ -154,7 +153,7 @@ void	gui_button_create_all(t_gui *gui)
 	}
 }
 
-void	gui_button_set(int id, char *action, int align, int w, int h)
+void	gui_button_set(int id, char *action, int align)
 {
 	t_gui	*gui;
 	int		i;
@@ -166,8 +165,8 @@ void	gui_button_set(int id, char *action, int align, int w, int h)
 		if (BUTTON[i]->align == -1)
 		{
 			BUTTON[i]->align = align;
-			BUTTON[i]->dest.w = w;
-			BUTTON[i]->dest.h = h;
+			BUTTON[i]->dest.w = (GUI_WIDTH - (GUI_FONT_BORDER_STEP * 4)) / 3;
+			BUTTON[i]->dest.h = GUI_BUTTON_H;
 			BUTTON[i]->action = action;
 			i = BLOCK[id]->button_qt;
 		}
@@ -182,13 +181,11 @@ void	gui_button_build(t_gui *gui)
 
 	gui_block_button_init(gui, 8, 3);
 	gui_block_button_init(gui, 9, 3);
-	h = 25;//GUI_BUTTON_H;
-	w = (GUI_WIDTH - (GUI_FONT_BORDER_STEP * 4)) / 3;
-	gui_button_set(8, "del", GUI_ALIGN_LEFT, w, h);
-	gui_button_set(8, "save", GUI_ALIGN_MID, w, h);
-	gui_button_set(8, "apply", GUI_ALIGN_RIGHT, w, h);
-	gui_button_set(9, "param", GUI_ALIGN_LEFT, w, h);
-	gui_button_set(9, "help", GUI_ALIGN_MID, w, h);
-	gui_button_set(9, "exit", GUI_ALIGN_RIGHT, w, h);
+	gui_button_set(8, "del", GUI_ALIGN_LEFT);
+	gui_button_set(8, "save", GUI_ALIGN_MID);
+	gui_button_set(8, "apply", GUI_ALIGN_RIGHT);
+	gui_button_set(9, "param", GUI_ALIGN_LEFT);
+	gui_button_set(9, "help", GUI_ALIGN_MID);
+	gui_button_set(9, "exit", GUI_ALIGN_RIGHT);
 	gui_button_create_all(gui);
 }

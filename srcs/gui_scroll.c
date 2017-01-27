@@ -197,9 +197,9 @@ void	gui_scroll_write_list(t_gui *gui, t_scroll *scroll, int motion)
 
 void	gui_scroll_open(t_gui *gui, t_scroll *scroll)
 {
-	if (gui->widget_active)
+	if (WIDGET)
 		event_widget_deselect(gui);
-	gui->widget_active = scroll;
+	WIDGET = scroll;
 	//printf("WIDGET ACTIVE = %d\n", *(int *)WIDGET);
 	gui_button_get_bmp(gui, scroll->button, "scroll_jade_selected.bmp");
 	gui_button_display(gui, scroll->button);
@@ -217,7 +217,7 @@ void	gui_scroll_open(t_gui *gui, t_scroll *scroll)
 
 void	gui_scroll_close(t_gui *gui, t_scroll *scroll)
 {
-	gui->widget_active = NULL;
+	WIDGET = NULL;
 	//printf("WIDGET NULL\n");
 	scroll->dest.y -= GUI_SCROLL_H;
 	if (scroll->nb_value < GUI_SCROLL_MAX_SHOWN)
@@ -229,7 +229,7 @@ void	gui_scroll_close(t_gui *gui, t_scroll *scroll)
 
 void	gui_scroll_toggle(t_gui *gui, t_scroll *scroll)
 {
-	if (gui->widget_active == scroll)
+	if (WIDGET == scroll)
 		gui_scroll_close(gui, scroll);
 	else
 		gui_scroll_open(gui, scroll);

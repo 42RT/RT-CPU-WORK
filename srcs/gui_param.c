@@ -86,7 +86,7 @@ void	gui_param_scroll_set(t_gui *gui, char *tag, int align_v, int align_h)
 			PARAM_SCL->align = align_v;
 			PARAM_SCL->p = 0;
 			PARAM_SCL->id = i;
-			PARAM_SCL->dest.w = (GUI_WIDTH / 3) - 20;
+			PARAM_SCL->dest.w = (GUI_WIDTH / 3);
 			PARAM_SCL->dest.h = GUI_SCROLL_H;
 			PARAM_SCL->dest.y = align_h;
 			PARAM_SCL_B->dest.y = PARAM_SCL->dest.y;
@@ -116,16 +116,28 @@ void	gui_param_scroll_create_all(t_gui *gui)
 	}
 }
 
+void	gui_param_text_build(t_gui *gui)
+{
+	gui_font_init(gui, "Audiowide-Regular", GUI_FONT_SIZE + 1);
+	gui_write_param(gui, "options", GUI_ALIGN_MID, 20);
+	gui_write_param(gui, "Resolution", GUI_ALIGN_LEFT, 45);
+	gui_write_param(gui, "Anti-aliasing", GUI_ALIGN_LEFT, 70);
+	TTF_CloseFont(TTF->font);
+
+}
+
 void	gui_param_build(t_gui *gui)
 {
 	if (!PARAM->scroll)
 		gui_param_scroll_init(gui, 1);
-	gui_param_scroll_set(gui, "RES", GUI_ALIGN_LEFT, 45);
+	if (!PARAM->checkbox)
+		gui_param_checkbox_init(gui, 1);
+	gui_param_scroll_set(gui, "RES", GUI_ALIGN_RIGHT, 45);
+	gui_param_checkbox_set(gui, "_AA", GUI_ALIGN_MID, 70);
 	gui_param_scroll_create_all(gui);
-	gui_font_init(gui, "Audiowide-Regular", GUI_FONT_SIZE + 1);
-	gui_write_param(gui, "options", GUI_ALIGN_MID, 20);
-	TTF_CloseFont(TTF->font);
-}
+	gui_param_checkbox_create_all(gui);
+	gui_param_text_build(gui);
+	}
 
 void	gui_param_open(t_gui *gui)
 {
@@ -134,6 +146,7 @@ void	gui_param_open(t_gui *gui)
 		if ((PARAM = (t_param *)malloc(sizeof(t_param))) == NULL)
 			error(1);
 		PARAM->scroll = NULL;
+		PARAM->checkbox = NULL;
 		PARAM->nature = PRM;
 	}
 	if (gui->widget_active)
@@ -169,7 +182,6 @@ void	gui_param_refresh(t_gui *gui)
 	gui_button_selected(gui, BLOCK[9]->button[0]);
 	gui_param_get_bmp_n_display(gui);
 	gui_param_scroll_create_all(gui);
-	gui_font_init(gui, "Audiowide-Regular", GUI_FONT_SIZE + 1);
-	gui_write_param(gui, "options", GUI_ALIGN_MID, 20);
-	TTF_CloseFont(TTF->font);
+	gui_param_checkbox_create_all(gui);
+	gui_param_text_build(gui);
 }

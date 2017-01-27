@@ -110,8 +110,9 @@
 # define GUI_SCROLL_H 20
 # define GUI_SCROLL_MAX_SHOWN 5
 # define GUI_LIST_STEP 20
-# define GUI_BUTTON_H 20
+# define GUI_BUTTON_H 25
 # define GUI_BUTTON_DEPTH 1
+# define GUI_CHECKBOX_SIZE 20
 # define GUI_XYZ_MAX 99999
 # define GUI_XYZ_MIN -99999
 # define GUI_VH_MAX 180
@@ -140,6 +141,7 @@
 # define PARAM gui->param
 # define PARAM_SCL PARAM->scroll[i]
 # define PARAM_SCL_B PARAM_SCL->button
+# define PARAM_CBX PARAM->checkbox[i]
 # define WIDGET gui->widget_active
 
 # include <math.h>
@@ -321,11 +323,18 @@ typedef struct		s_env
 
 typedef enum
 {
+					false,
+					true
+}					bool;
+
+typedef enum
+{
 					BTN,
 					TXB,
 					SCL,
 					PRM,
-					HLP
+					HLP,
+					CBX
 }					widget_type;
 
 typedef struct		s_ttf
@@ -336,6 +345,17 @@ typedef struct		s_ttf
 	int				h_px;
 	int				w_px;
 }					t_ttf;
+
+typedef struct		s_checkbox
+{
+	widget_type		nature;
+	int				align;
+	SDL_Surface		*surface;
+	SDL_Texture		*bmp;
+	SDL_Rect		dest;
+	char			*tag;
+	bool			selected;
+}					t_checkbox;
 
 typedef struct		s_button
 {
@@ -398,7 +418,7 @@ typedef struct		s_container
 
 typedef struct		s_help
 {
-	widget_type		*nature;
+	widget_type		nature;
 	SDL_Surface		*surface;
 	SDL_Texture		*bmp;
 	SDL_Rect		dest;
@@ -412,7 +432,9 @@ typedef struct		s_param
 	SDL_Texture		*bmp;
 	SDL_Rect		dest;
 	t_scroll		**scroll;
+	t_checkbox		**checkbox;
 	int				scroll_qt;
+	int				checkbox_qt;
 }					t_param;
 
 typedef struct		s_gui
@@ -553,6 +575,12 @@ void				gui_write_param(t_gui *gui, char *text, int align, int y);
 void				gui_param_toggle(t_gui *gui);
 void				gui_param_open(t_gui *gui);
 void				gui_param_close(t_gui *gui);
+void				gui_param_refresh(t_gui *gui);
+void				gui_param_checkbox_init(t_gui *gui, int nb);
+void				gui_param_checkbox_set(t_gui *gui, char *tag, int align, int y);
+void				gui_param_checkbox_get_bmp(t_gui *gui, t_checkbox *checkbox, char *file);
+void				gui_param_checkbox_display(t_gui *gui, t_checkbox *checkbox);
+void				gui_param_checkbox_create_all(t_gui *gui);
 void				gui_widget_draw_depth(t_gui *gui, SDL_Rect widget, int px, char *color);
 void				gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int px, char *color);
 void				gui_widget_draw_inline(t_gui *gui, SDL_Rect widget, int in, char *color);

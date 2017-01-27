@@ -61,6 +61,7 @@ SRC =	$(PATH_SRC)main.c \
 		$(PATH_SRC)gui_scroll.c \
 		$(PATH_SRC)gui_help.c \
 		$(PATH_SRC)gui_param.c \
+		$(PATH_SRC)gui_param_checkbox.c \
 		$(PATH_SRC)gui_main.c \
 		$(PATH_SRC)gui_ttf.c \
 		$(PATH_SRC)parse.c \
