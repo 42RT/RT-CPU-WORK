@@ -50,6 +50,18 @@ void		gui_textbox_get_len(t_textbox *textbox)
 		textbox->maxlen = 3;
 }
 
+void	gui_textbox_set_align(t_textbox *textbox)
+{
+	if (textbox->align == GUI_ALIGN_LEFT)
+		textbox->dest.x = 50;
+	else if (textbox->align == GUI_ALIGN_MID)
+		textbox->dest.x = (GUI_WIDTH / 2) - (textbox->dest.w / 2) + 10;
+	else if (textbox->align == GUI_ALIGN_RIGHT)
+		textbox->dest.x = GUI_WIDTH - (textbox->dest.w + 20);
+	else
+		textbox->dest.x = textbox->align;
+}
+
 void	gui_textbox_set(int id, char *tag, int align_v, int align_h)
 {
 	t_gui	*gui;
@@ -70,39 +82,11 @@ void	gui_textbox_set(int id, char *tag, int align_v, int align_h)
 			TEXTBOX[i]->dest.w = TEXTBOX[i]->maxlen * (GUI_TEXTBOX_W / 4);
 			TEXTBOX[i]->dest.h = GUI_TEXTBOX_H;
 			TEXTBOX[i]->dest.y = BLOCK[id]->up_lim + align_h;
+			gui_textbox_set_align(TEXTBOX[i]);
 			i = BLOCK[id]->textbox_qt;
 		}
 		i++;
 	}
-}
-
-void	gui_textbox_get_bmp(t_gui *gui, t_textbox *textbox)
-{
-	if (gui->widget_active == textbox)
-		textbox->surface = SDL_LoadBMP(GUI_TEXTURE_PATH"textbox_black.bmp");
-	else
-		textbox->surface = SDL_LoadBMP(GUI_TEXTURE_PATH"textbox_white.bmp");
-	if (!textbox->surface)
-		gui_error(2);
-	textbox->bmp = SDL_CreateTextureFromSurface(gui->img, textbox->surface);
-	if (!textbox->bmp)
-		gui_error(3);
-}
-
-
-void	gui_textbox_display(t_gui *gui, t_textbox *textbox)
-{
-	if (textbox->align == GUI_ALIGN_LEFT)
-		textbox->dest.x = 50;
-	else if (textbox->align == GUI_ALIGN_MID)
-		textbox->dest.x = (GUI_WIDTH / 2) - (textbox->dest.w / 2) + 10;
-	else if (textbox->align == GUI_ALIGN_RIGHT)
-		textbox->dest.x = GUI_WIDTH - (textbox->dest.w + 20);
-	else
-		textbox->dest.x = textbox->align;
-	SDL_RenderCopy(gui->img, textbox->bmp, NULL, &textbox->dest);
-	SDL_DestroyTexture(textbox->bmp);
-	SDL_FreeSurface(textbox->surface);
 }
 
 void	gui_textbox_create_all(t_gui *gui)
@@ -120,9 +104,12 @@ void	gui_textbox_create_all(t_gui *gui)
 			i = 0;
 			while (i < BLOCK[id]->textbox_qt)
 			{
-				gui_textbox_get_bmp(gui, TEXTBOX[i]);
-				gui_textbox_display(gui, TEXTBOX[i]);
-				gui_widget_draw_in_line(gui, TEXTBOX[i]->dest, 1, "black");
+				if (WIDGET == TEXTBOX[i])
+					gui_widget_texture_get_bmp(TEXTBOX[i], "textbox_black.bmp");
+				else
+					gui_widget_texture_get_bmp(TEXTBOX[i], "textbox_white.bmp");
+				gui_widget_display(TEXTBOX[i]);
+				gui_widget_draw_in_line(TEXTBOX[i]->dest, 1, "black");
 				event_textbox_edit(gui, TEXTBOX[i], "black");
 				i++;
 			}

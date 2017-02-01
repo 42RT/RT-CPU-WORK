@@ -1,99 +1,116 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_next_line.c                                 :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/12/29 21:59:44 by jrouilly          #+#    #+#             */
-/*   Updated: 2013/12/29 21:59:54 by jrouilly         ###   ########.fr       */
+/*   Created: 2016/03/02 14:05:44 by rdieulan          #+#    #+#             */
+/*   Updated: 2016/03/02 14:26:56 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <libft.h>
+#include "get_next_line.h"
 
-static int	get_next_loop(int *tbl, int *nb, char **line, char **buff)
+static int	contains(char *str, char c)
 {
-	int		ret;
-	char	*temp;
+	int	i;
 
-	temp = NULL;
-	tbl[1] = 0;
-	temp = *line;
-	*line = (char *)malloc(((++*nb + 1) * BUFF_SIZE + 1) * sizeof(char));
-	if (*line == NULL)
-		return (-1);
-	ft_strncpy(*line, temp, *nb * BUFF_SIZE);
-	if (temp != NULL)
-		free(temp);
-	ret = read(tbl[2], *buff, BUFF_SIZE);
-	if (ret > 0)
+	if (str == NULL)
+		return (0);
+	i = 0;
+	while (str[i])
 	{
-		*(*buff + ret) = '\0';
-		while (*(*buff + tbl[1]) != '\0' && *(*buff + tbl[1]) != '\n'
-				&& tbl[1] < BUFF_SIZE)
-		{
-			*(*line + tbl[0] + tbl[1]) = *(*buff + tbl[1]);
-			++tbl[1];
-		}
-		tbl[0] += tbl[1];
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static int	append_file(char **f_content, int fd)
+{
+	char	buf[BUFF_SIZE + 1];
+	int		ret;
+
+	while (!contains(*f_content, '\n') && (ret = read(fd, buf, BUFF_SIZE)) > 0)
+	{
+		buf[ret] = '\0';
+		*f_content = ft_concat(*f_content, buf);
 	}
 	return (ret);
 }
 
-static int	get_next_return(int fd, int ret, char **buff, char **line)
+static char	*get_first_line(char **str)
 {
-	int		nb;
-	int		tbl[3];
+	int		i;
+	char	*line;
+	int		line_len;
+	char	*temp_str;
 
-	if (ret == 0)
-		return (0);
-	nb = 0;
-	tbl[1] = 0;
-	tbl[2] = fd;
-	while (*(*buff + tbl[1]) != '\0' && *(*buff + tbl[1]) != '\n'
-			&& tbl[1] < BUFF_SIZE)
+	temp_str = *str;
+	line_len = 0;
+	while (temp_str[line_len] != '\n' && temp_str[line_len])
+		line_len++;
+	if (!(line = (char *)malloc(sizeof(char) * (line_len + 1))))
+		return (NULL);
+	i = 0;
+	while (temp_str[i] && temp_str[i] != '\n')
 	{
-		*(*line + tbl[1]) = *(*buff + tbl[1]);
-		++tbl[1];
+		line[i] = temp_str[i];
+		i++;
 	}
-	tbl[0] = tbl[1];
-	*(*line + tbl[1]) = '\0';
-	while ((*(*buff + tbl[1]) != '\n') && (ret > 0))
+	line[i] = '\0';
+	if (temp_str[i] == '\n')
+		i++;
+	*str = ft_strdup(&(temp_str[i]));
+	free(temp_str);
+	return (line);
+}
+
+t_file		*get_file(t_list **files, int fd)
+{
+	t_list	*temp;
+	t_list	*new_elem;
+
+	temp = *files;
+	while (temp)
 	{
-		ret = get_next_loop(tbl, &nb, line, buff);
+		if (((t_file *)temp->content)->fd == fd)
+			return ((t_file *)temp->content);
+		temp = temp->next;
 	}
-	ret = ((*(*buff + (tbl[0] % BUFF_SIZE)) != '\0') || ret == BUFF_SIZE);
-	ft_strcpy(*buff, *buff + tbl[1] + 1);
-	return (ret != 0);
+	new_elem = ft_lstnew(NULL, 0);
+	if (!(new_elem->content = (t_file *)malloc(sizeof(t_file))))
+		return (NULL);
+	((t_file *)new_elem->content)->file_content = NULL;
+	((t_file *)new_elem->content)->fd = fd;
+	ft_lstadd(files, new_elem);
+	return ((t_file *)(new_elem->content));
 }
 
 int			get_next_line(int const fd, char **line)
 {
-	static char	*buff[24];
-	int			ret;
+	static t_list	*files = NULL;
+	t_file			*file;
 
-	if (BUFF_SIZE < 1)
+	if (fd < 0 || line == NULL)
 		return (-1);
-	*line = (char *)malloc((BUFF_SIZE + 1) * sizeof(char));
-	if (buff[fd] == NULL)
+	file = get_file(&files, fd);
+	if (!contains(file->file_content, '\n'))
 	{
-		buff[fd] = (char *)malloc((BUFF_SIZE + 2) * sizeof(char));
-		if (buff[fd] == NULL)
+		if (append_file(&(file->file_content), fd) == -1)
+		{
+			ft_lstdelone(&files, file);
 			return (-1);
-		*(buff[fd] + BUFF_SIZE) = '\0';
-		*(buff[fd] + BUFF_SIZE + 1) = '\0';
-		ret = read(fd, buff[fd], BUFF_SIZE);
-		*(buff[fd] + ret) = '\0';
+		}
+		if (file->file_content == NULL || *(file->file_content) == '\0')
+		{
+			free(file->file_content);
+			ft_lstdelone(&files, file);
+			return (0);
+		}
 	}
-	ret = get_next_return(fd, 1, &(buff[fd]), line);
-	if ((ret == 0) && (buff[fd] != NULL))
-	{
-		free(buff[fd]);
-		buff[fd] = NULL;
-	}
-	return (ret);
+	*line = get_first_line(&(file->file_content));
+	return (1);
 }

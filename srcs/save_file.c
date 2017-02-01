@@ -45,6 +45,5 @@ t_line	*save_file(int fd)
 			error(3);
 		++i;
 	}
-	free(line);
 	return (file_start);
 }

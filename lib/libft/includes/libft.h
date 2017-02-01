@@ -13,9 +13,9 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# define BUFF_SIZE		42
 # define RD_BUFFSIZE	1
 # include <string.h>
+# include <stdlib.h>
 
 /*
 ** flags:
@@ -113,5 +113,9 @@ char				*ft_strndup(char *str, size_t len);
 int					ft_abs(int nb);
 void				ft_putfloat(float nb);
 float				ft_atof(char *str);
+void				ft_lstadd(t_list **alst, t_list *nw);
+t_list				*ft_lstnew(void const *content, size_t content_size);
+void				ft_lstdelone(t_list **alst, void *content);
+char				*ft_concat(char *s1, char *s2);
 
 #endif

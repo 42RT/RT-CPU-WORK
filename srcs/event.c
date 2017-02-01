@@ -89,9 +89,9 @@ void		event_textbox_deselect(t_gui *gui)
 	tmp->edited = 0;
 	gui->widget_active = NULL;
 	//printf("WIDGET NULL\n");
-	gui_textbox_get_bmp(gui, tmp);
-	gui_textbox_display(gui, tmp);
-	gui_widget_draw_in_line(gui, tmp->dest, 1, "black");
+	gui_widget_texture_get_bmp(tmp, "textbox_white.bmp");
+	gui_widget_display(tmp);
+	gui_widget_draw_in_line(tmp->dest, 1, "black");
 	event_textbox_value_allowed(tmp);
 	event_textbox_edit(gui, tmp, "black");
 
@@ -117,9 +117,9 @@ void		event_textbox_select(t_gui *gui, t_textbox *textbox)
 			event_widget_deselect(gui);
 		gui->widget_active = textbox;
 		//printf("WIDGET ACTIVE = %d\n", *(int *)WIDGET);
-		gui_textbox_get_bmp(gui, textbox);
-		gui_textbox_display(gui, textbox);
-		gui_widget_draw_in_line(gui, textbox->dest, 1, "white");
+		gui_widget_texture_get_bmp(textbox, "textbox_black.bmp");
+		gui_widget_display(textbox);
+		gui_widget_draw_in_line(textbox->dest, 1, "white");
 		textbox->vlen = 0;
 		event_textbox_edit(gui, gui->widget_active, "white");
 	}
@@ -260,8 +260,8 @@ void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
 	//printf("new total value = .%s.\n", textbox->value);
 	if (action == 1)
 	{
-		gui_textbox_get_bmp(gui, textbox);
-		gui_textbox_display(gui, textbox);
+		gui_widget_texture_get_bmp(textbox, "textbox_black.bmp");
+		gui_widget_display(textbox);
 		event_textbox_edit(gui, textbox, "white");
 		SDL_RenderPresent(gui->img);
 	}
@@ -279,14 +279,14 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 		return;
 	else if (ft_strstr(action, "param") != NULL)
 	{
-		if (gui->help)
-			gui_help_toggle(gui);
+		if (WIDGET == HELP)
+			gui_help_close(gui);
 		gui_param_toggle(gui);
 	}
 	else if (ft_strstr(action, "help") != NULL)
 	{
-		if (PARAM && PARAM->active)
-			gui_param_toggle(gui);
+		if (WIDGET == PARAM)
+			gui_param_close(gui);
 		gui_help_toggle(gui);
 	}
 	else if (ft_strstr(action, "exit") != NULL)
@@ -468,8 +468,8 @@ void		event_scroll_down(SDL_Event event, t_gui *gui, t_scroll *scroll)
 	if (scroll->mod < scroll->nb_value - GUI_SCROLL_MAX_SHOWN)
 	{
 		scroll->mod++;
-		gui_scroll_get_bmp(gui, scroll, "scroll_white.bmp");
-		gui_scroll_display(gui, scroll);
+		gui_widget_texture_get_bmp(scroll, "scroll_white.bmp");
+		gui_widget_display(scroll);
 		gui_scroll_write_list(gui, scroll, -1);
 	}
 }
@@ -479,8 +479,8 @@ void		event_scroll_up(SDL_Event event, t_gui *gui, t_scroll *scroll)
 	if (scroll->mod > 0)
 	{
 		scroll->mod--;
-		gui_scroll_get_bmp(gui, scroll, "scroll_white.bmp");
-		gui_scroll_display(gui, scroll);
+		gui_widget_texture_get_bmp(scroll, "scroll_white.bmp");
+		gui_widget_display(scroll);
 		gui_scroll_write_list(gui, scroll, -1);
 	}
 }

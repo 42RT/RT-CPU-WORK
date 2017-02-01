@@ -3,7 +3,7 @@
 void	gui_button_selected(t_gui *gui, t_button *button)
 {
 	gui_font_init(gui, "Starjedi", GUI_FONT_SIZE);
-	gui_widget_draw_depth(gui, button->dest, GUI_BUTTON_DEPTH, "red brick");
+	gui_widget_draw_depth(button->dest, GUI_BUTTON_DEPTH, "red brick");
 	gui_write_button(button->action, button, "red brick");
 	TTF_CloseFont(TTF->font);
 }
@@ -34,100 +34,6 @@ void	gui_block_button_init(t_gui *gui, int id, int nb)
 	}
 }
 
-void	gui_widget_draw_depth(t_gui *gui, SDL_Rect widget, int px, char *color)
-{
-	int i;
-	int j;
-	
-	i = widget.x - px;
-	while (i < widget.w + widget.x)
-	{
-		j = widget.y - px;
-		while (j < widget.h + widget.y)
-		{
-			if (i < widget.x || j < widget.y)
-			{
-				gui->color = gui_color(color);
-				gui_pixel_put(gui, i, j);
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void	gui_widget_draw_outline(t_gui *gui, SDL_Rect widget, int px, char *color)
-{
-	int i;
-	int j;
-	
-	i = widget.x - px;
-	while (i < widget.w + widget.x + px)
-	{
-		j = widget.y - px;
-		while (j < widget.h + widget.y + px)
-		{
-			if (i < widget.x || i >= widget.x + widget.w
-			|| j < widget.y || j >= widget.y + widget.h)
-			{
-				gui->color = gui_color(color);
-				gui_pixel_put(gui, i, j);
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void	gui_widget_draw_in_line(t_gui *gui, SDL_Rect widget, int px, char *color)
-{
-	int i;
-	int j;
-	
-	i = widget.x;
-	while (i < widget.w + widget.x)
-	{
-		j = widget.y;
-		while (j < widget.h + widget.y)
-		{
-			if (i < widget.x + px || i >= widget.x + widget.w - px
-			|| j < widget.y + px || j >= widget.y + widget.h - px)
-			{
-				gui->color = gui_color(color);
-				gui_pixel_put(gui, i, j);
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-
-void	gui_button_get_bmp(t_gui *gui, t_button *button, char *file)
-{
-	button->surface = SDL_LoadBMP(ft_strjoin(GUI_TEXTURE_PATH, file));
-	if (!button->surface)
-		gui_error(2);
-	button->bmp = SDL_CreateTextureFromSurface(gui->img, button->surface);
-	if (!button->bmp)
-		gui_error(3);
-}
-
-void	gui_button_display(t_gui *gui, t_button *button)
-{
-	if (button->align == GUI_ALIGN_LEFT)
-		button->dest.x = 10;
-	else if (button->align == GUI_ALIGN_MID)
-		button->dest.x = (GUI_WIDTH / 2) - (button->dest.w / 2);
-	else if (button->align == GUI_ALIGN_RIGHT)
-		button->dest.x = GUI_WIDTH - (button->dest.w + 10);
-	else
-		button->dest.x = button->align;
-	SDL_RenderCopy(gui->img, button->bmp, NULL, &button->dest);
-	SDL_DestroyTexture(button->bmp);
-	SDL_FreeSurface(button->surface);
-}
-
 void	gui_button_create_all(t_gui *gui)
 {
 	int i;
@@ -143,14 +49,26 @@ void	gui_button_create_all(t_gui *gui)
 			i = 0;
 			while (i < BLOCK[id]->button_qt)
 			{
-				gui_button_get_bmp(gui, BUTTON[i], "button_jade.bmp");
-				gui_button_display(gui, BUTTON[i]);
-				gui_widget_draw_depth(gui, BUTTON[i]->dest, GUI_BUTTON_DEPTH, "white");
+				gui_widget_texture_get_bmp(BUTTON[i], "button_jade.bmp");
+				gui_widget_display(BUTTON[i]);
+				gui_widget_draw_depth(BUTTON[i]->dest, GUI_BUTTON_DEPTH, "white");
 				i++;
 			}
 			id++;
 		}
 	}
+}
+
+void	gui_button_set_align(t_button *button)
+{
+	if (button->align == GUI_ALIGN_LEFT)
+		button->dest.x = 10;
+	else if (button->align == GUI_ALIGN_MID)
+		button->dest.x = (GUI_WIDTH / 2) - (button->dest.w / 2);
+	else if (button->align == GUI_ALIGN_RIGHT)
+		button->dest.x = GUI_WIDTH - (button->dest.w + 10);
+	else
+		button->dest.x = button->align;
 }
 
 void	gui_button_set(int id, char *action, int align)
@@ -167,6 +85,7 @@ void	gui_button_set(int id, char *action, int align)
 			BUTTON[i]->align = align;
 			BUTTON[i]->dest.w = (GUI_WIDTH - (GUI_FONT_BORDER_STEP * 4)) / 3;
 			BUTTON[i]->dest.h = GUI_BUTTON_H;
+			gui_button_set_align(BUTTON[i]);
 			BUTTON[i]->action = action;
 			i = BLOCK[id]->button_qt;
 		}

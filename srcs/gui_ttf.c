@@ -43,7 +43,7 @@ void	gui_font_init(t_gui *gui, char *ttf, int size)
 {
 	char *path;
 
-	path = ft_strjoin(GUI_FONT_PATH, ttf);
+	path = ft_strjoin(PATH->font, ttf);
 	path = ft_strjoin(path, ".ttf");
 	TTF->font = TTF_OpenFont(path, size);
 	if (TTF->font == NULL)
@@ -56,7 +56,7 @@ void	gui_write_container(char *text, t_container *container, int x, int y)
 	t_gui	*gui;
 
 	gui = get_gui();
-	TTF_SizeText(TTF->font, text, &TTF->w_px, NULL);
+	TTF_SizeText(TTF->font, text, &TTF->w_px, &TTF->h_px);
 	TTF->texture = SDL_CreateTextureFromSurface(gui->img, 
 			TTF_RenderText_Solid(TTF->font, text, gui_color("white")));
 	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
@@ -70,6 +70,7 @@ void	gui_write_container(char *text, t_container *container, int x, int y)
 		TTF->rect.x = x;
 	TTF->rect.y = y + container->up_lim;
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	gui_anti_aliasing_set(TTF->rect.x, TTF->rect.y, TTF->w_px, TTF->h_px);
 	SDL_DestroyTexture(TTF->texture);
 }
 
@@ -85,6 +86,7 @@ void	gui_write_button(char *text, t_button *button, char *color)
 	TTF->rect.x = button->dest.x + ((button->dest.w - TTF->w_px) / 2);
 	TTF->rect.y = button->dest.y + ((button->dest.h - TTF->h_px - 4) / 2);
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	gui_anti_aliasing_set(TTF->rect.x, TTF->rect.y, TTF->w_px, TTF->h_px);
 	SDL_DestroyTexture(TTF->texture);
 
 }
@@ -104,6 +106,7 @@ void	gui_write_textbox_tag(char *text, t_textbox *textbox, int align)
 		TTF->rect.x = align;
 	TTF->rect.y = textbox->dest.y + ((textbox->dest.h - TTF->h_px) / 2);
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	gui_anti_aliasing_set(TTF->rect.x, TTF->rect.y, TTF->w_px, TTF->h_px);
 	SDL_DestroyTexture(TTF->texture);
 }
 
@@ -122,6 +125,7 @@ void	gui_write_scroll_tag(char *text, t_scroll *scroll, int align)
 		TTF->rect.x = align;
 	TTF->rect.y = scroll->dest.y + ((scroll->dest.h - TTF->h_px) / 2);
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	gui_anti_aliasing_set(TTF->rect.x, TTF->rect.y, TTF->w_px, TTF->h_px);
 	SDL_DestroyTexture(TTF->texture);
 }
 
@@ -137,6 +141,7 @@ void	gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color)
 		TTF->rect.x = textbox->dest.x + 3;
 	TTF->rect.y = textbox->dest.y + ((textbox->dest.h - TTF->h_px) / 2);
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	gui_anti_aliasing_set(TTF->rect.x, TTF->rect.y, TTF->w_px, TTF->h_px);
 	SDL_DestroyTexture(TTF->texture);
 
 }
@@ -157,6 +162,7 @@ void	gui_write_param(t_gui *gui, char *text, int align, int y)
 		TTF->rect.x = align;
 	TTF->rect.y = y;
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	gui_anti_aliasing_set(TTF->rect.x, TTF->rect.y, TTF->w_px, TTF->h_px);
 	SDL_DestroyTexture(TTF->texture);
 }
 
@@ -176,6 +182,7 @@ void	gui_write_help(t_gui *gui, char *text, int align, int y)
 		TTF->rect.x = align;
 	TTF->rect.y = y;
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	gui_anti_aliasing_set(TTF->rect.x, TTF->rect.y, TTF->w_px, TTF->h_px);
 	SDL_DestroyTexture(TTF->texture);
 }
 

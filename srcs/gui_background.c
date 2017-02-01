@@ -14,17 +14,20 @@
 
 void		gui_background_get_set_n_display(t_gui *gui)
 {
-	gui->bg_surface = SDL_LoadBMP(GUI_TEXTURE_PATH"bg_deadrealm.bmp");
-	if (!gui->bg_surface)
+	char *path;
+
+	path = ft_strjoin(PATH->texture, "bg_deadrealm.bmp");
+	BG->surface = SDL_LoadBMP(path);
+	if (!BG->surface)
 		gui_error(2);
-	gui->bg_bmp = SDL_CreateTextureFromSurface(gui->img, gui->bg_surface);
-	if (!gui->bg_bmp)
+	BG->bmp = SDL_CreateTextureFromSurface(gui->img, BG->surface);
+	if (!BG->bmp)
 		gui_error(3);
-	gui->bg_dest.x = 0;
-	gui->bg_dest.y = 0;
-	gui->bg_dest.w = GUI_WIDTH;
-	gui->bg_dest.h = gui->height;
-	SDL_RenderCopy(gui->img, gui->bg_bmp, NULL, &gui->bg_dest);
-	SDL_DestroyTexture(gui->bg_bmp);
-	SDL_FreeSurface(gui->bg_surface);
+	BG->dest.x = 0;
+	BG->dest.y = 0;
+	BG->dest.w = gui->dest.w;
+	BG->dest.h = gui->dest.h;
+	SDL_RenderCopy(gui->img, BG->bmp, NULL, &BG->dest);
+	SDL_DestroyTexture(BG->bmp);
+	SDL_FreeSurface(BG->surface);
 }

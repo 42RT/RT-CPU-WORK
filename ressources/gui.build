@@ -1,0 +1,255 @@
+WINDOW:
+	width: 400
+	height: 640
+PATH:
+	texture: "./ressources/gui_texture/"
+	font: "./ressources/gui_font/"
+DEFAULT_FONT:
+	size: 18
+	font: "Starjedi"
+	border_step: 15
+DEFAULT_TEXTBOX:
+	width: 50
+	height: 20
+	texture: "textbox_white.bmp"
+	texture_selected: "textbox_black.bmp"
+DEFAULT_SCROLL:
+	width: 100
+	height: 20
+	max_shown: 5
+	head_texture: "textbox_white.bmp"
+	list_texture: "scroll_white.bmp"
+	button_texture: "scrollB_jade.bmp"
+	button_texture_selected: "scrollB_jade_selected.bmp"
+DEFAULT_BUTTON:
+	width: 100
+	height: 25
+	texture: "button_jade.bmp"
+	texture_selected: "button_jade.bmp"
+DEFAULT_CHECKBOX
+	size: 20
+	texture: "textbox_white.bmp"
+	texture_selected: "checbox_selected.bmp"
+HELP MENU BUILDER:
+	x: 20
+	y: 20
+	w: 360
+	h: 530
+PARAM MENU BUILDER:
+	x: 20
+	y: 20
+	w: 360
+	h: 530
+	button_qt: 0
+	scroll_qt: 1
+	textbox_qt: 0
+	checkbox_qt: 1
+	scroll:
+		x: 2
+		y: 45
+		tag: "RES"
+	checkbox:
+		x: 1
+		y: 70
+		tag: "_AA"
+		selected: false
+MAIN BUILDER:
+	x: 0
+	y: 0
+	width: 400
+	height: 80
+	button_qt: 0
+	scroll_qt: 2
+	textbox_qt: 0
+	checkbox_qt: 0
+	scroll:
+		x: 1
+		y: 15
+		tag: "SCN"
+		,
+		x: 1
+		y: 45
+		tag: "OBJ"
+	,
+	x: 0
+	y: 80
+	width: 400
+	height: 80
+	button_qt: 0
+	scroll_qt: 0
+	textbox_qt: 3
+	checkbox_qt: 0
+	textbox:
+		x: 0
+		y: 45
+		tag: "__X"
+		min: -99999
+		max: 99999
+		,
+		x: 1
+		y: 45
+		tag: "__Y"
+		min: -99999
+		max: 99999
+		,
+		x: 2
+		y: 45
+		tag: "__Z"
+		min: -99999
+		max: 99999
+	,
+	x: 0
+	y: 160
+	width: 400
+	height: 80
+	button_qt: 0
+	scroll_qt: 0
+	textbox_qt: 2
+	checkbox_qt: 0
+	textbox:
+		x: 0
+		y: 45
+		tag: "__Y"
+		min: -180
+		max: 180
+		,
+		x: 1
+		x: 45
+		tag: "__Z"
+		min: -180
+		max: 180
+	,
+	x: 0
+	y: 240
+	width: 400
+	height: 120
+	button_qt: 0
+	scroll_qt: 0
+	textbox_qt: 4
+	checkbox_qt: 0
+	textbox:
+		x: 0
+		y: 45
+		tag: "__R"
+		min: 0
+		max: 255
+		,
+		x: 1
+		y: 45
+		tag: "__G"
+		min: 0
+		max: 255
+		,
+		x: 0
+		y: 80
+		tag: "__B"
+		min: 0
+		max: 255
+		,
+		x: 1
+		y: 80
+		tag: "__A"
+		min: 0
+		max: 255
+	,
+	x: 0
+	y: 360
+	width: 400
+	height: 400
+	button_qt: 0
+	scroll_qt: 0
+	textbox_qt: 1
+	checkbox_qt: 0
+	textbox:
+		x: 1
+		y: 10
+		tag: "RFR"
+		min: 0
+		max: 3.5
+	,
+	x: 0
+	y: 400
+	width: 400
+	height: 40
+	button_qt: 0
+	scroll_qt: 0
+	textbox_qt: 1
+	checkbox_qt: 0
+	textbox:
+		x: 1
+		y: 10
+		tag: "RFL"
+		min: 0
+		max: 3.5
+	,
+	x: 0
+	y: 440
+	width: 400
+	height: 40
+	button_qt: 0
+	scroll_qt: 1
+	textbox_qt: 0
+	checkbox_qt: 0
+	scroll:
+		x: 1
+		y: 15
+		tag: "MTR"
+	,
+	x: 0
+	y: 480
+	width: 400
+	height: 80
+	button_qt: 0
+	scroll_qt: 2
+	textbox_qt: 0
+	checkbox_qt: 0
+	scroll:
+		x: 0
+		y: 45
+		tag: "PCD"
+		,
+		x: 2
+		y: 45
+		tag: "NML"
+	,
+	x: 0
+	y: 560
+	width: 400
+	height: 400
+	button_qt: 3
+	scroll_qt: 0
+	textbox_qt: 0
+	checkbox_qt: 0
+	button:
+		x: 0
+		y: 1
+		action: "DEL"
+		,
+		x: 1
+		y: 1
+		action: "SAVE"
+		,
+		x: 2
+		y: 1
+		action: "APPLY"
+	,
+	x: 0
+	y: 600
+	width: 400
+	height: 40
+	button_qt: 3
+	scroll_qt: 0
+	textbox_qt: 0
+	checkbox_qt: 0
+	button:
+		x: 0
+		y: 1
+		action: "PARAM"
+		,
+		x: 1
+		y: 1
+		action: "HELP"
+		,
+		x: 2
+		y: 1
+		action: "EXIT"

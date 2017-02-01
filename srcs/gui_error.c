@@ -32,6 +32,12 @@ void	gui_error(int n)
 		printf("\033[31mFailed\033[0m : %s\n", SDL_GetError());
 	else if (n == 6)
 		printf("Failed to load Font : %s\n", SDL_GetError());
+	else if (n == 7)
+		printf("AA : \033[31mFailed to read pixel\033[0m : %s\n", SDL_GetError());
+	else if (n == 8)
+		printf("PARSE : \033[31mEmpty File.\033[0m\n");
+	else if (n == 9)
+		printf("PARSE : \033[31mCannot Open file.\033[0m\n");
 	else
 		gui_expand_error(n);
 	exit(1);
