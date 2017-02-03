@@ -5,7 +5,6 @@ void	gui_parse_param_scroll(t_gui *gui, int fd, int nb)
 	char	**tmp;
 	int		i;
 	int		j;
-	int		ret;
 	char	*line;
 
 	get_next_line(fd, &line);
@@ -16,14 +15,15 @@ void	gui_parse_param_scroll(t_gui *gui, int fd, int nb)
 		i = 0;
 		while (i < nb)
 		{
+			printf("\tSCL : (%d) : ", i);
 			PARAM_SCL = gui_param_scroll_init(gui);
 			j = 0;
 			while (j < 3)
 			{
-				ret = get_next_line(fd, &line);
+				get_next_line(fd, &line);
 				tmp = ft_strsplit(line, ':');
 				if (!ft_strcmp(tmp[0], "\t\tx"))
-					PARAM_SCL->dest.x = 10;//ft_atoi(tmp[1]);
+					PARAM_SCL->dest.x = ft_atoi(tmp[1]);
 				if (!ft_strcmp(tmp[0], "\t\ty"))
 					PARAM_SCL->dest.y = ft_atoi(tmp[1]);
 				if (!ft_strcmp(tmp[0], "\t\ttag"))
@@ -33,12 +33,64 @@ void	gui_parse_param_scroll(t_gui *gui, int fd, int nb)
 				}
 				j++;
 			}
+			printf("(%d,%d,%s)\n", PARAM_SCL->dest.x, PARAM_SCL->dest.y, PARAM_SCL->tag);
+			gui_param_scroll_set(PARAM_SCL);
 			i++;
 		}
 	}
 	else
 		gui_error(10); // scroll attendu dans le builder
 }
+
+void	gui_parse_param_checkbox(t_gui *gui, int fd, int nb)
+{
+	char	**tmp;
+	int		i;
+	int		j;
+	char	*line;
+
+	get_next_line(fd, &line);
+	if (!ft_strcmp(line, "\tcheckbox:"))
+	{
+		if ((PARAM->checkbox = (t_checkbox **)malloc(sizeof(t_checkbox *) * nb)) == NULL)
+			error(1);
+		i = 0;
+		while (i < nb)
+		{
+			printf("\tCBX : (%d) : ", i);
+			PARAM_CBX = gui_param_checkbox_init();
+			j = 0;
+			while (j < 3)
+			{
+				get_next_line(fd, &line);
+				tmp = ft_strsplit(line, ':');
+				if (!ft_strcmp(tmp[0], "\t\tx"))
+					PARAM_CBX->dest.x = ft_atoi(tmp[1]);
+				if (!ft_strcmp(tmp[0], "\t\ty"))
+					PARAM_CBX->dest.y = ft_atoi(tmp[1]);
+				if (!ft_strcmp(tmp[0], "\t\ttag"))
+				{
+					tmp = ft_strsplit(tmp[1], '"');
+					PARAM_CBX->tag = tmp[1];
+				}
+				if (!ft_strcmp(tmp[0], "\t\tselected"))
+				{
+					if (!ft_strcmp(tmp[1], "false"))
+						PARAM_CBX->selected = false;
+					if (!ft_strcmp(tmp[1], "true"))
+						PARAM_CBX->selected = true;
+				}
+				j++;
+			}
+			printf("(%d,%d,%s,%d)\n", PARAM_CBX->dest.x, PARAM_CBX->dest.y, PARAM_CBX->tag, PARAM_CBX->selected);
+			gui_param_checkbox_set(PARAM_CBX);
+			i++;
+		}
+	}
+	else
+		gui_error(10); // scroll attendu dans le builder
+}
+
 
 void	gui_parse_param_builder(t_gui *gui, int fd, int nb)
 {
@@ -78,13 +130,13 @@ void	gui_parse_param_builder(t_gui *gui, int fd, int nb)
 	PARAM->textbox = NULL;
 	PARAM->checkbox = NULL;
 	PARAM->active = 0;
+	printf("OK (%d, %d, %d, %d, %d, %d, %d, %d)\n", PARAM->dest.x, PARAM->dest.y, PARAM->dest.w, PARAM->dest.h, PARAM->button_qt, PARAM->scroll_qt, PARAM->textbox_qt, PARAM->checkbox_qt);
 	//if (PARAM->button_qt > 0)
 	//	gui_parse_param_button();
 	if (PARAM->scroll_qt > 0)
 		gui_parse_param_scroll(gui, fd, PARAM->scroll_qt);
 	//if (PARAM->textbox_qt > 0)
 	//	gui_parse_param_textbox();
-	//if (PARAM->checkbox_qt > 0)
-	//	gui_parse_checkbox_qt();
-	printf("OK (%d, %d, %d, %d, %d, %d, %d, %d)\n", PARAM->dest.x, PARAM->dest.y, PARAM->dest.w, PARAM->dest.h, PARAM->button_qt, PARAM->scroll_qt, PARAM->textbox_qt, PARAM->checkbox_qt);
+	if (PARAM->checkbox_qt > 0)
+		gui_parse_param_checkbox(gui, fd, PARAM->checkbox_qt);
 }

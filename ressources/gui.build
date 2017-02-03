@@ -1,6 +1,6 @@
 WINDOW:
-	width: 400
-	height: 640
+	w: 400
+	h: 640
 PATH:
 	texture: "./ressources/gui_texture/"
 	font: "./ressources/gui_font/"
@@ -9,24 +9,24 @@ DEFAULT_FONT:
 	font: "Starjedi"
 	border_step: 15
 DEFAULT_TEXTBOX:
-	width: 50
-	height: 20
+	w: 50
+	h: 20
 	texture: "textbox_white.bmp"
 	texture_selected: "textbox_black.bmp"
 DEFAULT_SCROLL:
-	width: 100
-	height: 20
+	w: 100
+	h: 20
 	max_shown: 5
 	head_texture: "textbox_white.bmp"
 	list_texture: "scroll_white.bmp"
 	button_texture: "scrollB_jade.bmp"
 	button_texture_selected: "scrollB_jade_selected.bmp"
 DEFAULT_BUTTON:
-	width: 100
-	height: 25
+	w: 100
+	h: 25
 	texture: "button_jade.bmp"
 	texture_selected: "button_jade.bmp"
-DEFAULT_CHECKBOX
+DEFAULT_CHECKBOX:
 	size: 20
 	texture: "textbox_white.bmp"
 	texture_selected: "checbox_selected.bmp"
@@ -56,8 +56,8 @@ PARAM MENU BUILDER:
 MAIN BUILDER:
 	x: 0
 	y: 0
-	width: 400
-	height: 80
+	w: 400
+	h: 80
 	button_qt: 0
 	scroll_qt: 2
 	textbox_qt: 0
@@ -73,8 +73,8 @@ MAIN BUILDER:
 	,
 	x: 0
 	y: 80
-	width: 400
-	height: 80
+	w: 400
+	h: 80
 	button_qt: 0
 	scroll_qt: 0
 	textbox_qt: 3
@@ -100,8 +100,8 @@ MAIN BUILDER:
 	,
 	x: 0
 	y: 160
-	width: 400
-	height: 80
+	w: 400
+	h: 80
 	button_qt: 0
 	scroll_qt: 0
 	textbox_qt: 2
@@ -109,20 +109,20 @@ MAIN BUILDER:
 	textbox:
 		x: 0
 		y: 45
-		tag: "__Y"
+		tag: "__V"
 		min: -180
 		max: 180
 		,
 		x: 1
-		x: 45
-		tag: "__Z"
+		y: 45
+		tag: "__H"
 		min: -180
 		max: 180
 	,
 	x: 0
 	y: 240
-	width: 400
-	height: 120
+	w: 400
+	h: 120
 	button_qt: 0
 	scroll_qt: 0
 	textbox_qt: 4
@@ -154,8 +154,8 @@ MAIN BUILDER:
 	,
 	x: 0
 	y: 360
-	width: 400
-	height: 400
+	w: 400
+	h: 400
 	button_qt: 0
 	scroll_qt: 0
 	textbox_qt: 1
@@ -169,8 +169,8 @@ MAIN BUILDER:
 	,
 	x: 0
 	y: 400
-	width: 400
-	height: 40
+	w: 400
+	h: 40
 	button_qt: 0
 	scroll_qt: 0
 	textbox_qt: 1
@@ -184,8 +184,8 @@ MAIN BUILDER:
 	,
 	x: 0
 	y: 440
-	width: 400
-	height: 40
+	w: 400
+	h: 40
 	button_qt: 0
 	scroll_qt: 1
 	textbox_qt: 0
@@ -197,8 +197,8 @@ MAIN BUILDER:
 	,
 	x: 0
 	y: 480
-	width: 400
-	height: 80
+	w: 400
+	h: 80
 	button_qt: 0
 	scroll_qt: 2
 	textbox_qt: 0
@@ -214,8 +214,8 @@ MAIN BUILDER:
 	,
 	x: 0
 	y: 560
-	width: 400
-	height: 400
+	w: 400
+	h: 40
 	button_qt: 3
 	scroll_qt: 0
 	textbox_qt: 0
@@ -235,8 +235,8 @@ MAIN BUILDER:
 	,
 	x: 0
 	y: 600
-	width: 400
-	height: 40
+	w: 400
+	h: 40
 	button_qt: 3
 	scroll_qt: 0
 	textbox_qt: 0

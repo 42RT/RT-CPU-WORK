@@ -37,6 +37,8 @@ SDL_Color	gui_color(char *choice)
 		return (gui_color_data_set(31, 17, 70, 255));
 	if (ft_strstr(choice, "teal"))
 		return (gui_color_data_set(43, 202, 189, 255));
+	else
+		return (gui_color_data_set(0, 0, 0, 0));
 }
 
 void	gui_font_init(t_gui *gui, char *ttf, int size)
@@ -188,7 +190,7 @@ void	gui_write_help(t_gui *gui, char *text, int align, int y)
 
 void	gui_font_build(t_gui *gui)
 {
-	gui_font_init(gui, "Starjedi", GUI_FONT_SIZE);
+	gui_font_init(gui, "Starjedi", TTF->def_size);
 	gui_write_container("scene", BLOCK[0], GUI_ALIGN_LEFT, 10);
 	gui_write_container("object", BLOCK[0], GUI_ALIGN_LEFT, 40);
 	gui_write_container("position :", BLOCK[1], GUI_ALIGN_LEFT, 10);

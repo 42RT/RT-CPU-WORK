@@ -37,21 +37,8 @@ void		gui_build(t_gui	*gui)
 {
 	printf("GUI : \033[33mBUILDING CONTENT ...\033[0m\n");
 	gui_background_get_set_n_display(gui);
-	gui->cbcnt = 0;
-	gui->container = (t_container **)malloc(sizeof(t_container *)
-			* GUI_CONTAINER_TOTAL_NB);
 	printf("GUI : \033[33mContainer \033[0m: ");
 	/* compter 40 px par ligne dans le conteneur*/
-	gui_container_build(gui, GUI_CONSTANT, 80);
-	gui_container_build(gui, GUI_CONSTANT, 80);
-	gui_container_build(gui, GUI_CONSTANT, 80);
-	gui_container_build(gui, GUI_CONSTANT, 120);
-	gui_container_build(gui, GUI_CONSTANT, 40);
-	gui_container_build(gui, GUI_CONSTANT, 40);
-	gui_container_build(gui, GUI_CONSTANT, 40);
-	gui_container_build(gui, GUI_CONSTANT, 80);
-	gui_container_build(gui, GUI_CONSTANT, 40);
-	gui_container_build(gui, GUI_CONSTANT, 40);
 	printf("\033[1;32mOK\033[0m\n");
 	printf("GUI : \033[33mTextbox \033[0m: ");
 	gui_textbox_build(gui);
@@ -101,7 +88,6 @@ t_gui		*gui_init(void)
 	gui_alloc();
 	gui = get_gui();
 	gui_parse_builder(gui, "./ressources/gui.build");
-
 	if (SDL_GetCurrentDisplayMode(0, gui->display) != 0)
 		gui_error(1);
 	//gui->dest.w = GUI_WIDTH;
