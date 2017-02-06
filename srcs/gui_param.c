@@ -24,6 +24,8 @@ t_scroll	*gui_param_scroll_init()
 		error(1);
 	if ((scroll->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
 		error(1);
+	if ((scroll->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
+		error(1);
 	scroll->value[0] = "param1";
 	scroll->value[1] = "param2";
 	scroll->value[2] = "param3";
@@ -75,10 +77,48 @@ void	gui_param_scroll_create_all(t_gui *gui)
 
 void	gui_param_text_build(t_gui *gui)
 {
+	int i;
+
 	gui_font_init(gui, "Audiowide-Regular", GUI_FONT_SIZE + 1);
-	gui_write_param(gui, "options", GUI_ALIGN_MID, 20);
+	if (PARAM->button_qt > 0)
+	{
+		i = 0;
+		while (i < PARAM->button_qt)
+		{
+			gui_widget_write_txt(PARAM->button[i], "white");
+			i++;
+		}
+	}
+	if (PARAM->scroll_qt > 0)
+	{
+		i = 0;
+		while (i < PARAM->scroll_qt)
+		{
+			gui_widget_write_txt(PARAM->scroll[i], "white");
+			i++;
+		}
+	}
+	if (PARAM->textbox_qt > 0)
+	{
+		i = 0;
+		while (i < PARAM->textbox_qt)
+		{
+			gui_widget_write_txt(PARAM->textbox[i], "white");
+			i++;
+		}
+	}
+	if (PARAM->checkbox_qt > 0)
+	{
+		i = 0;
+		while (i < PARAM->checkbox_qt)
+		{
+			gui_widget_write_txt(PARAM->checkbox[i], "white");
+			i++;
+		}
+	}
+	/*gui_write_param(gui, "options", GUI_ALIGN_MID, 20);
 	gui_write_param(gui, "Resolution", GUI_ALIGN_LEFT, 45);
-	gui_write_param(gui, "Anti-aliasing", GUI_ALIGN_LEFT, 70);
+	gui_write_param(gui, "Anti-aliasing", GUI_ALIGN_LEFT, 70);*/
 	TTF_CloseFont(TTF->font);
 
 }

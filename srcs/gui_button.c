@@ -24,7 +24,7 @@ void	gui_button_selected(t_gui *gui, t_button *button)
 {
 	gui_font_init(gui, "Starjedi", TTF->def_size);
 	gui_widget_draw_depth(button->dest, GUI_BUTTON_DEPTH, "red brick");
-	gui_write_button(str_tolower(button->action), button, "red brick");
+	gui_widget_write_txt(button, "red brick");
 	TTF_CloseFont(TTF->font);
 }
 

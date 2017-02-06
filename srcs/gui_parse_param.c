@@ -17,8 +17,10 @@ void	gui_parse_param_scroll(t_gui *gui, int fd, int nb)
 		{
 			printf("\tSCL : (%d) : ", i);
 			PARAM_SCL = gui_param_scroll_init(gui);
+			PARAM_SCL->id = i;
+			PARAM_SCL->p = -1;
 			j = 0;
-			while (j < 3)
+			while (j < 6)
 			{
 				get_next_line(fd, &line);
 				tmp = ft_strsplit(line, ':');
@@ -31,9 +33,21 @@ void	gui_parse_param_scroll(t_gui *gui, int fd, int nb)
 					tmp = ft_strsplit(tmp[1], '"');
 					PARAM_SCL->tag = tmp[1];
 				}
+				if (!ft_strcmp(tmp[0], "\t\ttxt"))
+				{
+					tmp = ft_strsplit(tmp[1], '"');
+					PARAM_SCL->txt->content = tmp[1];
+				}
+				if (!ft_strcmp(tmp[0], "\t\ttxt_anchor"))
+				{
+					tmp = ft_strsplit(tmp[1], '"');
+					PARAM_SCL->txt->anchor = tmp[1];
+				}
+				if (!ft_strcmp(tmp[0], "\t\ttxt_align"))
+					PARAM_SCL->txt->align = ft_atoi(tmp[1]);
 				j++;
 			}
-			printf("(%d,%d,%s)\n", PARAM_SCL->dest.x, PARAM_SCL->dest.y, PARAM_SCL->tag);
+			printf("(%d,%d,%s) [\"%s\",%s,%d]\n", PARAM_SCL->dest.x, PARAM_SCL->dest.y, PARAM_SCL->tag, PARAM_SCL->txt->content, PARAM_SCL->txt->anchor, PARAM_SCL->txt->align);
 			gui_param_scroll_set(PARAM_SCL);
 			i++;
 		}
@@ -59,30 +73,44 @@ void	gui_parse_param_checkbox(t_gui *gui, int fd, int nb)
 		{
 			printf("\tCBX : (%d) : ", i);
 			PARAM_CBX = gui_param_checkbox_init();
+			PARAM_CBX->id = i;
+			PARAM_CBX->p = -1;
 			j = 0;
-			while (j < 3)
+			while (j < 7)
 			{
 				get_next_line(fd, &line);
 				tmp = ft_strsplit(line, ':');
 				if (!ft_strcmp(tmp[0], "\t\tx"))
 					PARAM_CBX->dest.x = ft_atoi(tmp[1]);
-				if (!ft_strcmp(tmp[0], "\t\ty"))
+				else if (!ft_strcmp(tmp[0], "\t\ty"))
 					PARAM_CBX->dest.y = ft_atoi(tmp[1]);
-				if (!ft_strcmp(tmp[0], "\t\ttag"))
+				else if (!ft_strcmp(tmp[0], "\t\ttag"))
 				{
 					tmp = ft_strsplit(tmp[1], '"');
 					PARAM_CBX->tag = tmp[1];
 				}
-				if (!ft_strcmp(tmp[0], "\t\tselected"))
+				else if (!ft_strcmp(tmp[0], "\t\tselected"))
 				{
 					if (!ft_strcmp(tmp[1], "false"))
 						PARAM_CBX->selected = false;
 					if (!ft_strcmp(tmp[1], "true"))
 						PARAM_CBX->selected = true;
 				}
+				else if (!ft_strcmp(tmp[0], "\t\ttxt"))
+				{
+					tmp = ft_strsplit(tmp[1], '"');
+					PARAM_CBX->txt->content = tmp[1];
+				}
+				else if (!ft_strcmp(tmp[0], "\t\ttxt_anchor"))
+				{
+					tmp = ft_strsplit(tmp[1], '"');
+					PARAM_CBX->txt->anchor = tmp[1];
+				}
+				else if (!ft_strcmp(tmp[0], "\t\ttxt_align"))
+					PARAM_CBX->txt->align = ft_atoi(tmp[1]);
 				j++;
 			}
-			printf("(%d,%d,%s,%d)\n", PARAM_CBX->dest.x, PARAM_CBX->dest.y, PARAM_CBX->tag, PARAM_CBX->selected);
+			printf("(%d,%d,%s,%d) [\"%s\",%s,%d]\n", PARAM_CBX->dest.x, PARAM_CBX->dest.y, PARAM_CBX->tag, PARAM_CBX->selected, PARAM_CBX->txt->content, PARAM_CBX->txt->anchor, PARAM_CBX->txt->align);
 			gui_param_checkbox_set(PARAM_CBX);
 			i++;
 		}

@@ -48,11 +48,17 @@ PARAM MENU BUILDER:
 		x: 2
 		y: 45
 		tag: "RES"
+		txt: "resolution"
+		txt_anchor: "parent"
+		txt_align: 0
 	checkbox:
 		x: 1
 		y: 70
 		tag: "_AA"
 		selected: false
+		txt: "Anti-aliasing"
+		txt_anchor: "parent"
+		txt_align: 0
 MAIN BUILDER:
 	x: 0
 	y: 0
@@ -66,10 +72,16 @@ MAIN BUILDER:
 		x: 1
 		y: 15
 		tag: "SCN"
+		txt: "scene"
+		txt_anchor: "parent"
+		txt_align: 0
 		,
 		x: 1
 		y: 45
 		tag: "OBJ"
+		txt: "object"
+		txt_anchor: "parent"
+		txt_align: 0
 	,
 	x: 0
 	y: 80
@@ -85,18 +97,27 @@ MAIN BUILDER:
 		tag: "__X"
 		min: -99999
 		max: 99999
+		txt: "x"
+		txt_anchor: "this"
+		txt_align: 0
 		,
 		x: 1
 		y: 45
 		tag: "__Y"
 		min: -99999
 		max: 99999
+		txt: "y"
+		txt_anchor: "this"
+		txt_align: 0
 		,
 		x: 2
 		y: 45
 		tag: "__Z"
 		min: -99999
 		max: 99999
+		txt: "z"
+		txt_anchor: "this"
+		txt_align: 0
 	,
 	x: 0
 	y: 160
@@ -112,12 +133,18 @@ MAIN BUILDER:
 		tag: "__V"
 		min: -180
 		max: 180
+		txt: "v"
+		txt_anchor: "this"
+		txt_align: 0
 		,
 		x: 1
 		y: 45
 		tag: "__H"
 		min: -180
 		max: 180
+		txt: "h"
+		txt_anchor: "this"
+		txt_align: 0
 	,
 	x: 0
 	y: 240
@@ -133,24 +160,36 @@ MAIN BUILDER:
 		tag: "__R"
 		min: 0
 		max: 255
+		txt: "r"
+		txt_anchor: "this"
+		txt_align: 0
 		,
 		x: 1
 		y: 45
 		tag: "__G"
 		min: 0
 		max: 255
+		txt: "g"
+		txt_anchor: "this"
+		txt_align: 0
 		,
 		x: 0
 		y: 80
 		tag: "__B"
 		min: 0
 		max: 255
+		txt: "b"
+		txt_anchor: "this"
+		txt_align: 0
 		,
 		x: 1
 		y: 80
 		tag: "__A"
 		min: 0
 		max: 255
+		txt: "a"
+		txt_anchor: "this"
+		txt_align: 0
 	,
 	x: 0
 	y: 360
@@ -166,6 +205,9 @@ MAIN BUILDER:
 		tag: "RFR"
 		min: 0
 		max: 3.5
+		txt: "reflection"
+		txt_anchor: "parent"
+		txt_align: 0
 	,
 	x: 0
 	y: 400
@@ -181,6 +223,9 @@ MAIN BUILDER:
 		tag: "RFL"
 		min: 0
 		max: 3.5
+		txt: "refraction"
+		txt_anchor: "parent"
+		txt_align: 0
 	,
 	x: 0
 	y: 440
@@ -194,6 +239,9 @@ MAIN BUILDER:
 		x: 1
 		y: 15
 		tag: "MTR"
+		txt: "material"
+		txt_anchor: "parent"
+		txt_align: 0
 	,
 	x: 0
 	y: 480
@@ -207,10 +255,16 @@ MAIN BUILDER:
 		x: 0
 		y: 45
 		tag: "PCD"
+		txt: "p"
+		txt_anchor: "this"
+		txt_align: 0
 		,
 		x: 2
 		y: 45
 		tag: "NML"
+		txt: "n"
+		txt_anchor: "this"
+		txt_align: 0
 	,
 	x: 0
 	y: 560
@@ -224,14 +278,23 @@ MAIN BUILDER:
 		x: 0
 		y: 1
 		action: "DEL"
+		txt: "del"
+		txt_anchor: "this"
+		txt_align: 1
 		,
 		x: 1
 		y: 1
 		action: "SAVE"
+		txt: "save"
+		txt_anchor: "this"
+		txt_align: 1
 		,
 		x: 2
 		y: 1
 		action: "APPLY"
+		txt: "apply"
+		txt_anchor: "this"
+		txt_align: 1
 	,
 	x: 0
 	y: 600
@@ -245,11 +308,20 @@ MAIN BUILDER:
 		x: 0
 		y: 1
 		action: "PARAM"
+		txt: "param"
+		txt_anchor: "this"
+		txt_align: 1
 		,
 		x: 1
 		y: 1
 		action: "HELP"
+		txt: "help"
+		txt_anchor: "this"
+		txt_align: 1
 		,
 		x: 2
 		y: 1
 		action: "EXIT"
+		txt: "exit"
+		txt_anchor: "this"
+		txt_align: 1

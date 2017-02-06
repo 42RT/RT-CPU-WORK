@@ -40,6 +40,8 @@ t_button	*gui_parse_button(int fd, int nb)
 	i = 0;
 	if ((button = (t_button *)malloc(sizeof(t_button))) == NULL)
 		error(1);
+	if ((button->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
+		error(1);
 	button->nature = BTN;
 	button->surface = NULL;
 	button->bmp = NULL;
@@ -58,6 +60,18 @@ t_button	*gui_parse_button(int fd, int nb)
 				error(1);
 			button->action = tmp[1];
 		}
+		if (!ft_strcmp(tmp[0], "\t\ttxt"))
+		{
+			tmp = ft_strsplit(tmp[1], '"');
+			button->txt->content = tmp[1];
+		}
+		if (!ft_strcmp(tmp[0], "\t\ttxt_anchor"))
+		{
+			tmp = ft_strsplit(tmp[1], '"');
+			button->txt->anchor = tmp[1];
+		}
+		if (!ft_strcmp(tmp[0], "\t\ttxt_align"))
+			button->txt->align = ft_atoi(tmp[1]);
 		i++;
 	}
 	return (button);
@@ -71,24 +85,24 @@ t_button	**gui_parse_container_button(int fd, int qt, int id)
 
 	get_next_line(fd, &line);
 	if (ft_strcmp(line, "\tbutton:"))
-		gui_error(10);
+		gui_error(12);
 	if ((button = (t_button **)malloc(sizeof(t_button *))) == NULL)
 		error(1);
 	i = 0;
 	while (i < qt)
 	{
 		printf("\tBTN : (%d) : ", i);
-		button[i] = gui_parse_button(fd, 3);
+		button[i] = gui_parse_button(fd, 6);
 		button[i]->p = id;
 		button[i]->id = i;
-		printf("(%d,%d,%s)\n", button[i]->dest.x, button[i]->dest.y, button[i]->action);
+		printf("(%d,%d,%s) [\"%s\",%s,%d]\n", button[i]->dest.x, button[i]->dest.y, button[i]->action, button[i]->txt->content, button[i]->txt->anchor, button[i]->txt->align);
 		gui_button_set(button[i]);
 		i++;
 		if (i < qt)
 		{
 			get_next_line(fd, &line);
 			if (ft_strcmp(line, "\t\t,"))
-				gui_error(10);
+				gui_error(11);
 		}
 	}
 	return (button);
@@ -121,21 +135,35 @@ t_scroll	*gui_parse_scroll(int fd, int nb)
 	scroll->surface = NULL;
 	scroll->bmp = NULL;
 	scroll->button = gui_init_scroll_button();
+	if ((scroll->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
+		error(1);
 	while (i < nb)
 	{
 		get_next_line(fd, &line);
 		tmp = ft_strsplit(line, ':');
 		if (!ft_strcmp(tmp[0], "\t\tx"))
 			scroll->dest.x = ft_atoi(tmp[1]);
-		if (!ft_strcmp(tmp[0], "\t\ty"))
+		else if (!ft_strcmp(tmp[0], "\t\ty"))
 			scroll->dest.y = ft_atoi(tmp[1]);
-		if (!ft_strcmp(tmp[0], "\t\ttag"))
+		else if (!ft_strcmp(tmp[0], "\t\ttag"))
 		{
 			tmp = ft_strsplit(tmp[1], '"');
 			if ((scroll->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
 				error(1);
 			scroll->tag = tmp[1];
 		}
+		else if (!ft_strcmp(tmp[0], "\t\ttxt"))
+		{
+			tmp = ft_strsplit(tmp[1], '"');
+			scroll->txt->content = tmp[1];
+		}
+		else if (!ft_strcmp(tmp[0], "\t\ttxt_anchor"))
+		{
+			tmp = ft_strsplit(tmp[1], '"');
+			scroll->txt->anchor = tmp[1];
+		}
+		else if (!ft_strcmp(tmp[0], "\t\ttxt_align"))
+			scroll->txt->align = ft_atoi(tmp[1]);
 		i++;
 	}
 	return (scroll);
@@ -168,28 +196,28 @@ t_scroll	**gui_parse_container_scroll(int fd, int qt, int id)
 
 	get_next_line(fd, &line);
 	if (ft_strcmp(line, "\tscroll:"))
-		gui_error(10);
+		gui_error(12);
 	if ((scroll = (t_scroll **)malloc(sizeof(t_scroll *))) == NULL)
 		error(1);
 	i = 0;
 	while (i < qt)
 	{
 		printf("\tSCL : (%d) : ", i);
-		scroll[i] = gui_parse_scroll(fd, 3);
+		scroll[i] = gui_parse_scroll(fd, 6);
 		scroll[i]->p = id;
 		scroll[i]->id = i;
 		scroll[i]->nb_value = 10;
 		scroll[i]->active_value = 0;
 		scroll[i]->mod = 0;
 		scroll[i]->value = gui_get_scroll_value(scroll[i]->nb_value);
-		printf("(%d,%d,%s)\n", scroll[i]->dest.x, scroll[i]->dest.y, scroll[i]->tag);
+		printf("(%d,%d,%s) [\"%s\",%s,%d]\n", scroll[i]->dest.x, scroll[i]->dest.y, scroll[i]->tag, scroll[i]->txt->content, scroll[i]->txt->anchor, scroll[i]->txt->align);
 		gui_scroll_set(scroll[i]);
 		i++;
 		if (i < qt)
 		{
 			get_next_line(fd, &line);
 			if (ft_strcmp(line, "\t\t,"))
-				gui_error(10);
+				gui_error(11);
 		}
 	}
 	return (scroll);
@@ -213,6 +241,8 @@ t_textbox	*gui_parse_textbox(int fd, int nb)
 	i = 0;
 	if ((textbox = (t_textbox *)malloc(sizeof(t_textbox))) == NULL)
 		error(1);
+	if ((textbox->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
+		error(1);
 	textbox->nature = TXB;
 	textbox->surface = NULL;
 	textbox->bmp = NULL;
@@ -222,19 +252,31 @@ t_textbox	*gui_parse_textbox(int fd, int nb)
 		tmp = ft_strsplit(line, ':');
 		if (!ft_strcmp(tmp[0], "\t\tx"))
 			textbox->dest.x = ft_atoi(tmp[1]);
-		if (!ft_strcmp(tmp[0], "\t\ty"))
+		else if (!ft_strcmp(tmp[0], "\t\ty"))
 			textbox->dest.y = ft_atoi(tmp[1]);
-		if (!ft_strcmp(tmp[0], "\t\ttag"))
+		else if (!ft_strcmp(tmp[0], "\t\ttag"))
 		{
 			tmp = ft_strsplit(tmp[1], '"');
 			if ((textbox->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
 				error(1);
 			textbox->tag = tmp[1];
 		}
-		if (!ft_strcmp(tmp[0], "\t\tmin"))
+		else if (!ft_strcmp(tmp[0], "\t\tmin"))
 			textbox->min = ft_atoi(tmp[1]);
-		if (!ft_strcmp(tmp[0], "\t\tmax"))
+		else if (!ft_strcmp(tmp[0], "\t\tmax"))
 			textbox->max = ft_atoi(tmp[1]);
+		else if (!ft_strcmp(tmp[0], "\t\ttxt"))
+		{
+			tmp = ft_strsplit(tmp[1], '"');
+			textbox->txt->content = tmp[1];
+		}
+		else if (!ft_strcmp(tmp[0], "\t\ttxt_anchor"))
+		{
+			tmp = ft_strsplit(tmp[1], '"');
+			textbox->txt->anchor = tmp[1];
+		}
+		else if (!ft_strcmp(tmp[0], "\t\ttxt_align"))
+			textbox->txt->align = ft_atoi(tmp[1]);
 		i++;
 	}
 	return (textbox);
@@ -248,25 +290,25 @@ t_textbox	**gui_parse_container_textbox(int fd, int qt, int id)
 
 	get_next_line(fd, &line);
 	if (ft_strcmp(line, "\ttextbox:"))
-		gui_error(10);
+		gui_error(12);
 	if ((textbox = (t_textbox **)malloc(sizeof(t_textbox *))) == NULL)
 		error(1);
 	i = 0;
 	while (i < qt)
 	{
 		printf("\tTXB : (%d) : ", i);
-		textbox[i] = gui_parse_textbox(fd, 5);
+		textbox[i] = gui_parse_textbox(fd, 8);
 		textbox[i]->p = id;
 		textbox[i]->id = i;
 		gui_get_textbox_value(textbox[i]);
-		printf("(%d,%d,%s,%d,%d)\n", textbox[i]->dest.x, textbox[i]->dest.y, textbox[i]->tag, textbox[i]->min, textbox[i]->max);
+		printf("(%d,%d,%s,%d,%d) [\"%s\",%s,%d]\n", textbox[i]->dest.x, textbox[i]->dest.y, textbox[i]->tag, textbox[i]->min, textbox[i]->max, textbox[i]->txt->content, textbox[i]->txt->anchor, textbox[i]->txt->align);
 		gui_textbox_set(textbox[i]);
 		i++;
 		if (i < qt)
 		{
 			get_next_line(fd, &line);
 			if (ft_strcmp(line, "\t\t,"))
-				gui_error(10);
+				gui_error(11);
 		}
 	}
 	return (textbox);
@@ -287,6 +329,8 @@ t_checkbox	*gui_parse_checkbox(int fd, int nb)
 	i = 0;
 	if ((checkbox = (t_checkbox *)malloc(sizeof(t_checkbox))) == NULL)
 		error(1);
+	if ((checkbox->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
+		error(1);
 	checkbox->nature = CBX;
 	checkbox->surface = NULL;
 	checkbox->bmp = NULL;
@@ -296,15 +340,27 @@ t_checkbox	*gui_parse_checkbox(int fd, int nb)
 		tmp = ft_strsplit(line, ':');
 		if (!ft_strcmp(tmp[0], "\t\tx"))
 			checkbox->dest.x = ft_atoi(tmp[1]);
-		if (!ft_strcmp(tmp[0], "\t\ty"))
+		else if (!ft_strcmp(tmp[0], "\t\ty"))
 			checkbox->dest.y = ft_atoi(tmp[1]);
-		if (!ft_strcmp(tmp[0], "\t\ttag"))
+		else if (!ft_strcmp(tmp[0], "\t\ttag"))
 		{
 			tmp = ft_strsplit(tmp[1], '"');
 			if ((checkbox->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
 				error(1);
 			checkbox->tag = tmp[1];
 		}
+		else if (!ft_strcmp(tmp[0], "\t\ttxt"))
+		{
+			tmp = ft_strsplit(tmp[1], '"');
+			checkbox->txt->content = tmp[1];
+		}
+		else if (!ft_strcmp(tmp[0], "\t\ttxt_anchor"))
+		{
+			tmp = ft_strsplit(tmp[1], '"');
+			checkbox->txt->anchor = tmp[1];
+		}
+		else if (!ft_strcmp(tmp[0], "\t\ttxt_align"))
+			checkbox->txt->align = ft_atoi(tmp[1]);
 		i++;
 	}
 	return (checkbox);
@@ -325,14 +381,14 @@ t_checkbox	**gui_parse_container_checkbox(int fd, int qt)
 	while (i < qt)
 	{
 		printf("\tCBX : (%d)\n", i);
-		checkbox[i] = gui_parse_checkbox(fd, 5);
+		checkbox[i] = gui_parse_checkbox(fd, 6);
 		gui_get_checkbox_state(checkbox[i]);
 		i++;
 		if (i < qt)
 		{
 			get_next_line(fd, &line);
 			if (ft_strcmp(line, "\t\t,"))
-				gui_error(10);
+				gui_error(11);
 		}
 	}
 	return (checkbox);
@@ -344,12 +400,13 @@ void	gui_parse_main_builder(t_gui *gui, int fd, int nb)
 	int		id;
 
 	id = 0;
-	if ((gui->container = (t_container **)malloc(sizeof(t_container *))) == NULL)
+	printf("parsing MAIN BUILDER : \n");
+	if ((gui->container = (t_container **)malloc(sizeof(t_container *) * GUI_CONTAINER_TOTAL_NB)) == NULL)
 		error(1);
 	while (id < nb)
 	{
 		if ((CONTAINER = (t_container *)malloc(sizeof(t_container))) == NULL)
-		error(1);
+			error(1);
 		CONTAINER->button = NULL;
 		CONTAINER->scroll = NULL;
 		CONTAINER->textbox = NULL;

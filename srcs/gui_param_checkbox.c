@@ -6,6 +6,8 @@ t_checkbox	*gui_param_checkbox_init(void)
 
 	if ((checkbox = (t_checkbox *)malloc(sizeof(t_checkbox))) == NULL)
 		error(1);
+	if ((checkbox->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
+		error(1);
 	checkbox->surface = NULL;
 	checkbox->bmp = NULL;
 	checkbox->nature = CBX;

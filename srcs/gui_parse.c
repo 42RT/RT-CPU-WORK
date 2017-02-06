@@ -262,7 +262,7 @@ void	gui_find_header(t_gui *gui, int fd, char *line)
 		gui_parse_help_builder(gui, fd, 4);
 	else if (!ft_strcmp(line, "PARAM MENU BUILDER:"))
 		gui_parse_param_builder(gui, fd, 8);
-	else if (ft_strstr(line, "MAIN BUILDER:") != NULL)
+	else if (!ft_strcmp(line, "MAIN BUILDER:"))
 		gui_parse_main_builder(gui, fd, 10);
 	else
 		return;
