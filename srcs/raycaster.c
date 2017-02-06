@@ -58,10 +58,11 @@ void	raycaster(t_env *env)
 	color = init_color_black();
 	env->y = 0;
 	env->x = 0;
-	percent = 20;
+	percent = 2;
 	cnt = 0;
 	bar = 0;
 	printf("\033[33m%d PIXEL ...\033[0m\n", env->set->height * env->set->width);
+	printf("([");
 	while (env->x < env->set->height)
 	{
 		while (env->y < env->set->width)
@@ -74,12 +75,13 @@ void	raycaster(t_env *env)
 			if (cnt % (env->set->height * env->set->width * percent / 100) == 0)
 			{
 				bar++;
-				printf("RT : \033[1;32m%d\033[0m %%\n", percent * bar);
+				printf("\033[1;32m=\033[0m");
 			}
 		}
 		env->y = 0;
 		++env->x;
 	}
+	printf("])\n");
 	printf("RT : \033[33mApplying Render ... \033[0m: ");
 	SDL_RenderPresent(env->img);
 	printf("\033[1;32mDISPLAYED\033[0m\n");

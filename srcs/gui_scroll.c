@@ -56,7 +56,7 @@ void	gui_scroll_set_halign(t_scroll *scroll)
 
 	gui = get_gui();
 	if (scroll->dest.x == GUI_ALIGN_LEFT)
-		scroll->dest.x = 40;
+		scroll->dest.x = GUI_FONT_BORDER_STEP + 35;
 	else if (scroll->dest.x == GUI_ALIGN_MID)
 		scroll->dest.x = (GUI_WIDTH / 2) - (scroll->dest.w / 2) + 10;
 	else if (scroll->dest.x == GUI_ALIGN_RIGHT)

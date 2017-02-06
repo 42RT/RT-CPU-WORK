@@ -59,7 +59,9 @@ void	gui_container_write_txt(void *widget, char *color)
 	t_gui	*gui;
 
 	gui = get_gui();
-	if (((REF *)widget)->p > -1)
+	if (((REF *)widget)->nature == CNT)
+		cX = ((REF *)widget)->dest.x;
+	else if (((REF *)widget)->p > -1)
 		cX = BLOCK[((REF *)widget)->p]->dest.x;
 	else if (((REF *)widget)->nature == PRM)
 		cX = PARAM->dest.x;
@@ -78,8 +80,11 @@ void	gui_container_write_txt(void *widget, char *color)
 		TTF->rect.x = cX + GUI_WIDTH - TTF->w_px - GUI_FONT_BORDER_STEP;
 	else
 		TTF->rect.x = cX + ((REF *)widget)->dest.x;
-	TTF->rect.y = ((REF *)widget)->dest.y + ((((REF *)widget)->dest.h -
-		TTF->h_px - 4) / 2);
+	if (((REF *)widget)->nature == CNT)
+		TTF->rect.y = ((REF *)widget)->dest.y + 10;
+	else
+		TTF->rect.y = ((REF *)widget)->dest.y + ((((REF *)widget)->dest.h -
+			TTF->h_px - 4) / 2);
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
 	SDL_DestroyTexture(TTF->texture);
 }
@@ -158,6 +163,8 @@ void	gui_font_build(t_gui *gui)
 	id = 0;
 	while (id < GUI_CONTAINER_TOTAL_NB)
 	{
+		if (CONTAINER->txt)
+			gui_container_write_txt(CONTAINER, "white");
 		if (CONTAINER->button_qt > 0)
 		{
 			i = 0;

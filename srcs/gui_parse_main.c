@@ -18,6 +18,18 @@ void	gui_parse_container_info(t_gui *gui, int fd, int id, int nb)
 			CONTAINER->dest.w = ft_atoi(tmp[1]);
 		if (!ft_strcmp(tmp[0], "\th"))
 			CONTAINER->dest.h = ft_atoi(tmp[1]);
+		if (!ft_strcmp(tmp[0], "\ttxt"))
+		{
+			tmp = ft_strsplit(tmp[1], '"');
+			CONTAINER->txt->content = tmp[1];
+		}
+		if (!ft_strcmp(tmp[0], "\ttxt_anchor"))
+		{
+			tmp = ft_strsplit(tmp[1], '"');
+			CONTAINER->txt->anchor = tmp[1];
+		}
+		if (!ft_strcmp(tmp[0], "\ttxt_align"))
+			CONTAINER->txt->align = ft_atoi(tmp[1]);
 		if (!ft_strcmp(tmp[0], "\tbutton_qt"))
 			CONTAINER->button_qt = ft_atoi(tmp[1]);
 		if (!ft_strcmp(tmp[0], "\tscroll_qt"))
@@ -27,6 +39,11 @@ void	gui_parse_container_info(t_gui *gui, int fd, int id, int nb)
 		if (!ft_strcmp(tmp[0], "\tcheckbox_qt"))
 			CONTAINER->checkbox_qt = ft_atoi(tmp[1]);
 		i++;
+	}
+	if (CONTAINER->txt->align == -1)
+	{
+		free(CONTAINER->txt);
+		CONTAINER->txt = NULL;
 	}
 }
 
@@ -407,11 +424,17 @@ void	gui_parse_main_builder(t_gui *gui, int fd, int nb)
 	{
 		if ((CONTAINER = (t_container *)malloc(sizeof(t_container))) == NULL)
 			error(1);
+		if ((CONTAINER->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
+			error(1);
 		CONTAINER->button = NULL;
 		CONTAINER->scroll = NULL;
 		CONTAINER->textbox = NULL;
 		CONTAINER->checkbox = NULL;
-		gui_parse_container_info(gui, fd, id, 8);
+		CONTAINER->txt->content = NULL;
+		CONTAINER->txt->anchor = NULL;
+		CONTAINER->txt->align = -1;
+		CONTAINER->nature = CNT;
+		gui_parse_container_info(gui, fd, id, 11);
 		printf("CONTAINER[%d] : (%d,%d,%d,%d,%d,%d,%d,%d)\n", id, CONTAINER->dest.x, CONTAINER->dest.y, CONTAINER->dest.w, CONTAINER->dest.h, CONTAINER->button_qt, CONTAINER->scroll_qt, CONTAINER->textbox_qt, CONTAINER->checkbox_qt);
 		if (CONTAINER->button_qt > 0)
 			BUTTON = gui_parse_container_button(fd, CONTAINER->button_qt, id);
