@@ -3,103 +3,139 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/12 12:17:11 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/17 13:58:46 by rfriscca         ###   ########.fr       */
-/*   Updated: 2017/01/12 13:31:59 by rfriscca         ###   ########.fr       */
+/*   Created: 2014/11/23 18:02:12 by jrouilly          #+#    #+#             */
+/*   Updated: 2017/02/14 12:30:51 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt.h>
+#include <raytracer.h>
+#include <math.h>
 
-void	create_sphere(t_env *env, t_vec pos, t_color color, double r)
+void	trace_sphere(t_obj *obj, t_vector o, t_vector v)
 {
-	t_obj	*obj;
-	t_vec	pos2;
-	float	r2;
+	t_equation	eq;
 
-	if ((obj = (t_obj*)malloc(sizeof(t_obj))) == NULL)
-		error(1);
-	obj->type = 's';
-	obj->vec1 = pos;
-	obj->vec2 = pos;
-	obj->r = r;
-	obj->reflect = 1;
-	obj->textures = "stripes";
-	obj->d1 = 0;
-	obj->d2 = 0;
-	pos2.x = 0;
-	pos2.y = 0;
-	pos2.z = -0.6;
-	r2 = 2.5;
-	obj->compose = create_sphere_compose(pos2, color, r2);
-	obj->compose->first = obj->compose;
-	obj->color_t = color;
-	obj->next = NULL;
-	if (env->obj == NULL)
+	sub_vector(&o, &(obj->pos));
+	exp_compute(&o, &(obj->exp));
+	exp_compute(&v, &(obj->exp));
+	eq.a = powf(v.x, 2) + powf(v.y, 2) + powf(v.z, 2);
+	eq.b = -2 * (((-o.x) * v.x)
+			+ ((-o.y) * v.y)
+			+ ((-o.z) * v.z));
+	eq.c = powf(o.x, 2) + powf(o.y, 2) + powf(o.z, 2) - powf(obj->size, 2);
+	eq.delta = powf(eq.b, 2) - 4 * eq.a * eq.c;
+	eq.obj = obj;
+	eq.v = v;
+	eq.o = o;
+	obj->dst = solve_equation(&eq);
+	obj->n.x = v.x * obj->dst + o.x;
+	obj->n.y = v.y * obj->dst + o.y;
+	obj->n.z = v.z * obj->dst + o.z;
+}
+
+void	sphere_normale(t_vector *n, t_vector *o, t_obj *obj)
+{
+	float	k;
+
+	(void)o;
+/*	n->x = o->x - obj->pos.x;
+	n->y = o->y - obj->pos.y;
+	n->z = o->z - obj->pos.z;*/
+	n->x = obj->n.x;
+	n->y = obj->n.y;
+	n->z = obj->n.z;
+	k = sqrt(n->x * n->x + n->y * n->y + n->z * n->z);
+	n->x /= k;
+	n->y /= k;
+	n->z /= k;
+}
+
+void	neg_sphere(t_obj *obj, t_equation *eq)
+{
+	t_vector	point;
+
+	if (eq->delta >= 0)
 	{
-		obj->first = obj;
-		env->obj = obj;
+		point.x = eq->v.x * eq->x1 + eq->o.x - obj->pos.x;
+		point.y = eq->v.y * eq->x1 + eq->o.y - obj->pos.y;
+		point.z = eq->v.z * eq->x1 + eq->o.z - obj->pos.z;
+		if (vec_len(&point) < obj->size)
+			eq->x1 = 1e8;
+		point.x = eq->v.x * eq->x2 + eq->o.x - obj->pos.x;
+		point.y = eq->v.y * eq->x2 + eq->o.y - obj->pos.y;
+		point.z = eq->v.z * eq->x2 + eq->o.z - obj->pos.z;
+		if (vec_len(&point) < obj->size)
+			eq->x2 = 1e8;
+	}
+}
+
+void	neg_sphere_fill(t_obj *obj, t_equation *eq)
+{
+	float		save;
+	t_vector	point;
+
+	save = 0;
+	neg_sphere(obj, eq);
+	if (eq->delta > 0)
+	{
+		trace_sphere(obj, eq->o, eq->v);
+		sub_vector(&eq->o, &(obj->pos));
+		if (obj->x1 > obj->x2)
+		{
+			save = obj->x1;
+			obj->x1 = obj->x2;
+			obj->x2 = save;
+		}
+		if (eq->obj->type & (SPHERE))
+		{
+			point.x = eq->v.x * obj->x1 + eq->o.x + obj->pos.x;
+			point.y = eq->v.y * obj->x1 + eq->o.y + obj->pos.y;
+			point.z = eq->v.z * obj->x1 + eq->o.z + obj->pos.z;
+			if (vec_len(&point) < eq->obj->size)
+				obj->dst = obj->x1;
+			point.x = eq->v.x * obj->x2 + eq->o.x + obj->pos.x;
+			point.y = eq->v.y * obj->x2 + eq->o.y + obj->pos.y;
+			point.z = eq->v.z * obj->x2 + eq->o.z + obj->pos.z;
+			if (vec_len(&point) < eq->obj->size)
+				obj->dst = obj->x2;
+			else
+				obj->dst = 1e8;
+		}
+		else if (eq->obj->type & (CYLINDER))
+		{
+			point.x = eq->v.x * obj->x1 + eq->o.x + obj->pos.x;
+			point.y = eq->v.y * obj->x1 + eq->o.y + obj->pos.y;
+			point.z = 0;
+			if (vec_len(&point) < eq->obj->size)
+				obj->dst = obj->x1;
+			point.x = eq->v.x * obj->x2 + eq->o.x + obj->pos.x;
+			point.y = eq->v.y * obj->x2 + eq->o.y + obj->pos.y;
+			point.z = 0;
+			if (vec_len(&point) < eq->obj->size)
+				obj->dst = obj->x2;
+			else
+				obj->dst = 1e8;
+		}
+		else if (eq->obj->type & CUBE)
+		{
+			point.x = eq->v.x * obj->x1 + eq->o.x + obj->pos.x;
+			point.y = eq->v.y * obj->x1 + eq->o.y + obj->pos.y;
+			point.z = eq->v.z * obj->x1 + eq->o.z + obj->pos.z;
+			if (point.x > obj->cap1 && point.x < obj->cap2 && point.y > obj->cap1 && point.y < obj->cap2 && point.z > obj->cap1 && point.z < obj->cap2)
+				obj->dst = obj->x1;
+			point.x = eq->v.x * obj->x2 + eq->o.x + obj->pos.x;
+			point.y = eq->v.y * obj->x2 + eq->o.y + obj->pos.y;
+			point.z = eq->v.z * obj->x2 + eq->o.z + obj->pos.z;
+			if (point.x > obj->cap1 && point.x < obj->cap2 && point.y > obj->cap1 && point.y < obj->cap2 && point.z > obj->cap1 && point.z < obj->cap2)
+				obj->dst = obj->x2;
+			else
+				obj->dst = 1e8;
+		}
+		else
+			obj->dst = 1e8;
 	}
 	else
-	{
-		obj->first = env->obj->first;
-		while (env->obj->next != NULL)
-			env->obj = env->obj->next;
-		env->obj->next = obj;
-	}
-	env->obj = env->obj->first;
-}
-
-t_obj	*test_sphere(t_env *env, t_ray *ray)
-{
-	double		a;
-	double		b;
-	double		c;
-	t_vec	x;
-	double		det;
-
-	x = calc_vec(POS, ray->pos);
-	a = dot(VDIR, VDIR);
-	b = 2 * (dot(VDIR, x));
-	c = dot(x, x) - RS * RS;
-	det = b * b - 4 * a * c;
-	if (det >= 0)
-	{
-		if ((D1 = (-b + sqrt(det)) / (2 * a)) > EPS && D1 < RDIST)
-			if (compose_obj(env, ray, D1) == 0)
-				RDIST = D1;
-		if ((D2 = (-b - sqrt(det)) / (2 * a)) > EPS && D2 < RDIST)
-			if (compose_obj(env, ray, D2) == 0)
-				RDIST = D2;
-		if (RDIST == D1 || RDIST == D2)
-			return (env->obj);
-	}
-	return (NULL);
-}
-
-int		test_sphere2(t_env *env, t_vec pos, t_ray ray)
-{
-	double		a;
-	double		b;
-	double		c;
-	t_vec	x;
-	double		det;
-
-	x = calc_vec(POS, pos);
-	a = dot(ray.vecdir, ray.vecdir);
-	b = 2 * (dot(ray.vecdir, x));
-	c = dot(x, x) - RS * RS;
-	det = b * b - 4 * a * c;
-	if (det >= 0)
-	{
-		if ((D1 = (-b + sqrt(det)) / (2 * a)) > EPS && D1 < ray.dist)
-			if (compose_obj(env, &ray, D1) == 0)
-				return (1);
-		if ((D2 = (-b - sqrt(det)) / (2 * a)) > EPS && D2 < ray.dist)
-			if (compose_obj(env, &ray, D2) == 0)
-				return (1);
-	}
-	return (0);
+		obj->dst = 1e8;
 }

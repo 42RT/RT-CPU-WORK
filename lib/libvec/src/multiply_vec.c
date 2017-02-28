@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib_vec.h"
+#include <libvec.h>
 
 t_vec	multiply_vec(t_vec v, float n)
 {

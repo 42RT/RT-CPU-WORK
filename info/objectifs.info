@@ -1,0 +1,58 @@
+- verifier retour malloc partout, y compris dans la libft !!!
+
+- [working] if (argv[1] == "help" / "-help", afficher fichier aide, comprenant tous les parametres pour le fichier de config)
+- corriger deformation objets
+- [OK] surcouche de la lib graphique fonctionnelle
+- [OK] resoudre bug double sol
+- [working] images avec canal alpha, et les fonctions correspondantes
+- [BP] correction de l'antialiasing recursif
+- [OK] parser de scène évolué (style CSS) -> faire atof et ftoa
+- [OK] resoudre bug actualisation (F5 et mouvement)
+
+- [OK] effet de focus / flou
+
+
+- verifier resolution taille fenetre !
+- bug rotation et position en Z cylindre et cone
+- surface motif arrondi
+- [OK] intensite flou focus
+- ombres floues
+- bruit de perlin
+- ecran : afficher le rendu d'une scene dans une scene: integrer les images libxmlx comme objet
+- faire calcul reflets
+- faire calcul refraction
+// - correction du calcul des reflets.
+- ajouter gestion lumieres
+- calcul correct des ombres (qui sera peut être résolu avec le problème précédent)
+- [working] ajout du calcul des formes manquantes
+// - optimisation de l'antialiasing
+- correction de la 3D
+- side to side
+- calcul en multithread
+- ameliorer flou, seconde image
+- enregistrement d'une image (bitmap) -> faire petite lib ouverture / fermeture bitmap
+- HUD avec l'évolution du calcul
+- HUD avec une console (modification réglages, chargement fichier à chaud)
+- réglages globaux (luminosité, contraste)
+- étudier la possibilité d'afficher une image de décors
+- fenetre accueil (avec console dessus si possible)
+- calcul en parallèle sur plusieurs machines
+- segV fichier binaire parseur
+- lire format hexa couleurs
+- bugs mix_color_k ??
+- pouvoir afficher rapidement ligne par ligne (image d'une ligne, copie en direct vers l'image generale)
+
+
+- [OK] fov reglable, finir
+- fichier aide
+- parseur commentaires
+- expose
+- norme
+- multithread celcul classique ?
+- [OK] bug aleatoire sur l'enregistrement du fichier. parfois selon le nom ? pas d'autorisation de lecture
+
+/*
+** fait bugger le parametre suivant
+*/
+	cam_pos_z: 5000  		  ;
+	deph: 3;

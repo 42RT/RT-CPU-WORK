@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lib_vec.h"
+#include <libvec.h>
 
 t_vec	rotvec(t_vec vec, t_vec trans)
 {

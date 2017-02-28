@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib_vec.h"
+#include <libvec.h>
 
 t_vec	rot(t_vec v, float hor_angle, float vert_angle)
 {

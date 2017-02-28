@@ -1,4 +1,4 @@
-#include <rt.h>
+#include <gui.h>
 
 void	gui_block_textbox_init(t_gui *gui, int id, int nb)
 {

@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:06:23 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/12/11 16:06:28 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/02/22 14:18:52 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 
 void	parse_object_other(t_obj *obj, char *str)
 {
-	if (!ft_strncmp(str, "size", 4))
+	if (!ft_strncmp(str, "\"size\"", 6))
 		obj->size = ft_atoi(get_value(str));
-	else if (!ft_strncmp(str, "mod", 3))
+	else if (!ft_strncmp(str, "\"mod\"", 5))
 		obj->mod = ft_atof(get_value(str));
-	else if (!ft_strncmp(str, "reflect_k", 9))
+	else if (!ft_strncmp(str, "\"reflect_k\"", 11))
 		obj->reflect_k = ft_atof(get_value(str));
-	else if (!ft_strncmp(str, "refract_k", 9))
+	else if (!ft_strncmp(str, "\"refract_k\"", 11))
 		obj->refract_k = ft_atof(get_value(str));
-	else if (!ft_strncmp(str, "refract_ind", 11))
+	else if (!ft_strncmp(str, "\"refract_ind\"", 13))
 		obj->refract_ind = ft_atof(get_value(str));
-	else if (!ft_strncmp(str, "negative", 8))
+	else if (!ft_strncmp(str, "\"negative\"", 10))
 	{
 		str = get_value(str);
 		obj->negative = (!ft_strncmp(str, "1", 1)
@@ -36,22 +36,22 @@ void	parse_object_other(t_obj *obj, char *str)
 
 void	parse_obj_exp(t_obj *obj, char *str)
 {
-	if (!ft_strncmp(str, "exp_x", 5))
-		obj->exp.x = atof(get_value(str));
-	else if (!ft_strncmp(str, "exp_y", 5))
-		obj->exp.y = atof(get_value(str));
-	else if (!ft_strncmp(str, "exp_z", 5))
-		obj->exp.z = atof(get_value(str));
+	if (!ft_strncmp(str, "\"x\"", 3))
+		obj->exp.x = ft_atof(get_value(str));
+	else if (!ft_strncmp(str, "\"y\"", 3))
+		obj->exp.y = ft_atof(get_value(str));
+	else if (!ft_strncmp(str, "\"z\"", 3))
+		obj->exp.z = ft_atof(get_value(str));
 }
 
 void	parse_obj_color(t_obj *obj, char *str)
 {
-	if (!ft_strncmp(str, "color2", 6))
+	if (!ft_strncmp(str, "\"color2\"", 8))
 		obj->color2 = get_color(get_value(str));
-	else if (!ft_strncmp(str, "color3", 6))
+	else if (!ft_strncmp(str, "\"color3\"", 8))
 		obj->color3 = get_color(get_value(str));
-	else if (!ft_strncmp(str, "color_refract", 13))
+	else if (!ft_strncmp(str, "\"color_refract\"", 15))
 		obj->color_refract = get_color(get_value(str));
-	else if (!ft_strncmp(str, "color", 5))
+	else if (!ft_strncmp(str, "\"color\"", 7))
 		obj->color = get_color(get_value(str));
 }

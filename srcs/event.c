@@ -10,16 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt.h>
+#include <gui.h>
 
-void		rt_exit(t_env *env, t_gui *gui)
+void		event_poll(t_env *e)
 {
-	SDL_DestroyRenderer(env->img);
-	SDL_DestroyWindow(env->win);
-	SDL_DestroyRenderer(gui->img);
-	SDL_DestroyWindow(gui->win);
-	SDL_Quit();
-	exit(1);
+	libxmlx_poll(e->gfx);
+	event(e, e->gfx->event);
+}
+
+void		wait_event(t_env *e)
+{
+	libxmlx_loop(e->gfx);
+	event(e, e->gfx->event);
 }
 
 void		event_textbox_edit(t_gui *gui, t_textbox *textbox, char *color)
@@ -49,36 +51,10 @@ void		event_textbox_value_force(t_textbox *textbox, char *forced_value)
 
 void		event_textbox_value_allowed(t_textbox *textbox)
 {
-	if (ft_strstr(textbox->tag, "__X") || ft_strstr(textbox->tag, "__Y")
-		|| ft_strstr(textbox->tag, "__Z"))
-	{
-		if (ft_atoi(textbox->value) > GUI_XYZ_MAX)
-			event_textbox_value_force(textbox, ft_itoa(GUI_XYZ_MAX));
-		if (ft_atoi(textbox->value) < GUI_XYZ_MIN)
-			event_textbox_value_force(textbox, ft_itoa(GUI_XYZ_MIN));
-	}
-	if (ft_strstr(textbox->tag, "__V") || ft_strstr(textbox->tag, "__H"))
-	{
-		if (ft_atoi(textbox->value) > GUI_VH_MAX)
-			event_textbox_value_force(textbox, ft_itoa(GUI_VH_MAX));
-		if (ft_atoi(textbox->value) < GUI_VH_MIN)
-			event_textbox_value_force(textbox, ft_itoa(GUI_VH_MIN));
-	}
-	if (ft_strstr(textbox->tag, "__R") || ft_strstr(textbox->tag, "__G")
-		|| ft_strstr(textbox->tag, "__B") || ft_strstr(textbox->tag, "__A"))
-	{
-		if (ft_atoi(textbox->value) > GUI_RGBA_MAX)
-			event_textbox_value_force(textbox, ft_itoa(GUI_RGBA_MAX));
-		if (ft_atoi(textbox->value) < GUI_RGBA_MIN)
-			event_textbox_value_force(textbox, ft_itoa(GUI_RGBA_MIN));
-	}
-	if (ft_strstr(textbox->tag,"RFR") || ft_strstr(textbox->tag, "RFL"))
-	{
-		if (ft_atoi(textbox->value) > GUI_INDEX_MAX)
-			event_textbox_value_force(textbox, ft_itoa(GUI_INDEX_MAX));
-		if (ft_atoi(textbox->value) < GUI_INDEX_MIN)
-			event_textbox_value_force(textbox, ft_itoa(GUI_INDEX_MIN));
-	}
+	if (ft_atoi(textbox->value) > textbox->max)
+		event_textbox_value_force(textbox, ft_itoa(textbox->max));
+	if (ft_atoi(textbox->value) < textbox->min)
+		event_textbox_value_force(textbox, ft_itoa(textbox->min));
 }
 
 void		event_textbox_deselect(t_gui *gui)
@@ -288,7 +264,7 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 		gui_help_toggle(gui);
 	}
 	else if (ft_strstr(action, "EXIT") != NULL)
-		rt_exit(env, gui);
+		libxmlx_exit(env->gfx, 0);
 }
 
 int			event_is_button(SDL_Event event, t_env *env, t_gui *gui)
@@ -524,7 +500,7 @@ static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 {
 	//printf("EVENT : KEY = %d\n", SCANCODE);
 	if (event.key.keysym.sym == SDLK_ESCAPE)
-		rt_exit(env, gui);
+		libxmlx_exit(env->gfx, 0);
 	if (gui->widget_active)
 		event_textbox_insert(event, gui, gui->widget_active);
 	return (0);
@@ -541,14 +517,14 @@ void		event_mouse_motion(SDL_Event event, t_gui *gui)
 	}
 }
 
-int			event(SDL_Event event, t_env *env)
+int			event(t_env *env, SDL_Event event)
 {
 	t_gui *gui;
 
 	gui = get_gui();
 	if (event.type == SDL_WINDOWEVENT)
 		if (event.window.event == SDL_WINDOWEVENT_CLOSE)
-				rt_exit(env, gui);
+				libxmlx_exit(env->gfx, 0);
 	if (event.type == SDL_KEYDOWN)
 		event_keydown(event, env, gui);
 	else

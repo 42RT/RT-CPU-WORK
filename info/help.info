@@ -1,0 +1,86 @@
+Reglages :
+
+Pour changer les reglages de base, il suffit de creer un ou plusieurs fichiers .rtc et de les passer en arguments a l'executable. Si plusieurs fichiers modifient le meme reglage, le dernier prend precedence. Le format a utiliser est le suivant :
+
+settings
+{
+	param1: valeur1;
+	param2: valeur2;
+	...
+	paramN: valeurN;
+}
+
+Les parametres possibles sont les suivants :
+
+name: nom de la fenetre d'affichage.
+height: hauteur de la fenetre d'affichage en pixels.
+width: largeur de la fenetre d'affichage en pixels.
+
+cam_pos_x: position horizontale de la camera.
+cam_pos_y: position verticale de la camera.
+cam_pos_z: zoom de la camera.
+cam_ang_x: angle horizontal de la camera.
+cam_ang_y: angle vertical de la camera.
+cam_ang_z: rotation de la camera.
+
+antialiasing: niveau de la fonction d'anticrenelage : 0, 2, 4, 8, 16.
+deph: nombre de rebonds possible pour un rayon de lumiere.
+fov: angle du champ de vision en degres.
+refract: option de refraction - non fonctionnel.
+
+d3_mode: mode d'affichage en 3d stereoscopique : none, interleaved, side_to_side.
+d3_offset: distance entre les deux points de vue pour la vision stereoscopique.
+d3_conv: convergenge des deux points de vue pour la vision stereoscopique.
+
+focus: effet de mise au point (flou artistique) : 0 ou 1.
+focus_dst: distance de mise au point.
+focus_range: intervalle de nettete autour de la mise au point.
+
+preview: option de calcul rapide de l'image' avant le calcul lent : 0 ou 1.
+progressive display: calcul et affichage aleatoire des pixels de l'image en temps reel.
+threads: nombre de processus utilises pour calculer l'image (calcul multicoeur).
+verbose: affichage du texte de debug : 0 ou 1.
+
+
+
+Scene :
+Une scene est decrite dans un fichier .rts par une liste d'objets presents dans la scene.
+Un objet est defini de la maniere suivante :
+
+nom_objet
+{
+	param1: valeur1;
+	param2: valeur2;
+	...
+	paramN: valeurN;
+}
+
+Le nom de l'objet peut etre l'un des suivants :
+
+sphere, plane, dplane, cylinder, cone, disk, square
+
+Les parametres possibles sont les suivants :
+
+color: valeur de la couleur RGB de l'objet.
+color2: pour un dplane (plan en damier), premiere couleur en damier.
+color3: pour un dplane (plan en damier), deuxieme couleur en damier.
+
+size: taille de l'objet.
+mod: valeur supplementaire definissant l'objet, si necessaire/applicable.
+negative: objet negatif - non implemente.
+reflect_k: coefficient de reflection.
+refract_k: coefficient de refraction - non implemente.
+refract_ind: indice de refraction - non implemente.
+color_refract: couleur de refraction - non implemente.
+
+pos_x: position horizontale de l'objet.
+pos_y: position verticale de l'objet.
+pos_z: position en profondeur de l'objet.
+
+ang_x: angle horizontal de l'objet en degres.
+ang_y: angle vertical de l'obje en degres.
+ang_z: rotation de l'objet en degres.
+
+exp_x: deformation horizontale. multiplicateur.
+exp_y: deformation verticale. multiplicateur.
+exp_z: deformation en profondeur. multiplicateur.

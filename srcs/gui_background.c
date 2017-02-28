@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt.h>
+#include <gui.h>
 
 void		gui_background_get_set_n_display(t_gui *gui)
 {

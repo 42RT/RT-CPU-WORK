@@ -3,94 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/07 13:59:20 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/01/17 14:39:34 by rdieulan         ###   ########.fr       */
+/*   Created: 2014/12/16 04:53:12 by jrouilly          #+#    #+#             */
+/*   Updated: 2017/02/20 15:52:35 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt.h>
+#include <raytracer.h>
+#include <math.h>
 
-void	create_cone(t_env *env, t_parse data)
+void		trace_cone(t_obj *obj, t_vector o, t_vector v)
 {
-	t_obj	*obj;
+	t_equation	eq;
+	t_vector	point;
+	t_vector	dir;
+	float		m;
 
-	if ((obj = (t_obj*)malloc(sizeof(t_obj))) == NULL)
-		error(1);
-	obj->type = 'k';
-	obj->vec1 = data.pos;
-	obj->vec2 = data.n;
-	obj->r = data.r;
-	obj->reflect = 0;
-	obj->d1 = 0;
-	obj->d2 = 0;
-	obj->color_t = data.color;
-	obj->next = NULL;
-	obj->textures = NULL;
-	obj->compose = NULL;
-	if (env->obj == NULL)
-	{
-		obj->first = obj;
-		env->obj = obj;
-	}
-	else
-	{
-		obj->first = env->obj->first;
-		while (env->obj->next != NULL)
-			env->obj = env->obj->next;
-		env->obj->next = obj;
-	}
-	env->obj = env->obj->first;
+	dir.x = 0;
+	dir.y = 0;
+	dir.z = 1;
+	mod_vector(obj, &o, &v);
+	eq.a = pow(v.x, 2) + pow(v.y, 2) - pow((double)obj->size / 700.0, 2)
+											* pow(obj->mod, 2) * pow(v.z, 2);
+	eq.b = 2 * (o.x * v.x + o.y * v.y - o.z * v.z
+				* pow((double)obj->size / 700.0, 2) * pow(obj->mod, 2));
+	eq.c = pow(o.x, 2) + pow(o.y, 2) - pow((double)obj->size / 700.0, 2)
+											* pow(obj->mod, 2) * pow(o.z, 2);
+	eq.delta = pow(eq.b, 2) - 4 * eq.a * eq.c;
+	eq.obj = obj;
+	eq.o = o;
+	eq.v = v;
+	obj->dst = solve_equation(&eq);
+	point.x = v.x * obj->dst + o.x;
+	point.y = v.y * obj->dst + o.y;
+	point.z = v.z * obj->dst + o.z;
+	m = vec_dot(&v, &dir) * obj->dst + vec_dot(&o, &dir);
+	obj->n.x = point.x;
+	obj->n.y = point.y;
+	obj->n.z = point.z - dir.z * m;
 }
 
-t_obj	*test_cone(t_env *env, t_ray *ray)
+void		cone_normale(t_vector *n, t_vector *o, t_obj *obj)
 {
-	double		a;
-	double		b;
-	double		c;
-	t_vec	x;
-	double		det;
+	float		k;
+	//t_vector	not_ang;
 
-	x = calc_vec(POS, ray->pos);
-	a = dot(VDIR, VDIR) - (1 + RS * RS) * pow(dot(VDIR, N), 2);
-	b = 2 * (dot(VDIR, x) - (1 + RS * RS) * dot(VDIR, N) *
-			dot(x, N));
-	c = dot(x, x) - (1 + RS * RS) * pow(dot(x, N), 2);
-	det = b * b - 4 * a * c;
-	if (det > 0)
-	{
-		if ((D1 = (-b - sqrt(det)) / (2 * a)) > EPS && D1 < RDIST)
-			RDIST = D1;
-		if ((D2 = (-b + sqrt(det)) / (2 * a)) > EPS && D2 < RDIST)
-			RDIST = D2;
-		if (RDIST == D1 || RDIST == D2)
-			return (env->obj);
-	}
-	return (NULL);
-}
-
-int		test_cone2(t_env *env, t_vec pos, t_ray ray)
-{
-	double		a;
-	double		b;
-	double		c;
-	t_vec	x;
-	double		det;
-
-	x = calc_vec(POS, pos);
-	a = dot(ray.vecdir, ray.vecdir) - (1 + RS * RS) *
-		pow(dot(ray.vecdir, N), 2);
-	b = 2 * (dot(ray.vecdir, x) - (1 + RS * RS) *
-			dot(ray.vecdir, N) * dot(x, N));
-	c = dot(x, x) - (1 + RS * RS) * pow(dot(x, N), 2);
-	det = b * b - 4 * a * c;
-	if (det >= 0)
-	{
-		if ((D1 = (-b - sqrt(det)) / (2 * a)) > EPS && D1 < ray.dist)
-			return (1);
-		if ((D2 = (-b + sqrt(det)) / (2 * a)) > EPS && D1 < ray.dist)
-			return (1);
-	}
-	return (0);
+	(void)o;
+	//not_ang.x = -obj->ang.x;
+	//not_ang.y = -obj->ang.y;
+	//not_ang.z = -obj->ang.z;
+	n->x = obj->n.x;
+	n->y = obj->n.y;
+	n->z = obj->n.z;
+	k = sqrt(n->x * n->x + n->y * n->y + n->z * n->z);
+	n->x /= k;
+	n->y /= k;
+	n->z /= k;
+	rotate_vector2(n, &obj->ang);
 }

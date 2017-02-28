@@ -1,4 +1,4 @@
-#include <rt.h>
+#include <gui.h>
 
 void	gui_param_get_bmp_n_display(t_gui *gui)
 {
@@ -10,7 +10,7 @@ void	gui_param_get_bmp_n_display(t_gui *gui)
 	SDL_RenderPresent(gui->img);
 }
 
-t_scroll	*gui_param_scroll_init()
+t_scroll	*gui_param_scroll_init(void)
 {
 	t_scroll	*scroll;
 

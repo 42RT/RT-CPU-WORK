@@ -1,4 +1,4 @@
-#include <rt.h>
+#include <gui.h>
 
 void	gui_parse_param_scroll(t_gui *gui, int fd, int nb)
 {
@@ -16,7 +16,7 @@ void	gui_parse_param_scroll(t_gui *gui, int fd, int nb)
 		while (i < nb)
 		{
 			printf("\tSCL : (%d) : ", i);
-			PARAM_SCL = gui_param_scroll_init(gui);
+			PARAM_SCL = gui_param_scroll_init();
 			PARAM_SCL->id = i;
 			PARAM_SCL->p = -1;
 			j = 0;

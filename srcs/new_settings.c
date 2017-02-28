@@ -41,8 +41,8 @@ t_settings	*new_settings(void)
 	res = (t_settings *)malloc(sizeof(t_settings));
 	if (!res)
 		return (0);
-	res->width = DEF_IMG_WIDTH;
-	res->height = DEF_IMG_HEIGHT;
+	res->width = DEF_WIDTH;
+	res->height = DEF_HEIGHT;
 	res->aa = DEF_AA;
 	res->deph = DEF_DEPH;
 	res->reflect = DEF_REFLECT;

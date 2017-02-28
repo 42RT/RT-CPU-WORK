@@ -1,4 +1,4 @@
-#include <rt.h>
+#include <gui.h>
 
 void	gui_parse_window(t_gui *gui, int fd, int nb)
 {

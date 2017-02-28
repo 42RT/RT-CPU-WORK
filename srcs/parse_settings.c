@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/27 03:45:28 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/11/27 03:45:28 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/02/21 14:50:25 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,21 @@ void	parse_settings(t_env *e, t_item *item)
 	i = -1;
 	while (++i < item->setnb)
 	{
-		if (!ft_strncmp(item->set[i], "cam", 3))
+		if (!ft_strncmp(item->set[i], "\"cam", 4))
 			parse_set_cam(e, item->set[i]);
-		else if (!ft_strncmp(item->set[i], "focus", 5))
+		else if (!ft_strncmp(item->set[i], "\"focus", 6))
 			parse_set_focus(e, item->set[i]);
-		else if (!ft_strncmp(item->set[i], "d3", 2))
+		else if (!ft_strncmp(item->set[i], "\"d3\"", 4))
 			parse_set_3d(e, item->set[i]);
-		else if (!ft_strncmp(item->set[i], "width", 5))
+		else if (!ft_strncmp(item->set[i], "\"width\"", 7))
 			e->set->width = ft_abs(ft_atoi(get_value(item->set[i])));
-		else if (!ft_strncmp(item->set[i], "height", 6))
+		else if (!ft_strncmp(item->set[i], "\"height\"", 8))
 			e->set->height = ft_abs(ft_atoi(get_value(item->set[i])));
-		else if (!ft_strncmp(item->set[i], "antialiasing", 12))
+		else if (!ft_strncmp(item->set[i], "\"antialiasing\"", 14))
 			e->set->aa = ft_abs(ft_atoi(get_value(item->set[i])));
-		else if (!ft_strncmp(item->set[i], "deph", 4))
+		else if (!ft_strncmp(item->set[i], "\"deph\"", 6))
 			e->set->deph = ft_abs(ft_atoi(get_value(item->set[i])));
-		else if (!ft_strncmp(item->set[i], "reflect", 7))
+		else if (!ft_strncmp(item->set[i], "\"reflect\"", 9))
 			e->set->reflect = ft_abs(ft_atoi(get_value(item->set[i])));
 		else
 			parse_other_setting(e, item->set[i]);

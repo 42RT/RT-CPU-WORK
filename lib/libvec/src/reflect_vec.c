@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib_vec.h"
+#include <libvec.h>
 
 t_vec	reflect_vec(t_vec dir, t_vec n)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib_vec.h"
+#include <libvec.h>
 
 t_vec	rotz(t_vec vec, float angle)
 {

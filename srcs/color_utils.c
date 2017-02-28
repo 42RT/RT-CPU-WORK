@@ -6,12 +6,12 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/09/16 18:49:43 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/01/09 12:06:32 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/02/09 12:28:08 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <rt.h>
+#include <raytracer.h>
 
 void			color_add(unsigned int *src, unsigned int color,
 							unsigned int k)
@@ -53,17 +53,6 @@ void			color_mix_k(unsigned int *src, unsigned int color,
 	*src = c[0] << 24 | c[1] << 16 | c[2] << 8 | c[3];
 }
 
-void			color_mix_float(t_color *src, t_color *color,
-							float k)
-{
-	src->r *= (1 - k);//(double)((double)(255 - k) / 255);
-	src->g *= (1 - k);//(double)((double)(255 - k) / 255);
-	src->b *= (1 - k);//(double)((double)(255 - k) / 255);
-	src->r += k * color->r;//(double)((double)(color->r * k) / 255);
-	src->g += k * color->g;//(double)((double)(color->g * k) / 255);
-	src->b += k * color->b;//(double)((double)(color->b * k) / 255);
-}
-
 unsigned int	color_attenuate(unsigned int color, float k)
 {
 	unsigned int	res;
@@ -78,7 +67,6 @@ unsigned int	color_attenuate(unsigned int color, float k)
 	res |= c & 0xFF;
 	return (res);
 }
-
 
 unsigned int	get_color(char *str)
 {

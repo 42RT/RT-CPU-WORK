@@ -1,4 +1,4 @@
-LIB =		lib_vec.a
+LIB =		libvec.a
 SRC_NAME =	normalize.c \
 			dot.c \
 			multiply_vec.c \
@@ -22,11 +22,9 @@ SRC =		$(addprefix src/, $(SRC_NAME))
 
 OBJ =		$(SRC:.c=.o)
 
-INC =		./include/lib_vec.h
-
 CC =		gcc
 
-FLAGS = 	-Wall -Werror -Wextra -I ./include
+CFLAGS = 	-Wall -Werror -Wextra -I ./include
 
 all: $(LIB)
 
@@ -34,8 +32,8 @@ $(LIB): $(OBJ)
 	ar rcs $(LIB) $(OBJ)
 	ranlib $(LIB)
 
-%.o: %.c $(INC)
-	$(CC) $(FLAGS) -o $@ -c $<
+%.o: %.c
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	rm -f $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:02:31 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/12/11 16:02:32 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/02/23 16:45:01 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+void 		parse_error(void)
+{
+	ft_putstr("Not a valid file\n");
+	exit(EXIT_SUCCESS);
+}
+
 static int	ft_check_valid_file(char *str)
 {
 	int		fd;
@@ -23,7 +29,8 @@ static int	ft_check_valid_file(char *str)
 	int		r;
 	char	buf[4096];
 
-	fd = open(str, O_RDONLY);
+	if ((fd = open(str, O_RDONLY)) == -1)
+		return (0);
 	while ((r = read(fd, buf, 4096)) > 0)
 	{
 		i = -1;
@@ -36,6 +43,8 @@ static int	ft_check_valid_file(char *str)
 			}
 		}
 	}
+	if (r == -1)
+		return (0);
 	close(fd);
 	return (1);
 }
@@ -65,19 +74,20 @@ void		parse(t_env *e, char *filename)
 	char	*file;
 	t_item	*item;
 
-	if (!ft_check_valid_file(filename))
-		return ;
+	if (!(ft_check_valid_file(filename)))
+		parse_error();
 	file = ft_getfile(filename);
 	if (!file)
-		return ;
+		parse_error();
 	while (file && *file)
 	{
-		item = get_next_item(&file);
+		if ((item = get_next_item(&file)) == NULL)
+			parse_error();
 		if (!item)
 			break ;
-		else if (!strncmp(item->type, "setting", ft_strlen("setting")))
+		else if (!ft_strncmp(item->type, "\"settings\"", 10))
 			parse_settings(e, item);
-		else if (!strncmp(item->type, "light", ft_strlen("light")))
+		else if (!ft_strncmp(item->type, "\"light\"", 7))
 			parse_light(e, item);
 		else
 			parse_object(e, item);

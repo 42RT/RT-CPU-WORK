@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   parse_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/12/11 15:59:32 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/02/20 14:54:58 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,19 @@ int			add_next_set(t_item *item, char **file)
 	s += (*s && *s == ':');
 	while (*s && (*s == ' ' || *s == '\n' || *s == '\r' || *s == '\t'))
 		++s;
-	if (!s)
-		return (0);
-	buff[1] = ft_strndup(s, ft_strlen_trim2(s));
-	s += ft_strlen_trim2(s);
-	s += (*s && *s == ';');
-	while (*s && (*s == ' ' || *s == '\n' || *s == '\r' || *s == '\t'))
-		++s;
+	if (ft_strncmp(buff[0], "},", 2))
+	{
+		if (!s)
+			return (0);
+		buff[1] = ft_strndup(s, ft_strlen_trim2(s));
+		s += ft_strlen_trim2(s);
+		s += (*s && *s == ',');
+		while (*s && (*s == ' ' || *s == '\n' || *s == '\r' || *s == '\t'))
+			++s;
+		item->set[item->setnb++] = ft_newstrcat_free(buff[0], buff[1]);
+	}
+	else
+		buff[1] = "\0";
 	*file = s;
-	item->set[item->setnb++] = ft_newstrcat_free(buff[0], buff[1]);
 	return (1);
 }

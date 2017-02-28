@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib_vec.h"
+#include <libvec.h>
 
 t_vec	get_inters(t_vec origin, t_vec raydir, float t)
 {

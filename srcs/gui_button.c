@@ -1,4 +1,4 @@
-#include <rt.h>
+#include <gui.h>
 
 char	*str_tolower(char *str)
 {

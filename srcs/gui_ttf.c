@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt.h>
+#include <gui.h>
 
 SDL_Color	gui_color_data_set(int r, int g, int b, int a)
 {

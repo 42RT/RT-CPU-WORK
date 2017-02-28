@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/12/11 15:59:32 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/02/23 15:02:46 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ t_item	*get_next_item(char **str)
 {
 	char	*file;
 	t_item	*item;
+	int		i;
 
+	i = 0;
 	file = *str;
 	item = (t_item *)malloc(sizeof(t_item));
 	item->type = ft_strdup_trim(file);
@@ -36,10 +38,21 @@ t_item	*get_next_item(char **str)
 		return (0);
 	file = ft_strchr(file, '{');
 	file += (*file != 0);
-	while (file && *file && *file != '}')
+	while (file && *file)
+	{
+		if (i == 0)
+		{
+			if (ft_strcchr(file, '{', '}') != NULL)
+				i++;
+		}
+		if (*file == '}' && i == 0)
+			break ;
+		else if (*file == '}' && i > 0)
+			i--;
 		add_next_set(item, &file);
+	}
 	while (*file && (*file == ' ' || *file == '\n' || *file == '\r'
-						|| *file == '\t' || *file == '}'))
+						|| *file == '\t' || *file == '}' || *file == ','))
 		++file;
 	*str = file;
 	return (item);
@@ -53,29 +66,29 @@ int		init(t_env *e, int argc, char **argv)
 	e->obj = 0;
 	e->neg_obj = 0;
 	i = 0;
-	parse(e, ".default.rtc");
-	parse(e, ".default.rts");
 	while (++i < argc)
 		parse(e, argv[i]);
+	if (!e->obj)
+		parse(e, ".default.rts");
 	return (0);
 }
 
 void	parse_ang(t_vector *v, char *str)
 {
-	if (!ft_strncmp(str, "ang_x", 5))
-		v->x = ((float)atoi(get_value(str)) * M_PI_2) / 90;
-	else if (!ft_strncmp(str, "ang_y", 5))
-		v->y = ((float)atoi(get_value(str)) * M_PI_2) / 90;
-	else if (!ft_strncmp(str, "ang_z", 5))
-		v->z = ((float)atoi(get_value(str)) * M_PI_2) / 90;
+	if (!ft_strncmp(str, "\"x\"", 3))
+		v->x = ((float)ft_atoi(get_value(str)) * M_PI_2) / 90;
+	else if (!ft_strncmp(str, "\"y\"", 3))
+		v->y = ((float)ft_atoi(get_value(str)) * M_PI_2) / 90;
+	else if (!ft_strncmp(str, "\"z\"", 3))
+		v->z = ((float)ft_atoi(get_value(str)) * M_PI_2) / 90;
 }
 
 void	parse_pos(t_vector *v, char *str)
 {
-	if (!ft_strncmp(str, "pos_x", 5))
-		v->x = atof(get_value(str));
-	else if (!ft_strncmp(str, "pos_y", 5))
-		v->y = atof(get_value(str));
-	else if (!ft_strncmp(str, "pos_z", 5))
-		v->z = atof(get_value(str));
+	if (!ft_strncmp(str, "\"x\"", 3))
+		v->x = ft_atof(get_value(str));
+	else if (!ft_strncmp(str, "\"y\"", 3))
+		v->y = ft_atof(get_value(str));
+	else if (!ft_strncmp(str, "\"z\"", 3))
+		v->z = ft_atof(get_value(str));
 }

@@ -1,4 +1,4 @@
-#include <rt.h>
+#include <gui.h>
 
 void	gui_scroll_value_free(char **value, int nb)
 {

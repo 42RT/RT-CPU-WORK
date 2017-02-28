@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 06:55:02 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/11/28 06:55:02 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/02/24 12:46:11 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,19 @@ t_obj		*new_obj(void)
 	res->color_refract = DEF_COLOR_REFR;
 	res->size = DEF_SIZE;
 	res->mod = DEF_MOD;
+	res->cap1 = DEF_CAP1;
+	res->cap2 = DEF_CAP2;
+	res->def.x = 0;
+	res->def.y = 0;
+	res->def.z = 0;
+	res->coef_ambient = 0.1;
+	res->coef_diffuse = 0.9;
+	res->coef_spec = 0.0;
+	res->dst = 1e8;
 	res->reflect_k = DEF_REFLECT_K;
 	res->refract_k = DEF_REFRACT_K;
 	res->refract_ind = DEF_REFRACT_IND;
+	res->compose = 0;
 	res->next = 0;
 	return (res);
 }
