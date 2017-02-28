@@ -13,9 +13,11 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# define BUFF_SIZE		32
 # define RD_BUFFSIZE	1
 # include <string.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 /*
 ** flags:
@@ -42,6 +44,12 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+typedef struct		s_file
+{
+	char			*file_content;
+	int				fd;
+}					t_file;
+
 int					ft_atoi(const char *str);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -66,7 +74,6 @@ char				*ft_strdup(const char *s1);
 char				*ft_strcat(char *dest, const char *src);
 char				*ft_strncat(char *dest, const char *src, size_t n);
 char				*ft_strchr(const char *s, int c);
-char				*ft_strcchr(const char *s, int c, int f);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strcpy(char *s1, const char *s2);
 char				*ft_newstrcat(char *dest, const char *src);
@@ -114,9 +121,10 @@ char				*ft_strndup(char *str, size_t len);
 int					ft_abs(int nb);
 void				ft_putfloat(float nb);
 float				ft_atof(char *str);
+char				*ft_strcchr(const char *s, int c, int f);
+char				*ft_concat(char *s1, char *s2);
 void				ft_lstadd(t_list **alst, t_list *nw);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void *content);
-char				*ft_concat(char *s1, char *s2);
 
 #endif

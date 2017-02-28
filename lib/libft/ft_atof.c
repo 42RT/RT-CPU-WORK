@@ -1,36 +1,41 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_atof.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/28 14:57:56 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/11/28 14:57:56 by jrouilly         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <libft.h>
+#include <math.h>
 
-float		ft_atof(char *str)
+float	ft_atof_ext(char *str, int i, float a, int sign)
 {
-	int		decimal;
-	int		floating;
-	int		divide;
-	int		sign;
+	int j;
 
-	decimal = 0;
-	floating = 0;
-	divide = 1;
-
-	sign = 1 - ((*str == '-') << 1);
-	str += (*str == '-' || *str == '+');
-	while (*str && *str != '.')
-		decimal = decimal * 10 + (*(str++) - 060);
-	if (!*str)
-		return (sign * decimal);
-	while (*++str >= '0' && *str <= '9')
+	j = 0;
+	if (str[i] == '.')
 	{
-		floating = floating * 10 + (*str - 060);
-		divide *= 10;
+		++i;
+		while (ft_isdigit(str[i + j]))
+			++j;
+		if (sign == 0)
+			a = a + (float)ft_atoi(str + i) / pow(10, j);
+		else
+			a = a - (float)ft_atoi(str + i) / pow(10, j);
 	}
-	return (sign * (decimal + (float)floating / divide));
+	return (a);
+}
+
+float	ft_atof(char *str)
+{
+	float a;
+	int i;
+	int sign;
+
+	i = 0;
+	sign = 0;
+	a = 0.0;
+	while (!ft_isdigit(str[i]) && str[i] != '-')
+		++i;
+	if (str[i] == '-')
+		sign = 1;
+	a = (float)ft_atoi(str + i);
+	while (str[i] != '.' && (ft_isdigit(str[i]) || str[i] == ' ' ||
+				str[i] == '-'))
+		++i;
+	a = ft_atof_ext(str, i, a, sign);
+	return (a);
 }
