@@ -142,6 +142,7 @@ typedef struct		s_env
 	t_obj			*obj;
 	t_obj			*neg_obj;
 	t_light			*light;
+	char			*file;
 	float			last_refract;
 	float			x;
 	float			y;

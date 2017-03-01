@@ -6,6 +6,7 @@ void	gui_parse_container_info(t_gui *gui, int fd, int id, int nb)
 	char	*line;
 	int		i;
 
+	i = 0;
 	while (i < nb)
 	{
 		get_next_line(fd, &line);

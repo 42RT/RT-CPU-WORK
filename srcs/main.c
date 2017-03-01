@@ -61,6 +61,7 @@ int			main(int ac, char **av)
 		ft_aff_quick(e, e->obj);
 	ft_aff(e, e->obj);
 	//libxmlx_exit(e->gfx, 0);
+	while(1);
 	gui = gui_init();
 	while (1)
 		wait_event(e);

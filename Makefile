@@ -94,8 +94,10 @@ SRC =		$(PATH_SRC)main.c \
 			$(PATH_SRC)error.c
 
 ifeq ($(UNAME_S),Darwin)
-	INC 	+=	-I ~/.brew/Cellar/sdl2/2.0.5/include/SDL2
-	LDFLAGS +=	-L ~/.brew/Cellar/sdl2/2.0.5/lib -lSDL2
+	INC 	+=	-I ~/.brew/Cellar/sdl2/2.0.5/include/SDL2 \
+				-I ~/.brew/Cellar/sdl2_ttf/2.0.14/include/SDL2
+	LDFLAGS +=	-L ~/.brew/Cellar/sdl2/2.0.5/lib -lSDL2 \
+				-L ~/.brew/Cellar/sdl2_ttf/2.0.14/lib -lSDL2_ttf
 	SRC		+=	$(PATH_SRC)console_osx.c
 else ifeq ($(UNAME_S),Linux)
 	LDFLAGS +=	-lSDL2 -lSDL2_ttf
