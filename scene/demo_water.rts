@@ -3,32 +3,26 @@
 	"color2": 0x00ffff,
 	"color3": 0x00ffff,
 	"size": 500,
-    "reflect_k": 40,
-    "refract_k": 190,
+	"reflect_k": 20,
+	"refract_k": 190,
+	"refract_ind": 1.333,
 	"position": {
         "y": 700
-    },
-    "angle": {
-        "z": 0
     }
 }
+
 "dplane": {
 	"color": 0xffffff,
 	"color2": 0xffffff,
 	"color3": 0xffffff,
 	"size": 500,
-    "reflect_k": 0,
-    "refract_k": 0,
 	"position": {
         "y": 1500
-    },
-    "angle": {
-        "z": 0
     }
 }
 
 "sphere": {
-	"color": 2255,
+	"color": 0x0000ff,
 	"size": 1000,
     "position": {
         "z": -8000
@@ -38,22 +32,17 @@
 "sphere": {
 	"color": 0xff0000,
 	"size": 1000,
-	"refract_k": 0,
 	"reflect_k": 210,
 	"position": {
 	   "x": -4200,
        "y": 1000,
 	   "z": -3000
-    },
-	"exp": {
-        "y": 1.0
     }
 }
 
 "sphere": {
 	"color": 0xffffff,
 	"size": 1000,
-	"reflect_k": 0,
 	"refract_k": 70,
 	"position": {
 	   "x": -2000,
@@ -67,11 +56,11 @@
 	"size": 1000,
 	"position": {
 	   "x": 2500
-    },
+    }
 }
 
 "cylindre": {
-	"color": 2817834,
+	"color": 0x00ff00,
 	"size": 500,
 	"position": {
 	   "x": 2500
@@ -82,7 +71,7 @@
 }
 
 "cylindre": {
-	"color": 255,
+	"color": 0x0000ff,
 	"size": 500,
 	"position": {
 	   "x": 200,
@@ -122,7 +111,6 @@
 "square": {
 	"size": 500,
 	"color": 0xff4200,
-	"reflect_k": 0.5,
 	"position": {
 	   "x": -500,
        "y": 1000,
@@ -132,7 +120,6 @@
 
 "square": {
 	"size": 500,
-	"reflect_k": 0.5,
 	"color": 0xff4200,
 	"position": {
 	   "x": -500,
@@ -143,7 +130,6 @@
 
 "square": {
 	"size": 500,
-	"reflect_k": 0.5,
 	"color": 0xff4200,
 	"position": {
        "y": 500,
@@ -156,7 +142,6 @@
 
 "disk": {
 	"size": 500,
-	"reflect_k": 0.5,
 	"color": 0xff4200,
 	"position": {
 	   "x": -1000,

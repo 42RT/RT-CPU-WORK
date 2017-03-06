@@ -94,8 +94,10 @@ SRC =		$(PATH_SRC)main.c \
 			$(PATH_SRC)error.c
 
 ifeq ($(UNAME_S),Darwin)
-	INC 	+=	-I ~/.brew/Cellar/sdl2/2.0.5/include/SDL2
-	LDFLAGS +=	-L ~/.brew/Cellar/sdl2/2.0.5/lib -lSDL2
+	INC 	+=	-I ~/.brew/Cellar/sdl2/2.0.5/include/SDL2 \
+				-I ~/.brew/Cellar/sdl2_ttf/2.0.14/include/SDL2
+	LDFLAGS +=	-L ~/.brew/Cellar/sdl2/2.0.5/lib -lSDL2 \
+				-L ~/.brew/Cellar/sdl2_ttf/2.0.14/lib -lSDL2_ttf
 	SRC		+=	$(PATH_SRC)console_osx.c
 else ifeq ($(UNAME_S),Linux)
 	LDFLAGS +=	-lSDL2 -lSDL2_ttf
@@ -139,9 +141,9 @@ fclean:
 
 re:			fclean all
 
-debug:		fclean $(OBJ)
-	@make -C $(PATH_LIB)libft/ re > /dev/null
+debug:		fclean
+	@make -C libft/ re > /dev/null
 	@echo "\033[34mCompiling $(NAME) (debug mode): \033[0m"
-	@gcc -g $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS)
+	@gcc -g $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LDFLAGS)
 	@echo "\033[1;32m$(NAME) Compiled ! (debug mode)\n\033[0m"
 
