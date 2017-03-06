@@ -28,16 +28,11 @@ void	trace_floor(t_obj *obj, t_vector o, t_vector v)
 
 void	plane_normale(t_vector *n, t_vector *o, t_obj *obj)
 {
-	t_vector	not_ang;
-
-	not_ang.x = -obj->ang.x;
-	not_ang.y = -obj->ang.y;
-	not_ang.z = -obj->ang.z;
 	n->x = obj->def.x * sin(o->x * 0.005);
 	n->y = -1;
 	n->z = obj->def.z * sin(o->z * 0.005);
 	normalize(n);
-	rotate_vector2(n, &not_ang);
+	rotate_vector2(n, &obj->ang);
 }
 
 void	neg_floor(t_obj *obj, t_equation *eq)

@@ -36,11 +36,6 @@ void	trace_dfloor(t_obj *obj, t_vector o, t_vector v)
 
 void	dplane_normale(t_vector *n, t_vector *o, t_obj *obj)
 {
-	//t_vector	not_ang;
-
-	//not_ang.x = -obj->ang.x;
-	//not_ang.y = -obj->ang.y;
-	//not_ang.z = -obj->ang.z;
 	n->x = obj->def.x * sin(o->x * 0.005);
 	n->y = -1;
 	n->z = obj->def.z * sin(o->z * 0.005);
