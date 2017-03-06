@@ -9,47 +9,6 @@ void	gui_scroll_value_free(char **value, int nb)
 		value[i--] = NULL;
 }
 
-void	gui_block_scroll_init(t_gui *gui, int id, int nb)
-{
-	int i;
-
-	if ((SCROLL = (t_scroll **)malloc(sizeof(t_scroll *) * nb)) == NULL)
-		error(1);
-	BLOCK[id]->scroll_qt = nb;
-	i = 0;
-	while (i < nb)
-	{
-		if ((SCROLL[i] = (t_scroll *)malloc(sizeof(t_scroll))) == NULL)
-			error(1);
-		if ((SCROLL_B = (t_button *)malloc(sizeof(t_button))) == NULL)
-			error(1);
-		if ((SCROLL[i]->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
-			error(1);
-		if ((SCROLL[i]->value = (char **)malloc(sizeof(char *) * 10)) == NULL)
-			error(1);
-		SCROLL[i]->value[0] = "valeur 1";
-		SCROLL[i]->value[1] = "valeur 2";
-		SCROLL[i]->value[2] = "valeur 3";
-		SCROLL[i]->value[3] = "valeur 4";
-		SCROLL[i]->value[4] = "valeur 5";
-		SCROLL[i]->value[5] = "valeur 6";
-		SCROLL[i]->value[6] = "valeur 7";
-		SCROLL[i]->value[7] = "valeur 8";
-		SCROLL[i]->value[8] = "valeur 9";
-		SCROLL[i]->value[9] = "valeur 10";
-		SCROLL[i]->active_value = 0;
-		SCROLL[i]->nb_value = 10;
-		SCROLL[i]->mod = 0;
-		SCROLL[i]->nature = SCL;
-		SCROLL[i]->surface = NULL;
-		SCROLL[i]->bmp = NULL;
-		SCROLL_B->surface = NULL;
-		SCROLL_B->bmp = NULL;
-		SCROLL_B->action = "scroll";
-		i++;
-	}
-}
-
 void	gui_scroll_set_halign(t_scroll *scroll)
 {
 	t_gui	*gui;

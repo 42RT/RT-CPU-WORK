@@ -44,6 +44,10 @@ void	gui_error(int n)
 		printf("PARSE : \033[31mExpected widget delimiter ','\033[0m\n");
 	else if (n == 12)
 		printf("PARSE \033[31mNot the widget expected\033[0m\n");
+	else if (n == 13)
+		printf("PARSE \033[31mImpossible to open directory. \033[0m\n");
+	else if (n == 14)
+		printf("PARSE \033[31mImpossible to close directory. \033[0m\n");
 	else
 		gui_expand_error(n);
 	exit(1);

@@ -46,7 +46,7 @@ void	gui_param_checkbox_create_all(t_gui *gui)
 	i = 0;
 	while (i < PARAM->checkbox_qt)
 	{
-		if (PARAM_CBX->selected)
+		if (PARAM_CBX->selected == 1)
 		{
 			gui_widget_texture_get_bmp(PARAM_CBX, "checkbox_selected.bmp");
 			gui_widget_display(PARAM_CBX);
@@ -55,7 +55,6 @@ void	gui_param_checkbox_create_all(t_gui *gui)
 		}
 		else
 		{
-			printf("%d %d %d %d\n", PARAM_CBX->dest.x, PARAM_CBX->dest.y, PARAM_CBX->dest.w, PARAM_CBX->dest.h);
 			gui_widget_texture_get_bmp(PARAM_CBX, "textbox_white.bmp");
 			gui_widget_display(PARAM_CBX);
 			gui_widget_draw_in_line(PARAM_CBX->dest, 1, "black");
@@ -69,20 +68,20 @@ void	gui_param_checkbox_enable(t_gui *gui, t_checkbox *checkbox)
 	if (WIDGET)
 		event_widget_deselect(gui);
 	WIDGET = checkbox;
-	checkbox->selected = true;
+	checkbox->selected = 1;
 	gui_main_refresh(gui);
 }
 
 void	gui_param_checkbox_disable(t_gui *gui, t_checkbox *checkbox)
 {
 	WIDGET = NULL;
-	checkbox->selected = false;
+	checkbox->selected = 0;
 	gui_main_refresh(gui);
 }
 
 void	gui_param_checkbox_toggle(t_gui *gui, t_checkbox *checkbox)
 {
-	if (checkbox->selected)
+	if (checkbox->selected == 1)
 		gui_param_checkbox_disable(gui, checkbox);
 	else
 		gui_param_checkbox_enable(gui, checkbox);

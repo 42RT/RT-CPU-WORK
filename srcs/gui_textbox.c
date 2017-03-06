@@ -40,12 +40,15 @@ void		gui_textbox_get_len(t_textbox *textbox)
 	if (ft_strstr(textbox->tag, "__X") || ft_strstr(textbox->tag, "__Y")
 		|| ft_strstr(textbox->tag, "__Z"))
 		textbox->maxlen = 6;
-	if (ft_strstr(textbox->tag, "__V") || ft_strstr(textbox->tag, "__H"))
+	if (ft_strstr(textbox->tag, "_AX") || ft_strstr(textbox->tag, "_AY")
+		|| ft_strstr(textbox->tag, "_AZ"))
 		textbox->maxlen = 4;
 	if (ft_strstr(textbox->tag, "__R") || ft_strstr(textbox->tag, "__G")
 		|| ft_strstr(textbox->tag, "__B") || ft_strstr(textbox->tag, "__A"))
 		textbox->maxlen = 3;
-	if (ft_strstr(textbox->tag, "RFR") || ft_strstr(textbox->tag, "RFL"))
+	if (ft_strstr(textbox->tag, "RFR"))
+		textbox->maxlen = 5;
+	if (ft_strstr(textbox->tag, "RFL"))
 		textbox->maxlen = 3;
 }
 
@@ -97,6 +100,7 @@ void	gui_textbox_create_all(t_gui *gui)
 				gui_widget_display(TEXTBOX[i]);
 				gui_widget_draw_in_line(TEXTBOX[i]->dest, 1, "black");
 				event_textbox_edit(gui, TEXTBOX[i], "black");
+
 				i++;
 			}
 			id++;
@@ -107,4 +111,5 @@ void	gui_textbox_create_all(t_gui *gui)
 void	gui_textbox_build(t_gui *gui)
 {
 	gui_textbox_create_all(gui);
+
 }

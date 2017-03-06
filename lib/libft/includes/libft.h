@@ -126,5 +126,6 @@ char				*ft_concat(char *s1, char *s2);
 void				ft_lstadd(t_list **alst, t_list *nw);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void *content);
+char				*ft_ftoa(float nb, int precision);
 
 #endif

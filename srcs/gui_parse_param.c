@@ -92,9 +92,9 @@ void	gui_parse_param_checkbox(t_gui *gui, int fd, int nb)
 				else if (!ft_strcmp(tmp[0], "\t\tselected"))
 				{
 					if (!ft_strcmp(tmp[1], "false"))
-						PARAM_CBX->selected = false;
+						PARAM_CBX->selected = 0;
 					if (!ft_strcmp(tmp[1], "true"))
-						PARAM_CBX->selected = true;
+						PARAM_CBX->selected = 1;
 				}
 				else if (!ft_strcmp(tmp[0], "\t\ttxt"))
 				{

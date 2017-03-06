@@ -186,23 +186,115 @@ t_scroll	*gui_parse_scroll(int fd, int nb)
 	return (scroll);
 }
 
-char	**gui_get_scroll_value(int nb)
+char	**gui_get_scroll_scene(t_scroll *scroll)
+{
+	DIR				*rep;
+	struct dirent	*rfile;
+	int				i;
+	FILE			*sortie;
+	char			*lu;
+	char			**value;
+
+	rep = NULL;
+	i = 0;
+	sortie = popen("find ./scene/*.rts | wc -l", "r");
+	if ((lu = (char *)malloc(sizeof(char) * 2)) == NULL)
+		error(1);
+	fread(lu, sizeof(char), 2, sortie);
+	scroll->nb_value = ft_atoi(lu);
+	free(lu);
+	scroll->active_value = 0;
+	scroll->mod = 0;
+	if ((value = (char **)malloc(sizeof(char *) * scroll->nb_value)) == NULL)
+		error(1);
+	rep = opendir("./scene");
+	if (!rep)
+		gui_error(13);
+	while ((rfile = readdir(rep)) != NULL)
+		if (ft_strcmp(rfile->d_name, ".") && ft_strcmp(rfile->d_name, ".."))
+			value[i++] = ft_strdup(rfile->d_name);
+	free(rfile);
+	if (closedir(rep) == -1)
+		gui_error(14);
+	return (value);
+}
+
+char	**gui_get_scroll_object(t_scroll *scroll)
+{
+	char	**value;
+	t_env	*e;
+	t_obj	*tmp;
+	int		i;
+
+	i = 0;
+	scroll->nb_value = 1;
+	e = get_env();
+	tmp = e->obj->next;
+	while (tmp)
+	{
+		scroll->nb_value += 1;
+		tmp = tmp->next;
+	}
+	if ((value = (char **)malloc(sizeof(char *) * scroll->nb_value)) == NULL)
+		error(1);
+	tmp = e->obj;
+	while (i < scroll->nb_value)
+	{
+		if (tmp->type == 1)
+			value[i] = ft_strdup(ft_strjoin(ft_itoa(i + 1), ".sphere"));
+		else if (tmp->type == 2)
+			value[i] = ft_strdup(ft_strjoin(ft_itoa(i + 1), ".plan"));
+		else if (tmp->type == 4)
+			value[i] = ft_strdup(ft_strjoin(ft_itoa(i + 1), ".dplan"));
+		else if (tmp->type == 8)
+			value[i] = ft_strdup(ft_strjoin(ft_itoa(i + 1), ".cylinder"));
+		else if (tmp->type == 16)
+			value[i] = ft_strdup(ft_strjoin(ft_itoa(i + 1), ".cone"));
+		else if (tmp->type == 32)
+			value[i] = ft_strdup(ft_strjoin(ft_itoa(i + 1), ".disk"));
+		else if (tmp->type == 64)
+			value[i] = ft_strdup(ft_strjoin(ft_itoa(i + 1), ".square"));
+		else if (tmp->type == 128)
+			value[i] = ft_strdup(ft_strjoin(ft_itoa(i + 1), ".cube"));
+		else if (tmp->type == 256)
+			value[i] = ft_strdup(ft_strjoin(ft_itoa(i + 1), ".paraboloid"));
+		else
+			value[i] = ft_strdup(ft_strjoin(ft_itoa(i + 1), ".unknown"));
+		tmp = tmp->next;
+		i++;
+	}
+	scroll->active_value = 0;
+	scroll->mod = 0;
+	return (value);
+}
+
+char	**gui_get_scroll_value(t_scroll *scroll)
 {
 	char	**value;
 
-	if ((value = (char **)malloc(sizeof(char *) * nb)) == NULL)
-		error(1);
-	value[0] = "valeur1";
-	value[1] = "valeur2";
-	value[2] = "valeur3";
-	value[3] = "valeur4";
-	value[4] = "valeur5";
-	value[5] = "valeur6";
-	value[6] = "valeur7";
-	value[7] = "valeur8";
-	value[8] = "valeur9";
-	value[9] = "valeur10";
-	return (value);
+	if (!ft_strcmp(scroll->tag, "SCN"))
+		return (gui_get_scroll_scene(scroll));
+	else if (!ft_strcmp(scroll->tag, "OBJ"))
+		return (gui_get_scroll_object(scroll));
+	else
+	{
+		scroll->nb_value = 10;
+		scroll->active_value = 0;
+		scroll->mod = 0;
+		if ((value = (char **)malloc(sizeof(char *) * scroll->nb_value)) == NULL)
+			error(1);
+		value[0] = "valeur1";
+		value[1] = "valeur2";
+		value[2] = "valeur3";
+		value[3] = "valeur4";
+		value[4] = "valeur5";
+		value[5] = "valeur6";
+		value[6] = "valeur7";
+		value[7] = "valeur8";
+		value[8] = "valeur9";
+		value[9] = "valeur10";
+		return (value);
+	}
 }
 
 t_scroll	**gui_parse_container_scroll(int fd, int qt, int id)
@@ -223,10 +315,7 @@ t_scroll	**gui_parse_container_scroll(int fd, int qt, int id)
 		scroll[i] = gui_parse_scroll(fd, 6);
 		scroll[i]->p = id;
 		scroll[i]->id = i;
-		scroll[i]->nb_value = 10;
-		scroll[i]->active_value = 0;
-		scroll[i]->mod = 0;
-		scroll[i]->value = gui_get_scroll_value(scroll[i]->nb_value);
+		scroll[i]->value = gui_get_scroll_value(scroll[i]);
 		printf("(%d,%d,%s) [\"%s\",%s,%d]\n", scroll[i]->dest.x, scroll[i]->dest.y, scroll[i]->tag, scroll[i]->txt->content, scroll[i]->txt->anchor, scroll[i]->txt->align);
 		gui_scroll_set(scroll[i]);
 		i++;
@@ -240,12 +329,270 @@ t_scroll	**gui_parse_container_scroll(int fd, int qt, int id)
 	return (scroll);
 }
 
+char	*gui_get_textbox_X(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (ft_strdup(ft_itoa(tmp->pos.x)));
+}
+
+char	*gui_get_textbox_Y(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (ft_strdup(ft_itoa(tmp->pos.y)));
+}
+
+char	*gui_get_textbox_Z(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (ft_strdup(ft_itoa(tmp->pos.z)));
+}
+
+char	*gui_get_textbox_AX(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (ft_strdup(ft_itoa(tmp->ang.x / M_PI_2 * 90)));
+}
+
+char	*gui_get_textbox_AY(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (ft_strdup(ft_itoa(tmp->ang.y / M_PI_2 * 90)));
+}
+
+char	*gui_get_textbox_AZ(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (ft_strdup(ft_itoa(tmp->ang.z / M_PI_2 * 90)));
+}
+
+char	*gui_get_textbox_R(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	printf("%x\n", tmp->color);
+	return (ft_strdup(ft_itoa((tmp->color >> 16) & 0xFF)));
+}
+
+char	*gui_get_textbox_G(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (ft_strdup(ft_itoa((tmp->color >> 8) & 0xFF)));
+}
+
+char	*gui_get_textbox_B(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (ft_strdup(ft_itoa((tmp->color >> 0) & 0xFF)));
+}
+
+char	*gui_get_textbox_A(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (ft_strdup(ft_itoa((tmp->color >> 24) & 0xFF)));
+}
+
+char	*gui_get_textbox_RFR(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	printf("REFRACT : %f\n", tmp->refract_ind);
+	return (ft_strdup(ft_ftoa(tmp->refract_ind, 3)));
+}
+
+char	*gui_get_textbox_RFL(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	printf("REFLECT : %f\n", tmp->reflect_k);
+	return (ft_strdup(ft_itoa(tmp->reflect_k)));
+}
+
 void	gui_get_textbox_value(t_textbox *textbox)
 {
-	if ((textbox->value = (char *)malloc(sizeof(char))) == NULL)
-		error(1);
 	gui_textbox_get_len(textbox);
-	gui_textbox_value_clear(textbox, textbox->maxlen);
+	if (!ft_strcmp(textbox->tag, "__X"))
+		textbox->value = gui_get_textbox_X();
+	else if (!ft_strcmp(textbox->tag, "__Y"))
+		textbox->value = gui_get_textbox_Y();
+	else if (!ft_strcmp(textbox->tag, "__Z"))
+		textbox->value = gui_get_textbox_Z();
+	else if (!ft_strcmp(textbox->tag, "_AX"))
+		textbox->value = gui_get_textbox_AX();
+	else if (!ft_strcmp(textbox->tag, "_AY"))
+		textbox->value = gui_get_textbox_AY();
+	else if (!ft_strcmp(textbox->tag, "_AZ"))
+		textbox->value = gui_get_textbox_AZ();
+	else if (!ft_strcmp(textbox->tag, "__R"))
+		textbox->value = gui_get_textbox_R();
+	else if (!ft_strcmp(textbox->tag, "__G"))
+		textbox->value = gui_get_textbox_G();
+	else if (!ft_strcmp(textbox->tag, "__B"))
+		textbox->value = gui_get_textbox_B();
+	else if (!ft_strcmp(textbox->tag, "__A"))
+		textbox->value = gui_get_textbox_A();
+	else if (!ft_strcmp(textbox->tag, "RFR"))
+		textbox->value = gui_get_textbox_RFR();
+	else if (!ft_strcmp(textbox->tag, "RFL"))
+		textbox->value = gui_get_textbox_RFL();
+	else
+	{
+		if ((textbox->value = (char *)malloc(sizeof(char) * textbox->maxlen)) == NULL)
+			error(1);
+		gui_textbox_value_clear(textbox, textbox->maxlen);
+	}
 }
 
 t_textbox	*gui_parse_textbox(int fd, int nb)
@@ -333,7 +680,7 @@ t_textbox	**gui_parse_container_textbox(int fd, int qt, int id)
 
 void	gui_get_checkbox_state(t_checkbox *checkbox)
 {
-	checkbox->selected = false;
+	checkbox->selected = 0;
 }
 
 t_checkbox	*gui_parse_checkbox(int fd, int nb)

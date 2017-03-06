@@ -139,9 +139,9 @@ fclean:
 
 re:			fclean all
 
-debug:		fclean
-	@make -C libft/ re > /dev/null
+debug:		fclean $(OBJ)
+	@make -C $(PATH_LIB)libft/ re > /dev/null
 	@echo "\033[34mCompiling $(NAME) (debug mode): \033[0m"
-	@gcc -g $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LDFLAGS)
+	@gcc -g $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS)
 	@echo "\033[1;32m$(NAME) Compiled ! (debug mode)\n\033[0m"
 

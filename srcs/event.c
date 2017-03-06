@@ -103,7 +103,7 @@ void		event_textbox_value_rot(t_textbox *textbox, char nb)
 	int i;
 	int reserved;
 
-	if (textbox->maxlen == 3)
+	if (textbox->maxlen == 3 || textbox->maxlen == 5)
 		reserved = 0;
 	else
 		reserved = 1;
@@ -201,7 +201,7 @@ void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
 	else if (SCANCODE == 76)
 			gui_textbox_value_clear(textbox, textbox->maxlen);
 	else if ((SCANCODE >= 30 && SCANCODE <= 39)
-	|| (SCANCODE >= 89 && SCANCODE <= 98))
+	|| (SCANCODE >= 89 && SCANCODE <= 99))
 	{
 		if (textbox->edited == 0)
 		{
@@ -228,6 +228,9 @@ void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
 			event_textbox_value_rot(textbox, '9');
 		if (SCANCODE  == 39 || SCANCODE == 98)
 			event_textbox_value_rot(textbox, '0');
+		if (SCANCODE == 99 && !ft_strcmp(textbox->tag, "RFR"))
+			event_textbox_value_rot(textbox, '.');
+		printf("textbox value : %s\n", textbox->value);
 	}
 	else
 		action = 0;
@@ -498,7 +501,7 @@ void		event_mouse_click(SDL_Event event, t_env *env, t_gui *gui)
 
 static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 {
-	//printf("EVENT : KEY = %d\n", SCANCODE);
+	printf("EVENT : KEY = %d\n", SCANCODE);
 	if (event.key.keysym.sym == SDLK_ESCAPE)
 		libxmlx_exit(env->gfx, 0);
 	if (gui->widget_active)

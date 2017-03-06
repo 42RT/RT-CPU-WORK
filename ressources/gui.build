@@ -134,24 +134,33 @@ MAIN BUILDER:
 	txt_align: 0
 	button_qt: 0
 	scroll_qt: 0
-	textbox_qt: 2
+	textbox_qt: 3
 	checkbox_qt: 0
 	textbox:
 		x: 0
 		y: 45
-		tag: "__V"
+		tag: "_AX"
 		min: -180
 		max: 180
-		txt: "v"
+		txt: "x"
 		txt_anchor: "this"
 		txt_align: 0
 		,
 		x: 1
 		y: 45
-		tag: "__H"
+		tag: "_AY"
 		min: -180
 		max: 180
-		txt: "h"
+		txt: "y"
+		txt_anchor: "this"
+		txt_align: 0
+		,
+		x: 2
+		y: 45
+		tag: "_AZ"
+		min: -180
+		max: 180
+		txt: "z"
 		txt_anchor: "this"
 		txt_align: 0
 	,
@@ -217,9 +226,9 @@ MAIN BUILDER:
 	textbox:
 		x: 1
 		y: 10
-		tag: "RFR"
+		tag: "RFL"
 		min: 0
-		max: 3.5
+		max: 255
 		txt: "reflection"
 		txt_anchor: "parent"
 		txt_align: 0
@@ -238,9 +247,9 @@ MAIN BUILDER:
 	textbox:
 		x: 1
 		y: 10
-		tag: "RFL"
-		min: 0
-		max: 3.5
+		tag: "RFR"
+		min: 1
+		max: 4.05
 		txt: "refraction"
 		txt_anchor: "parent"
 		txt_align: 0

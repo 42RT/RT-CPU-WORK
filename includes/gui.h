@@ -3,6 +3,7 @@
 
 # include <raytracer.h>
 # include <fcntl.h>
+# include <dirent.h>
 
 # define CONTAINER gui->container[id]
 # define BLOCK gui->container
@@ -54,12 +55,6 @@
 
 typedef enum
 {
-				false,
-				true
-}				bool;
-
-typedef enum
-{
 				BTN,
 				TXB,
 				SCL,
@@ -98,7 +93,7 @@ typedef struct	s_checkbox
 	int			id;
 	int			p;
 	char		*tag;
-	bool		selected;
+	int			selected;
 }				t_checkbox;
 
 typedef struct	s_button

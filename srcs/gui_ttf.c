@@ -48,6 +48,7 @@ void	gui_font_init(t_gui *gui, char *ttf, int size)
 	path = ft_strjoin(PATH->font, ttf);
 	path = ft_strjoin(path, ".ttf");
 	TTF->font = TTF_OpenFont(path, size);
+	free(path);
 	if (TTF->font == NULL)
 		gui_error(6);
 	TTF_SizeText(TTF->font, "editor", NULL, &TTF->h_px);
@@ -130,7 +131,7 @@ void	gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color)
 		TTF->rect.x = textbox->dest.x + 3;
 	TTF->rect.y = textbox->dest.y + ((textbox->dest.h - TTF->h_px) / 2);
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
-	gui_anti_aliasing_set(TTF->rect.x, TTF->rect.y, TTF->w_px, TTF->h_px);
+	//gui_anti_aliasing_set(TTF->rect.x, TTF->rect.y, TTF->w_px, TTF->h_px);
 	SDL_DestroyTexture(TTF->texture);
 }
 
