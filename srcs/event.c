@@ -34,8 +34,11 @@ void	event_mouse_click(SDL_Event event, t_env *env, t_gui *gui)
 static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 {
 	//printf("EVENT : KEY = %d\n", SCANCODE);
-	if (event.key.keysym.sym == SDLK_ESCAPE)
-		libxmlx_exit(env->gfx, 0);
+	if (event.window.windowID == env->gfx->winID)
+	{
+		if (event.key.keysym.sym == SDLK_ESCAPE)
+			libxmlx_exit(env->gfx, 0);
+	}
 	if (gui->widget_active && (event.window.windowID == gui->winID))
 		event_textbox_insert(event, gui, gui->widget_active);
 	return (0);

@@ -62,6 +62,7 @@ int			main(int ac, char **av)
 	ft_aff(e, e->obj);
 	//libxmlx_exit(e->gfx, 0);
 	gui = gui_init();
+	SDL_RaiseWindow(e->gfx->win);
 	while (1)
 		wait_event(e);
 	(void)gui;

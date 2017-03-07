@@ -27,6 +27,7 @@ void			*libxmlx_init(char *title, int res_x, int res_y,
 	SDL_Init(SDL_INIT_VIDEO); // verifier retour != 0
 	res->win = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED, res_x, res_y, SDL_WINDOW_SHOWN);
+	res->winID = SDL_GetWindowID(res->win);
 	if (!res->win)
 		return (0);
 	res->renderer = SDL_CreateRenderer(res->win, -1, SDL_RENDERER_ACCELERATED);

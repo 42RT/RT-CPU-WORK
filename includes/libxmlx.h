@@ -38,6 +38,7 @@ typedef struct		s_gfx
 	SDL_Event		event;
 	char			*title;
 	void			*win;
+	unsigned int	winID;
 	void			*renderer;
 	int				act;
 	t_img			*buff[8];
