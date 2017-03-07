@@ -347,6 +347,15 @@ void		gui_param_checkbox_toggle(t_gui *gui, t_checkbox *checkbox);
 /* ERROR HANDLING */
 void		gui_error(int n);
 
+/* EVENT */
+int			event_scroll_mouse_wheel(SDL_Event event, t_gui *gui);
+int			event_is_scroll(SDL_Event event, t_gui *gui);
+int			event_is_checkbox(SDL_Event event, t_gui *gui);
+int			event_is_button(SDL_Event event, t_env *env, t_gui *gui);
+int			event_is_textbox(SDL_Event event, t_gui *gui);
+void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox);
+void		event_scroll_mouse_over(SDL_Event event, t_gui *gui, t_scroll *scroll);
+
 /* OTHER */
 void		gui_main_refresh(t_gui *gui);
 void		gui_anti_aliasing_set(int x, int y, int w, int h);
