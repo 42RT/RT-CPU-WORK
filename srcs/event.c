@@ -33,11 +33,19 @@ void	event_mouse_click(SDL_Event event, t_env *env, t_gui *gui)
 
 static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 {
-	//printf("EVENT : KEY = %d\n", SCANCODE);
+	static int	console_mode = 0;
+
 	if (event.window.windowID == env->gfx->winID)
 	{
 		if (event.key.keysym.sym == SDLK_ESCAPE)
 			libxmlx_exit(env->gfx, 0);
+		if (event.key.keysym.sym == SDLK_BACKQUOTE)
+		{
+			console_mode = !console_mode;
+			printf("Console mode: %s\n", console_mode ? "ON" : "OFF");
+		}
+		if (console_mode)
+			console_mode = rt_console(event.key.keysym.sym, env);
 	}
 	if (gui->widget_active && (event.window.windowID == gui->winID))
 		event_textbox_insert(event, gui, gui->widget_active);

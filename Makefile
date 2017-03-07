@@ -30,6 +30,7 @@ SRC =		$(PATH_SRC)main.c \
 			$(PATH_SRC)expose_hook.c \
 			$(PATH_SRC)key_hook.c \
 			$(PATH_SRC)loading.c \
+			$(PATH_SRC)console.c \
 			$(PATH_SRC)cone.c \
 			$(PATH_SRC)cylinder.c \
 			$(PATH_SRC)dfloor.c \
@@ -99,10 +100,8 @@ ifeq ($(UNAME_S),Darwin)
 				-I ~/.brew/Cellar/sdl2_ttf/2.0.14/include/SDL2
 	LDFLAGS +=	-L ~/.brew/Cellar/sdl2/2.0.5/lib -lSDL2 \
 				-L ~/.brew/Cellar/sdl2_ttf/2.0.14/lib -lSDL2_ttf
-	SRC		+=	$(PATH_SRC)console_osx.c
 else ifeq ($(UNAME_S),Linux)
 	LDFLAGS +=	-lSDL2 -lSDL2_ttf
-	SRC		+=	$(PATH_SRC)console_linux.c
 endif
 
 OBJ = $(SRC:.c=.o)
