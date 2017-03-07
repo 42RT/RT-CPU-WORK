@@ -195,7 +195,10 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 	FILE			*sortie;
 	char			*lu;
 	char			**value;
+	char			**tmp;
+	t_env			*e;
 
+	e = get_env();
 	rep = NULL;
 	i = 0;
 	sortie = popen("find ./scene/*.rts | wc -l", "r");
@@ -213,7 +216,14 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 		gui_error(13);
 	while ((rfile = readdir(rep)) != NULL)
 		if (ft_strcmp(rfile->d_name, ".") && ft_strcmp(rfile->d_name, ".."))
-			value[i++] = ft_strdup(rfile->d_name);
+		{
+			lu = ft_strjoin("scene/", rfile->d_name);
+			printf("%s >> %s \n", lu, e->av[1]);
+			if (!ft_strcmp(e->av[1], lu))
+				scroll->active_value = i;
+			tmp = ft_strsplit(rfile->d_name, '.');
+			value[i++] = ft_strdup(tmp[0]);
+		}
 	free(rfile);
 	if (closedir(rep) == -1)
 		gui_error(14);

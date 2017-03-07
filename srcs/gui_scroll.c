@@ -92,6 +92,8 @@ int		gui_scroll_value_select(t_gui *gui, SDL_Event event, t_scroll *scroll)
 	{
 		scroll->active_value = (event.button.y - scroll->dest.y + (scroll->mod * GUI_LIST_STEP)) / GUI_LIST_STEP;
 		//printf("scroll select %s\n", scroll->value[scroll->active_value]);
+		if (!ft_strcmp(scroll->tag, "OBJ"))
+			gui_textbox_load_object(gui);
 		gui_scroll_toggle(gui, scroll);
 		return (1);
 	}

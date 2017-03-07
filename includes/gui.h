@@ -306,7 +306,9 @@ void		gui_textbox_get_len(t_textbox *textbox);
 void		gui_textbox_create_all(t_gui *gui);
 void		gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color);
 void		event_textbox_edit(t_gui *gui, t_textbox *textbox, char *color);
+void		gui_get_textbox_value(t_textbox *textbox);
 void		gui_textbox_value_clear(t_textbox *textbox, int len);
+void		gui_textbox_load_object(t_gui *gui);
 
 /* SCROLL */
 void		gui_scroll_build(t_gui *gui);

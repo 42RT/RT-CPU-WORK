@@ -14,7 +14,7 @@ DEFAULT_TEXTBOX:
 	texture: "textbox_white.bmp"
 	texture_selected: "textbox_black.bmp"
 DEFAULT_SCROLL:
-	w: 100
+	w: 120
 	h: 20
 	max_shown: 5
 	head_texture: "textbox_white.bmp"

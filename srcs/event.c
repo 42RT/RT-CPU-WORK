@@ -230,7 +230,7 @@ void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
 			event_textbox_value_rot(textbox, '0');
 		if (SCANCODE == 99 && !ft_strcmp(textbox->tag, "RFR"))
 			event_textbox_value_rot(textbox, '.');
-		printf("textbox value : %s\n", textbox->value);
+		//printf("textbox value : %s\n", textbox->value);
 	}
 	else
 		action = 0;
@@ -501,7 +501,7 @@ void		event_mouse_click(SDL_Event event, t_env *env, t_gui *gui)
 
 static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 {
-	printf("EVENT : KEY = %d\n", SCANCODE);
+	//printf("EVENT : KEY = %d\n", SCANCODE);
 	if (event.key.keysym.sym == SDLK_ESCAPE)
 		libxmlx_exit(env->gfx, 0);
 	if (gui->widget_active)
