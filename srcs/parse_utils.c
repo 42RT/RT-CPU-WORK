@@ -58,18 +58,13 @@ t_item	*get_next_item(char **str)
 	return (item);
 }
 
-int		init(t_env *e, int argc, char **argv)
+int		init(t_env *e, char *scene)
 {
-	int		i;
-
 	e->set = new_settings();
 	e->obj = 0;
 	e->neg_obj = 0;
-	i = 0;
-	while (++i < argc)
-		parse(e, argv[i]);
-	if (!e->obj)
-		parse(e, ".default.rts");
+	parse(e, scene);
+	parse(e, "set.rtc");
 	return (0);
 }
 

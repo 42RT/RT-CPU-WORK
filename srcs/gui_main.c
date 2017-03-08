@@ -12,12 +12,24 @@
 
 # include <gui.h>
 # include <rtdefs.h>
+# include <parser.h>
 
 t_gui		*get_gui(void)
 {
 	static	t_gui gui;
 
 	return (&gui);
+}
+
+void		gui_rt_reload(t_env *e, t_gui *gui, char *scene)
+{
+	e->obj = 0;
+	e->neg_obj = 0;
+	e->av[1] = ft_strdup(scene);
+	parse(e, scene);
+	ft_aff(e, e->obj);
+	SDL_RaiseWindow(e->gfx->win);
+	printf("RELOAD : %s\n", gui->container[0]->scroll[1]->value[0]);
 }
 
 void		gui_main_refresh(t_gui *gui)

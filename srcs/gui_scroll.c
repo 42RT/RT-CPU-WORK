@@ -85,6 +85,10 @@ void	gui_scroll_create_all(t_gui *gui)
 
 int		gui_scroll_value_select(t_gui *gui, SDL_Event event, t_scroll *scroll)
 {
+	t_env *e;
+	char	*scene;
+
+	e = get_env();
 	if ((event.button.x >= scroll->dest.x) &&
 	(event.button.x <= scroll->dest.x + scroll->dest.w) &&
 	(event.button.y >= scroll->dest.y) &&
@@ -94,6 +98,11 @@ int		gui_scroll_value_select(t_gui *gui, SDL_Event event, t_scroll *scroll)
 		//printf("scroll select %s\n", scroll->value[scroll->active_value]);
 		if (!ft_strcmp(scroll->tag, "OBJ"))
 			gui_textbox_load_object(gui);
+		scene = ft_strjoin("scene/", scroll->value[scroll->active_value]);
+		scene = ft_strjoin(scene, ".rts");
+		if (!ft_strcmp(scroll->tag, "SCN") && (ft_strcmp(scene, e->av[1])))
+			gui_rt_reload(e, gui, scene);
+		free(scene);
 		gui_scroll_toggle(gui, scroll);
 		return (1);
 	}

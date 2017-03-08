@@ -37,11 +37,12 @@ static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 	int			old;
 
 	old = console_mode;
+	//printf("KEY EVENT : %d\n", event.key.keysym.sym);
 	if (event.window.windowID == env->gfx->winID)
 	{
 		if (event.key.keysym.sym == SDLK_ESCAPE)
 			libxmlx_exit(env->gfx, 0);
-		if (event.key.keysym.sym == SDLK_BACKQUOTE)
+		if (event.key.keysym.sym == SDLK_BACKQUOTE || event.key.keysym.sym == 178)
 			console_mode = !console_mode;
 		if (console_mode)
 			console_mode = rt_console(event.key.keysym.sym, env, !old);

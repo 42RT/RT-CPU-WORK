@@ -225,6 +225,7 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 			value[i++] = ft_strdup(tmp[0]);
 		}
 	free(rfile);
+	free(lu);
 	if (closedir(rep) == -1)
 		gui_error(14);
 	return (value);

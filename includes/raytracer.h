@@ -232,7 +232,7 @@ unsigned int		limit_nb(unsigned int color, unsigned int max);
 /*
 ** Init
 */
-int					init(t_env *e, int argc, char **argv);
+int					init(t_env *e, char *scene);
 int					*init_map(int nb);
 t_env				*init_vars(t_env *e);
 int					**new_base();

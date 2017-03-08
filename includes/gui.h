@@ -358,5 +358,6 @@ void		event_scroll_mouse_over(SDL_Event event, t_gui *gui, t_scroll *scroll);
 
 /* OTHER */
 void		gui_main_refresh(t_gui *gui);
+void		gui_rt_reload(t_env *e, t_gui *gui, char *scene);
 void		gui_anti_aliasing_set(int x, int y, int w, int h);
 #endif
