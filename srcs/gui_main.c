@@ -23,11 +23,9 @@ t_gui		*get_gui(void)
 
 void		gui_rt_reload(t_env *e, t_gui *gui, char *scene)
 {
-	e->obj = 0;
-	e->neg_obj = 0;
+	//e->neg_obj = 0;
 	e->av[1] = ft_strdup(scene);
-	parse(e, scene);
-	ft_aff(e, e->obj);
+	reload(e);
 	SDL_RaiseWindow(e->gfx->win);
 	gui_scroll_load_object(gui);
 	gui_textbox_load_object(gui);

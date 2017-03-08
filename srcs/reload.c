@@ -29,14 +29,26 @@ void		delete_all_obj(t_env *e)
 	e->obj = 0;
 }
 
+void		delete_all_lights(t_env *e)
+{
+	t_light	*act;
+	t_light	*next;
+
+	act = e->light;
+	while (act)
+	{
+		next = act->next;
+		free(act);
+		act = next;
+	}
+	e->light = 0;
+}
+
 void		reload(t_env *e)
 {
-	int				i;
-
-	i = 0;
 	delete_all_obj(e);
-	while (++i < e->ac)
-		parse(e, e->av[i]);
+	delete_all_lights(e);
+	parse(e, e->av[1]);
 	if (e->set->verbose)
 		print_debug(e);
 	if (!libxmlx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB))
