@@ -38,20 +38,27 @@ void		write_console(int keycode, char *str)
 		str[0] = 0;
 }
 
+TTF_Font	*font_init(char *name)
+{
+	TTF_Font	*font;
+	char		*path;
+
+	path = ft_newstrcat(TTF_PATH, name);
+	font = TTF_OpenFont(path, 14);
+	free(path);
+	return (font);
+}
+
 static void	console_aff(t_env *e, char *str)
 {
 	SDL_Rect			area;
-	TTF_Font			*font;
-	static SDL_Color	color_1 = {42, 0, 242, 255};
-	static SDL_Color	color_2 = {42, 242, 42, 255};
+	static TTF_Font		*font = 0;
+	static SDL_Color	color[2] = {{42, 0, 242, 255}, {42, 242, 42, 255}};
 	SDL_Surface 		*text;
 	SDL_Texture			*texture;
-	char				*path;
 
-	TTF_Init();
-	path = ft_strjoin(get_gui()->path->font, "Starjedi");
-	path = ft_strjoin(path, ".ttf");
-	font = TTF_OpenFont(path, 14);
+	if (!font)
+		font = font_init("Starjedi.ttf");
 	TTF_SizeText(font, "save: ", NULL, &(area.h));
 
 	area.w = e->set->width;
@@ -66,7 +73,7 @@ static void	console_aff(t_env *e, char *str)
 	area.x = 7;
 	--area.y;
 	TTF_SizeText(font, "save: ", &(area.w), &(area.h));
-	text = TTF_RenderText_Blended(font, "save: ", color_2);
+	text = TTF_RenderText_Blended(font, "save: ", color[1]);
 	texture = SDL_CreateTextureFromSurface(e->gfx->renderer, text);
 	SDL_FreeSurface(text);
 	SDL_RenderCopy(e->gfx->renderer, texture, NULL, &area);
@@ -74,7 +81,7 @@ static void	console_aff(t_env *e, char *str)
 
 	area.x += area.w;
 	TTF_SizeText(font, str, &(area.w), NULL);
-	text = TTF_RenderText_Blended(font, str, color_1);
+	text = TTF_RenderText_Blended(font, str, color[0]);
 	texture = SDL_CreateTextureFromSurface(e->gfx->renderer, text);
 	SDL_FreeSurface(text);
 	SDL_RenderCopy(e->gfx->renderer, texture, NULL, &area);

@@ -81,7 +81,7 @@ t_gui		*gui_init(void)
 	setbuf(stdout, NULL);
 	printf("\nGUI : \033[33mINITIALIZING COMPONENT...\033[0m\n");
 	printf("GUI : \033[33mSDL_TTF ... \033[0m: ");
-	if (TTF_Init() == 0)
+	if (TTF_WasInit() || (TTF_Init() == 0))
 		printf("\033[1;32mOK\033[0m\n");
 	else
 		gui_error(5);

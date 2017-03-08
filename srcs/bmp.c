@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmorel <rmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/16 17:59:39 by rmorel            #+#    #+#             */
-/*   Updated: 2014/12/16 17:59:41 by rmorel           ###   ########.fr       */
+/*   Created: 2017/03/08 11:01:36 by jrouilly          #+#    #+#             */
+/*   Updated: 2017/03/08 11:01:45 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static void	write_pixels(int fd, int w, int h, t_img *img)//modifier pour sdl2
 int			save_image(t_img *img, char *name)
 {
 	int			fd;
-	return (ft_error("Toto test !"));
 
 	if (!*name)
 		return (ft_error("Please enter a filename !"));
@@ -69,4 +68,5 @@ int			save_image(t_img *img, char *name)
 	write_header(fd, img->width, img->height);
 	write_pixels(fd, img->width, img->height, img);
 	close(fd);
+	return (0);
 }

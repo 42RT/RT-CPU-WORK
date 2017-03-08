@@ -22,9 +22,10 @@ void			*libxmlx_init(char *title, int res_x, int res_y,
 
 	res = (void *)malloc(sizeof(t_gfx));
 	res->title = ft_strdup(title);
-	//res->mlx = mlx_init();
-	//res->win = mlx_new_window(res->mlx, res_x, res_y, title);
-	SDL_Init(SDL_INIT_VIDEO); // verifier retour != 0
+	if (SDL_Init(SDL_INIT_VIDEO))
+		return ((void *)(intptr_t)ft_error("Failed to init SDL"));
+	if (TTF_Init())
+		return ((void *)(intptr_t)ft_error("Failed to init SDL TTF"));
 	res->win = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED, res_x, res_y, SDL_WINDOW_SHOWN);
 	res->winID = SDL_GetWindowID(res->win);
@@ -56,6 +57,7 @@ void			libxmlx_exit(t_gfx *gfx, int ex)
 {
 	SDL_DestroyRenderer(gfx->renderer);
 	SDL_DestroyWindow(gfx->win);
+	TTF_Quit();
 	SDL_Quit();
 	exit(ex);
 }

@@ -104,4 +104,6 @@
 # define CUBE				128
 # define PARABOLOID			256
 
+# define TTF_PATH			"./ressources/gui_font/"
+
 #endif

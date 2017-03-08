@@ -19,5 +19,5 @@ int		ft_error(char const *s)
 	ft_putstr_fd(__progname, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putendl_fd(s, 2);
-	return (-1);
+	return (0);
 }
