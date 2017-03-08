@@ -108,13 +108,8 @@ OBJ = $(SRC:.c=.o)
 
 CFLAGS += $(INCLUDES)
 
-mre: fclean
-	@make -s -j$(THREADS) all
-
-mall:
-	@make -s -j$(THREADS) all
-
-all: $(NAME)
+all:
+	@make -s -j$(THREADS) $(NAME)
 
 $(NAME) : $(OBJ)
 	@make -C $(PATH_LIB)libft > /dev/null 2>&1
