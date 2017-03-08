@@ -108,6 +108,7 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
+int					ft_error(char const *s);
 int					get_next_line(int const fd, char **line);
 int					ft_printf(const char *format, ...);
 void				ft_puthex(unsigned int n);

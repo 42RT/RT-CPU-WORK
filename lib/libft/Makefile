@@ -29,7 +29,8 @@ SRC =	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 		ft_puthex.c ft_hextoa.c ft_readfile.c ft_getfile.c ft_strndup.c \
 		ft_strdup_trim.c ft_strlen_trim.c ft_abs.c ft_putfloat.c ft_atof.c \
 		ft_strlen_trim2.c ft_ishex.c ft_hexval.c ft_hextoi.c ft_strcchr.c \
-		ft_concat.c ft_lstadd.c ft_lstdelone.c ft_lstnew.c ft_ftoa.c
+		ft_concat.c ft_lstadd.c ft_lstdelone.c ft_lstnew.c ft_ftoa.c \
+		ft_error.c
 
 OBJ =	ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o ft_memmove.o \
 		ft_memchr.o ft_memcmp.o ft_strlen.o ft_strdup.o ft_strcpy.o \
@@ -46,7 +47,8 @@ OBJ =	ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o ft_memmove.o \
 		ft_puthex.o ft_hextoa.o ft_readfile.o ft_getfile.o ft_strndup.o \
 		ft_strdup_trim.o ft_strlen_trim.o ft_abs.o ft_putfloat.o ft_atof.o \
 		ft_strlen_trim2.o ft_ishex.o ft_hexval.o ft_hextoi.o ft_strcchr.o \
-		ft_concat.o ft_lstadd.o ft_lstdelone.o ft_lstnew.o ft_ftoa.o
+		ft_concat.o ft_lstadd.o ft_lstdelone.o ft_lstnew.o ft_ftoa.o \
+		ft_error.o
 
 all: $(NAME)
 	@echo SUCCESS > /dev/null

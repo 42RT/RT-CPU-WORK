@@ -11,6 +11,12 @@
 /* ************************************************************************** */
 
 #include <raytracer.h>
+#ifdef __APPLE__
+# include <SDL.h>
+#else
+# include <SDL2/SDL.h>
+#endif
+#include <gui.h>
 
 void		write_console(int keycode, char *str)
 {
@@ -32,29 +38,68 @@ void		write_console(int keycode, char *str)
 		str[0] = 0;
 }
 
-int			rt_console(int keycode, t_env *e)
+static void	console_aff(t_env *e, char *str)
+{
+	SDL_Rect			area;
+	TTF_Font			*font;
+	static SDL_Color	color_1 = {42, 0, 242, 255};
+	static SDL_Color	color_2 = {42, 242, 42, 255};
+	SDL_Surface 		*text;
+	SDL_Texture			*texture;
+	char				*path;
+
+	TTF_Init();
+	path = ft_strjoin(get_gui()->path->font, "Starjedi");
+	path = ft_strjoin(path, ".ttf");
+	font = TTF_OpenFont(path, 14);
+	TTF_SizeText(font, "save: ", NULL, &(area.h));
+
+	area.w = e->set->width;
+	area.x = 0;
+	area.y = e->set->height - area.h;
+	libxmlx_blitz_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+	SDL_SetRenderDrawBlendMode(e->gfx->renderer, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(e->gfx->renderer, 0, 0, 0, 192);
+	SDL_RenderDrawRect(e->gfx->renderer, &area);
+	SDL_RenderFillRect(e->gfx->renderer, &area);
+
+	area.x = 7;
+	--area.y;
+	TTF_SizeText(font, "save: ", &(area.w), &(area.h));
+	text = TTF_RenderText_Blended(font, "save: ", color_2);
+	texture = SDL_CreateTextureFromSurface(e->gfx->renderer, text);
+	SDL_FreeSurface(text);
+	SDL_RenderCopy(e->gfx->renderer, texture, NULL, &area);
+	SDL_DestroyTexture(texture);
+
+	area.x += area.w;
+	TTF_SizeText(font, str, &(area.w), NULL);
+	text = TTF_RenderText_Blended(font, str, color_1);
+	texture = SDL_CreateTextureFromSurface(e->gfx->renderer, text);
+	SDL_FreeSurface(text);
+	SDL_RenderCopy(e->gfx->renderer, texture, NULL, &area);
+	SDL_DestroyTexture(texture);
+
+	SDL_RenderPresent(e->gfx->renderer);
+	free(str);
+}
+
+int			rt_console(int keycode, t_env *e, int free_buff)
 {
 	static char	str[50] = "";
-//	void		*rec;
-/*
-	rec = mlx_new_image(e->gfx->mlx, e->gfx->buff[0]->width, 16);
-	mlx_put_image_to_window(e->gfx->mlx, e->gfx->win, rec, 0,
-		e->gfx->buff[0]->height - 16);*/
-	if ((keycode > 'a' && keycode <= 'z') || keycode == SDLK_ESCAPE || keycode == SDLK_SPACE)
+
+	if (free_buff)
+		ft_bzero(str, 50);
+	if ((keycode >= 'a' && keycode <= 'z') || keycode == SDLK_ESCAPE
+			|| keycode == SDLK_SPACE)
 		write_console(keycode, str);
 	if (keycode == SDLK_BACKSPACE)
 		str[ft_strlen(str) - 1] = 0;
-	if (*str)
-		ft_putendl(str);
-/*	mlx_string_put(e->gfx->mlx, e->gfx->win, 4, e->gfx->buff[0]->height - 3,
-		0x00FF3F, "Entrer un nom de fichier pour le screenshot: ");
-	mlx_string_put(e->gfx->mlx, e->gfx->win, 270, e->gfx->buff[0]->height - 3,
-		0x007FFF, str);*/
+	console_aff(e, *str ? ft_newstrcat(str, ".bmp") : ft_strdup(str));
 	if (keycode == SDLK_RETURN)
 	{
-		expose_hook(e);
-//		if (str[0])
-//			save_image(e->gfx->screen, str, e->gfx->buff[e->gfx->act]);
+		if (str[0])
+			save_image(e->gfx->buff[e->gfx->act], str);
 		return (0);
 	}
 	return (keycode != SDLK_ESCAPE);

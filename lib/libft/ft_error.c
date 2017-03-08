@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bmp.h                                              :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmorel <rmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/16 17:59:48 by rmorel            #+#    #+#             */
-/*   Updated: 2014/12/16 17:59:50 by rmorel           ###   ########.fr       */
+/*   Created: 2013/11/21 12:55:30 by jrouilly          #+#    #+#             */
+/*   Updated: 2013/12/15 15:56:42 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BMP_H
-# define BMP_H
+#include <libft.h>
 
-# include <unistd.h>
-# include <fcntl.h>
-# include <libxmlx.h>
+extern const char *__progname;
 
-void	save_image(void *img, char *name, t_img *param);
-
-#endif
+int		ft_error(char const *s)
+{
+	ft_putstr_fd(__progname, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(s, 2);
+	return (-1);
+}

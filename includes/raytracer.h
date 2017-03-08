@@ -369,8 +369,8 @@ void				*get_func(unsigned int i, int negative);
 /*
 ** Console
 */
-int					rt_console(int keycode, t_env *e);
-void				save_image(void *img, char *name, t_img *param);
+int					rt_console(int keycode, t_env *e, int free_buff);
+int					save_image(t_img *img, char *name);
 
 void				error(int n);
 

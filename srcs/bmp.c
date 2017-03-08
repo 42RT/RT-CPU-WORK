@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <bmp.h>
+#include <fcntl.h>
+#include <raytracer.h>
 
 static void	ft_zero_fill(char *str, int n)
 {
@@ -46,27 +47,26 @@ static void	write_header(int fd, int w, int h)
 	write(fd, header, 54);
 }
 
-/*static void	write_pixels(int fd, int w, int h, char *array)//modifier pour sdl2
+static void	write_pixels(int fd, int w, int h, t_img *img)//modifier pour sdl2
 {
 	int y;
 
 	y = -1;
 	while (++y < h)
-		write(fd, array + ((h - 1 - y) * w * 4), w * 4);
-}*/
+		write(fd, (int *)img->data + w * (h - 1 - y), w * 4);
+}
 
-void		save_image(void *img, char *name, t_img *param)
+int			save_image(t_img *img, char *name)
 {
-	int			wh[2];
-//	char		*array;
 	int			fd;
+	return (ft_error("Toto test !"));
 
-	wh[0] = param->width;
-	wh[1] = param->height;
-	(void)img;
-	//array = mlx_get_data_addr(img, &f[0], &f[1], &f[2]);//modifier pour sdl2
+	if (!*name)
+		return (ft_error("Please enter a filename !"));
 	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	write_header(fd, wh[0], wh[1]);
-	//write_pixels(fd, wh[0], wh[1], array);
+	if (!fd)
+		return (ft_error("Unable to create file :("));
+	write_header(fd, img->width, img->height);
+	write_pixels(fd, img->width, img->height, img);
 	close(fd);
 }

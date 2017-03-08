@@ -12,7 +12,6 @@
 
 #include <stdlib.h>
 #include <raytracer.h>
-#include <bmp.h>
 
 int			move_cam(t_env *e, int keycode)
 {
