@@ -471,7 +471,6 @@ char	*gui_get_textbox_R(void)
 		tmp = tmp->next;
 		i++;
 	}
-	printf("%x\n", tmp->color);
 	return (ft_strdup(ft_itoa((tmp->color >> 16) & 0xFF)));
 }
 
@@ -548,7 +547,6 @@ char	*gui_get_textbox_RFR(void)
 		tmp = tmp->next;
 		i++;
 	}
-	printf("REFRACT : %f\n", tmp->refract_ind);
 	return (ft_strdup(ft_ftoa(tmp->refract_ind, 3)));
 }
 
@@ -568,7 +566,6 @@ char	*gui_get_textbox_RFL(void)
 		tmp = tmp->next;
 		i++;
 	}
-	printf("REFLECT : %f\n", tmp->reflect_k);
 	return (ft_strdup(ft_itoa(tmp->reflect_k)));
 }
 

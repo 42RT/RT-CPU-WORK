@@ -1,5 +1,29 @@
 #include <gui.h>
 
+void	gui_reparse_textbox_value(t_gui *gui)
+{
+	int i;
+	int id;
+
+	id = 0;
+	while (id < GUI_CONTAINER_TOTAL_NB)
+	{
+		if (BLOCK[id]->textbox == NULL)
+			id++;
+		else
+		{
+			i = 0;
+			while (i < BLOCK[id]->textbox_qt)
+			{
+				free(TEXTBOX[i]->value);
+				gui_get_textbox_value(TEXTBOX[i]);
+				i++;
+			}
+			id++;
+		}
+	}
+}
+
 void	gui_textbox_load_object(t_gui *gui)
 {
 	int i;

@@ -29,7 +29,9 @@ void		gui_rt_reload(t_env *e, t_gui *gui, char *scene)
 	parse(e, scene);
 	ft_aff(e, e->obj);
 	SDL_RaiseWindow(e->gfx->win);
-	printf("RELOAD : %s\n", gui->container[0]->scroll[1]->value[0]);
+	gui_scroll_load_object(gui);
+	gui_textbox_load_object(gui);
+	gui_main_refresh(gui);
 }
 
 void		gui_main_refresh(t_gui *gui)

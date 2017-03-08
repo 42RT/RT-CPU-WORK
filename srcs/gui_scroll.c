@@ -9,6 +9,31 @@ void	gui_scroll_value_free(char **value, int nb)
 		value[i--] = NULL;
 }
 
+void	gui_scroll_load_object(t_gui *gui)
+{
+	int	i;
+	int	id;
+
+	id = 0;
+	while (id < GUI_CONTAINER_TOTAL_NB)
+	{
+		if (BLOCK[id]->scroll == NULL)
+			id++;
+		else
+		{
+			i = 0;
+			while (i < BLOCK[id]->scroll_qt)
+			{
+				free(SCROLL[i]->value);
+				SCROLL[i]->value = gui_get_scroll_value(SCROLL[i]);
+				i++;
+			}
+			id++;
+		}
+	}
+
+}
+
 void	gui_scroll_set_halign(t_scroll *scroll)
 {
 	t_gui	*gui;
@@ -96,14 +121,17 @@ int		gui_scroll_value_select(t_gui *gui, SDL_Event event, t_scroll *scroll)
 	{
 		scroll->active_value = (event.button.y - scroll->dest.y + (scroll->mod * GUI_LIST_STEP)) / GUI_LIST_STEP;
 		//printf("scroll select %s\n", scroll->value[scroll->active_value]);
-		if (!ft_strcmp(scroll->tag, "OBJ"))
-			gui_textbox_load_object(gui);
 		scene = ft_strjoin("scene/", scroll->value[scroll->active_value]);
 		scene = ft_strjoin(scene, ".rts");
 		if (!ft_strcmp(scroll->tag, "SCN") && (ft_strcmp(scene, e->av[1])))
 			gui_rt_reload(e, gui, scene);
+		else
+		{
+			if (!ft_strcmp(scroll->tag, "OBJ"))
+				gui_textbox_load_object(gui);
+			gui_scroll_toggle(gui, scroll);
+		}
 		free(scene);
-		gui_scroll_toggle(gui, scroll);
 		return (1);
 	}
 	return (0);

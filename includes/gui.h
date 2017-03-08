@@ -267,6 +267,7 @@ void		gui_parse_builder(t_gui *gui, char *file);
 void		gui_parse_param_builder(t_gui *gui, int fd, int nb);
 void		gui_parse_main_builder(t_gui *gui, int fd, int nb);
 void		gui_find_header(t_gui *gui, int fd, char *line);
+char		**gui_get_scroll_value(t_scroll *scroll);
 
 /* DRAW */
 void		gui_pixel_put(t_gui *gui, int x, int y);
@@ -320,6 +321,7 @@ void		gui_scroll_toggle(t_gui *gui, t_scroll *scroll);
 void		gui_scroll_free(t_scroll *scroll);
 void		gui_scroll_write_list(t_gui *gui, t_scroll *scroll, int motion);
 void		gui_scroll_value_write(t_gui *gui, t_scroll *scroll, char *color);
+void		gui_scroll_load_object(t_gui *gui);
 
 /* CHECKBOX */
 
