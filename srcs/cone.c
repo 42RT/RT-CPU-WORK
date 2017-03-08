@@ -17,12 +17,9 @@ void		trace_cone(t_obj *obj, t_vector o, t_vector v)
 {
 	t_equation	eq;
 	t_vector	point;
-	t_vector	dir;
-	float		m;
+	float		height;
+	float		radius;
 
-	dir.x = 0;
-	dir.y = 0;
-	dir.z = 1;
 	mod_vector(obj, &o, &v);
 	eq.a = pow(v.x, 2) + pow(v.y, 2) - pow((double)obj->size / 700.0, 2)
 											* pow(obj->mod, 2) * pow(v.z, 2);
@@ -37,22 +34,27 @@ void		trace_cone(t_obj *obj, t_vector o, t_vector v)
 	obj->dst = solve_equation(&eq);
 	point.x = v.x * obj->dst + o.x;
 	point.y = v.y * obj->dst + o.y;
-	point.z = v.z * obj->dst + o.z;
-	m = vec_dot(&v, &dir) * obj->dst + vec_dot(&o, &dir);
-	obj->n.x = point.x;
-	obj->n.y = point.y;
-	obj->n.z = point.z - dir.z * m;
+	point.z = 0;
+	height = v.z * obj->dst + o.z;
+	radius = vec_len(&point);
+	normalize(&point);
+	obj->n.x = point.x * height / radius;
+	obj->n.y = point.y * height / radius;
+	if (height > 0)
+		obj->n.z = radius / height;
+	else
+		obj->n.z = -radius / height;
 }
 
 void		cone_normale(t_vector *n, t_vector *o, t_obj *obj)
 {
 	float		k;
-	//t_vector	not_ang;
+	t_vector	ang;
 
 	(void)o;
-	//not_ang.x = -obj->ang.x;
-	//not_ang.y = -obj->ang.y;
-	//not_ang.z = -obj->ang.z;
+	ang.x = -obj->ang.x;
+	ang.y = -obj->ang.y;
+	ang.z = 0;
 	n->x = obj->n.x;
 	n->y = obj->n.y;
 	n->z = obj->n.z;
@@ -60,5 +62,5 @@ void		cone_normale(t_vector *n, t_vector *o, t_obj *obj)
 	n->x /= k;
 	n->y /= k;
 	n->z /= k;
-	rotate_vector2(n, &obj->ang);
+	rotate_vector2(n, &ang);
 }

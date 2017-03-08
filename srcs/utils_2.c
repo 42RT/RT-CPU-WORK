@@ -159,6 +159,7 @@ int				ray_effect(t_env *e, t_vector *vec[2], t_obj *start,
 	d.shorter = get_shorter(start);
 	if (!d.shorter || d.shorter->dst > 1e7)
 		return (0);
+		//return (skybox(turbulence(e->x, e->y, 128)));
 	color = d.shorter->color;
 	translate_vector(vec[0], vec[1], d.shorter->dst);
 	dst = d.shorter->dst;

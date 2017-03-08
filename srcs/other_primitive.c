@@ -49,7 +49,7 @@ void	paraboloid_normale(t_vector *n, t_vector *o, t_obj *obj)
 
 	(void)o;
 	not_ang.x = -obj->ang.x;
-	not_ang.y = -obj->ang.y;
+	not_ang.y = 0;
 	not_ang.z = -obj->ang.z;
 	n->x = obj->n.x;
 	n->y = obj->n.y;

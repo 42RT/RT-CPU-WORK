@@ -33,8 +33,8 @@
 
 # define MAX_PARAM			100
 # define EPS				0.1
-# define NOISE_HEIGHT		128
-# define NOISE_WIDTH		128
+# define NOISE_HEIGHT		64
+# define NOISE_WIDTH		64
 # define SPEC				30
 # define RAMBIENT			255
 # define GAMBIENT			255
@@ -42,6 +42,7 @@
 # define COEFSPEC			0.0
 # define COEFDIFFUSE		0.8
 # define COEFAMBIENT		0.2
+# define MAX_INT			2147483647
 
 typedef struct		s_vector
 {
@@ -146,7 +147,7 @@ typedef struct		s_env
 	float			last_refract;
 	float			x;
 	float			y;
-	float			noise[NOISE_HEIGHT][NOISE_WIDTH];
+	int				noise[NOISE_HEIGHT][NOISE_WIDTH];
 	int				inside_obj;
 	int				ac;
 	char			**av;
@@ -291,6 +292,11 @@ void				paraboloid_normale(t_vector *n, t_vector *o, t_obj *obj);
 ** Procedural textures
 */
 void				generate_noise(t_env *e);
+float				smoot_noise(float x, float y);
+float				turbulence(float x, float y, float size);
+unsigned int		stripe(t_env *e, t_obj *obj, float turb);
+unsigned int		square(t_env *e, t_obj *obj, float turb);
+unsigned int		skybox(float turb);
 
 /*
 ** Events

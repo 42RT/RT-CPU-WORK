@@ -1,0 +1,63 @@
+"plan": {
+	"color": 0xffffff,
+	"color2": 0xffffff,
+	"color3": 0xffffff,
+	"size": 500,
+	"position": {
+        "y": 1500
+    }
+}
+
+"sphere": {
+	"color": 0xffffff,
+	"size": 1000,
+	"reflect_k": 60,
+	"position": {
+	   "x": -2000,
+       "y": 1500,
+	   "z": -1000
+    }
+}
+
+"cylindre": {
+	"color": 0x0000ff,
+	"size": 500,
+	"position": {
+	   "x": 200,
+       "y": 1000,
+	   "z": 200
+    },
+	"angle": {
+        "x": 90
+    }
+}
+
+"square": {
+	"size": 3000,
+	"color": 0xff4200,
+	"position": {
+       "y": 750,
+	   "z": -3000
+    },
+	"angle": {
+        "x": 90
+    }
+}
+
+"light": {
+	"color": 0xffffff,
+	"position": {
+   		"x": -1165,
+		"y": -2000,
+   		"z": 0
+	}
+}
+
+"light": {
+	"color": 0xffffff,
+	"position": {
+		"x": -1165,
+		"y": -500,
+		"z": 1000
+	}
+}
