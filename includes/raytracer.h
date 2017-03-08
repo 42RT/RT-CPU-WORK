@@ -373,5 +373,7 @@ int					rt_console(int keycode, t_env *e, int free_buff);
 int					save_image(t_img *img, char *name);
 
 void				error(int n);
+void				delete_all_obj(t_env *e);
+void				delete_all_lights(t_env *e);
 
 #endif
