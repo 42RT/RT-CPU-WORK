@@ -12,30 +12,18 @@
 
 #include <raytracer.h>
 
-void	expand_error(int n)
-{
-	(void)n;
-}
-
 void	error(int n)
 {
-	if (n == 1)
-		ft_putstr("Malloc failed\n");
-	else if (n == 2)
-		ft_putstr("Cant be more than 1 argument\n");
-	else if (n == 3)
-		ft_putstr("get next line error\n");
-	else if (n == 4)
-		ft_putstr("No spot\n");
-	else if (n == 5)
-		ft_putstr("file is invalid.\n");
-	else if (n == 6)
-		ft_putstr("No objects\n");
-	else if (n == 7)
-		ft_putstr("Failed to initialize SDL.\n");
-	else if (n == 8)
-		ft_putstr("Failed to create an SDL Window\n");
-	else
-		expand_error(n);
+	static char	*msg[10] = {0, "Malloc failed\n",
+							"Cant be more than 1 argument\n",
+							"get next line error\n",
+							"No spot\n",
+							"file is invalid.\n",
+							"No objects\n",
+							"Failed to initialize SDL.\n",
+							"Failed to create an SDL Window\n"};
+
+	if (n > 0 && n < 9)
+		ft_putstr_fd(msg[n], 2);
 	exit(1);
 }
