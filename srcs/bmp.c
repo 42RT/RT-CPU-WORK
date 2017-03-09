@@ -68,5 +68,6 @@ int			save_image(t_img *img, char *name)
 	write_header(fd, img->width, img->height);
 	write_pixels(fd, img->width, img->height, img);
 	close(fd);
+	free(name);
 	return (0);
 }

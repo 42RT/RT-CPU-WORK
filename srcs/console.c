@@ -106,7 +106,7 @@ int			rt_console(int keycode, t_env *e, int free_buff)
 	if (keycode == SDLK_RETURN)
 	{
 		if (str[0])
-			save_image(e->gfx->buff[e->gfx->act], str);
+			save_image(e->gfx->buff[e->gfx->act], ft_newstrcat(str, ".bmp"));
 		return (0);
 	}
 	return (keycode != SDLK_ESCAPE);
