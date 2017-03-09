@@ -45,10 +45,12 @@ int			main(int ac, char **av)
 	e->last_refract = 1;
 	e->ac = ac;
 	e->av = av;
-	if (ac > 1)
+	if (ac == 2)
 		init(e, av[1]);
-	else
+	else if (ac == 1)
 		init(e, ".default.rts");
+	else
+		error(2);
 	e->gfx = libxmlx_init(e->set->name, e->set->width,
 							e->set->height, BUFF_NB);
 	if (!e->gfx)

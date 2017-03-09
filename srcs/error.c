@@ -22,7 +22,7 @@ void	error(int n)
 	if (n == 1)
 		ft_putstr("Malloc failed\n");
 	else if (n == 2)
-		ft_putstr("Need 2 arguments\n");
+		ft_putstr("Cant be more than 1 argument\n");
 	else if (n == 3)
 		ft_putstr("get next line error\n");
 	else if (n == 4)
