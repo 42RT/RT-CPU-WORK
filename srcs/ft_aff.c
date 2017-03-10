@@ -38,13 +38,10 @@ void		ft_aff(t_env *e, t_obj *obj)
 			++e->x;
 		}
 		++e->y;
-		change_cam(e);
-		load_add_line(e->load_bar, (e->y * 200 - 1) / e->set->height, 0x1010A0);
-		libxmlx_display_image(e->gfx, e->set->width / 2 - 102,
-								e->set->height / 2 - 7, e->load_bar);
+		change_cam(e);//load_add_line(e->load_bar, (e->y * 200 - 1) / e->set->height, 0x1010A0);1
+		loading_bar(e, (float)(e->y * 100) / e->set->height, 0x1010A0, 0);
 		event_poll(e);
 	}
-	init_bar(e->load_bar, 0x1010A0, 0x000000);
 	libxmlx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
 }
 
@@ -154,9 +151,8 @@ void		ft_aff_multithread(t_env *e, t_obj *obj)
 			libxmlx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);//fonction lente
 		else
 		{
-			load_add_line(e->load_bar, 200 - (data.nb * 200) / data.res, 0x1010A0);
-			libxmlx_display_image(e->gfx, (e->set->width >> 1) - 102,
-									(e->set->height >> 1) - 7, e->load_bar);
+			loading_bar(e, 200.0 - (float)(data.nb * 200) / (float)data.res,
+						0x1010A0, 0);\
 		}
 		event_poll(e);
 		usleep(10000);

@@ -63,7 +63,6 @@ t_env		*copy_env(t_env *e)
 
 	res = (t_env *)malloc(sizeof(t_env));
 	res->gfx = e->gfx;
-	res->load_bar = e->load_bar;
 	res->set = e->set;
 	res->obj = copy_obj(e->obj);
 	res->neg_obj = e->neg_obj;

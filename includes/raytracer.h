@@ -137,7 +137,6 @@ typedef struct		s_light
 typedef struct		s_env
 {
 	t_gfx			*gfx;
-	t_img			*load_bar;
 	t_settings		*set;
 	t_obj			*obj;
 	t_obj			*neg_obj;
@@ -350,14 +349,8 @@ unsigned int		shadow(unsigned int obj_color);
 /*
 ** Loading bar
 */
-t_img				*create_new_load_bar(t_gfx *gfx);
-void				init_bar(t_img *bar, unsigned int color,
-								unsigned int background);
-void				change_percent(float percent, t_img *bar,
-									unsigned int color,
-									unsigned int background);
-void				load_add_line(t_img *bar, unsigned int x,
-									unsigned int color);
+void				loading_bar(t_env *e, float percent, unsigned int color,
+								unsigned int bgcolor);
 
 /*
 ** Get functions

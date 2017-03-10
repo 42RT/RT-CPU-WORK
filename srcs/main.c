@@ -56,9 +56,6 @@ int			main(int ac, char **av)
 	if (!e->gfx)
 		return (0);
 	//gui = gui_init();
-	e->load_bar = create_new_load_bar(e->gfx);
-	if (!e->load_bar)
-		return (0);
 	if (e->set->verbose)
 		print_debug(e);
 	libxmlx_blitz_black_image(e->gfx, 0, 0);

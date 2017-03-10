@@ -11,74 +11,33 @@
 /* ************************************************************************** */
 
 #include <raytracer.h>
-#include <libxmlx.h>
 
-t_img	*create_new_load_bar(t_gfx *gfx)
+void	loading_bar(t_env *e, float percent, unsigned int color,
+					unsigned int bgcolor)
 {
-	t_img	*res;
+	static SDL_Rect	area;
+	static int		old;
 
-	res = libxmlx_new_image(gfx, 204, 14);
-	init_bar(res, 0xAA1010A0, 0x42000000);
-	return (res);
-}
+	if ((int)(percent * 2) == old)
+		return;
+	old = (int)(percent * 2);
+	area.x = e->set->width / 2 - 102;
+	area.y = e->set->height / 2 - 7;
+	area.w = 204;
+	area.h = 14;
 
-void	init_bar(t_img *bar, unsigned int color, unsigned int background)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < 14)
-	{
-		j = -1;
-		while (++j < 204)
-		{
-			if (i == 0 || i == 13 || j == 0 || j == 203)
-				libxmlx_pixel_put_to_image(bar, j, i, color);
-			else
-				libxmlx_pixel_put_to_image(bar, j, i, background);
-		}
-	}
-}
-
-void	change_percent(float percent, t_img *bar, unsigned int color,
-						unsigned int background)
-{
-	static unsigned int	old = 0;
-	unsigned int		nb;
-	unsigned int		sav;
-
-	nb = (unsigned int)percent;
-	percent -= nb;
-	nb <<= 1;
-	if (old > nb)
-	{
-		init_bar(bar, 0xAA1010A0, 0x42000000);
-		old = 0;
-	}
-	if (old == nb)
-		return ;
-	old = nb;
-	sav = nb - 1;
-	if (percent >= 0.5)
-		++nb;
-	while (nb-- > old)
-		load_add_line(bar, nb, color);
-	while (background && old > sav && ++sav < 200)
-		load_add_line(bar, sav, background);
-}
-
-void	load_add_line(t_img *bar, unsigned int x, unsigned int color)
-{
-	x += 2;
-	libxmlx_pixel_put_to_image(bar, x, 2, color);
-	libxmlx_pixel_put_to_image(bar, x, 3, color);
-	libxmlx_pixel_put_to_image(bar, x, 4, color);
-	libxmlx_pixel_put_to_image(bar, x, 5, color);
-	libxmlx_pixel_put_to_image(bar, x, 6, color);
-	libxmlx_pixel_put_to_image(bar, x, 7, color);
-	libxmlx_pixel_put_to_image(bar, x, 8, color);
-	libxmlx_pixel_put_to_image(bar, x, 9, color);
-	libxmlx_pixel_put_to_image(bar, x, 10, color);
-	libxmlx_pixel_put_to_image(bar, x, 11, color);
+	SDL_SetRenderDrawColor(e->gfx->renderer, (bgcolor >> 16) & 0xFF,
+							(bgcolor >> 8) & 0xFF, bgcolor & 0xFF, 255);
+	SDL_RenderFillRect(e->gfx->renderer, &area);
+	SDL_SetRenderDrawColor(e->gfx->renderer, (color >> 16) & 0xFF,
+							(color >> 8) & 0xFF, color & 0xFF, 255);
+	SDL_RenderDrawRect(e->gfx->renderer, &area);
+	area.x += 2;
+	area.y += 2;
+	area.h -= 4;
+	area.w = (int)(percent * 2);
+	SDL_RenderDrawRect(e->gfx->renderer, &area);
+	SDL_RenderFillRect(e->gfx->renderer, &area);
+	//ajouter pourcentage
+	SDL_RenderPresent(e->gfx->renderer);
 }
