@@ -13,6 +13,22 @@
 #include <raytracer.h>
 #include <stdio.h>
 
+unsigned int	fire(float turb)
+{
+	unsigned int 	color;
+	t_color			ocolor;
+
+	turb /= 255;
+	color = 0;
+	ocolor.r = 247 * turb;
+	ocolor.g = 164 * turb;
+	ocolor.b = 0;
+	color += (unsigned int)ocolor.r << 16;
+	color += (unsigned int)ocolor.g << 8;
+	color += (unsigned int)ocolor.b;
+	return (color);
+}
+
 unsigned int	skybox(float turb)
 {
 	unsigned int 	color;
@@ -118,6 +134,12 @@ void			generate_noise(t_env *e)
 
 	i = 0;
 	j = 0;
+	if (NOISE_HEIGHT > 128 || NOISE_WIDTH > 128)
+	{
+		ft_putstr("NOISE_WIDTH or NOISE_HEIGHT too large :");
+		ft_putstr(" use a value under 128\n");
+		exit(2);
+	}
 	while (i < NOISE_HEIGHT)
 	{
 		while(j < NOISE_WIDTH)

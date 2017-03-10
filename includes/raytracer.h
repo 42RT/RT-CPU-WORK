@@ -35,6 +35,7 @@
 # define EPS				0.1
 # define NOISE_HEIGHT		64
 # define NOISE_WIDTH		64
+# define SMOOTH_NOISE		32
 # define SPEC				30
 # define RAMBIENT			255
 # define GAMBIENT			255
@@ -259,6 +260,7 @@ void				trace_disk(t_obj *obj, t_vector o, t_vector v);
 void				trace_square(t_obj *obj, t_vector o, t_vector v);
 void				trace_cube(t_obj *obj, t_vector o, t_vector v);
 void				trace_paraboloid(t_obj *obj, t_vector o, t_vector v);
+void				glass(t_obj *obj);
 
 /*
 ** Negative objects
@@ -297,6 +299,7 @@ float				turbulence(float x, float y, float size);
 unsigned int		stripe(t_env *e, t_obj *obj, float turb);
 unsigned int		square(t_env *e, t_obj *obj, float turb);
 unsigned int		skybox(float turb);
+unsigned int		fire(float turb);
 
 /*
 ** Events

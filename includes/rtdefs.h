@@ -103,5 +103,6 @@
 # define SQUARE				64
 # define CUBE				128
 # define PARABOLOID			256
+# define GLASS				512
 
 #endif

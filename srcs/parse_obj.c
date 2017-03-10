@@ -87,17 +87,13 @@ void	parse_object(t_env *e, t_item *item)
 	obj->type = obj_gettype(item->type);
 	if (obj->type == 128)
 		obj->cap2 = 1000;
-	if (obj->type == CONE)
-	{
-		obj->coef_spec = 0.4;
-		obj->coef_diffuse = 0.5;
-		obj->coef_ambient = 0.1;
-	}
 	if (obj->type == DPLANE && obj->color == 0x00ffff)
 	{
 		obj->def.x = 1;
 		obj->def.z = 1;
 	}
+	if (obj->type == GLASS)
+		glass(obj);
 	obj->func = get_func(obj->type, obj->negative);
 	obj->normale = get_normale(obj->type);
 	obj->base = new_base();

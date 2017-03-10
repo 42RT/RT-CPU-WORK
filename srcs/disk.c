@@ -24,7 +24,6 @@ void	trace_disk(t_obj *obj, t_vector o, t_vector v)
 	rotate_vector2(&v, &(obj->ang));
 	exp_compute(&o, &(obj->exp));
 	exp_compute(&v, &(obj->exp));
-	obj->color = obj->color2;
 	t = (obj->pos.y - o.y) / v.y;
 	x = t * v.x + o.x;
 	z = t * v.z + o.z;
@@ -36,8 +35,8 @@ void	trace_disk(t_obj *obj, t_vector o, t_vector v)
 void	disk_normale(t_vector *n, t_vector *o, t_obj *obj)
 {
 	(void)o;
-	(void)obj;
 	n->x = 0;
 	n->y = -1;
 	n->z = 0;
+	rotate_vector2(n, &(obj->ang));
 }

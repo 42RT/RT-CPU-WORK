@@ -91,7 +91,8 @@ SRC =		$(PATH_SRC)main.c \
 			$(PATH_SRC)gui_parse_param.c \
 			$(PATH_SRC)gui_parse_main.c \
 			$(PATH_SRC)gui_pixel_put.c \
-			$(PATH_SRC)error.c
+			$(PATH_SRC)error.c \
+			$(PATH_SRC)glass.c
 
 ifeq ($(UNAME_S),Darwin)
 	INC 	+=	-I ~/.brew/Cellar/sdl2/2.0.5/include/SDL2 \

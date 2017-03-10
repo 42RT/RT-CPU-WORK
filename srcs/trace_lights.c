@@ -127,12 +127,13 @@ unsigned int			trace_lights(t_env *e, t_ray_data d, t_light *light)
 	unsigned int	color;
 	float			turb;
 
-	turb = turbulence(e->x, e->y, 32);
+	turb = turbulence(e->x, e->y, SMOOTH_NOISE);
 	color = 0;
 	save_color = d.shorter->color;
 	if (turb < 0)
 		turb = -turb;
-	d.shorter->color = square(e, d.shorter, turb);
+	if (d.shorter->type == PLANE || d.shorter->type == DPLANE)
+		d.shorter->color = fire(turb);
 	while (light)
 	{
 		color_add(&color, trace_lights_2(e, d, light), 128);
