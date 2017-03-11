@@ -114,8 +114,8 @@ static t_color	trace_lights_2(t_env *e, t_ray_data d, t_light *light)
 	data.y = vec_dot(&v2, &reflect_obj_to_light);
 	if ((data.z = vec_dot(&obj_to_light, &d.n)) < 0)
 		data.z = -data.z;
-	if (!is_void_tcolor(color = trace_lights_3(e, d, &obj_to_light, data.x)) &&
-			d.shorter->type != PLANE)
+	color = trace_lights_3(e, d, &obj_to_light, data.x);
+	if (!is_void_tcolor(color) && d.shorter->type != PLANE)
 		return (calc_color(data.y, data.z, d.shorter, light));
 	return (shadow(color));
 }

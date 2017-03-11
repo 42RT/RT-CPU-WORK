@@ -18,10 +18,7 @@ void			get_spec(t_color *color, t_light light,	t_vector v, t_env *e)
 	t_color			lcolor;
 	t_vector		cam_to_light;
 
-	lcolor.r = 0xFF;
-	lcolor.g = 0xFF;
-	lcolor.b = 0xFF;
-	lcolor.a = 0xFF;
+	*(int *)&lcolor = 0xFFFFFF;
 	lcolor.e = 0;
 	cam_to_light = e->set->cam->pos;
 	sub_vector(&cam_to_light, &light.pos);
@@ -36,7 +33,7 @@ void			get_spec(t_color *color, t_light light,	t_vector v, t_env *e)
 ** ocolor = object color
 */
 
-t_color			calc_color(float refangle, float angle,
+/*t_color			calc_color(float refangle, float angle,
 							t_obj *obj, t_light *light)
 {
 	t_color			lcolor;
@@ -52,7 +49,7 @@ t_color			calc_color(float refangle, float angle,
 	lcolor.b = light->color.b;
 	lcolor.e = 0;
 	lcolor.a = 255;
-	/////////////////verifier calcul pour include hdr et simplifier plus haut
+	/////////////////verifier calcul pour inclure hdr et simplifier plus haut
 	ocolor.r = (obj->coef_ambient * RAMBIENT * (int)ocolor.r + obj->coef_diffuse *
 		(int)ocolor.r * (int)lcolor.r * angle + (int)lcolor.r * obj->coef_spec *
 		pow(refangle, SPEC)) / 255;
@@ -63,9 +60,58 @@ t_color			calc_color(float refangle, float angle,
 		(int)ocolor.b * (int)lcolor.b * angle + (int)lcolor.b * obj->coef_spec *
 		pow(refangle, SPEC)) / 255;
 	return (ocolor);
+}*/
+
+t_color				calc_color(float refangle, float angle,
+								t_obj *obj, t_light *light)
+{
+	t_color			color;
+	float			lcolor[3];
+	float			ocolor[3];
+
+	color = void_tcolor();
+	ocolor[0] = (float)(obj->color.r) / 255;
+	ocolor[1] = (float)(obj->color.g) / 255;
+	ocolor[2] = (float)(obj->color.b) / 255;
+	lcolor[0] = (float)(light->color.r);
+	lcolor[1] = (float)(light->color.g);
+	lcolor[2] = (float)(light->color.b);
+	ocolor[0] = obj->coef_ambient * RAMBIENT * ocolor[0] + obj->coef_diffuse *
+		ocolor[0] * lcolor[0] * angle + lcolor[0] * obj->coef_spec *
+		pow(refangle, SPEC);
+	ocolor[1] = obj->coef_ambient * GAMBIENT * ocolor[1] + obj->coef_diffuse *
+		ocolor[1] * lcolor[1] * angle + lcolor[1] * obj->coef_spec *
+		pow(refangle, SPEC);
+	ocolor[2] = obj->coef_ambient * BAMBIENT * ocolor[2] + obj->coef_diffuse *
+		ocolor[2] * lcolor[2] * angle + lcolor[2] * obj->coef_spec *
+		pow(refangle, SPEC);
+	color.r = (unsigned char)ocolor[0];
+	color.g = (unsigned char)ocolor[1];
+	color.b = (unsigned char)ocolor[2];
+	return (color);
 }
 
-t_color			shadow(t_color obj_color)
+t_color				shadow(t_color obj_color)
+{
+	t_color			color;
+	float			objr;
+	float			objg;
+	float			objb;
+
+	color = void_tcolor();
+	objr = (float)obj_color.r;
+	objg = (float)obj_color.g;
+	objb = (float)obj_color.b;
+	objr = COEFAMBIENT * RAMBIENT * objr / 255;
+	objg = COEFAMBIENT * GAMBIENT * objg / 255;
+	objb = COEFAMBIENT * BAMBIENT * objb / 255;
+	color.r = (unsigned char)objr;
+	color.g = (unsigned char)objg;
+	color.b = (unsigned char)objb;
+	return (color);
+}
+
+/*t_color			shadow(t_color obj_color)
 {
 	t_color		color;
 	int			tmp[3];
@@ -75,7 +121,7 @@ t_color			shadow(t_color obj_color)
 	tmp[0] = (int)((float)(COEFAMBIENT * RAMBIENT * (int)obj_color.r) / 255.0); // mod pour enlever 255
 	tmp[1] = (int)((float)COEFAMBIENT * GAMBIENT * (int)obj_color.g) / 255.0;
 	tmp[2] = (int)((float)COEFAMBIENT * BAMBIENT * (int)obj_color.b) / 255.0;
-	/*while (tmp[0] > 255 || tmp[1] > 255 || tmp[2] > 255)
+	while (tmp[0] > 255 || tmp[1] > 255 || tmp[2] > 255)
 	{
 		++color.e;
 		tmp[0] >>= 1;
@@ -89,9 +135,9 @@ t_color			shadow(t_color obj_color)
 		tmp[0] <<= 1;
 		tmp[1] <<= 1;
 		tmp[2] <<= 1;
-	}*/
+	}
 	color.r = tmp[0];
 	color.g = tmp[0];
 	color.b = tmp[0];
 	return (color);
-}
+}*/

@@ -87,7 +87,8 @@ void	parse_object(t_env *e, t_item *item)
 	obj->type = obj_gettype(item->type);
 	if (obj->type == 128)
 		obj->cap2 = 1000;
-	if (obj->type == DPLANE)// && obj->color == 0x00ffff)
+	if (obj->type == DPLANE && obj->color.r == 0 && obj->color.g == 0xff
+		&& obj->color.b == 0xff)
 	{
 		obj->def.x = 1;
 		obj->def.z = 1;

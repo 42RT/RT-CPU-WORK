@@ -68,25 +68,25 @@ void			color_add(t_color *src, t_color color,
 void			color_mix_k(t_color *src, t_color color,
 							unsigned int k)
 {
-	int			c[2];
+	unsigned int	c[2];
 	if (k > 255)
 		return ;
 	src->a = color.a;
-	c[0] = src->r;
+	c[0] = (unsigned int)src->r;
 	c[0] *= (255 - k);
-	c[1] = color.r;
+	c[1] = (unsigned int)color.r;
 	c[0] += c[1] * k;
 	c[0] >>= 8;
 	src->r = c[0];
-	c[0] = src->g;
+	c[0] = (unsigned int)src->g;
 	c[0] *= (255 - k);
-	c[1] = color.g;
+	c[1] = (unsigned int)color.g;
 	c[0] += c[1] * k;
 	c[0] >>= 8;
 	src->g = c[0];
-	c[0] = src->b;
+	c[0] = (unsigned int)src->b;
 	c[0] *= (255 - k);
-	c[1] = color.b;
+	c[1] = (unsigned int)color.b;
 	c[0] += c[1] * k;
 	c[0] >>= 8;
 	src->b = c[0];
