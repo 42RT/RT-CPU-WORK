@@ -21,20 +21,13 @@
 #  include <SDL2/SDL_ttf.h>
 # endif
 
+# include <hdr_colors.h>
+
 # define HOOK_KEY		1
 # define HOOK_MOUSE		2
 # define HOOK_EXPOSE	3
 # define SINGLE_BUFFER	0
 # define DOUBLE_BUFFER	1
-
-typedef struct		s_color
-{
-	unsigned		b	: 8;
-	unsigned		g	: 8;
-	unsigned		r	: 8;
-	unsigned		a	: 8;
-	int				e	: 8;
-}					t_color;
 
 typedef struct		s_img
 {

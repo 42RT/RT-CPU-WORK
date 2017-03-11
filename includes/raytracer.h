@@ -219,7 +219,6 @@ t_color				get_color(char *str);
 void				print_debug(t_env *e);
 void				exp_compute(t_vector *o, t_vector *exp);
 t_color				mod_light(t_color color, float dst, float coef2);
-unsigned int		limit_nb(unsigned int color, unsigned int max);
 
 /*
 ** Init
@@ -327,25 +326,11 @@ void				not_vec(t_vector *v);
 /*
 ** Color utils
 */
-//t_color				color_add(t_color c1, t_color c2);
-//t_color				color_add_k(t_color c1, t_color c2, float k);
-void				color_add(t_color *src, t_color color,
-								unsigned int k);
-t_color				color_attenuate(t_color color, float k);
 void				get_spec(t_color *color, t_light light,
 					t_vector v, t_env *e);
 t_color				calc_color(float refangle, float angle,
 								t_obj *obj, t_light *light);
 t_color				shadow(t_color color);
-t_color				rgb_to_tcolor(unsigned int r, unsigned int g,
-									unsigned int b);
-t_color				int_to_tcolor(unsigned int color);
-unsigned int		tcolor_to_int(t_color color);
-t_color				void_tcolor(void);
-int					is_void_tcolor(t_color color);
-t_color				mix_color(t_color c1, t_color c2);
-void				color_mix_k(t_color *src, t_color color,
-								unsigned int k);
 
 /*
 ** Loading bar

@@ -6,207 +6,13 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/09/16 18:49:43 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/02/09 12:28:08 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/03/12 00:46:05 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <raytracer.h>
 
-/*t_color				color_add(t_color c1, t_color c2)
-{
-	t_color			res;
-	t_color			*bigger;
-	t_color			*lower;
-	unsigned int	tmp[3];
-
-
-	bigger = (c1.e > c2.e ? &c1 : &c2);
-	lower = (c1.e > c2.e ? &c2 : &c1);
-	res.e = bigger->e;
-	tmp[0] = bigger->r + (lower->r >> (bigger->e - lower->e));
-	tmp[1] = bigger->g + (lower->g >> (bigger->e - lower->e));
-	tmp[2] = bigger->b + (lower->b >> (bigger->e - lower->e));
-	if (tmp[0] > 255 || tmp[1] > 255 || tmp[2] > 255)
-	{
-		++res.e;
-		tmp[0] >>= 1;
-		tmp[1] >>= 1;
-		tmp[2] >>= 1;
-	}
-	res.r = tmp[0];
-	res.g = tmp[1];
-	res.b = tmp[2];
-	return (res);
-}*/
-void			color_add(t_color *src, t_color color,
-							unsigned int k) // rajouter e
-{
-	int			c;
-
-	src->a = color.a;
-	c = color.r;
-	c *= k;
-	c >>= 8;
-	src->r = limit_nb(c + src->r, 255);
-	c = color.g;
-	c *= k;
-	c >>= 8;
-	src->g = limit_nb(c + src->g, 255);
-	c = color.b;
-	c *= k;
-	c >>= 8;
-	src->b = limit_nb(c + src->b, 255);
-}
-
-/*t_color				color_add_k(t_color c1, t_color c2, float k)
-{
-	return (color_add(c1, color_attenuate(c2, k)));
-}
-*/
-
-void			color_mix_k(t_color *src, t_color color,
-							unsigned int k)
-{
-	unsigned int	c[2];
-	if (k > 255)
-		return ;
-	src->a = color.a;
-	c[0] = (unsigned int)src->r;
-	c[0] *= (255 - k);
-	c[1] = (unsigned int)color.r;
-	c[0] += c[1] * k;
-	c[0] >>= 8;
-	src->r = c[0];
-	c[0] = (unsigned int)src->g;
-	c[0] *= (255 - k);
-	c[1] = (unsigned int)color.g;
-	c[0] += c[1] * k;
-	c[0] >>= 8;
-	src->g = c[0];
-	c[0] = (unsigned int)src->b;
-	c[0] *= (255 - k);
-	c[1] = (unsigned int)color.b;
-	c[0] += c[1] * k;
-	c[0] >>= 8;
-	src->b = c[0];
-//	src->r = ((int)src->r * (255 - k) + ((int)color.r * k)) >> 8;
-//	src->g = ((int)src->g * (255 - k) + ((int)color.g * k)) >> 8;
-//	src->b = ((int)src->b * (255 - k) + ((int)color.b * k)) >> 8;
-}
-
-t_color			color_attenuate(t_color color, float k)
-{
-	t_color		res;
-
-	res.a = color.a;
-	res.r = color.r * k;
-	res.g = color.g * k;
-	res.b = color.b * k;
-	return (res);
-}
-
-/*t_color				color_attenuate(t_color color, float k)
-{
-	while (k < 0.5 && color.e > -128)
-	{
-		k *= 2;
-		--color.e;
-	}
-	color.r *= k;
-	color.g *= k;
-	color.b *= k;
-	if (color.r < 128 && color.g < 128 && color.b < 128)
-	{
-		++color.e;
-		color.r <<= 1;
-		color.g <<= 1;
-		color.b <<= 1;
-	}
-	return (color);
-}*/
-
-t_color				get_color(char *str)
-{
-	int				val;
-	t_color			res;
-
-	if (str && *str)
-	{
-		if (*str == '0' && *(str + 1) == 'x')
-			val = ft_hextoi(str);
-		else
-			val = ft_atoi(str);
-	}
-	else
-		return (void_tcolor());
-	res.r = ((val >> 16) & 0xFF);
-	res.g = ((val >> 8) & 0xFF);
-	res.b = (val & 0xFF);
-	res.a = 255;
-	res.e = 0;
-	return (res);
-}
-
-t_color				rgb_to_tcolor(unsigned int r, unsigned int g,
-									unsigned int b)
-{
-	t_color			res;
-
-	res.r = r;
-	res.g = g;
-	res.b = b;
-	res.e = 0;
-	res.a = 0xFF;
-	return (res);
-}
-
-t_color				int_to_tcolor(unsigned int color)
-{
-	t_color			res;
-
-	res.r = (color >> 16) & 0xFF;
-	res.g = (color >> 8) & 0xFF;
-	res.b = color & 0xFF;
-	res.e = 0;
-	res.a = 0xFF;
-	return (res);
-}
-
-unsigned int		tcolor_to_int(t_color color)
-{
-	unsigned int	res;
-
-	res = color.a;
-	res <<= 8;
-	res += color.r;
-	res <<= 8;
-	res += color.g;
-	res <<= 8;
-	res += color.b;
-	return (res);
-}
-
-t_color				void_tcolor(void)
-{
-	t_color			res;
-
-	res.r = 0;
-	res.g = 0;
-	res.b = 0;
-	res.e = 0;
-	res.a = 0xFF;
-	return (res);
-}
-
-int					is_void_tcolor(t_color color)
-{
-	return (!(color.r || color.g || color.b));
-}
-
-/*
-** todo
-*/
 t_color				mod_light(t_color color, float dst, float coef2)
 {
 	float		coef;
@@ -220,3 +26,133 @@ t_color				mod_light(t_color color, float dst, float coef2)
 	res.b = color.b * coef;
 	return (res);
 }
+
+void			get_spec(t_color *color, t_light light,	t_vector v, t_env *e)
+{
+	float			angle;
+	t_color			lcolor;
+	t_vector		cam_to_light;
+
+	*(int *)&lcolor = 0xFFFFFF;
+	lcolor.e = 0;
+	cam_to_light = e->set->cam->pos;
+	sub_vector(&cam_to_light, &light.pos);
+	angle = vec_dot(&cam_to_light, &v);
+	lcolor = color_attenuate(lcolor, powf(angle, SPEC));
+//	*color = color_add_k(*color, lcolor, 0.4);
+	color_mix_k(color, lcolor, 100);
+}
+
+/*
+** lcolor = light color
+** ocolor = object color
+*/
+
+/*t_color			calc_color(float refangle, float angle,
+							t_obj *obj, t_light *light)
+{
+	t_color			lcolor;
+	t_color			ocolor;
+
+	ocolor.r = obj->color.r;
+	ocolor.g = obj->color.g;
+	ocolor.b = obj->color.b;
+	ocolor.e = 0;
+	ocolor.a = 255;
+	lcolor.r = light->color.r;
+	lcolor.g = light->color.g;
+	lcolor.b = light->color.b;
+	lcolor.e = 0;
+	lcolor.a = 255;
+	/////////////////verifier calcul pour inclure hdr et simplifier plus haut
+	ocolor.r = (obj->coef_ambient * RAMBIENT * (int)ocolor.r + obj->coef_diffuse *
+		(int)ocolor.r * (int)lcolor.r * angle + (int)lcolor.r * obj->coef_spec *
+		pow(refangle, SPEC)) / 255;
+	ocolor.g = (obj->coef_ambient * GAMBIENT * (int)ocolor.g + obj->coef_diffuse *
+		(int)ocolor.g * (int)lcolor.g * angle + (int)lcolor.g * obj->coef_spec *
+		pow(refangle, SPEC)) / 255;
+	ocolor.b = (obj->coef_ambient * BAMBIENT * (int)ocolor.b + obj->coef_diffuse *
+		(int)ocolor.b * (int)lcolor.b * angle + (int)lcolor.b * obj->coef_spec *
+		pow(refangle, SPEC)) / 255;
+	return (ocolor);
+}*/
+
+t_color				calc_color(float refangle, float angle,
+								t_obj *obj, t_light *light)
+{
+	t_color			color;
+	float			lcolor[3];
+	float			ocolor[3];
+
+	color = void_tcolor();
+	ocolor[0] = (float)(obj->color.r) / 255;
+	ocolor[1] = (float)(obj->color.g) / 255;
+	ocolor[2] = (float)(obj->color.b) / 255;
+	lcolor[0] = (float)(light->color.r);
+	lcolor[1] = (float)(light->color.g);
+	lcolor[2] = (float)(light->color.b);
+	ocolor[0] = obj->coef_ambient * RAMBIENT * ocolor[0] + obj->coef_diffuse *
+		ocolor[0] * lcolor[0] * angle + lcolor[0] * obj->coef_spec *
+		pow(refangle, SPEC);
+	ocolor[1] = obj->coef_ambient * GAMBIENT * ocolor[1] + obj->coef_diffuse *
+		ocolor[1] * lcolor[1] * angle + lcolor[1] * obj->coef_spec *
+		pow(refangle, SPEC);
+	ocolor[2] = obj->coef_ambient * BAMBIENT * ocolor[2] + obj->coef_diffuse *
+		ocolor[2] * lcolor[2] * angle + lcolor[2] * obj->coef_spec *
+		pow(refangle, SPEC);
+	color.r = (unsigned char)ocolor[0];
+	color.g = (unsigned char)ocolor[1];
+	color.b = (unsigned char)ocolor[2];
+	return (color);
+}
+
+t_color				shadow(t_color obj_color)
+{
+	t_color			color;
+	float			objr;
+	float			objg;
+	float			objb;
+
+	color = void_tcolor();
+	objr = (float)obj_color.r;
+	objg = (float)obj_color.g;
+	objb = (float)obj_color.b;
+	objr = COEFAMBIENT * RAMBIENT * objr / 255;
+	objg = COEFAMBIENT * GAMBIENT * objg / 255;
+	objb = COEFAMBIENT * BAMBIENT * objb / 255;
+	color.r = (unsigned char)objr;
+	color.g = (unsigned char)objg;
+	color.b = (unsigned char)objb;
+	return (color);
+}
+
+/*t_color			shadow(t_color obj_color)
+{
+	t_color		color;
+	int			tmp[3];
+
+	color.e = 0;
+	color.a = 0xFF;
+	tmp[0] = (int)((float)(COEFAMBIENT * RAMBIENT * (int)obj_color.r) / 255.0); // mod pour enlever 255
+	tmp[1] = (int)((float)COEFAMBIENT * GAMBIENT * (int)obj_color.g) / 255.0;
+	tmp[2] = (int)((float)COEFAMBIENT * BAMBIENT * (int)obj_color.b) / 255.0;
+	while (tmp[0] > 255 || tmp[1] > 255 || tmp[2] > 255)
+	{
+		++color.e;
+		tmp[0] >>= 1;
+		tmp[1] >>= 1;
+		tmp[2] >>= 1;
+	}
+	while ((tmp[0] < 128 && tmp[1] < 128 && tmp[2] < 128)
+			&& (tmp[0] || tmp[1] || tmp[2]))
+	{
+		--color.e;
+		tmp[0] <<= 1;
+		tmp[1] <<= 1;
+		tmp[2] <<= 1;
+	}
+	color.r = tmp[0];
+	color.g = tmp[0];
+	color.b = tmp[0];
+	return (color);
+}*/

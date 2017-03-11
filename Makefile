@@ -61,6 +61,8 @@ SRC =		$(PATH_SRC)main.c \
 			$(PATH_SRC)libxmlx_utils.c \
 			$(PATH_SRC)utils.c \
 			$(PATH_SRC)utils_2.c \
+			$(PATH_SRC)hdr_colors.c \
+			$(PATH_SRC)hdr_colors_convert.c \
 			$(PATH_SRC)color_utils.c \
 			$(PATH_SRC)copy_utils.c \
 			$(PATH_SRC)get_utils.c \
@@ -74,7 +76,6 @@ SRC =		$(PATH_SRC)main.c \
 			$(PATH_SRC)cube.c \
 			$(PATH_SRC)other_primitive.c \
 			$(PATH_SRC)procedural.c \
-			$(PATH_SRC)color_utils_2.c \
 			$(PATH_SRC)gui_error.c \
 			$(PATH_SRC)gui_widget_tool.c \
 			$(PATH_SRC)gui_background.c \

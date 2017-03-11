@@ -34,13 +34,6 @@ int				**new_base(void)
 	return (res);
 }
 
-unsigned int	limit_nb(unsigned int nb, unsigned int max)
-{
-	if (nb > max)
-		nb = max;
-	return (nb);
-}
-
 t_vector		*reflect_vector(t_obj *obj, t_vector *o, t_vector *v,
 								t_vector *n)
 {

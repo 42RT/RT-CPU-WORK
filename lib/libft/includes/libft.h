@@ -128,5 +128,6 @@ void				ft_lstadd(t_list **alst, t_list *nw);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void *content);
 char				*ft_ftoa(float nb, int precision);
+unsigned int		limit_nb(unsigned int nb, unsigned int max);
 
 #endif
