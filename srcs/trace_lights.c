@@ -42,16 +42,16 @@ static void				trace_lights_3_extend(int *ref, t_color *color,
 			data.obj->dst < data.len && data.obj->dst > EPS)
 		{
 			*ref = 1;
-			color_mix_k(color, d.shorter->color, (float)data.obj->refract_k / 255);
-			color_mix_k(color, data.obj->color, (float)(255 - data.obj->refract_k) / 255);
-			color_mix_k(color, void_tcolor(), (float)(255 - (data.obj->refract_k)) / 255);
+			color_mix_k(color, d.shorter->color, data.obj->refract_k);
+			color_mix_k(color, data.obj->color, 255 - data.obj->refract_k);
+			color_mix_k(color, void_tcolor(), 255 - data.obj->refract_k);
 		}
 		else if (d.shorter->refract_k > 0 && data.obj == d.shorter &&
 			data.obj->dst < data.len && data.obj->dst > EPS)
 		{
 			*ref = 1;
-			color_mix_k(color, d.shorter->color, data.obj->refract_k / 255); // verifier si float ou int
-			color_mix_k(color, void_tcolor(), (float)(255 - (data.obj->refract_k)) / 255); // idem
+			color_mix_k(color, d.shorter->color, data.obj->refract_k); // verifier si float ou int
+			color_mix_k(color, void_tcolor(), 255 - data.obj->refract_k); // idem
 		}
 		else if (data.obj->dst < data.len && data.obj->dst > 1)
 			*ref = -1;
@@ -92,7 +92,6 @@ static t_color	trace_lights_3(t_env *e, t_ray_data d, t_vector *v, float len)
 ** data.y = refangle = angle entre rayon reflechi + vecteur directeur
 ** data.z = angle = angle entre rayon lumiere + normale de l'objet
 */
-
 static t_color	trace_lights_2(t_env *e, t_ray_data d, t_light *light)
 {
 	t_vector	v2;

@@ -169,7 +169,6 @@ t_color			ray_effect(t_env *e, t_vector *vec[2], t_obj *start,
 //	color_mix_k(&color, trace_lights(e, d, e->light), 192);
 	//color = mod_dazzle(e->lights, color, &d); // passerpar copie ??
 	color = trace_lights(e, d, e->light);
-//	printf("color: %x\n", tcolor_to_int(color));
 	if (--deph > 0 && d.shorter)
 	{
 //		if (d.shorter->type & (SPHERE | CONE | CYLINDER) || d.shorter->type == CUBE)
@@ -189,7 +188,7 @@ t_color			ray_effect(t_env *e, t_vector *vec[2], t_obj *start,
 								d.shorter->reflect_k);
 	}
 	e->inside_obj = 0;
-	color = mod_light(color, dst, 256); // non fonctionnel
+	color = mod_light(color, dst, 256);
 	(void)dst;
 	(void)deph;
 	return (color);

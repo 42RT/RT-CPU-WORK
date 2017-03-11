@@ -47,13 +47,25 @@ static void	write_header(int fd, int w, int h)
 	write(fd, header, 54);
 }
 
-static void	write_pixels(int fd, int w, int h, t_img *img)//modifier pour sdl2
+/*
+** care about endian
+*/
+static void	write_pixels(int fd, int w, int h, t_img *img)
 {
-	int y;
+	int 			y;
+	int 			x;
+	unsigned int	*map;
 
+	map = (unsigned int *)malloc(w * h * sizeof(unsigned int));
 	y = -1;
 	while (++y < h)
-		write(fd, (int *)img->data + w * (h - 1 - y), w * 4);
+	{
+		x = -1;
+		while (++x < w)
+			map[w * y + x] = *(unsigned int *)(img->data + w * (h - 1 - y) + x);
+	}
+	write(fd, map, w * h * 4);
+	free(map);
 }
 
 int			save_image(t_img *img, char *name)

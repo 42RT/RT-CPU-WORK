@@ -65,34 +65,17 @@ t_color			calc_color(float refangle, float angle,
 	return (ocolor);
 }
 
-t_color				shadow(t_color color)
-{
-	float			objr;
-	float			objg;
-	float			objb;
-
-	objr = (float)color.r;
-	objg = (float)color.g;
-	objb = (float)color.b;
-	objr = COEFAMBIENT * RAMBIENT * objr / 255.0;
-	objg = COEFAMBIENT * GAMBIENT * objg / 255.0;
-	objb = COEFAMBIENT * BAMBIENT * objb / 255.0;
-	color.r = objr;
-	color.g = objg;
-	color.b = objb;
-	return (color);
-}
-
-/*t_color			shadow(t_color obj_color)
+t_color			shadow(t_color obj_color)
 {
 	t_color		color;
 	int			tmp[3];
 
 	color.e = 0;
+	color.a = 0xFF;
 	tmp[0] = (int)((float)(COEFAMBIENT * RAMBIENT * (int)obj_color.r) / 255.0); // mod pour enlever 255
 	tmp[1] = (int)((float)COEFAMBIENT * GAMBIENT * (int)obj_color.g) / 255.0;
 	tmp[2] = (int)((float)COEFAMBIENT * BAMBIENT * (int)obj_color.b) / 255.0;
-	while (tmp[0] > 255 || tmp[1] > 255 || tmp[2] > 255)
+	/*while (tmp[0] > 255 || tmp[1] > 255 || tmp[2] > 255)
 	{
 		++color.e;
 		tmp[0] >>= 1;
@@ -106,10 +89,9 @@ t_color				shadow(t_color color)
 		tmp[0] <<= 1;
 		tmp[1] <<= 1;
 		tmp[2] <<= 1;
-	}
+	}*/
 	color.r = tmp[0];
 	color.g = tmp[0];
 	color.b = tmp[0];
 	return (color);
 }
-*/

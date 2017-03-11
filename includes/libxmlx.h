@@ -29,11 +29,11 @@
 
 typedef struct		s_color
 {
-	unsigned		r	: 8;
-	unsigned		g	: 8;
 	unsigned		b	: 8;
+	unsigned		g	: 8;
+	unsigned		r	: 8;
+	unsigned		a	: 8;
 	int				e	: 8;
-	int				a	: 8;
 }					t_color;
 
 typedef struct		s_img
