@@ -39,7 +39,8 @@ void		ft_aff(t_env *e, t_obj *obj)
 		}
 		++e->y;
 		change_cam(e);//load_add_line(e->load_bar, (e->y * 200 - 1) / e->set->height, 0x1010A0);1
-		loading_bar(e, (float)(e->y * 100) / e->set->height, 0x1010A0, 0);
+		loading_bar(e, (float)(e->y * 100) / e->set->height,
+					int_to_tcolor(0x1010A0), int_to_tcolor(0));
 		event_poll(e);
 	}
 	libxmlx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
@@ -47,7 +48,7 @@ void		ft_aff(t_env *e, t_obj *obj)
 
 void		ft_aff_quick(t_env *e, t_obj *obj)
 {
-	unsigned int	color;
+	t_color	color;
 
 	e->y = 0;
 	while (e->y < e->set->height)
@@ -152,7 +153,7 @@ void		ft_aff_multithread(t_env *e, t_obj *obj)
 		else
 		{
 			loading_bar(e, 200.0 - (float)(data.nb * 200) / (float)data.res,
-						0x1010A0, 0);\
+						int_to_tcolor(0x1010A0), int_to_tcolor(0));
 		}
 		event_poll(e);
 		usleep(10000);

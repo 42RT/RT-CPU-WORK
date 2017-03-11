@@ -50,13 +50,6 @@ typedef struct		s_vector
 	float			z;
 }					t_vector;
 
-typedef struct		s_color
-{
-	float			r;
-	float			g;
-	float			b;
-}					t_color;
-
 typedef struct		s_cam
 {
 	t_vector		pos;
@@ -105,10 +98,10 @@ typedef struct		s_obj
 	t_vector		exp;
 	t_vector		def;
 	t_vector		n;
-	unsigned int	color;
-	unsigned int	color2;
-	unsigned int	color3;
-	unsigned int	color_refract;
+	t_color			color;
+	t_color			color2;
+	t_color			color3;
+	t_color			color_refract;
 	unsigned int	size;
 	float			mod;
 	float			reflect_k;
@@ -126,7 +119,7 @@ typedef struct		s_light
 	int				type;
 	t_vector		pos;
 	t_vector		ang;
-	unsigned int	color;
+	t_color			color;
 	float			mod;
 	float			k1;
 	float			k2;
@@ -199,13 +192,13 @@ typedef struct		s_trace_lights_data
 /*
 ** Rendering parts
 */
-unsigned int		compute_color(t_env *e, t_obj *obj, unsigned int deph);
-unsigned int		trace_lights(t_env *e, t_ray_data d, t_light *light);
+t_color				compute_color(t_env *e, t_obj *obj, unsigned int deph);
+t_color				trace_lights(t_env *e, t_ray_data d, t_light *light);
 
-unsigned int		new_ray(t_env *e, t_vector *o, t_vector *v, t_obj *obj,
+t_color				new_ray(t_env *e, t_vector *o, t_vector *v, t_obj *obj,
 							unsigned int deph);
 void				trace_ray(t_env *e, t_obj *obj, t_vector *o, t_vector *v);
-int					ray_effect(t_env *e, t_vector *vec[2], t_obj *obj,
+t_color				ray_effect(t_env *e, t_vector *vec[2], t_obj *obj,
 								unsigned int deph);
 void				fill_pixel(t_env *e, t_obj *obj);
 void				launch_threads(t_th_data *data);
@@ -222,10 +215,10 @@ t_obj				*copy_obj(t_obj *obj);
 t_env				*copy_env(t_env *e);
 void				matrice_to_vector(t_vector *v, int **base);
 float				solve_equation(t_equation *eq);
-unsigned int		get_color(char *str);
+t_color				get_color(char *str);
 void				print_debug(t_env *e);
 void				exp_compute(t_vector *o, t_vector *exp);
-unsigned int		mod_light(unsigned int color, float dst, float coef2);
+t_color				mod_light(t_color color, float dst, float coef2);
 unsigned int		limit_nb(unsigned int color, unsigned int max);
 
 /*
@@ -239,10 +232,10 @@ int					**new_base();
 /*
 ** Antialiasing
 */
-unsigned int		aa_2(t_env *e, t_obj *obj, unsigned int deph);
-unsigned int		aa_4(t_env *e, t_obj *obj, unsigned int deph);
-unsigned int		aa_8(t_env *e, t_obj *obj, unsigned int deph);
-unsigned int		aa_16(t_env *e, t_obj *obj, unsigned int deph);
+t_color				aa_2(t_env *e, t_obj *obj, unsigned int deph);
+t_color				aa_4(t_env *e, t_obj *obj, unsigned int deph);
+t_color				aa_8(t_env *e, t_obj *obj, unsigned int deph);
+t_color				aa_16(t_env *e, t_obj *obj, unsigned int deph);
 
 /*
 ** Trace objects
@@ -334,23 +327,31 @@ void				not_vec(t_vector *v);
 /*
 ** Color utils
 */
-unsigned int		mix_color(unsigned int c1, unsigned int c2);
-void				color_mix_k(unsigned int *src, unsigned int color,
+//t_color				color_add(t_color c1, t_color c2);
+//t_color				color_add_k(t_color c1, t_color c2, float k);
+void				color_add(t_color *src, t_color color,
 								unsigned int k);
-void				color_add(unsigned int *src, unsigned int color,
-								unsigned int k);
-unsigned int		color_attenuate(unsigned int color, float k);
-void				get_spec(unsigned int *color, t_light light, t_vector v, 
-								t_env *e);
-unsigned int		calc_color(float refangle, float angle,
+t_color				color_attenuate(t_color color, float k);
+void				get_spec(t_color *color, t_light light,
+					t_vector v, t_env *e);
+t_color				calc_color(float refangle, float angle,
 								t_obj *obj, t_light *light);
-unsigned int		shadow(unsigned int obj_color);
+t_color				shadow(t_color color);
+t_color				rgb_to_tcolor(unsigned int r, unsigned int g,
+									unsigned int b);
+t_color				int_to_tcolor(unsigned int color);
+unsigned int		tcolor_to_int(t_color color);
+t_color				void_tcolor(void);
+int					is_void_tcolor(t_color color);
+t_color				mix_color(t_color c1, t_color c2);
+void				color_mix_k(t_color *src, t_color color,
+								unsigned int k);
 
 /*
 ** Loading bar
 */
-void				loading_bar(t_env *e, float percent, unsigned int color,
-								unsigned int bgcolor);
+void				loading_bar(t_env *e, float percent, t_color color,
+								t_color bgcolor);
 
 /*
 ** Get functions

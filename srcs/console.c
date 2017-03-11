@@ -29,7 +29,8 @@ void		write_console(int keycode, char *str)
 	if (len >= 49)
 		return ;
 	if (((keycode >= 'a' && keycode <= 'z')
-		|| (keycode >= '0' && keycode <= '9') || keycode == SP_KEY) && len < 49)
+		|| (keycode >= '0' && keycode <= '9')
+		|| keycode == SP_KEY) && len < 49)
 	{
 		c[0] = keycode;
 		ft_strcat(str, c);

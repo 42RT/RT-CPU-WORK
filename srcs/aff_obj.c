@@ -29,10 +29,11 @@ void		aff_obj(t_obj *obj)
 	printf("exp_x: %f\n", obj->exp.x);
 	printf("exp_y: %f\n", obj->exp.y);
 	printf("exp_z: %f\n", obj->exp.z);
-	printf("color: %x\n", obj->color);
-	printf("color2: %x\n", obj->color2);
-	printf("color3: %x\n", obj->color3);
-	printf("color_refract: %x\n", obj->color_refract);
+	printf("color: %x %x %x\n", obj->color.r, obj->color.g, obj->color.b);
+	printf("color: %x\n", tcolor_to_int(obj->color));
+	printf("color2: %x\n", tcolor_to_int(obj->color2));
+	printf("color3: %x\n", tcolor_to_int(obj->color3));
+	printf("color_refract: %x\n", tcolor_to_int(obj->color_refract));
 	printf("size: %d\n", obj->size);
 	printf("mod: %f\n", obj->mod);
 	printf("reflect_k: %f\n", obj->reflect_k);

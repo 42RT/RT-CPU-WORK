@@ -27,11 +27,20 @@
 # define SINGLE_BUFFER	0
 # define DOUBLE_BUFFER	1
 
+typedef struct		s_color
+{
+	unsigned		r	: 8;
+	unsigned		g	: 8;
+	unsigned		b	: 8;
+	int				e	: 8;
+	int				a	: 8;
+}					t_color;
+
 typedef struct		s_img
 {
 	int				width;
 	int				height;
-	unsigned int	*data;
+	t_color			*data;
 	void			*mlx;
 }					t_img;
 
@@ -69,8 +78,8 @@ void				*libxmlx_reload(t_gfx *gfx, int res_x, int res_y,
 void				*libxmlx_new_image(t_gfx *gfx, int res_x, int res_y);
 void				libxmlx_destroy_image(t_img *img);
 void				libxmlx_pixel_put_to_image(t_img *img, int x, int y,
-												unsigned int color);
-unsigned int		libxmlx_get_pixel_color(t_img *img, int x, int y);
+												t_color color);
+t_color				libxmlx_get_pixel_color(t_img *img, int x, int y);
 void				libxmlx_blitz_image(t_gfx *gfx, int x, int y, t_img *img);
 void				libxmlx_display_image(t_gfx *gfx, int x, int y, t_img *img);
 void				libxmlx_blitz_black_image(t_gfx *gfx, int x, int y);
@@ -81,7 +90,7 @@ void				libxmlx_blitz_black_image(t_gfx *gfx, int x, int y);
 void				libxmlx_loop(t_gfx *gfx);
 void				libxmlx_poll(t_gfx *gfx);
 void				libxmlx_pixel_put(t_gfx *gfx, int x, int y,
-										unsigned int color);
+										t_color color);
 void				libxmlx_exit(t_gfx *gfx, int exit);
 void				libxmlx_flip_screen(t_gfx *gfx);
 unsigned int		get_alpha_color(unsigned int origin, unsigned int color);

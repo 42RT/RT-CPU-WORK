@@ -13,83 +13,210 @@
 #include <libft.h>
 #include <raytracer.h>
 
-void			color_add(unsigned int *src, unsigned int color,
-							unsigned int k)
+/*t_color				color_add(t_color c1, t_color c2)
+{
+	t_color			res;
+	t_color			*bigger;
+	t_color			*lower;
+	unsigned int	tmp[3];
+
+
+	bigger = (c1.e > c2.e ? &c1 : &c2);
+	lower = (c1.e > c2.e ? &c2 : &c1);
+	res.e = bigger->e;
+	tmp[0] = bigger->r + (lower->r >> (bigger->e - lower->e));
+	tmp[1] = bigger->g + (lower->g >> (bigger->e - lower->e));
+	tmp[2] = bigger->b + (lower->b >> (bigger->e - lower->e));
+	if (tmp[0] > 255 || tmp[1] > 255 || tmp[2] > 255)
+	{
+		++res.e;
+		tmp[0] >>= 1;
+		tmp[1] >>= 1;
+		tmp[2] >>= 1;
+	}
+	res.r = tmp[0];
+	res.g = tmp[1];
+	res.b = tmp[2];
+	return (res);
+}*/
+void			color_add(t_color *src, t_color color,
+							unsigned int k) // rajouter e
 {
 	int			c;
-	int			res;
 
-	res = (color >> 24) & 0xFF;
-	res <<= 8;
-	c = (color >> 16) & 0xFF;
+	src->a = color.a;
+	c = color.r;
 	c *= k;
 	c >>= 8;
-	res |= limit_nb(c + ((*src >> 16) & 0xFF), 255);
-	res <<= 8;
-	c = (color >> 8) & 0xFF;
+	src->r = limit_nb(c + src->r, 255);
+	c = color.g;
 	c *= k;
 	c >>= 8;
-	res |= limit_nb(c + ((*src >> 8) & 0xFF), 255);
-	res <<= 8;
-	c = color & 0xFF;
+	src->g = limit_nb(c + src->g, 255);
+	c = color.b;
 	c *= k;
 	c >>= 8;
-	res |= limit_nb(c + (*src & 0xFF), 255);
-	*src = res;
+	src->b = limit_nb(c + src->b, 255);
 }
 
-void			color_mix_k(unsigned int *src, unsigned int color,
+/*t_color				color_add_k(t_color c1, t_color c2, float k)
+{
+	return (color_add(c1, color_attenuate(c2, k)));
+}
+*/
+
+void			color_mix_k(t_color *src, t_color color,
 							unsigned int k)
 {
-	unsigned int	c[4];
-
+	int			c[2];
 	if (k > 255)
 		return ;
-	c[0] = (color >> 24) & 0xFF;
-	c[1] = (((*src >> 16) & 0xFF) * (255 - k)
-			+ ((color >> 16) & 0xFF) * k) >> 8;
-	c[2] = (((*src >> 8) & 0xFF) * (255 - k) + ((color >> 8) & 0xFF) * k) >> 8;
-	c[3] = ((*src & 0xFF) * (255 - k) + (color & 0xFF) * k) >> 8;
-	*src = c[0] << 24 | c[1] << 16 | c[2] << 8 | c[3];
+	src->a = color.a;
+	c[0] = src->r;
+	c[0] *= (255 - k);
+	c[1] = color.r;
+	c[0] += c[1] * k;
+	c[0] >>= 8;
+	src->r = c[0];
+	c[0] = src->g;
+	c[0] *= (255 - k);
+	c[1] = color.g;
+	c[0] += c[1] * k;
+	c[0] >>= 8;
+	src->g = c[0];
+	c[0] = src->b;
+	c[0] *= (255 - k);
+	c[1] = color.b;
+	c[0] += c[1] * k;
+	c[0] >>= 8;
+	src->b = c[0];
+//	src->r = ((int)src->r * (255 - k) + ((int)color.r * k)) >> 8;
+//	src->g = ((int)src->g * (255 - k) + ((int)color.g * k)) >> 8;
+//	src->b = ((int)src->b * (255 - k) + ((int)color.b * k)) >> 8;
 }
 
-unsigned int	color_attenuate(unsigned int color, float k)
+t_color			color_attenuate(t_color color, float k)
 {
-	unsigned int	res;
-	unsigned int	c;
+	t_color		res;
 
-	res = color & 0xFF000000;
-	c = (unsigned int)((color & 0xFF0000) * k) & 0xFF0000;
-	res |= c & 0xFF0000;
-	c = (unsigned int)((color & 0xFF00) * k) & 0xFF00;
-	res |= c & 0xFF00;
-	c = (unsigned int)((color & 0xFF) * k) & 0xFF;
-	res |= c & 0xFF;
+	res.a = color.a;
+	res.r = color.r * k;
+	res.g = color.g * k;
+	res.b = color.b * k;
 	return (res);
 }
 
-unsigned int	get_color(char *str)
+/*t_color				color_attenuate(t_color color, float k)
 {
+	while (k < 0.5 && color.e > -128)
+	{
+		k *= 2;
+		--color.e;
+	}
+	color.r *= k;
+	color.g *= k;
+	color.b *= k;
+	if (color.r < 128 && color.g < 128 && color.b < 128)
+	{
+		++color.e;
+		color.r <<= 1;
+		color.g <<= 1;
+		color.b <<= 1;
+	}
+	return (color);
+}*/
+
+t_color				get_color(char *str)
+{
+	int				val;
+	t_color			res;
+
 	if (str && *str)
 	{
 		if (*str == '0' && *(str + 1) == 'x')
-			return (ft_hextoi(str));
+			val = ft_hextoi(str);
 		else
-			return (ft_atoi(str));
+			val = ft_atoi(str);
 	}
 	else
-		return (0);
+		return (void_tcolor());
+	res.r = ((val >> 16) & 0xFF);
+	res.g = ((val >> 8) & 0xFF);
+	res.b = (val & 0xFF);
+	res.a = 255;
+	res.e = 0;
+	return (res);
 }
 
-unsigned int	mod_light(unsigned int color, float dst, float coef2)
+t_color				rgb_to_tcolor(unsigned int r, unsigned int g,
+									unsigned int b)
 {
-	float			coef;
+	t_color			res;
+
+	res.r = r;
+	res.g = g;
+	res.b = b;
+	res.e = 0;
+	res.a = 0xFF;
+	return (res);
+}
+
+t_color				int_to_tcolor(unsigned int color)
+{
+	t_color			res;
+
+	res.r = (color >> 16) & 0xFF;
+	res.g = (color >> 8) & 0xFF;
+	res.b = color & 0xFF;
+	res.e = 0;
+	res.a = 0xFF;
+	return (res);
+}
+
+unsigned int		tcolor_to_int(t_color color)
+{
 	unsigned int	res;
 
-	res = color & 0xFF000000;
+	res = color.a;
+	res <<= 8;
+	res += color.r;
+	res <<= 8;
+	res += color.g;
+	res <<= 8;
+	res += color.b;
+	return (res);
+}
+
+t_color				void_tcolor(void)
+{
+	t_color			res;
+
+	res.r = 0;
+	res.g = 0;
+	res.b = 0;
+	res.e = 0;
+	res.a = 0xFF;
+	return (res);
+}
+
+int					is_void_tcolor(t_color color)
+{
+	return (!(color.r || color.g || color.g));
+}
+
+/*
+** todo
+*/
+t_color				mod_light(t_color color, float dst, float coef2)
+{
+	float		coef;
+	t_color		res;
+
+
+	res.a = 0xFF;
 	coef = (1 + coef2) / (dst / 100 + coef2);
-	res += ((int)((color & 0xFF) * coef)) & 0xFF;
-	res += ((int)((color & 0xFF00) * coef)) & 0xFF00;
-	res += ((int)(((color >> 16) & 0xFF) * coef) << 16) & 0xFF0000;
+	res.r = color.r * coef;
+	res.g = color.g * coef;
+	res.b = color.b * coef;
 	return (res);
 }

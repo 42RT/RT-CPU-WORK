@@ -12,7 +12,7 @@
 
 #include <libxmlx.h>
 
-void			libxmlx_pixel_put_to_image(t_img *img, int x, int y,
+/*void			libxmlx_pixel_put_to_image(t_img *img, int x, int y,
 											unsigned int color)
 {
 	if (!(color >> 24) || (color >> 24) == 255)
@@ -21,13 +21,22 @@ void			libxmlx_pixel_put_to_image(t_img *img, int x, int y,
 		img->data[img->width * y + x] = get_alpha_color(img->data[img->width
 														* y + x], color);
 }
+*/
 
-unsigned int	libxmlx_get_pixel_color(t_img *img, int x, int y)
+// a refaire en addition + alpha comme plus haut
+void			libxmlx_pixel_put_to_image(t_img *img, int x, int y,
+											t_color color)
 {
-	return ((unsigned int)img->data[img->width * y + x]);
+		img->data[img->width * y + x] = color;
 }
 
-void			libxmlx_pixel_put(t_gfx *gfx, int x, int y, unsigned int color)
+t_color		libxmlx_get_pixel_color(t_img *img, int x, int y)
+{
+	return (img->data[img->width * y + x]);
+}
+
+// a refaire
+void			libxmlx_pixel_put(t_gfx *gfx, int x, int y, t_color color)
 {
 	(void)gfx;
 	(void)x;

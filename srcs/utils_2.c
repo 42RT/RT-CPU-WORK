@@ -73,7 +73,7 @@ t_obj			*get_shorter(t_obj *obj)
 	return (res);
 }
 
-unsigned int	compute_color(t_env *e, t_obj *obj, unsigned int deph)
+t_color			compute_color(t_env *e, t_obj *obj, unsigned int deph)
 {
 	t_obj		*start;
 	t_vector	v;
@@ -98,11 +98,11 @@ unsigned int	compute_color(t_env *e, t_obj *obj, unsigned int deph)
 	return (ray_effect(e, vec, start, deph));
 }
 
-unsigned int	safe_reflect_color(t_env *e, t_ray_data *d, unsigned int deph)
+t_color			safe_reflect_color(t_env *e, t_ray_data *d, unsigned int deph)
 {
-	unsigned int	c;
-	t_vector		save_o;
-	t_vector		save_v;
+	t_color		c;
+	t_vector	save_o;
+	t_vector	save_v;
 
 	vec_cpy(d->o, &save_o);
 	vec_cpy(d->v, &save_v);
@@ -110,16 +110,16 @@ unsigned int	safe_reflect_color(t_env *e, t_ray_data *d, unsigned int deph)
 				d->start, deph);
 	vec_cpy(&save_o, d->o);
 	vec_cpy(&save_v, d->v);
-	c |= 0xFF000000;
+	c.a = 255;
 	return (c);
 }
 
-unsigned int	safe_refract_color(t_env *e, t_ray_data *d, unsigned int deph)
+t_color			safe_refract_color(t_env *e, t_ray_data *d, unsigned int deph)
 {
-	unsigned int	c;
-	float			refract;
-	t_vector		save_o;
-	t_vector		save_v;
+	t_color		c;
+	float		refract;
+	t_vector	save_o;
+	t_vector	save_v;
 
 	vec_cpy(d->o, &save_o);
 	vec_cpy(d->v, &save_v);
@@ -131,7 +131,7 @@ unsigned int	safe_refract_color(t_env *e, t_ray_data *d, unsigned int deph)
 	e->last_refract = 1;
 	vec_cpy(&save_o, d->o);
 	vec_cpy(&save_v, d->v);
-	c |= 0xFF000000;
+	c.a = 255;
 	return (c);
 }
 
@@ -147,18 +147,18 @@ unsigned int	safe_refract_color(t_env *e, t_ray_data *d, unsigned int deph)
 //	}
 //}
 
-int				ray_effect(t_env *e, t_vector *vec[2], t_obj *start,
+t_color			ray_effect(t_env *e, t_vector *vec[2], t_obj *start,
 							unsigned int deph)
 {
-	t_ray_data		d;
-	unsigned int	color;
-	float			dst;
+	t_ray_data	d;
+	t_color		color;
+	float		dst;
 
 	if (!start)
-		return (0);
+		return (void_tcolor());
 	d.shorter = get_shorter(start);
 	if (!d.shorter || d.shorter->dst > 1e7)
-		return (0);
+		return (void_tcolor());
 	color = d.shorter->color;
 	translate_vector(vec[0], vec[1], d.shorter->dst);
 	dst = d.shorter->dst;
@@ -169,6 +169,7 @@ int				ray_effect(t_env *e, t_vector *vec[2], t_obj *start,
 //	color_mix_k(&color, trace_lights(e, d, e->light), 192);
 	//color = mod_dazzle(e->lights, color, &d); // passerpar copie ??
 	color = trace_lights(e, d, e->light);
+//	printf("color: %x\n", tcolor_to_int(color));
 	if (--deph > 0 && d.shorter)
 	{
 //		if (d.shorter->type & (SPHERE | CONE | CYLINDER) || d.shorter->type == CUBE)
@@ -179,13 +180,16 @@ int				ray_effect(t_env *e, t_vector *vec[2], t_obj *start,
 //			color_mix_k(&color, safe_refract_color(e, &d, deph), d.shorter->refract_k);
 //		if (d.shorter->type & (SPHERE | CONE | CYLINDER) || d.shorter->type == CUBE)
 //			color_mix_k(&color, safe_reflect_color(e, &d, deph), d.shorter->reflect_k);
+
+
 		if (d.shorter->refract_k > 0)
 			color_mix_k(&color, safe_refract_color(e, &d, deph), d.shorter->refract_k);
 		if (d.shorter->reflect_k > 0 && e->inside_obj == 0)
-			color_add(&color, safe_reflect_color(e, &d, deph), d.shorter->reflect_k);
+			color_add(&color, safe_reflect_color(e, &d, deph),
+								d.shorter->reflect_k);
 	}
 	e->inside_obj = 0;
-	color = mod_light(color, dst, 256);
+	color = mod_light(color, dst, 256); // non fonctionnel
 	(void)dst;
 	(void)deph;
 	return (color);

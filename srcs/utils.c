@@ -55,7 +55,7 @@ t_vector		*reflect_vector(t_obj *obj, t_vector *o, t_vector *v,
 	return (v);
 }
 
-unsigned int	new_ray(t_env *e, t_vector *o, t_vector *v, t_obj *obj,
+t_color			new_ray(t_env *e, t_vector *o, t_vector *v, t_obj *obj,
 						unsigned int deph)
 {
 	t_obj		*start;

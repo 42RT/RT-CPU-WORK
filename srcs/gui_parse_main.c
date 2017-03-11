@@ -470,7 +470,8 @@ char	*gui_get_textbox_R(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_strdup(ft_itoa((tmp->color >> 16) & 0xFF)));
+	return (ft_itoa(tmp->color.r));
+//	return (ft_strdup(ft_itoa(tmp->color.a))); // pas de strdup, deja malloc...
 }
 
 char	*gui_get_textbox_G(void)
@@ -489,7 +490,7 @@ char	*gui_get_textbox_G(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_strdup(ft_itoa((tmp->color >> 8) & 0xFF)));
+	return (ft_itoa(tmp->color.g));
 }
 
 char	*gui_get_textbox_B(void)
@@ -508,7 +509,7 @@ char	*gui_get_textbox_B(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_strdup(ft_itoa((tmp->color >> 0) & 0xFF)));
+	return (ft_itoa(tmp->color.b));
 }
 
 char	*gui_get_textbox_A(void)
@@ -527,7 +528,7 @@ char	*gui_get_textbox_A(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_strdup(ft_itoa((tmp->color >> 24) & 0xFF)));
+	return (ft_itoa(tmp->color.a));
 }
 
 char	*gui_get_textbox_RFR(void)

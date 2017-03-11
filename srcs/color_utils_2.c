@@ -12,18 +12,22 @@
 
 #include <raytracer.h>
 
-void				get_spec(unsigned int *color, t_light light,
-	t_vector v, t_env *e)
+void			get_spec(t_color *color, t_light light,	t_vector v, t_env *e)
 {
 	float			angle;
-	unsigned int	lcolor;
+	t_color			lcolor;
 	t_vector		cam_to_light;
 
-	lcolor = 0xffffff;
+	lcolor.r = 0xFF;
+	lcolor.g = 0xFF;
+	lcolor.b = 0xFF;
+	lcolor.a = 0xFF;
+	lcolor.e = 0;
 	cam_to_light = e->set->cam->pos;
 	sub_vector(&cam_to_light, &light.pos);
 	angle = vec_dot(&cam_to_light, &v);
 	lcolor = color_attenuate(lcolor, powf(angle, SPEC));
+//	*color = color_add_k(*color, lcolor, 0.4);
 	color_mix_k(color, lcolor, 100);
 }
 
@@ -32,51 +36,80 @@ void				get_spec(unsigned int *color, t_light light,
 ** ocolor = object color
 */
 
-unsigned int		calc_color(float refangle, float angle,
-		t_obj *obj, t_light *light)
+t_color			calc_color(float refangle, float angle,
+							t_obj *obj, t_light *light)
 {
-	unsigned int	color;
 	t_color			lcolor;
 	t_color			ocolor;
 
-	color = 0;
-	ocolor.r = (float)((obj->color >> 16) & 0xff) / 255;
-	ocolor.g = (float)((obj->color >> 8) & 0xff) / 255;
-	ocolor.b = (float)(obj->color & 0xff) / 255;
-	lcolor.r = (float)((light->color >> 16) & 0xff);
-	lcolor.g = (float)((light->color >> 8) & 0xff);
-	lcolor.b = (float)(light->color & 0xff);
-	ocolor.r = obj->coef_ambient * RAMBIENT * ocolor.r + obj->coef_diffuse *
-		ocolor.r * lcolor.r * angle + lcolor.r * obj->coef_spec *
-		pow(refangle, SPEC);
-	ocolor.g = obj->coef_ambient * GAMBIENT * ocolor.g + obj->coef_diffuse *
-		ocolor.g * lcolor.g * angle + lcolor.g * obj->coef_spec *
-		pow(refangle, SPEC);
-	ocolor.b = obj->coef_ambient * BAMBIENT * ocolor.b + obj->coef_diffuse *
-		ocolor.b * lcolor.b * angle + lcolor.b * obj->coef_spec *
-		pow(refangle, SPEC);
-	color += (unsigned int)ocolor.r << 16;
-	color += (unsigned int)ocolor.g << 8;
-	color += (unsigned int)ocolor.b;
-	return (color);
+	ocolor.r = obj->color.r;
+	ocolor.g = obj->color.g;
+	ocolor.b = obj->color.b;
+	ocolor.e = 0;
+	ocolor.a = 255;
+	lcolor.r = light->color.r;
+	lcolor.g = light->color.g;
+	lcolor.b = light->color.b;
+	lcolor.e = 0;
+	lcolor.a = 255;
+	/////////////////verifier calcul pour include hdr et simplifier plus haut
+	ocolor.r = (obj->coef_ambient * RAMBIENT * (int)ocolor.r + obj->coef_diffuse *
+		(int)ocolor.r * (int)lcolor.r * angle + (int)lcolor.r * obj->coef_spec *
+		pow(refangle, SPEC)) / 255;
+	ocolor.g = (obj->coef_ambient * GAMBIENT * (int)ocolor.g + obj->coef_diffuse *
+		(int)ocolor.g * (int)lcolor.g * angle + (int)lcolor.g * obj->coef_spec *
+		pow(refangle, SPEC)) / 255;
+	ocolor.b = (obj->coef_ambient * BAMBIENT * (int)ocolor.b + obj->coef_diffuse *
+		(int)ocolor.b * (int)lcolor.b * angle + (int)lcolor.b * obj->coef_spec *
+		pow(refangle, SPEC)) / 255;
+	return (ocolor);
 }
 
-unsigned int		shadow(unsigned int obj_color)
+t_color				shadow(t_color color)
 {
-	unsigned int	color;
 	float			objr;
 	float			objg;
 	float			objb;
 
-	color = 0;
-	objr = (float)((obj_color >> 16) & 0xff);
-	objg = (float)((obj_color >> 8) & 0xff);
-	objb = (float)(obj_color & 0xff);
-	objr = COEFAMBIENT * RAMBIENT * objr / 255;
-	objg = COEFAMBIENT * GAMBIENT * objg / 255;
-	objb = COEFAMBIENT * BAMBIENT * objb / 255;
-	color += (unsigned int)objr << 16;
-	color += (unsigned int)objg << 8;
-	color += (unsigned int)objb;
+	objr = (float)color.r;
+	objg = (float)color.g;
+	objb = (float)color.b;
+	objr = COEFAMBIENT * RAMBIENT * objr / 255.0;
+	objg = COEFAMBIENT * GAMBIENT * objg / 255.0;
+	objb = COEFAMBIENT * BAMBIENT * objb / 255.0;
+	color.r = objr;
+	color.g = objg;
+	color.b = objb;
 	return (color);
 }
+
+/*t_color			shadow(t_color obj_color)
+{
+	t_color		color;
+	int			tmp[3];
+
+	color.e = 0;
+	tmp[0] = (int)((float)(COEFAMBIENT * RAMBIENT * (int)obj_color.r) / 255.0); // mod pour enlever 255
+	tmp[1] = (int)((float)COEFAMBIENT * GAMBIENT * (int)obj_color.g) / 255.0;
+	tmp[2] = (int)((float)COEFAMBIENT * BAMBIENT * (int)obj_color.b) / 255.0;
+	while (tmp[0] > 255 || tmp[1] > 255 || tmp[2] > 255)
+	{
+		++color.e;
+		tmp[0] >>= 1;
+		tmp[1] >>= 1;
+		tmp[2] >>= 1;
+	}
+	while ((tmp[0] < 128 && tmp[1] < 128 && tmp[2] < 128)
+			&& (tmp[0] || tmp[1] || tmp[2]))
+	{
+		--color.e;
+		tmp[0] <<= 1;
+		tmp[1] <<= 1;
+		tmp[2] <<= 1;
+	}
+	color.r = tmp[0];
+	color.g = tmp[0];
+	color.b = tmp[0];
+	return (color);
+}
+*/

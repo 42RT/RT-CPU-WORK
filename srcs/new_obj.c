@@ -36,10 +36,10 @@ t_obj		*new_obj(void)
 		return (0);
 	res->negative = 0;
 	set_def_obj_pos(res);
-	res->color = DEF_COLOR;
-	res->color2 = DEF_COLOR2;
-	res->color3 = DEF_COLOR3;
-	res->color_refract = DEF_COLOR_REFR;
+	res->color = int_to_tcolor(DEF_COLOR);
+	res->color2 = int_to_tcolor(DEF_COLOR2);
+	res->color3 = int_to_tcolor(DEF_COLOR3);
+	res->color_refract = int_to_tcolor(DEF_COLOR_REFR);
 	res->size = DEF_SIZE;
 	res->mod = DEF_MOD;
 	res->cap1 = DEF_CAP1;

@@ -32,7 +32,7 @@ t_light		*new_light(void)
 	if (!res)
 		return (0);
 	set_def_light_pos(res);
-	res->color = DEF_LIGHT_COLOR;
+	res->color = int_to_tcolor(DEF_LIGHT_COLOR);
 	res->mod = DEF_LIGHT_MOD;
 	res->k1 = DEF_LIGHT_K1;
 	res->k2 = DEF_LIGHT_K2;

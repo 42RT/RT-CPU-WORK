@@ -29,7 +29,7 @@ static unsigned int		trace_lights_3_compose(t_obj *obj, float len)
 	return (1);
 }
 
-static void				trace_lights_3_extend(int *ref, unsigned int *color,
+static void				trace_lights_3_extend(int *ref, t_color *color,
 	t_trace_lights_data data, t_ray_data d)
 {
 	t_env	*e;
@@ -42,31 +42,30 @@ static void				trace_lights_3_extend(int *ref, unsigned int *color,
 			data.obj->dst < data.len && data.obj->dst > EPS)
 		{
 			*ref = 1;
-			color_mix_k(color, d.shorter->color, data.obj->refract_k);
-			color_mix_k(color, data.obj->color, (255 - data.obj->refract_k));
-			color_mix_k(color, 0, 255 - (data.obj->refract_k));
+			color_mix_k(color, d.shorter->color, (float)data.obj->refract_k / 255);
+			color_mix_k(color, data.obj->color, (float)(255 - data.obj->refract_k) / 255);
+			color_mix_k(color, void_tcolor(), (float)(255 - (data.obj->refract_k)) / 255);
 		}
 		else if (d.shorter->refract_k > 0 && data.obj == d.shorter &&
 			data.obj->dst < data.len && data.obj->dst > EPS)
 		{
 			*ref = 1;
-			color_mix_k(color, d.shorter->color, data.obj->refract_k);
-			color_mix_k(color, 0, 255 - (data.obj->refract_k));
+			color_mix_k(color, d.shorter->color, data.obj->refract_k / 255); // verifier si float ou int
+			color_mix_k(color, void_tcolor(), (float)(255 - (data.obj->refract_k)) / 255); // idem
 		}
 		else if (data.obj->dst < data.len && data.obj->dst > 1)
 			*ref = -1;
 	}
 }
 
-static unsigned int		trace_lights_3(t_env *e, t_ray_data d,
-		t_vector *v, float len)
+static t_color	trace_lights_3(t_env *e, t_ray_data d, t_vector *v, float len)
 {
 	t_obj				*first_compose;
 	int					ref;
-	unsigned int		color;
+	t_color				color;
 	t_trace_lights_data	data;
 
-	color = 0;
+	color = void_tcolor();
 	data.obj = e->obj;
 	ref = 0;
 	d.v = v;
@@ -75,11 +74,11 @@ static unsigned int		trace_lights_3(t_env *e, t_ray_data d,
 	{
 		trace_lights_3_extend(&ref, &color, data, d);
 		if (ref == -1)
-			return (0);
+			return (void_tcolor());
 		first_compose = data.obj->compose;
 		if (data.obj->compose &&
 			trace_lights_3_compose(data.obj->compose, len) == 0)
-			return (0);
+			return (void_tcolor());
 		data.obj->compose = first_compose;
 		data.obj = data.obj->next;
 	}
@@ -94,15 +93,15 @@ static unsigned int		trace_lights_3(t_env *e, t_ray_data d,
 ** data.z = angle = angle entre rayon lumiere + normale de l'objet
 */
 
-static unsigned int		trace_lights_2(t_env *e, t_ray_data d, t_light *light)
+static t_color	trace_lights_2(t_env *e, t_ray_data d, t_light *light)
 {
-	t_vector		v2;
-	t_vector		obj_to_light;
-	t_vector		reflect_obj_to_light;
-	unsigned int	color;
-	t_vector		data;
+	t_vector	v2;
+	t_vector	obj_to_light;
+	t_vector	reflect_obj_to_light;
+	t_color		color;
+	t_vector	data;
 
-	color = 0;
+	color = void_tcolor();
 	obj_to_light = light->pos;
 	sub_vector(&obj_to_light, d.o);
 	data.x = vec_len(&obj_to_light);
@@ -116,17 +115,17 @@ static unsigned int		trace_lights_2(t_env *e, t_ray_data d, t_light *light)
 	data.y = vec_dot(&v2, &reflect_obj_to_light);
 	if ((data.z = vec_dot(&obj_to_light, &d.n)) < 0)
 		data.z = -data.z;
-	if ((color = trace_lights_3(e, d, &obj_to_light, data.x)) != 0 &&
+	if (!is_void_tcolor(color = trace_lights_3(e, d, &obj_to_light, data.x)) &&
 			d.shorter->type != PLANE)
 		return (calc_color(data.y, data.z, d.shorter, light));
 	return (shadow(color));
 }
 
-unsigned int			trace_lights(t_env *e, t_ray_data d, t_light *light)
+t_color			trace_lights(t_env *e, t_ray_data d, t_light *light)
 {
-	unsigned int	color;
+	t_color		color;
 
-	color = 0;
+	color = void_tcolor();
 	while (light)
 	{
 		color_add(&color, trace_lights_2(e, d, light), 128);

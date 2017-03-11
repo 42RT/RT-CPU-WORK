@@ -47,7 +47,7 @@ void		change_cam(t_env *e)
 	e->set->cam2 = buff;
 }
 
-void		blur_mod(t_env *e, int x, int y, unsigned int *color)
+void		blur_mod(t_env *e, int x, int y, t_color *color)
 {
 	float	k;
 
@@ -76,7 +76,7 @@ void		blur_mod(t_env *e, int x, int y, unsigned int *color)
 
 void		fill_pixel(t_env *e, t_obj *obj)
 {
-	unsigned int	color;
+	t_color	color;
 
 	if (e->set->aa >= 16)
 		color = aa_16(e, obj, e->set->deph);
@@ -88,7 +88,7 @@ void		fill_pixel(t_env *e, t_obj *obj)
 		color = aa_2(e, obj, e->set->deph);
 	else
 		color = compute_color(e, obj, e->set->deph);
-	color |= 0xFF000000;
+	color.a = 255;
 	libxmlx_pixel_put_to_image(e->gfx->buff[e->gfx->act],
 								(int)e->x, (int)e->y, color);
 }

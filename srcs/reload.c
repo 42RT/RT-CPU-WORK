@@ -53,7 +53,7 @@ void		reload(t_env *e)
 		print_debug(e);
 	if (!libxmlx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB))
 		exit (1);
-	loading_bar(e, 0, 0x1010A0, 0);
+	loading_bar(e, 0, int_to_tcolor(0x1010A0), int_to_tcolor(0));
 	if (e->set->preview)
 		ft_aff_quick(e, e->obj);
 	ft_aff(e, e->obj);

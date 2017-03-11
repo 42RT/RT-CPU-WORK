@@ -25,7 +25,7 @@ void		aff_light(t_light *light)
 	printf("ang_x: %f\n", light->ang.x);
 	printf("ang_y: %f\n", light->ang.y);
 	printf("ang_z: %f\n", light->ang.z);
-	printf("color: %x\n", light->color);
+	printf("color: %x\n", tcolor_to_int(light->color));
 	printf("k1: %f\n", light->k1);
 	printf("k2: %f\n", light->k2);
 	printf("k3: %f\n", light->k3);

@@ -12,8 +12,8 @@
 
 #include <raytracer.h>
 
-void	loading_bar(t_env *e, float percent, unsigned int color,
-					unsigned int bgcolor)
+void	loading_bar(t_env *e, float percent, t_color color,
+					t_color bgcolor)
 {
 	static SDL_Rect	area;
 	static int		old;
@@ -26,11 +26,10 @@ void	loading_bar(t_env *e, float percent, unsigned int color,
 	area.w = 204;
 	area.h = 14;
 
-	SDL_SetRenderDrawColor(e->gfx->renderer, (bgcolor >> 16) & 0xFF,
-							(bgcolor >> 8) & 0xFF, bgcolor & 0xFF, 255);
+	SDL_SetRenderDrawColor(e->gfx->renderer, bgcolor.r,	bgcolor.g, bgcolor.b,
+							255);
 	SDL_RenderFillRect(e->gfx->renderer, &area);
-	SDL_SetRenderDrawColor(e->gfx->renderer, (color >> 16) & 0xFF,
-							(color >> 8) & 0xFF, color & 0xFF, 255);
+	SDL_SetRenderDrawColor(e->gfx->renderer, color.r, color.g, color.b, 255);
 	SDL_RenderDrawRect(e->gfx->renderer, &area);
 	area.x += 2;
 	area.y += 2;

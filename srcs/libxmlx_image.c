@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include <libxmlx.h>
+#include <raytracer.h>
 
 void			*libxmlx_new_image(t_gfx *gfx, int res_x, int res_y)
 {
@@ -26,12 +27,12 @@ void			*libxmlx_new_image(t_gfx *gfx, int res_x, int res_y)
 	res->width = res_x;
 	res->height = res_y;
 	size = res_y * res_x;
-	res->data = (unsigned int *)malloc(size * sizeof(unsigned int));
+	res->data = (t_color *)malloc(size * sizeof(t_color));
 	if (!res->data)
 		return (0);
 	i = -1;
 	while (++i < size)
-		res->data[i] = 0;
+		res->data[i] = int_to_tcolor(0);
 	return ((void *)res);
 }
 
@@ -43,9 +44,9 @@ void			libxmlx_destroy_image(t_img *img)
 
 void			libxmlx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
 {
-	char	color[4];
-	int		i;
-	int		j;
+	int				i;
+	int				j;
+	unsigned int	color[4];
 
 	if (!gfx->expose)
 		return ;
@@ -55,11 +56,12 @@ void			libxmlx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
 		j = -1;
 		while (++j + x < gfx->buff[0]->width && j < img->width)
 		{
-			color[0] = 255;
-			color[1] = img->data[img->width * i + j] >> 16; // masques binaires sur mac ??
-			color[2] = img->data[img->width * i + j] >> 8;
-			color[3] = img->data[img->width * i + j];
-			SDL_SetRenderDrawColor(gfx->renderer, color[1], color[2], color[3], color[0]);
+			color[0] = img->data[img->width * i + j].a;
+			color[1] = img->data[img->width * i + j].r; // masques binaires sur mac ??
+			color[2] = img->data[img->width * i + j].g;
+			color[3] = img->data[img->width * i + j].b;
+			SDL_SetRenderDrawColor(gfx->renderer, color[1], color[2],
+									color[3], color[0]);
 			SDL_RenderDrawPoint(gfx->renderer, j + x, i + y);
 		}
 	}

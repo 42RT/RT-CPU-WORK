@@ -12,6 +12,7 @@
 
 #include <libxmlx.h>
 
+// a refaire en alpha
 unsigned int	get_alpha_color(unsigned int origin, unsigned int color)
 {
 	unsigned int	res;
