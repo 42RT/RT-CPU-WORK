@@ -201,7 +201,7 @@ t_color				void_tcolor(void)
 
 int					is_void_tcolor(t_color color)
 {
-	return (!(color.r || color.g || color.g));
+	return (!(color.r || color.g || color.b));
 }
 
 /*
