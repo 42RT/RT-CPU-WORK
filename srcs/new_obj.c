@@ -44,6 +44,7 @@ t_obj		*new_obj(void)
 	res->mod = DEF_MOD;
 	res->cap1 = DEF_CAP1;
 	res->cap2 = DEF_CAP2;
+	res->texture = NULL;
 	res->def.x = 0;
 	res->def.y = 0;
 	res->def.z = 0;

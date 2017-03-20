@@ -17,8 +17,8 @@
     "size": 400,
     "reflect_k": 190,
     "position": {
-       "x": -1500,
-       "z": 0
+       "x": -2500,
+       "z": -1500
     },
     "angle": {
         "x": 90,
@@ -26,11 +26,21 @@
         "z": 0
     }
 }
+
+"sphere": {
+    "color": 0xff00ff,
+    "size": 1000,
+    "position": {
+        "x": -200,
+        "z": -1500
+    }
+}
+
 "light": {
     "color": 0xffffff,
     "position": {
         "x": -1165,
-        "y": -2000,
+        "y": 0,
         "z": 3000
     }
 }

@@ -114,7 +114,7 @@ static unsigned int		trace_lights_2(t_env *e, t_ray_data d, t_light *light)
 	reflect_obj_to_light = *reflect_vector(d.shorter, d.o,
 			&reflect_obj_to_light, &d.n);
 	data.y = vec_dot(&v2, &reflect_obj_to_light);
-	if ((data.z = vec_dot(&obj_to_light, &d.n)) < 0)
+	if ((data.z = vec_dot(&obj_to_light, &d.n)) < -0.01)
 		data.z = -data.z;
 	if ((color = trace_lights_3(e, d, &obj_to_light, data.x)) != 0)
 		return (calc_color(data.y, data.z, d.shorter, light));
@@ -130,10 +130,8 @@ unsigned int			trace_lights(t_env *e, t_ray_data d, t_light *light)
 	turb = turbulence(e->x, e->y, SMOOTH_NOISE);
 	color = 0;
 	save_color = d.shorter->color;
-	if (turb < 0)
-		turb = -turb;
-	if (d.shorter->type == PLANE || d.shorter->type == DPLANE)
-		d.shorter->color = fire(turb);
+	if (d.shorter->texture != NULL)
+		choose_texture(&d, turb);
 	while (light)
 	{
 		color_add(&color, trace_lights_2(e, d, light), 128);

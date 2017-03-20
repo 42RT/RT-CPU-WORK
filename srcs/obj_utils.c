@@ -27,7 +27,7 @@ static void	cut_cylinder_cone(t_equation *eq, float *x1, float *x2)
 	float	z;
 
 	z = 0;
-	if (eq->obj->type & (CYLINDER | CONE))
+	if (eq->obj->type & (CYLINDER | CONE | GLASS))
 	{
 		z = eq->v.z * *x1 + eq->o.z;
 		if ((z < eq->obj->cap1 && z < eq->obj->cap2) ||
@@ -52,7 +52,8 @@ float		solve_equation(t_equation *eq)
 		eq->x2 = (-eq->b + sqrt(eq->delta)) / (2 * eq->a);
 		eq->obj->x1 = eq->x1;
 		eq->obj->x2 = eq->x2;
-		if ((eq->obj->cap1 != 0 || eq->obj->cap2 != 0) && eq->obj->type & (CYLINDER | CONE))
+		if ((eq->obj->cap1 != 0 || eq->obj->cap2 != 0) &&
+			eq->obj->type & (CYLINDER | GLASS | CONE))
 			cut_cylinder_cone(eq, &eq->x1, &eq->x2);
 	}
 	compose_obj(eq->obj, eq);

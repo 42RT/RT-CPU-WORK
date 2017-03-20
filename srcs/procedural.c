@@ -13,6 +13,31 @@
 #include <raytracer.h>
 #include <stdio.h>
 
+void			choose_texture(t_ray_data *d, float turb)
+{
+	t_env			*e;
+
+	e = get_env();
+	if (!e->surface)
+		e->surface = SDL_LoadBMP("textures/PoolWater.bmp");
+	if (!ft_strncmp(d->shorter->texture, "marble", 6))
+		d->shorter->color = stripe(e, d->shorter, turb);
+	else if (!ft_strncmp(d->shorter->texture, "fire", 4))
+		d->shorter->color = fire(turb);
+	else if (!ft_strncmp(d->shorter->texture, "bricks", 6))
+	{
+		SDL_LockSurface(e->surface);
+		if (e->surface == NULL)
+		{
+			ft_printf("Can't load bricks.bmp");
+			exit(1);
+		}
+		d->shorter->color = get_pixel(e->surface, (int)e->x,
+			(int)e->y);
+		SDL_UnlockSurface(e->surface);
+	}
+}
+
 unsigned int	fire(float turb)
 {
 	unsigned int 	color;

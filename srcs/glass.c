@@ -27,6 +27,8 @@ void	create_base_cone(t_obj *obj)
 {
 	obj->next = new_obj();
 	obj->next->type = CONE;
+	obj->next->exp = obj->exp;
+	obj->next->texture = obj->texture;
 	obj->next->negative = 0;
 	obj->next->size = 300;
 	obj->next->cap1 = 400;
@@ -43,6 +45,8 @@ void	create_disk(t_obj *obj)
 {
 	obj->next = new_obj();
 	obj->next->type = DISK;
+	obj->next->exp = obj->exp;
+	obj->next->texture = obj->texture;
 	obj->next->negative = 0;
 	obj->next->size = 175;
 	obj->next->pos.z = 400;
@@ -59,6 +63,8 @@ void	create_demi_sphere(t_obj *obj)
 {
 	obj->compose = new_obj();
 	obj->compose->type = SPHERE;
+	obj->compose->exp = obj->exp;
+	obj->compose->texture = obj->texture;
 	obj->compose->negative = 0;
 	obj->compose->pos.x = 0;
 	obj->compose->pos.y = 0;

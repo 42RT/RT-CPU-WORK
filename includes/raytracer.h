@@ -102,6 +102,7 @@ typedef struct		s_obj
 	float			coef_ambient;
 	float			coef_diffuse;
 	float			coef_spec;
+	char			*texture;
 	t_vector		pos;
 	t_vector		ang;
 	t_vector		exp;
@@ -144,6 +145,7 @@ typedef struct		s_env
 	t_obj			*obj;
 	t_obj			*neg_obj;
 	t_light			*light;
+	SDL_Surface		*surface;
 	char			*file;
 	float			last_refract;
 	float			x;
@@ -300,6 +302,12 @@ unsigned int		stripe(t_env *e, t_obj *obj, float turb);
 unsigned int		square(t_env *e, t_obj *obj, float turb);
 unsigned int		skybox(float turb);
 unsigned int		fire(float turb);
+void				choose_texture(t_ray_data *d, float turb);
+
+/*
+** Textures
+*/
+unsigned int		get_pixel(SDL_Surface *surface, int x, int y);
 
 /*
 ** Events
