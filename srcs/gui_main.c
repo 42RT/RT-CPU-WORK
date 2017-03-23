@@ -21,9 +21,24 @@ t_gui		*get_gui(void)
 	return (&gui);
 }
 
+void		gui_rt_reload_object(t_env *e, t_gui *gui)
+{
+	if (e->set->verbose)
+		print_debug(e);
+	if (!libxmlx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB))
+		exit(1);
+	loading_bar(e, 0, int_to_tcolor(0x0101A0), int_to_tcolor(0));
+	if (e->set->preview)
+		ft_aff_quick(e, e->obj);
+	ft_aff(e, e->obj);
+	SDL_RaiseWindow(e->gfx->win);
+	gui_scroll_load_object(gui);
+	gui_textbox_load_object(gui);
+	gui_main_refresh(gui);
+}
+
 void		gui_rt_reload(t_env *e, t_gui *gui, char *scene)
 {
-	//e->neg_obj = 0;
 	e->av[1] = ft_strdup(scene);
 	reload(e);
 	SDL_RaiseWindow(e->gfx->win);

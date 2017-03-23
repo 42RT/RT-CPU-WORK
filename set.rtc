@@ -15,5 +15,5 @@
 	"preview": 0,
 	"progressive_display": 0,
 	"threads": 1,
-	"verbose": 1,
+	"verbose": 0,
 }

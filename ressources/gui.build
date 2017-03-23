@@ -313,8 +313,8 @@ MAIN BUILDER:
 	button:
 		x: 0
 		y: 1
-		action: "DEL"
-		txt: "del"
+		action: "RESET"
+		txt: "reset"
 		txt_anchor: "this"
 		txt_align: 1
 		,

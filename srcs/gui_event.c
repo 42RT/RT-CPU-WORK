@@ -57,7 +57,6 @@ void		event_textbox_deselect(t_gui *gui)
 	gui_widget_draw_in_line(tmp->dest, 1, "black");
 	event_textbox_value_allowed(tmp);
 	event_textbox_edit(gui, tmp, "black");
-
 }
 
 void		event_widget_deselect(t_gui *gui)
@@ -66,7 +65,6 @@ void		event_widget_deselect(t_gui *gui)
 		event_textbox_deselect(gui);
 	else if (*(int *)WIDGET == SCL)
 		gui_scroll_toggle(gui, (t_scroll *)gui->widget_active);
-
 }
 
 void		event_textbox_select(t_gui *gui, t_textbox *textbox)
@@ -236,12 +234,18 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 {
 	if (WIDGET)
 		event_widget_deselect(gui);
-	if (ft_strstr(action, "DEL") != NULL)
-		return;
+	if (ft_strstr(action, "RESET") != NULL)
+	{
+		gui_textbox_load_object(gui);
+		gui_main_refresh(gui);
+	}
 	else if (ft_strstr(action, "SAVE") != NULL)
-		return;
+		return;//gui_save_object(t_gui *gui);
 	else if (ft_strstr(action, "APPLY") != NULL)
-		return;
+	{
+		gui_apply_object(gui);
+		gui_rt_reload_object(env, gui);
+	}
 	else if (ft_strstr(action, "PARAM") != NULL)
 	{
 		if (WIDGET == HELP)
