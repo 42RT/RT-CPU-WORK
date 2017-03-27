@@ -4,6 +4,7 @@
 # include <raytracer.h>
 # include <fcntl.h>
 # include <dirent.h>
+# include <errno.h>
 
 # define CONTAINER gui->container[id]
 # define BLOCK gui->container
@@ -253,6 +254,7 @@ typedef struct		s_gui
 	t_param			*param;
 	t_def_widget	*def_widget;
 	void			*widget_active;
+	int				action;
 	int				anchor_x;
 	int				anchor_y;
 	int				tmp_lim;
@@ -363,5 +365,6 @@ void		gui_main_refresh(t_gui *gui);
 void		gui_rt_reload(t_env *e, t_gui *gui, char *scene);
 void		gui_rt_reload_object(t_env *e, t_gui *gui);
 void		gui_apply_object(t_gui *gui);
+void		gui_save_object(t_gui *gui, t_env *e);
 void		gui_anti_aliasing_set(int x, int y, int w, int h);
 #endif

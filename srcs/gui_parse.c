@@ -18,7 +18,7 @@ void	gui_parse_window(t_gui *gui, int fd, int nb)
 			gui->dest.h = ft_atoi(tmp[1]);
 		i++;
 	}
-	gui->dest.x = ALT_SCREEN_CENTERED + 800;
+	gui->dest.x = 0; //ALT_SCREEN_CENTERED + 800;
 	gui->dest.y = SDL_WINDOWPOS_CENTERED;
 	printf("OK (%d,%d)\n", gui->dest.w, gui->dest.h);
 }
@@ -274,6 +274,7 @@ void	gui_parse_builder(t_gui *gui, char *file)
 	char	*line;
 	int		ret;
 
+	gui->action = 0;
 	if ((fd = open(file, O_RDONLY)) != -1)
 	{
 		while ((ret = get_next_line(fd, &line)) > 0)
@@ -281,6 +282,7 @@ void	gui_parse_builder(t_gui *gui, char *file)
 			//printf("FIND :%s\n", line);
 			gui_find_header(gui, fd, line);
 		}
+		close(fd);
 	}
 	else
 		gui_error(9);

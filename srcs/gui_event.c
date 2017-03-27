@@ -240,9 +240,10 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 		gui_main_refresh(gui);
 	}
 	else if (ft_strstr(action, "SAVE") != NULL)
-		return;//gui_save_object(t_gui *gui);
-	else if (ft_strstr(action, "APPLY") != NULL)
+		gui_save_object(gui, env);
+	else if (!ft_strcmp(action, "APPLY") && gui->action == 0)
 	{
+		gui->action = 1;
 		gui_apply_object(gui);
 		gui_rt_reload_object(env, gui);
 	}
@@ -284,6 +285,7 @@ int			event_is_button(SDL_Event event, t_env *env, t_gui *gui)
 				{
 					printf("EVENT : BUTTON [%d][%d] -> %s\n", id, i,
 						BUTTON[i]->action);
+					SDL_FlushEvents(SDL_QUIT, SDL_LASTEVENT);
 					button_perform_action(env, gui, BUTTON[i]->action);
 					return (1);
 				}

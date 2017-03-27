@@ -46,6 +46,7 @@ void			*libxmlx_init(char *title, int res_x, int res_y,
 void			libxmlx_loop(t_gfx *gfx)
 {
 	SDL_WaitEvent(&(gfx->event));
+	//printf("EVENT QUEUE : %d\n", SDL_PeepEvents(&(gfx->event), 10, SDL_PEEKEVENT, SDL_FIRSTEVENT, SDL_LASTEVENT));
 }
 
 void			libxmlx_poll(t_gfx *gfx)

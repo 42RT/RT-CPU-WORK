@@ -35,6 +35,7 @@ void		gui_rt_reload_object(t_env *e, t_gui *gui)
 	gui_scroll_load_object(gui);
 	gui_textbox_load_object(gui);
 	gui_main_refresh(gui);
+	gui->action = 0;
 }
 
 void		gui_rt_reload(t_env *e, t_gui *gui, char *scene)

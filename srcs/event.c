@@ -70,6 +70,7 @@ int		event(t_env *env, SDL_Event event)
 	t_gui *gui;
 
 	gui = get_gui();
+	//printf("EVENT QUEUE : %d\n", SDL_PeepEvents(&event, 10, SDL_PEEKEVENT, SDL_FIRSTEVENT, SDL_LASTEVENT));
 	if (event.type == SDL_WINDOWEVENT)
 		if (event.window.event == SDL_WINDOWEVENT_CLOSE)
 			libxmlx_exit(env->gfx, 0);

@@ -93,6 +93,7 @@ SRC =		$(PATH_SRC)main.c \
 			$(PATH_SRC)gui_parse_param.c \
 			$(PATH_SRC)gui_parse_main.c \
 			$(PATH_SRC)gui_apply.c \
+			$(PATH_SRC)gui_save.c \
 			$(PATH_SRC)gui_pixel_put.c \
 			$(PATH_SRC)gui_event.c \
 			$(PATH_SRC)error.c

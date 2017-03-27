@@ -48,6 +48,8 @@ void	gui_error(int n)
 		printf("PARSE \033[31mImpossible to open directory. \033[0m\n");
 	else if (n == 14)
 		printf("PARSE \033[31mImpossible to close directory. \033[0m\n");
+	else if (n == 15)
+		printf("PARSE : \033[31mCannot Create file.\033[0m : %d\n", errno);
 	else
 		gui_expand_error(n);
 	exit(1);
