@@ -83,6 +83,7 @@ void	gui_widget_texture_get_bmp(void *widget, char *file)
 	gui = get_gui();
 	path = ft_strjoin(PATH->texture, file);
 	((REF *)widget)->surface = SDL_LoadBMP(path);
+	free(path);
 	if (!((REF *)widget)->surface)
 		gui_error(2);
 	((REF *)widget)->bmp = SDL_CreateTextureFromSurface(gui->img,

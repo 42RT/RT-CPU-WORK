@@ -35,7 +35,6 @@ void		gui_rt_reload_object(t_env *e, t_gui *gui)
 	gui_scroll_load_object(gui);
 	gui_textbox_load_object(gui);
 	gui_main_refresh(gui);
-	gui->action = 0;
 }
 
 void		gui_rt_reload(t_env *e, t_gui *gui, char *scene)
@@ -59,6 +58,7 @@ void		gui_main_refresh(t_gui *gui)
 	if (PARAM && PARAM->active)
 		gui_param_refresh(gui);
 	//printf("Done\n");
+	gui->action = 0;
 }
 
 void		gui_build(t_gui	*gui)

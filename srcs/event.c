@@ -78,7 +78,7 @@ int		event(t_env *env, SDL_Event event)
 		event_keydown(event, env, gui);
 	else
 	{
-		if (event.window.windowID == gui->winID)
+		if (event.window.windowID == gui->winID && gui->action == 0)
 		{
 			if (event.type == SDL_MOUSEBUTTONDOWN)
 				event_mouse_click(event, env, gui);

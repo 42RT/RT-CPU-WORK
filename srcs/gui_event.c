@@ -19,6 +19,32 @@ void		event_textbox_edit(t_gui *gui, t_textbox *textbox, char *color)
 	TTF_CloseFont(TTF->font);
 }
 
+void		gui_pending_action_prevent(t_gui *gui)
+{
+	printf("action prevent!\n");
+	SDL_Surface	*surf;
+	SDL_Texture	*bmp;
+	SDL_Rect	dest;
+
+	dest.x = 0;
+	dest.y = 0;
+	dest.w = gui->dest.w;
+	dest.h = gui->dest.h;
+	gui->action = 1;
+	surf = SDL_LoadBMP("./ressources/gui_texture/help_black.bmp");
+	if (!surf)
+		gui_error(2);
+	bmp = SDL_CreateTextureFromSurface(gui->img, surf);
+	if (!bmp)
+		gui_error(3);
+	SDL_SetTextureBlendMode(bmp, SDL_BLENDMODE_BLEND);
+	SDL_SetTextureAlphaMod(bmp, 200);
+	SDL_RenderCopy(gui->img, bmp, NULL, &dest);
+	SDL_DestroyTexture(bmp);
+	SDL_FreeSurface(surf);
+	SDL_RenderPresent(gui->img);
+}
+
 void		event_textbox_value_force(t_textbox *textbox, char *forced_value)
 {
 	int i;
@@ -236,14 +262,19 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 		event_widget_deselect(gui);
 	if (ft_strstr(action, "RESET") != NULL)
 	{
+		gui_pending_action_prevent(gui);
 		gui_textbox_load_object(gui);
 		gui_main_refresh(gui);
 	}
 	else if (ft_strstr(action, "SAVE") != NULL)
+	{
+		gui_pending_action_prevent(gui);
 		gui_save_object(gui, env);
+		gui->action = 0;
+	}
 	else if (!ft_strcmp(action, "APPLY") && gui->action == 0)
 	{
-		gui->action = 1;
+		gui_pending_action_prevent(gui);
 		gui_apply_object(gui);
 		gui_rt_reload_object(env, gui);
 	}
