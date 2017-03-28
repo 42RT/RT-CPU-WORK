@@ -211,10 +211,10 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 	scroll->mod = 0;
 	if ((value = (char **)malloc(sizeof(char *) * scroll->nb_value)) == NULL)
 		error(1);
-	rep = opendir("./scene");
-	if (!rep)
+	if (!(rep = opendir("./scene")))
 		gui_error(13);
-	while ((rfile = readdir(rep)) != NULL)
+	while ((rfile = readdir(rep)))
+	{
 		if (ft_strcmp(rfile->d_name, ".") && ft_strcmp(rfile->d_name, ".."))
 		{
 			lu = ft_strjoin("scene/", rfile->d_name);
@@ -222,8 +222,9 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 				scroll->active_value = i;
 			tmp = ft_strsplit(rfile->d_name, '.');
 			value[i++] = ft_strdup(tmp[0]);
+			free(tmp);
 		}
-	free(rfile);
+	}
 	free(lu);
 	if (closedir(rep) == -1)
 		gui_error(14);

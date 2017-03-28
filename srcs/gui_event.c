@@ -21,7 +21,6 @@ void		event_textbox_edit(t_gui *gui, t_textbox *textbox, char *color)
 
 void		gui_pending_action_prevent(t_gui *gui)
 {
-	printf("action prevent!\n");
 	SDL_Surface	*surf;
 	SDL_Texture	*bmp;
 	SDL_Rect	dest;
