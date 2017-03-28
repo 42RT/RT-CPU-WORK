@@ -74,8 +74,8 @@ t_button	*gui_parse_button(int fd, int nb)
 		if (!ft_strcmp(tmp[0], "\t\taction"))
 		{
 			tmp = ft_strsplit(tmp[1], '"');
-			if ((button->action = (char *)malloc(sizeof(char) * 3)) == NULL)
-				error(1);
+			//if ((button->action = (char *)malloc(sizeof(char) * 3)) == NULL)
+			//	error(1);
 			button->action = tmp[1];
 		}
 		if (!ft_strcmp(tmp[0], "\t\ttxt"))
@@ -573,6 +573,8 @@ char	*gui_get_textbox_RFL(void)
 void	gui_get_textbox_value(t_textbox *textbox)
 {
 	gui_textbox_get_len(textbox);
+	if (!(textbox->value = (char *)malloc(sizeof(char) * textbox->maxlen)))
+		error(1);
 	if (!ft_strcmp(textbox->tag, "__X"))
 		textbox->value = gui_get_textbox_X();
 	else if (!ft_strcmp(textbox->tag, "__Y"))
@@ -599,8 +601,6 @@ void	gui_get_textbox_value(t_textbox *textbox)
 		textbox->value = gui_get_textbox_RFL();
 	else
 	{
-		if ((textbox->value = (char *)malloc(sizeof(char) * textbox->maxlen)) == NULL)
-			error(1);
 		gui_textbox_value_clear(textbox, textbox->maxlen);
 	}
 }
@@ -661,7 +661,9 @@ t_textbox	**gui_parse_container_textbox(int fd, int qt, int id)
 	t_textbox	**textbox;
 	char		*line;
 	int			i;
+	t_gui		*gui;
 
+	gui = get_gui();
 	get_next_line(fd, &line);
 	if (ft_strcmp(line, "\ttextbox:"))
 		gui_error(12);
@@ -676,7 +678,7 @@ t_textbox	**gui_parse_container_textbox(int fd, int qt, int id)
 		textbox[i]->id = i;
 		gui_get_textbox_value(textbox[i]);
 		printf("(%d,%d,%s,%d,%d) [\"%s\",%s,%d]\n", textbox[i]->dest.x, textbox[i]->dest.y, textbox[i]->tag, textbox[i]->min, textbox[i]->max, textbox[i]->txt->content, textbox[i]->txt->anchor, textbox[i]->txt->align);
-		gui_textbox_set(textbox[i]);
+		gui_textbox_set(textbox[i], gui->dest);
 		i++;
 		if (i < qt)
 		{

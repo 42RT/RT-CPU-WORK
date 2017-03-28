@@ -54,6 +54,22 @@ void	gui_font_init(t_gui *gui, char *ttf, int size)
 	TTF_SizeText(TTF->font, "editor", NULL, &TTF->h_px);
 }
 
+void	gui_freetxt_write(t_freetxt *freetxt, char *color)
+{
+	t_gui	*gui;
+
+	gui = get_gui();
+	TTF_SizeText(TTF->font, freetxt->txt->content, &TTF->w_px, &TTF->h_px);
+	TTF->texture = SDL_CreateTextureFromSurface(gui->img,
+		TTF_RenderText_Solid(TTF->font, freetxt->txt->content,
+		gui_color(color)));
+	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
+	TTF->rect.x = freetxt->dest.x;
+	TTF->rect.y = freetxt->dest.y;
+	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+	SDL_DestroyTexture(TTF->texture);
+}
+
 void	gui_container_write_txt(void *widget, char *color)
 {
 	int		cX;
@@ -71,7 +87,7 @@ void	gui_container_write_txt(void *widget, char *color)
 	TTF_SizeText(TTF->font, ((REF *)widget)->txt->content, &TTF->w_px, &TTF->h_px);
 	TTF->texture = SDL_CreateTextureFromSurface(gui->img, 
 		TTF_RenderText_Solid(TTF->font, ((REF *)widget)->txt->content,
-			gui_color(color)));
+		gui_color(color)));
 	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
 	if (((REF *)widget)->txt->align == GUI_ALIGN_LEFT)
 		TTF->rect.x = cX + GUI_FONT_BORDER_STEP;

@@ -75,6 +75,24 @@ void	gui_param_scroll_create_all(t_gui *gui)
 	}
 }
 
+void	gui_param_textbox_create_all(t_gui *gui)
+{
+	int	i;
+
+	i = 0;
+	while (i < PARAM->textbox_qt)
+	{
+		if (WIDGET == PARAM_TXB)
+			gui_widget_texture_get_bmp(PARAM_TXB, "textbox_black.bmp");
+		else
+			gui_widget_texture_get_bmp(PARAM_TXB, "textbox_white.bmp");
+		gui_widget_display(PARAM_TXB);
+		gui_widget_draw_in_line(PARAM_TXB->dest, 1, "black");
+		event_textbox_edit(gui, PARAM_TXB, "black");
+		i++;
+	}
+}
+
 void	gui_param_text_build(t_gui *gui)
 {
 	int i;
@@ -85,7 +103,7 @@ void	gui_param_text_build(t_gui *gui)
 		i = 0;
 		while (i < PARAM->button_qt)
 		{
-			gui_widget_write_txt(PARAM->button[i], "white");
+			gui_widget_write_txt(PARAM_BTN, "white");
 			i++;
 		}
 	}
@@ -94,7 +112,7 @@ void	gui_param_text_build(t_gui *gui)
 		i = 0;
 		while (i < PARAM->scroll_qt)
 		{
-			gui_widget_write_txt(PARAM->scroll[i], "white");
+			gui_widget_write_txt(PARAM_SCL, "white");
 			i++;
 		}
 	}
@@ -103,7 +121,7 @@ void	gui_param_text_build(t_gui *gui)
 		i = 0;
 		while (i < PARAM->textbox_qt)
 		{
-			gui_widget_write_txt(PARAM->textbox[i], "white");
+			gui_widget_write_txt(PARAM_TXB, "white");
 			i++;
 		}
 	}
@@ -112,9 +130,24 @@ void	gui_param_text_build(t_gui *gui)
 		i = 0;
 		while (i < PARAM->checkbox_qt)
 		{
-			gui_widget_write_txt(PARAM->checkbox[i], "white");
+			gui_widget_write_txt(PARAM_CBX, "white");
 			i++;
 		}
+	}
+	if (PARAM->gauge_qt > 0)
+	{
+		i = 0;
+		while (i < PARAM->gauge_qt)
+		{
+			gui_widget_write_txt(PARAM_GAU, "white");
+			i++;
+		}
+	}
+	i = 0;
+	while (i < PARAM->freetxt_qt)
+	{
+		gui_freetxt_write(PARAM_FTT, "white");
+		i++;
 	}
 	/*gui_write_param(gui, "options", GUI_ALIGN_MID, 20);
 	gui_write_param(gui, "Resolution", GUI_ALIGN_LEFT, 45);
@@ -127,6 +160,9 @@ void	gui_param_build(t_gui *gui)
 {
 	gui_param_scroll_create_all(gui);
 	gui_param_checkbox_create_all(gui);
+	gui_param_textbox_create_all(gui);
+	//gui_param_button_create_all(gui);
+	//gui_param_gauge_create_all(gui);
 	gui_param_text_build(gui);
 }
 
@@ -165,6 +201,7 @@ void	gui_param_refresh(t_gui *gui)
 	gui_button_selected(gui, BLOCK[9]->button[0]);
 	gui_param_get_bmp_n_display(gui);
 	gui_param_scroll_create_all(gui);
+	gui_param_textbox_create_all(gui);
 	gui_param_checkbox_create_all(gui);
 	gui_param_text_build(gui);
 }

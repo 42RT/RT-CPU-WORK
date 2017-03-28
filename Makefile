@@ -83,9 +83,12 @@ SRC =		$(PATH_SRC)main.c \
 			$(PATH_SRC)gui_button.c \
 			$(PATH_SRC)gui_textbox.c \
 			$(PATH_SRC)gui_scroll.c \
+			$(PATH_SRC)gui_gauge.c \
+			$(PATH_SRC)gui_freetxt.c \
 			$(PATH_SRC)gui_help.c \
 			$(PATH_SRC)gui_param.c \
 			$(PATH_SRC)gui_param_checkbox.c \
+			$(PATH_SRC)gui_param_button.c \
 			$(PATH_SRC)gui_main.c \
 			$(PATH_SRC)gui_ttf.c \
 			$(PATH_SRC)gui_anti_aliasing.c \

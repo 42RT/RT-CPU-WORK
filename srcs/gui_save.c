@@ -17,7 +17,9 @@ char	*gui_old_path(char *path)
 
 void	gui_save_object(t_gui *gui, t_env *e)
 {
-	item =	i = gui->container[1]->scroll[0]->nb_value - 1;
+	int fd1;
+	int fd2;
+
 	errno = 0;
 	(void)gui;
 	system(gui_old_path(e->av[1]));
@@ -25,6 +27,7 @@ void	gui_save_object(t_gui *gui, t_env *e)
 	{
 		if ((fd2 = creat("scene/tmpsave.rts", O_CREAT | S_IRWXU | S_IRWXG | S_IRWXO)) != -1)
 		{
+			
 			close(fd1);
 			close(fd2);
 		}

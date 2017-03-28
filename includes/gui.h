@@ -23,6 +23,10 @@
 # define PARAM_SCL PARAM->scroll[i]
 # define PARAM_SCL_B PARAM_SCL->button
 # define PARAM_CBX PARAM->checkbox[i]
+# define PARAM_BTN PARAM->button[i]
+# define PARAM_GAU PARAM->gauge[i]
+# define PARAM_TXB PARAM->textbox[i]
+# define PARAM_FTT PARAM->freetxt[i]
 # define WIDGET gui->widget_active
 # define REF t_widget_ref
 # define DEF gui->def_widget
@@ -59,9 +63,11 @@ typedef enum
 				BTN,
 				TXB,
 				SCL,
+				CBX,
+				GAU,
 				PRM,
 				HLP,
-				CBX,
+				FTT,
 				CNT
 }				widget_type;
 
@@ -83,6 +89,16 @@ typedef struct	s_ttf
 	char		*def_ttf;
 	int			def_border_step;
 }				t_ttf;
+
+typedef struct	s_freetxt
+{
+	widget_type	nature;
+	SDL_Rect	dest;
+	t_txt		*txt;
+	int			id;
+	int			p;
+	char		*tag;
+}				t_freetxt;
 
 typedef struct	s_checkbox
 {
@@ -144,6 +160,20 @@ typedef struct	s_textbox
 	int			edited;
 }				t_textbox;
 
+typedef struct	s_gauge
+{
+	widget_type	nature;
+	SDL_Surface	*surface;
+	SDL_Texture	*bmp;
+	SDL_Rect	dest;
+	t_txt		*txt;
+	int			id;
+	int			p;
+	char		*tag;
+	int			min;
+	int			max;
+}				t_gauge;
+
 typedef struct	s_container
 {
 	widget_type	nature;
@@ -157,10 +187,14 @@ typedef struct	s_container
 	int			scroll_qt;
 	int			textbox_qt;
 	int			checkbox_qt;
+	int			gauge_qt;
+	int			freetxt_qt;
 	t_button	**button;
 	t_scroll	**scroll;
 	t_textbox	**textbox;
 	t_checkbox	**checkbox;
+	t_gauge		**gauge;
+	t_freetxt	**freetxt;
 }				t_container;
 
 typedef struct	s_help
@@ -182,10 +216,14 @@ typedef struct	s_param
 	int			scroll_qt;
 	int			textbox_qt;
 	int			checkbox_qt;
+	int			gauge_qt;
+	int			freetxt_qt;
 	t_button	**button;
 	t_scroll	**scroll;
 	t_textbox	**textbox;
 	t_checkbox	**checkbox;
+	t_gauge		**gauge;
+	t_freetxt	**freetxt;
 	int			active;
 }				t_param;
 
@@ -303,8 +341,9 @@ void		gui_button_free(t_button *button);
 void		gui_write_button(char *text, t_button *button, char *color);
 
 /* TEXTBOX */
+t_textbox	*gui_textbox_init(void);
 void		gui_textbox_build(t_gui *gui);
-void		gui_textbox_set(t_textbox *textbox);
+void		gui_textbox_set(t_textbox *textbox, SDL_Rect dest);
 void		gui_textbox_get_len(t_textbox *textbox);
 void		gui_textbox_create_all(t_gui *gui);
 void		gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color);
@@ -327,6 +366,13 @@ void		gui_scroll_load_object(t_gui *gui);
 
 /* CHECKBOX */
 
+/* GAUGE */
+
+/* FREETXT */
+t_freetxt	*gui_freetxt_init(void);
+void		gui_freetxt_set(t_freetxt *freetxt, SDL_Rect dest);
+void		gui_freetxt_write(t_freetxt *freetxt, char *color);
+
 /* HELP */
 void		gui_help_toggle(t_gui *gui);
 void		gui_help_open(t_gui *gui);
@@ -347,6 +393,9 @@ void		gui_param_checkbox_get_bmp(t_gui *gui, t_checkbox *checkbox, char *file);
 void		gui_param_checkbox_display(t_gui *gui, t_checkbox *checkbox);
 void		gui_param_checkbox_create_all(t_gui *gui);
 void		gui_param_checkbox_toggle(t_gui *gui, t_checkbox *checkbox);
+t_button	*gui_param_button_init(void);
+t_gauge		*gui_gauge_init(void);
+void		gui_gauge_set(t_gauge *gauge);
 
 /* ERROR HANDLING */
 void		gui_error(int n);

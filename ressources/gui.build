@@ -41,9 +41,11 @@ PARAM MENU BUILDER:
 	w: 360
 	h: 530
 	button_qt: 0
-	scroll_qt: 1
-	textbox_qt: 0
+	scroll_qt: 2
+	textbox_qt: 3
 	checkbox_qt: 1
+	gauge_qt: 4
+	freetxt_qt: 1
 	scroll:
 		x: 2
 		y: 45
@@ -51,14 +53,89 @@ PARAM MENU BUILDER:
 		txt: "resolution"
 		txt_anchor: "parent"
 		txt_align: 0
-	checkbox:
-		x: 1
+		,
+		x: 2
 		y: 70
 		tag: "_AA"
-		selected: false
 		txt: "Anti-aliasing"
 		txt_anchor: "parent"
 		txt_align: 0
+	textbox:
+		x: 0
+		y: 150
+		tag: "_CX"
+		min: -99999
+		max: 99999
+		txt: "x"
+		txt_anchor: "this"
+		txt_align: 0
+		,
+		x: 1
+		y: 150
+		tag: "_CY"
+		min: -99999
+		max: 99999
+		txt: "y"
+		txt_anchor: "this"
+		txt_align: 0
+		,
+		x: 2
+		y: 150
+		tag: "_CZ"
+		min: -99999
+		max: 99999
+		txt: "z"
+		txt_anchor: "this"
+		txt_align: 0
+	checkbox:
+		x: 2
+		y: 470
+		tag: "PVW""
+		selected: false
+		txt: "Preview"
+		txt_anchor: "parent"
+		txt_align: 0
+	gauge:
+		x: 2
+		y: 200
+		tag: "DPH"
+		min: 0
+		max: 10
+		txt: "Depth"
+		txt_anchor: "parent"
+		txt_align: 0
+		,
+		x: 2
+		y: 250
+		tag: "FOV"
+		min: 30
+		max: 120
+		txt: "Field of view"
+		txt_anchor: "parent"
+		txt_align: 0
+		,
+		x: 2
+		y: 300
+		tag: "CON"
+		min: 0
+		max: 1
+		txt: "Contrast"
+		txt_anchor: "parent"
+		txt_align: 0
+		,
+		x: 2
+		y: 350
+		tag: "LUM"
+		min: 0
+		max: 1
+		txt: "Luminosity"
+		txt_anchor: "parent"
+		txt_align: 0
+	freetxt:
+		x: 0
+		y: 120
+		tag: "CAM"
+		txt: "Camera position"
 MAIN BUILDER:
 	x: 0
 	y: 0

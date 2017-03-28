@@ -48,6 +48,20 @@ void	gui_textbox_load_object(t_gui *gui)
 	}
 }
 
+t_textbox	*gui_textbox_init(void)
+{
+	t_textbox *textbox;
+
+	if (!(textbox = (t_textbox *)malloc(sizeof(t_textbox))))
+		error(1);
+	if (!(textbox->txt = (t_txt *)malloc(sizeof(t_txt))))
+		error(1);
+	textbox->surface = NULL;
+	textbox->bmp = NULL;
+	textbox->nature = TXB;
+	return (textbox);
+}
+
 void	gui_block_textbox_init(t_gui *gui, int id, int nb)
 {
 	int i;
@@ -59,8 +73,6 @@ void	gui_block_textbox_init(t_gui *gui, int id, int nb)
 	while (i < nb)
 	{
 		if ((TEXTBOX[i] = (t_textbox *)malloc(sizeof(t_textbox))) == NULL)
-			error(1);
-		if ((TEXTBOX[i]->value = (char *)malloc(sizeof(char) * 7)) == NULL)
 			error(1);
 		if ((TEXTBOX[i]->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
 			error(1);
@@ -85,45 +97,47 @@ void	gui_textbox_value_clear(t_textbox *textbox, int len)
 
 void		gui_textbox_get_len(t_textbox *textbox)
 {
-	if (ft_strstr(textbox->tag, "__X") || ft_strstr(textbox->tag, "__Y")
-		|| ft_strstr(textbox->tag, "__Z"))
+	char	*tag;
+
+	tag = ft_strdup(textbox->tag);
+	if (!ft_strcmp(tag, "__X") || !ft_strcmp(tag, "__Y")
+	|| !ft_strcmp(tag, "__Z") || !ft_strcmp(tag, "_CX")
+	|| !ft_strcmp(tag, "_CY") || !ft_strcmp(tag, "_CZ"))
 		textbox->maxlen = 6;
-	if (ft_strstr(textbox->tag, "_AX") || ft_strstr(textbox->tag, "_AY")
-		|| ft_strstr(textbox->tag, "_AZ"))
+	if (!ft_strcmp(tag, "_AX") || !ft_strcmp(tag, "_AY")
+		|| !ft_strcmp(tag, "_AZ"))
 		textbox->maxlen = 4;
-	if (ft_strstr(textbox->tag, "__R") || ft_strstr(textbox->tag, "__G")
-		|| ft_strstr(textbox->tag, "__B") || ft_strstr(textbox->tag, "__A"))
+	if (!ft_strcmp(tag, "__R") || !ft_strcmp(tag, "__G")
+		|| !ft_strcmp(tag, "__B") || !ft_strcmp(tag, "__A")
+		|| !ft_strcmp(tag, "RFL"))
 		textbox->maxlen = 3;
-	if (ft_strstr(textbox->tag, "RFR"))
+	if (!ft_strcmp(tag, "RFR"))
 		textbox->maxlen = 5;
-	if (ft_strstr(textbox->tag, "RFL"))
-		textbox->maxlen = 3;
+	free(tag);
 }
 
-void	gui_textbox_set_halign(t_textbox *textbox)
+void	gui_textbox_set_halign(t_textbox *textbox, SDL_Rect dest)
 {
-	t_gui	*gui;
-
-	gui = get_gui();
 	if (textbox->dest.x == GUI_ALIGN_LEFT)
-		textbox->dest.x = 50;
+		textbox->dest.x = dest.x + 50;
 	else if (textbox->dest.x == GUI_ALIGN_MID)
-		textbox->dest.x = (GUI_WIDTH / 2) - (textbox->dest.w / 2) + 10;
+		textbox->dest.x = ((dest.w + (dest.x * 2.5)) / 2) - (textbox->dest.w / 2) + 10;
 	else if (textbox->dest.x == GUI_ALIGN_RIGHT)
-		textbox->dest.x = GUI_WIDTH - (textbox->dest.w + 20);
+		textbox->dest.x = (dest.w + (dest.x * 1.5)) - (textbox->dest.w + 20);
 	else
 		textbox->dest.x = textbox->dest.x;
 }
 
-void	gui_textbox_set(t_textbox *textbox)
+void	gui_textbox_set(t_textbox *textbox, SDL_Rect dest)
 {
 	t_gui	*gui;
 
 	gui = get_gui();
-	textbox->dest.w = textbox->maxlen * (gui->dest.w / 32);
+	textbox->dest.w = textbox->maxlen * (PARAM->dest.w / 32);
 	textbox->dest.h = DEF->txb_h;
-	textbox->dest.y += BLOCK[textbox->p]->dest.y;
-	gui_textbox_set_halign(textbox);
+	if (textbox->p >= 0)
+		textbox->dest.y += BLOCK[textbox->p]->dest.y;
+	gui_textbox_set_halign(textbox, dest);
 }
 
 void	gui_textbox_create_all(t_gui *gui)
@@ -148,7 +162,6 @@ void	gui_textbox_create_all(t_gui *gui)
 				gui_widget_display(TEXTBOX[i]);
 				gui_widget_draw_in_line(TEXTBOX[i]->dest, 1, "black");
 				event_textbox_edit(gui, TEXTBOX[i], "black");
-
 				i++;
 			}
 			id++;

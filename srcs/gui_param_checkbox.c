@@ -22,9 +22,9 @@ void	gui_param_checkbox_set_halign(t_checkbox *checkbox)
 	if (checkbox->dest.x == GUI_ALIGN_LEFT)
 		checkbox->dest.x = PARAM->dest.x;
 	else if (checkbox->dest.x == GUI_ALIGN_MID)
-		checkbox->dest.x = (GUI_WIDTH / 2) - (checkbox->dest.w / 2);
+		checkbox->dest.x = (PARAM->dest.w / 2) - (checkbox->dest.w / 2);
 	else if (checkbox->dest.x == GUI_ALIGN_RIGHT)
-		checkbox->dest.x = GUI_WIDTH - checkbox->dest.w;
+		checkbox->dest.x = PARAM->dest.w - checkbox->dest.w;
 	else
 		checkbox->dest.x = checkbox->dest.x;
 }
