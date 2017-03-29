@@ -115,7 +115,7 @@ static t_color	trace_lights_2(t_env *e, t_ray_data d, t_light *light)
 	if ((data.z = vec_dot(&obj_to_light, &d.n)) < 0)
 		data.z = -data.z;
 	color = trace_lights_3(e, d, &obj_to_light, data.x);
-	if (!is_void_tcolor(color) && d.shorter->type != PLANE)
+	if (!is_void_tcolor(color))
 		return (calc_color(data.y, data.z, d.shorter, light));
 	return (shadow(color));
 }
@@ -123,12 +123,19 @@ static t_color	trace_lights_2(t_env *e, t_ray_data d, t_light *light)
 t_color			trace_lights(t_env *e, t_ray_data d, t_light *light)
 {
 	t_color		color;
+	t_color		save_color;
+	float		turb;
 
+	turb = turbulence(e->x, e->y, SMOOTH_NOISE);
 	color = void_tcolor();
+	save_color = d.shorter->color;
+	if (d.shorter->texture != NULL)
+		choose_texture(&d, turb);
 	while (light)
 	{
 		color_add(&color, trace_lights_2(e, d, light), 128);
 		light = light->next;
 	}
+	d.shorter->color = save_color;
 	return (color);
 }

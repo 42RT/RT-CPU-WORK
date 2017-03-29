@@ -54,6 +54,7 @@ t_obj		*new_obj(void)
 	res->reflect_k = DEF_REFLECT_K;
 	res->refract_k = DEF_REFRACT_K;
 	res->refract_ind = DEF_REFRACT_IND;
+	res->texture = NULL;
 	res->compose = 0;
 	res->next = 0;
 	return (res);

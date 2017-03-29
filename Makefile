@@ -6,7 +6,7 @@
 #    By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/15 01:15:01 by jrouilly          #+#    #+#              #
-#    Updated: 2017/02/09 12:39:27 by rfriscca         ###   ########.fr        #
+#    Updated: 2017/03/29 13:32:26 by rfriscca         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -99,7 +99,8 @@ SRC =		$(PATH_SRC)main.c \
 			$(PATH_SRC)gui_save.c \
 			$(PATH_SRC)gui_pixel_put.c \
 			$(PATH_SRC)gui_event.c \
-			$(PATH_SRC)error.c
+			$(PATH_SRC)error.c \
+			$(PATH_SRC)glass.c
 
 ifeq ($(UNAME_S),Darwin)
 	INC 	+=	-I ~/.brew/Cellar/sdl2/2.0.5/include/SDL2 \

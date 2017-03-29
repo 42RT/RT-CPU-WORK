@@ -73,10 +73,13 @@ void		parse(t_env *e, char *filename)
 {
 	char	*file;
 	t_item	*item;
+	int		i;
 
+	i = -1;
 	if (!(ft_check_valid_file(filename)))
 		parse_error();
 	file = ft_getfile(filename);
+	e->file = file;
 	if (!file)
 		parse_error();
 	while (file && *file)
@@ -91,7 +94,13 @@ void		parse(t_env *e, char *filename)
 			parse_light(e, item);
 		else
 			parse_object(e, item);
+		while (++i < item->setnb)
+			free(item->set[i]);
+		i = -1;
+		free(item->type);
+		free(item);
 	}
 	verif_set_validity(e);
 	ft_printf("File \"%s\" parsed.\n", filename);
+	free(e->file);
 }

@@ -93,6 +93,9 @@ void	parse_object(t_env *e, t_item *item)
 		obj->def.x = 1;
 		obj->def.z = 1;
 	}
+	if (obj->type == GLASS)
+		glass(obj);
+	//obj->texture = "marble";
 	obj->func = get_func(obj->type, obj->negative);
 	obj->normale = get_normale(obj->type);
 	obj->base = new_base();

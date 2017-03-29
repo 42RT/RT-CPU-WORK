@@ -27,7 +27,7 @@ void			*get_func(unsigned int i, int negative)
 		return (&trace_floor);
 	else if (i == DPLANE)
 		return (&trace_dfloor);
-	else if (i == CYLINDER && negative == 0)
+	else if ((i == CYLINDER || i == GLASS) && negative == 0)
 		return (&trace_cylinder);
 	else if (i == CONE)
 		return (&trace_cone);
@@ -57,7 +57,7 @@ void			*get_normale(unsigned int i)
 		return (&plane_normale);
 	else if (i == DPLANE)
 		return (&dplane_normale);
-	else if (i == CYLINDER)
+	else if (i == CYLINDER || i == GLASS)
 		return (&cylinder_normale);
 	else if (i == CONE)
 		return (&cone_normale);

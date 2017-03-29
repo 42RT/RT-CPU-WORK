@@ -50,9 +50,10 @@ int			add_next_set(t_item *item, char **file)
 		while (*s && (*s == ' ' || *s == '\n' || *s == '\r' || *s == '\t'))
 			++s;
 		item->set[item->setnb++] = ft_newstrcat_free(buff[0], buff[1]);
+		free(buff[0]);
 	}
 	else
-		buff[1] = "\0";
+		free(buff[0]);
 	*file = s;
 	return (1);
 }

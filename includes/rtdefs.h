@@ -103,6 +103,7 @@
 # define SQUARE				64
 # define CUBE				128
 # define PARABOLOID			256
+# define GLASS				512
 
 # define TTF_PATH			"./ressources/gui_font/"
 

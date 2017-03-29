@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 22:50:11 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/02/23 14:52:12 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/03/27 15:20:58 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@
 
 # define MAX_PARAM			100
 # define EPS				0.1
-# define NOISE_HEIGHT		128
-# define NOISE_WIDTH		128
+# define NOISE_HEIGHT		32
+# define NOISE_WIDTH		32
+# define SMOOTH_NOISE		32
 # define SPEC				30
 # define RAMBIENT			255
 # define GAMBIENT			255
@@ -42,6 +43,7 @@
 # define COEFSPEC			0.0
 # define COEFDIFFUSE		0.8
 # define COEFAMBIENT		0.2
+# define MAX_INT			2147483647
 
 typedef struct		s_vector
 {
@@ -110,6 +112,7 @@ typedef struct		s_obj
 	float			dst;
 	float			x1;
 	float			x2;
+	char			*texture;
 	struct s_obj	*compose;
 	struct s_obj	*next;
 }					t_obj;
@@ -134,10 +137,12 @@ typedef struct		s_env
 	t_obj			*obj;
 	t_obj			*neg_obj;
 	t_light			*light;
+	SDL_Surface		*surface;
+	char			*file;
 	float			last_refract;
 	float			x;
 	float			y;
-	float			noise[NOISE_HEIGHT][NOISE_WIDTH];
+	int				noise[NOISE_HEIGHT][NOISE_WIDTH];
 	int				inside_obj;
 	int				ac;
 	char			**av;
@@ -263,6 +268,7 @@ void				neg_cylinder_fill(t_obj *obj, t_equation *eq);
 ** Composed objects
 */
 void				compose_obj(t_obj *obj, t_equation *eq);
+void				glass(t_obj *obj);
 
 /*
 ** Objects normale
@@ -281,6 +287,12 @@ void				paraboloid_normale(t_vector *n, t_vector *o, t_obj *obj);
 ** Procedural textures
 */
 void				generate_noise(t_env *e);
+float				turbulence(float x, float y, float size);
+
+/*
+** Textures
+*/
+void				choose_texture(t_ray_data *d, float turb);
 
 /*
 ** Events

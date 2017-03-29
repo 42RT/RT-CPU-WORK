@@ -49,6 +49,7 @@ void		ft_printf_spec(char **str, va_list *ap)
 		ft_putstr(ft_hextoa(va_arg(*ap, unsigned int)));
 	if (**str == 'f')
 		ft_putfloat(va_arg(*ap, double));
+	free(st);
 }
 
 int			ft_printf(const char *format, ...)
