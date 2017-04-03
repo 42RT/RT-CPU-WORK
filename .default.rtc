@@ -1,7 +1,7 @@
 "settings": {
 	"height": 720,
 	"width": 1280,
-	"antialiasing": 0,
+	"antialiasing": 2,
 	"cam_pos_x": -1165.0,
 	"cam2_pos_x": -1169.046504,
 	"cam_pos_z": 3000,

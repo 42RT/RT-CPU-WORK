@@ -16,24 +16,12 @@ t_scroll	*gui_param_scroll_init(void)
 
 	if ((scroll = (t_scroll *)malloc(sizeof(t_scroll))) == NULL)
 		error(1);
-	scroll->nb_value = 6;
-	if ((scroll->value = (char **)malloc(sizeof(char *) * scroll->nb_value))
-	== NULL)
-		error(1);
 	if ((scroll->button = (t_button *)malloc(sizeof(t_button))) == NULL)
 		error(1);
 	if ((scroll->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
 		error(1);
 	if ((scroll->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
 		error(1);
-	scroll->value[0] = "param1";
-	scroll->value[1] = "param2";
-	scroll->value[2] = "param3";
-	scroll->value[3] = "param4";
-	scroll->value[4] = "param5";
-	scroll->value[5] = "param6";
-	scroll->active_value = 0;
-	scroll->mod = 0;
 	scroll->nature = SCL;
 	scroll->surface = NULL;
 	scroll->bmp = NULL;

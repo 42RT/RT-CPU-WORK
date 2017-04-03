@@ -48,6 +48,7 @@ void	gui_parse_param_scroll(t_gui *gui, int fd, int nb)
 				j++;
 			}
 			printf("(%d,%d,%s) [\"%s\",%s,%d]\n", PARAM_SCL->dest.x, PARAM_SCL->dest.y, PARAM_SCL->tag, PARAM_SCL->txt->content, PARAM_SCL->txt->anchor, PARAM_SCL->txt->align);
+			PARAM_SCL->value = gui_get_scroll_value(PARAM_SCL);
 			gui_param_scroll_set(PARAM_SCL);
 			i++;
 			if (i < nb)

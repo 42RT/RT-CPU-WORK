@@ -422,6 +422,7 @@ void		gui_main_refresh(t_gui *gui);
 void		gui_rt_reload(t_env *e, t_gui *gui, char *scene);
 void		gui_rt_reload_object(t_env *e, t_gui *gui);
 void		gui_apply_object(t_gui *gui);
+void		gui_apply_setting(t_gui *gui);
 void		gui_save_object(t_gui *gui, t_env *e);
 void		gui_anti_aliasing_set(int x, int y, int w, int h);
 #endif

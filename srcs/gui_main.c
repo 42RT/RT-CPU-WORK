@@ -23,6 +23,8 @@ t_gui		*get_gui(void)
 
 void		gui_rt_reload_object(t_env *e, t_gui *gui)
 {
+	if ((e->set->oldw != e->set->width) || (e->set->oldh != e->set->width))
+		rebuild_rt_window(e);
 	if (e->set->verbose)
 		print_debug(e);
 	if (!libxmlx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB))
@@ -115,9 +117,11 @@ t_gui		*gui_init(void)
 		gui_error(5);
 	gui_alloc();
 	gui = get_gui();
-	gui_parse_builder(gui, "./ressources/gui.build");
 	if (SDL_GetCurrentDisplayMode(0, gui->display) != 0)
 		gui_error(1);
+	gui->display->w = 1920;
+	gui->display->h = 1080;
+	gui_parse_builder(gui, "./ressources/gui.build");
 	//gui->dest.w = GUI_WIDTH;
 	//gui->dest.h = GUI_HEIGHT;
 	//gui->dest.x = ALT_SCREEN_CENTERED + 800;//(gui->display->w + DEF_IMG_WIDTH) / 2;

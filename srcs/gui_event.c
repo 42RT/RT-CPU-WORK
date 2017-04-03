@@ -275,6 +275,7 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 	{
 		gui_pending_action_prevent(gui);
 		gui_apply_object(gui);
+		gui_apply_setting(gui);
 		gui_rt_reload_object(env, gui);
 	}
 	else if (ft_strstr(action, "PARAM") != NULL)

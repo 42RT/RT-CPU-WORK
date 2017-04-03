@@ -62,6 +62,8 @@ typedef struct		s_settings
 {
 	unsigned int	width;
 	unsigned int	height;
+	unsigned int	oldw;
+	unsigned int	oldh;
 	unsigned int	aa;
 	unsigned int	deph;
 	unsigned int	reflect;
@@ -209,6 +211,7 @@ void				fill_pixel(t_env *e, t_obj *obj);
 void				launch_threads(t_th_data *data);
 void				change_cam(t_env *e);
 void				reload(t_env *e);
+void				rebuild_rt_window(t_env *e);
 int					get_pos(int *map, int res, int *nb);
 
 /*

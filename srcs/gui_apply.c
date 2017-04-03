@@ -39,3 +39,23 @@ void		gui_apply_object(t_gui *gui)
 	//printf("REFRACT : %s\n", gui->container[5]->textbox[0]->value);
 	tmp->refract_ind = ft_atof(gui->container[5]->textbox[0]->value);
 }
+
+void		gui_apply_setting(t_gui *gui)
+{
+	t_env		*e;
+	char	*ptr;
+	char	**tab;
+
+	e = get_env();
+	tab = ft_strsplit(PARAM->scroll[0]->value[PARAM->scroll[0]->active_value], 'x');
+	e->set->oldw = e->set->width;
+	e->set->oldh = e->set->height;
+	e->set->width = ft_atoi((const char *)tab[0]);
+	e->set->height = ft_atoi((const char *)tab[1]);
+	free(tab[0]);
+	free(tab[1]);
+	free(tab);
+	ptr = PARAM->scroll[1]->value[PARAM->scroll[1]->active_value];
+	e->set->aa = ft_atoi((const char *)ptr);
+	free(ptr);
+}

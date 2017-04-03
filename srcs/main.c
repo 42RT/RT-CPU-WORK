@@ -34,6 +34,11 @@ void		print_debug(t_env *e)
 	}
 }
 
+void		rebuild_rt_window(t_env *e)
+{
+	(void)e;
+}
+
 int			main(int ac, char **av)
 {
 	t_env		*e;
