@@ -22,12 +22,13 @@ void	event_mouse_click(SDL_Event event, t_env *env, t_gui *gui)
 {
 	if (event.button.button == SDL_BUTTON_LEFT)
 	{
-		if (!event_is_scroll(event, gui))
-			if (!event_is_checkbox(event, gui))
-				if (!event_is_button(event, env, gui))
-					if (!event_is_textbox(event, gui))
-						if (gui->widget_active)
-							event_widget_deselect(gui);
+		if (!event_is_gauge(event, gui))
+			if (!event_is_scroll(event, gui))
+				if (!event_is_checkbox(event, gui))
+					if (!event_is_button(event, env, gui))
+						if (!event_is_textbox(event, gui))
+							if (gui->widget_active)
+								event_widget_deselect(gui);
 	}
 }
 

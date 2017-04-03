@@ -96,7 +96,7 @@ void	gui_container_write_txt(void *widget, char *color)
 	else if (((REF *)widget)->txt->align == GUI_ALIGN_RIGHT)
 		TTF->rect.x = cX + GUI_WIDTH - TTF->w_px - GUI_FONT_BORDER_STEP;
 	else
-		TTF->rect.x = cX + ((REF *)widget)->dest.x;
+		TTF->rect.x = ((REF *)widget)->txt->align;
 	if (((REF *)widget)->nature == CNT)
 		TTF->rect.y = ((REF *)widget)->dest.y + 10;
 	else

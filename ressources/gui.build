@@ -30,6 +30,11 @@ DEFAULT_CHECKBOX:
 	size: 20
 	texture: "textbox_white.bmp"
 	texture_selected: "checbox_selected.bmp"
+DEFAULT_GAUGE:
+	w: 100
+	h: 10
+	texture: "gauge_rail.bmp"
+	cursor_texture: "gauge_cursor.bmp"
 HELP MENU BUILDER:
 	x: 20
 	y: 20

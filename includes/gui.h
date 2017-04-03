@@ -25,6 +25,7 @@
 # define PARAM_CBX PARAM->checkbox[i]
 # define PARAM_BTN PARAM->button[i]
 # define PARAM_GAU PARAM->gauge[i]
+# define PARAM_GAU_C PARAM_GAU->cursor
 # define PARAM_TXB PARAM->textbox[i]
 # define PARAM_FTT PARAM->freetxt[i]
 # define WIDGET gui->widget_active
@@ -170,6 +171,7 @@ typedef struct	s_gauge
 	int			id;
 	int			p;
 	char		*tag;
+	t_button	*cursor;
 	int			min;
 	int			max;
 }				t_gauge;
@@ -272,6 +274,10 @@ typedef struct	s_def_widget
 	int			cbx_size;
 	char		*cbx_texture;
 	char		*cbx_texture_selected;
+	int			gau_w;
+	int			gau_h;
+	char		*gau_texture;
+	char		*gau_cursor_texture;
 }				t_def_widget;
 
 typedef struct		s_gui
@@ -367,6 +373,7 @@ void		gui_scroll_load_object(t_gui *gui);
 /* CHECKBOX */
 
 /* GAUGE */
+void		gui_gauge_normalize_value(t_gauge *gauge);
 
 /* FREETXT */
 t_freetxt	*gui_freetxt_init(void);
@@ -404,6 +411,7 @@ void		gui_error(int n);
 int			event_scroll_mouse_wheel(SDL_Event event, t_gui *gui);
 int			event_is_scroll(SDL_Event event, t_gui *gui);
 int			event_is_checkbox(SDL_Event event, t_gui *gui);
+int			event_is_gauge(SDL_Event event, t_gui *gui);
 int			event_is_button(SDL_Event event, t_env *env, t_gui *gui);
 int			event_is_textbox(SDL_Event event, t_gui *gui);
 void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox);

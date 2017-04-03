@@ -213,6 +213,39 @@ void	gui_parse_def_checkbox(t_gui *gui, int fd, int nb)
 	printf("OK (%d,%s,%s)\n", DEF->cbx_size, DEF->cbx_texture, DEF->cbx_texture_selected);
 }
 
+void	gui_parse_def_gauge(t_gui *gui, int fd, int nb)
+{
+	char	**tmp;
+	int		i;
+	char	*line;
+
+	i = 0;
+	printf("parsing DEF GAU : ");
+	while (i < nb)
+	{
+		get_next_line(fd, &line);
+		tmp = ft_strsplit(line, ':');
+		if (!ft_strcmp(tmp[0], "\tw"))
+			DEF->gau_w = ft_atoi(tmp[1]);
+		if (!ft_strcmp(tmp[0], "\th"))
+			DEF->gau_h = ft_atoi(tmp[1]);
+		if (!ft_strcmp(tmp[0], "\ttexture"))
+		{
+			tmp = ft_strsplit(tmp[1], '"');
+			DEF->gau_texture = tmp[1];
+		}
+		if (!ft_strcmp(tmp[0], "\tcursor_texture"))
+		{
+			tmp = ft_strsplit(tmp[1], '"');
+			DEF->gau_cursor_texture = tmp[1];
+		}
+		free(tmp);
+		i++;
+	}
+	printf("OK (%d,%d,%s,%s)\n", DEF->gau_w, DEF->gau_h, DEF->gau_texture, DEF->gau_cursor_texture);
+}
+
+
 void	gui_parse_help_builder(t_gui *gui, int fd, int nb)
 {
 	char	**tmp;
@@ -258,6 +291,8 @@ void	gui_find_header(t_gui *gui, int fd, char *line)
 		gui_parse_def_button(gui, fd, 4);
 	else if (!ft_strcmp(line, "DEFAULT_CHECKBOX:"))
 		gui_parse_def_checkbox(gui, fd, 3);
+	else if (!ft_strcmp(line, "DEFAULT_GAUGE:"))
+		gui_parse_def_gauge(gui, fd, 4);
 	else if (!ft_strcmp(line, "HELP MENU BUILDER:"))
 		gui_parse_help_builder(gui, fd, 4);
 	else if (!ft_strcmp(line, "PARAM MENU BUILDER:"))

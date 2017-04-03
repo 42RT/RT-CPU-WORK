@@ -405,14 +405,43 @@ int			event_is_param_checkbox(SDL_Event event, t_gui *gui)
 		i++;
 	}
 	return (0);
-
 }
 
 int			event_is_checkbox(SDL_Event event, t_gui *gui)
 {
 	if (PARAM && PARAM->active == 1)
-		return(event_is_param_checkbox(event, gui));
+		return (event_is_param_checkbox(event, gui));
 	// main window checkbox research to be included here
+	return (0);
+}
+
+int			event_is_param_gauge(SDL_Event event, t_gui *gui)
+{
+	int	i;
+
+	i = 0;
+	while (i < PARAM->gauge_qt)
+	{
+		if ((event.button.x >= PARAM_GAU->dest.x) &&
+		(event.button.x <= PARAM_GAU->dest.x + PARAM_GAU->dest.w) &&
+		(event.button.y >= PARAM_GAU->dest.y) &&
+		(event.button.y <= PARAM_GAU->dest.y + PARAM_GAU->dest.h))
+		{
+			printf("EVENT : PARAM GAUGE [%d]\n", i);
+			PARAM_GAU_C->dest.x = event.button.x - (PARAM_GAU_C->dest.w / 2);
+			gui_main_refresh(gui);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int			event_is_gauge(SDL_Event event, t_gui *gui)
+{
+	if (PARAM && PARAM->active == 1)
+		return (event_is_param_gauge(event, gui));
+	// main window gauge research to be included here
 	return (0);
 }
 
@@ -422,29 +451,49 @@ int			event_is_textbox(SDL_Event event, t_gui *gui)
 	int i;
 
 	id = 0;
-	if (PARAM && PARAM->active == 1)
+	if (HELP && HELP->active == 1)
 		return (0); // a changer si textbox dans param
-	while (id < GUI_CONTAINER_TOTAL_NB && HELP && HELP->active == 0)
+	else if (PARAM && PARAM->active == 1)
 	{
-		if (BLOCK[id]->textbox == NULL)
-			id++;
-		else
+		i = 0;
+		while (i < PARAM->textbox_qt)
 		{
-			i = 0;
-			while (i < BLOCK[id]->textbox_qt)
+			if ((event.button.x >= PARAM_TXB->dest.x) &&
+			(event.button.x <= PARAM_TXB->dest.x + PARAM_TXB->dest.w) &&
+			(event.button.y >= PARAM_TXB->dest.y) &&
+			(event.button.y <= PARAM_TXB->dest.y + PARAM_TXB->dest.h))
 			{
-				if ((event.button.x >= TEXTBOX[i]->dest.x) &&
-				(event.button.x <= TEXTBOX[i]->dest.x + TEXTBOX[i]->dest.w) &&
-				(event.button.y >= TEXTBOX[i]->dest.y) &&
-				(event.button.y <= TEXTBOX[i]->dest.y + TEXTBOX[i]->dest.h))
-				{
-					printf("EVENT : TEXTBOX [%d][%d]\n", id, i);
-					event_textbox_select(gui, TEXTBOX[i]);
-					return (1);
-				}
-				i++;
+				printf("EVENT: PARAM TEXTBOX [%d]\n", i);
+				event_textbox_select(gui, PARAM_TXB);
+				return (1);
 			}
-			id++;
+			i++;
+		}
+	}
+	else
+	{
+		while (id < GUI_CONTAINER_TOTAL_NB)
+		{
+			if (BLOCK[id]->textbox == NULL)
+				id++;
+			else
+			{
+				i = 0;
+				while (i < BLOCK[id]->textbox_qt)
+				{
+					if ((event.button.x >= TEXTBOX[i]->dest.x) &&
+					(event.button.x <= TEXTBOX[i]->dest.x + TEXTBOX[i]->dest.w)
+					&& (event.button.y >= TEXTBOX[i]->dest.y) &&
+					(event.button.y <= TEXTBOX[i]->dest.y + TEXTBOX[i]->dest.h))
+					{
+						printf("EVENT : TEXTBOX [%d][%d]\n", id, i);
+						event_textbox_select(gui, TEXTBOX[i]);
+						return (1);
+					}
+					i++;
+				}
+				id++;
+			}
 		}
 	}
 	return (0);
