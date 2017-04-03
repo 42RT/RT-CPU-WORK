@@ -48,7 +48,6 @@ void	swap_cap(t_obj *obj)
 
 void	trace_cube_extend(t_obj *obj, t_vector o, t_vector v, float t[2])
 {
-	sub_vector(&o, &obj->pos);
 	swap_cap(obj);
 	if (v.x >= 0)
 	{
@@ -97,6 +96,7 @@ void	trace_cube(t_obj *obj, t_vector o, t_vector v)
 	float		t[2];
 	t_equation	eq;
 
+	sub_vector(&o, &obj->pos);
 	trace_cube_extend(obj, o, v, t);
 	if (obj->x1 > t[1] || t[0] > obj->x2)
 		obj->dst = -1;
