@@ -56,19 +56,19 @@ typedef struct		s_gfx
 /*
 ** init GFX before using it
 */
-void				*libxmlx_init(char *title, int res_x, int res_y,
-									unsigned int buff_nb);
+t_gfx				*libxmlx_init(char *title, int res_x, int res_y,
+									int buff_nb);
 void				libxmlx_exit(t_gfx *gfx, int ex);
 /*
 ** reload main window, and reset it if size changed
 */
-void				*libxmlx_reload(t_gfx *gfx, int res_x, int res_y,
-									unsigned int buff_nb);
+t_gfx				*libxmlx_reload(t_gfx *gfx, int res_x, int res_y,
+									int buff_nb);
 
 /*
 ** image creation and manipulation
 */
-void				*libxmlx_new_image(t_gfx *gfx, int res_x, int res_y);
+t_img				*libxmlx_new_image(t_gfx *gfx, int res_x, int res_y);
 void				libxmlx_destroy_image(t_img *img);
 void				libxmlx_pixel_put_to_image(t_img *img, int x, int y,
 												t_color color);

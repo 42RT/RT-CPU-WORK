@@ -36,7 +36,7 @@ void		print_debug(t_env *e)
 
 void		rebuild_rt_window(t_env *e)
 {
-	(void)e;
+	libxmlx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB);
 }
 
 int			main(int ac, char **av)

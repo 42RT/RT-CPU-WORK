@@ -14,7 +14,7 @@
 #include <libxmlx.h>
 #include <raytracer.h>
 
-void			*libxmlx_new_image(t_gfx *gfx, int res_x, int res_y)
+t_img			*libxmlx_new_image(t_gfx *gfx, int res_x, int res_y)
 {
 	t_img	*res;
 	int		i;

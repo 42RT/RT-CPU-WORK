@@ -14,11 +14,10 @@
 #include <libft.h>
 #include <libxmlx.h>
 
-void			*libxmlx_init(char *title, int res_x, int res_y,
-								unsigned int buff_nb)
+t_gfx			*libxmlx_init(char *title, int res_x, int res_y, int buff_nb)
 {
 	t_gfx			*res;
-	unsigned int	i;
+	int				i;
 
 	res = (void *)malloc(sizeof(t_gfx));
 	res->title = ft_strdup(title);
@@ -40,7 +39,7 @@ void			*libxmlx_init(char *title, int res_x, int res_y,
 		res->buff[i] = 0;
 	res->act = 0;
 	res->expose = 1;
-	return (res->renderer ? (void *)res : 0);
+	return (res->renderer ? res : 0);
 }
 
 void			libxmlx_loop(t_gfx *gfx)

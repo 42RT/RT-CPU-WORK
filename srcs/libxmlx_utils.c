@@ -45,21 +45,15 @@ void			libxmlx_change_screen(t_gfx *gfx, unsigned int nb)
 	libxmlx_display_image(gfx, 0, 0, gfx->buff[gfx->act]);
 }
 
-void			*libxmlx_reload(t_gfx *gfx, int res_x, int res_y,
-								unsigned int buff_nb)//////////////////////////////////////////////////////////////
+t_gfx			*libxmlx_reload(t_gfx *gfx, int res_x, int res_y,
+								int buff_nb)//////////////////////////////////////////////////////////////
 {
-	unsigned int	i;
+	int		i;
 
-	return (gfx);
 	if (res_x != gfx->buff[0]->width || res_y != gfx->buff[0]->height)
 	{
 		gfx->expose = 0;
-		//mlx_destroy_window(gfx->mlx, gfx->win);
-		//gfx->win = mlx_new_window(gfx->mlx, res_x, res_y,
-		//							gfx->title);
-		//gfx->screen = mlx_new_image(gfx->mlx, res_x, res_y);
-		//if (!gfx->screen)
-		//	return (0);
+		SDL_SetWindowSize(gfx->win, res_x, res_y);
 		i = -1;
 		buff_nb = (buff_nb < 5 ? buff_nb : 4);
 		while (++i < buff_nb)
@@ -71,5 +65,5 @@ void			*libxmlx_reload(t_gfx *gfx, int res_x, int res_y,
 			gfx->buff[i] = 0;
 		gfx->expose = 1;
 	}
-	return ((void *)gfx);
+	return (gfx);
 }
