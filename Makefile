@@ -28,7 +28,6 @@ SRC =		$(PATH_SRC)main.c \
 			$(PATH_SRC)ft_aff.c \
 			$(PATH_SRC)event.c \
 			$(PATH_SRC)expose_hook.c \
-			$(PATH_SRC)key_hook.c \
 			$(PATH_SRC)loading.c \
 			$(PATH_SRC)console.c \
 			$(PATH_SRC)cone.c \

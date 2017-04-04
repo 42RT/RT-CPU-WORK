@@ -46,6 +46,9 @@ void		delete_all_lights(t_env *e)
 
 void		reload(t_env *e)
 {
+	int		thread_ret;
+	e->worker_stop = 1;
+	SDL_WaitThread(e->worker, &thread_ret);
 	delete_all_obj(e);
 	delete_all_lights(e);
 	parse(e, e->av[1]);
@@ -54,7 +57,8 @@ void		reload(t_env *e)
 	if (!libxmlx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB))
 		exit (1);
 	loading_bar(e, 0, int_to_tcolor(0x1010A0), int_to_tcolor(0));
-	if (e->set->preview)
-		ft_aff_quick(e, e->obj);
-	ft_aff(e, e->obj);
+	ft_render(e);
+//	if (e->set->preview)
+//		ft_aff_quick(e, e->obj);
+//	ft_aff(e, e->obj);
 }

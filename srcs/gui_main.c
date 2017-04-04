@@ -23,16 +23,16 @@ t_gui		*get_gui(void)
 
 void		gui_rt_reload_object(t_env *e, t_gui *gui)
 {
+	int		thread_ret;
+
+	e->worker_stop = 1;
+	SDL_WaitThread(e->worker, &thread_ret);
 	if ((e->set->oldw != e->set->width) || (e->set->oldh != e->set->width))
-		rebuild_rt_window(e);
+		libxmlx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB);
 	if (e->set->verbose)
 		print_debug(e);
-	if (!libxmlx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB))
-		exit(1);
 	loading_bar(e, 0, int_to_tcolor(0x0101A0), int_to_tcolor(0));
-	if (e->set->preview)
-		ft_aff_quick(e, e->obj);
-	ft_aff(e, e->obj);
+	ft_render(e);
 	SDL_RaiseWindow(e->gfx->win);
 	gui_scroll_load_object(gui);
 	gui_textbox_load_object(gui);

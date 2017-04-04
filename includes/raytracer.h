@@ -140,8 +140,12 @@ typedef struct		s_env
 	t_obj			*neg_obj;
 	t_light			*light;
 	SDL_Surface		*surface;
+	SDL_Thread		*worker;
+	int				worker_stop;
+	int				rendering_preview;
 	char			*file;
 	float			last_refract;
+	int				remaining;
 	float			x;
 	float			y;
 	int				noise[NOISE_HEIGHT][NOISE_WIDTH];
@@ -211,7 +215,6 @@ void				fill_pixel(t_env *e, t_obj *obj);
 void				launch_threads(t_th_data *data);
 void				change_cam(t_env *e);
 void				reload(t_env *e);
-void				rebuild_rt_window(t_env *e);
 int					get_pos(int *map, int res, int *nb);
 
 /*
@@ -309,7 +312,8 @@ void				wait_event(t_env *e);
 /*
 ** rendering
 */
-void				ft_aff(t_env *e, t_obj *obj);
+void				ft_render(t_env *e);
+int					ft_aff(void *data);
 void				ft_aff_quick(t_env *e, t_obj *obj);
 void				ft_aff_random(t_env *e, t_obj *obj, int multithread);
 void				ft_aff_multithread(t_env *e, t_obj *obj);

@@ -34,11 +34,6 @@ void		print_debug(t_env *e)
 	}
 }
 
-void		rebuild_rt_window(t_env *e)
-{
-	libxmlx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB);
-}
-
 int			main(int ac, char **av)
 {
 	t_env		*e;
@@ -64,12 +59,16 @@ int			main(int ac, char **av)
 	if (e->set->verbose)
 		print_debug(e);
 	libxmlx_blitz_black_image(e->gfx, 0, 0);
-	if (e->set->preview)
-		ft_aff_quick(e, e->obj);
-	ft_aff(e, e->obj);
-	//libxmlx_exit(e->gfx, 0);
 	gui = gui_init();
 	SDL_RaiseWindow(e->gfx->win);
+
+	ft_render(e);
+
+
+	//if (e->set->preview)
+	//	ft_aff_quick(e, e->obj);
+//	ft_aff(e, e->obj);
+	//libxmlx_exit(e->gfx, 0);
 	while (1)
 		wait_event(e);
 	(void)gui;
