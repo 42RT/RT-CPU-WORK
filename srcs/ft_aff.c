@@ -51,9 +51,11 @@ void		ft_render(t_env *e)
 			usleep(16000);
 		}
 	}
-	SDL_WaitThread(e->worker, &thread_ret);
+	if (!(e->worker_stop))
+		SDL_WaitThread(e->worker, &thread_ret);
 	libxmlx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
 	e->worker = 0;
+	e->worker_stop = 1;
 }
 
 int			ft_aff(void *data)

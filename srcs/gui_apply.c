@@ -55,7 +55,7 @@ void		gui_apply_setting(t_gui *gui)
 	free(tab[0]);
 	free(tab[1]);
 	free(tab);
-	ptr = PARAM->scroll[1]->value[PARAM->scroll[1]->active_value];
+	ptr = ft_strdup(PARAM->scroll[1]->value[PARAM->scroll[1]->active_value]);
 	e->set->aa = ft_atoi((const char *)ptr);
 	free(ptr);
 }
