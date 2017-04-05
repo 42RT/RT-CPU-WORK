@@ -705,6 +705,9 @@ char	*gui_get_textbox_RFL(void)
 
 void	gui_get_textbox_value(t_textbox *textbox)
 {
+	t_env *e;
+
+	e = get_env();
 	gui_textbox_get_len(textbox);
 	if (!(textbox->value = (char *)malloc(sizeof(char) * textbox->maxlen)))
 		error(1);
