@@ -490,7 +490,7 @@ char	*gui_get_textbox_X(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_strdup(ft_itoa(tmp->pos.x)));
+	return (ft_itoa(tmp->pos.x));
 }
 
 char	*gui_get_textbox_Y(void)
@@ -509,7 +509,7 @@ char	*gui_get_textbox_Y(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_strdup(ft_itoa(tmp->pos.y)));
+	return (ft_itoa(tmp->pos.y));
 }
 
 char	*gui_get_textbox_Z(void)
@@ -528,7 +528,7 @@ char	*gui_get_textbox_Z(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_strdup(ft_itoa(tmp->pos.z)));
+	return (ft_itoa(tmp->pos.z));
 }
 
 char	*gui_get_textbox_AX(void)
@@ -547,7 +547,7 @@ char	*gui_get_textbox_AX(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_strdup(ft_itoa(tmp->ang.x / M_PI_2 * 90)));
+	return (ft_itoa(tmp->ang.x / M_PI_2 * 90));
 }
 
 char	*gui_get_textbox_AY(void)
@@ -566,7 +566,7 @@ char	*gui_get_textbox_AY(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_strdup(ft_itoa(tmp->ang.y / M_PI_2 * 90)));
+	return (ft_itoa(tmp->ang.y / M_PI_2 * 90));
 }
 
 char	*gui_get_textbox_AZ(void)
@@ -585,7 +585,7 @@ char	*gui_get_textbox_AZ(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_strdup(ft_itoa(tmp->ang.z / M_PI_2 * 90)));
+	return (ft_itoa(tmp->ang.z / M_PI_2 * 90));
 }
 
 char	*gui_get_textbox_R(void)
@@ -681,7 +681,7 @@ char	*gui_get_textbox_RFR(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_strdup(ft_ftoa(tmp->refract_ind, 3)));
+	return (ft_ftoa(tmp->refract_ind, 3));
 }
 
 char	*gui_get_textbox_RFL(void)
@@ -700,37 +700,7 @@ char	*gui_get_textbox_RFL(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_strdup(ft_itoa(tmp->reflect_k)));
-}
-
-char	*gui_get_textbox_CX(void)
-{
-	t_env	*e;
-	char	*get;
-
-	e = get_env();
-	get = ft_strdup(ft_itoa(e->set->cam->pos.x));
-	return (get);
-}
-
-char	*gui_get_textbox_CY(void)
-{
-	t_env	*e;
-	char	*get;
-
-	e = get_env();
-	get = ft_strdup(ft_itoa(e->set->cam->pos.y));
-	return (get);
-}
-
-char	*gui_get_textbox_CZ(void)
-{
-	t_env	*e;
-	char	*get;
-
-	e = get_env();
-	get = ft_strdup(ft_itoa(e->set->cam->pos.z));
-	return (get);
+	return (ft_itoa(tmp->reflect_k));
 }
 
 void	gui_get_textbox_value(t_textbox *textbox)
@@ -763,11 +733,11 @@ void	gui_get_textbox_value(t_textbox *textbox)
 	else if (!ft_strcmp(textbox->tag, "RFL"))
 		textbox->value = gui_get_textbox_RFL();
 	else if (!ft_strcmp(textbox->tag, "_CX"))
-		textbox->value = gui_get_textbox_CX();
+		textbox->value = ft_itoa(e->set->cam->pos.x);
 	else if (!ft_strcmp(textbox->tag, "_CY"))
-		textbox->value = gui_get_textbox_CY();
+		textbox->value = ft_itoa(e->set->cam->pos.y);
 	else if (!ft_strcmp(textbox->tag, "_CZ"))
-		textbox->value = gui_get_textbox_CZ();
+		textbox->value = ft_itoa(e->set->cam->pos.z);
 	else
 	{
 		gui_textbox_value_clear(textbox, textbox->maxlen);
