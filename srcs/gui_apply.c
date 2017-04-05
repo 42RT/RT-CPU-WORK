@@ -61,5 +61,4 @@ void		gui_apply_setting(t_gui *gui)
 	e->set->deph = (unsigned int)(PARAM->gauge[0]->active_value + 1);
 	e->set->fov = (unsigned int)PARAM->gauge[1]->active_value;
 	e->set->preview = PARAM->checkbox[0]->selected;
-	printf("PREVIEW : %d : %d\n", e->set->preview, PARAM->checkbox[0]->selected);
 }
