@@ -172,6 +172,9 @@ typedef struct	s_gauge
 	int			p;
 	char		*tag;
 	t_button	*cursor;
+	float		active_value;
+	float		mod;
+	int			norm;
 	int			min;
 	int			max;
 }				t_gauge;
@@ -371,9 +374,12 @@ void		gui_scroll_value_write(t_gui *gui, t_scroll *scroll, char *color);
 void		gui_scroll_load_object(t_gui *gui);
 
 /* CHECKBOX */
+void		gui_checkbox_get_state(t_checkbox *checkbox);
 
 /* GAUGE */
-void		gui_gauge_normalize_value(t_gauge *gauge);
+void		gui_gauge_convert_value(t_gauge *gauge);
+void		gui_gauge_get_value(t_gauge *gauge);
+float		gui_gauge_get_norm(t_gauge *gauge);
 
 /* FREETXT */
 t_freetxt	*gui_freetxt_init(void);

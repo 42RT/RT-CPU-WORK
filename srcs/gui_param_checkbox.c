@@ -63,6 +63,17 @@ void	gui_param_checkbox_create_all(t_gui *gui)
 	}
 }
 
+void	gui_checkbox_get_state(t_checkbox *checkbox)
+{
+	t_env *e;
+
+	e = get_env();
+	if (!ft_strcmp(checkbox->tag, "PVW"))
+		checkbox->selected = e->set->preview;
+	else
+		checkbox->selected = 0;
+}
+
 void	gui_param_checkbox_enable(t_gui *gui, t_checkbox *checkbox)
 {
 	if (WIDGET)

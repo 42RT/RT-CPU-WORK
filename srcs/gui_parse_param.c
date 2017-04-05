@@ -118,6 +118,7 @@ void	gui_parse_param_checkbox(t_gui *gui, int fd, int nb)
 				j++;
 			}
 			printf("(%d,%d,%s,%d) [\"%s\",%s,%d]\n", PARAM_CBX->dest.x, PARAM_CBX->dest.y, PARAM_CBX->tag, PARAM_CBX->selected, PARAM_CBX->txt->content, PARAM_CBX->txt->anchor, PARAM_CBX->txt->align);
+			gui_checkbox_get_state(PARAM_CBX);
 			gui_param_checkbox_set(PARAM_CBX);
 			i++;
 			if (i < nb)
@@ -317,6 +318,7 @@ void	gui_parse_param_gauge(t_gui *gui, int fd, int nb)
 			}
 			printf("(%d,%d,%s) [%d,%d,\"%s\",%s,%d]\n", PARAM_GAU->dest.x, PARAM_GAU->dest.y, PARAM_GAU->tag, PARAM_GAU->min, PARAM_GAU->max, PARAM_GAU->txt->content, PARAM_GAU->txt->anchor, PARAM_GAU->txt->align);
 			gui_gauge_set(PARAM_GAU);
+			gui_gauge_get_value(PARAM_GAU);
 			i++;
 			if (i < nb)
 			{

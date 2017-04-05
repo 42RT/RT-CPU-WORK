@@ -703,6 +703,36 @@ char	*gui_get_textbox_RFL(void)
 	return (ft_strdup(ft_itoa(tmp->reflect_k)));
 }
 
+char	*gui_get_textbox_CX(void)
+{
+	t_env	*e;
+	char	*get;
+
+	e = get_env();
+	get = ft_strdup(ft_itoa(e->set->cam->pos.x));
+	return (get);
+}
+
+char	*gui_get_textbox_CY(void)
+{
+	t_env	*e;
+	char	*get;
+
+	e = get_env();
+	get = ft_strdup(ft_itoa(e->set->cam->pos.y));
+	return (get);
+}
+
+char	*gui_get_textbox_CZ(void)
+{
+	t_env	*e;
+	char	*get;
+
+	e = get_env();
+	get = ft_strdup(ft_itoa(e->set->cam->pos.z));
+	return (get);
+}
+
 void	gui_get_textbox_value(t_textbox *textbox)
 {
 	gui_textbox_get_len(textbox);
@@ -732,6 +762,12 @@ void	gui_get_textbox_value(t_textbox *textbox)
 		textbox->value = gui_get_textbox_RFR();
 	else if (!ft_strcmp(textbox->tag, "RFL"))
 		textbox->value = gui_get_textbox_RFL();
+	else if (!ft_strcmp(textbox->tag, "_CX"))
+		textbox->value = gui_get_textbox_CX();
+	else if (!ft_strcmp(textbox->tag, "_CY"))
+		textbox->value = gui_get_textbox_CY();
+	else if (!ft_strcmp(textbox->tag, "_CZ"))
+		textbox->value = gui_get_textbox_CZ();
 	else
 	{
 		gui_textbox_value_clear(textbox, textbox->maxlen);

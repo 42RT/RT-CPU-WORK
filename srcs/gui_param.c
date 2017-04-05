@@ -90,7 +90,6 @@ void	gui_param_gauge_create_all(t_gui *gui)
 	{
 		gui_widget_texture_get_bmp(PARAM_GAU, DEF->gau_texture);
 		gui_widget_display(PARAM_GAU);
-		//gui_scroll_value_write(gui, PARAM_SCL, "black");
 		gui_widget_texture_get_bmp(PARAM_GAU_C, DEF->gau_cursor_texture);
 		gui_widget_display(PARAM_GAU_C);
 		i++;
@@ -148,7 +147,7 @@ void	gui_param_text_build(t_gui *gui)
 			PARAM_GAU->txt->align = 315;
 			tmp = ft_strdup(PARAM_GAU->txt->content);
 			free(PARAM_GAU->txt->content);
-			gui_gauge_normalize_value(PARAM_GAU);
+			gui_gauge_convert_value(PARAM_GAU);
 			gui_widget_write_txt(PARAM_GAU, "white");
 			free(PARAM_GAU->txt->content);
 			PARAM_GAU->txt->content = ft_strdup(tmp);

@@ -430,6 +430,8 @@ int			event_is_param_gauge(SDL_Event event, t_gui *gui)
 		{
 			printf("EVENT : PARAM GAUGE [%d]\n", i);
 			PARAM_GAU_C->dest.x = event.button.x - (PARAM_GAU_C->dest.w / 2);
+			PARAM_GAU->active_value = (PARAM_GAU_C->dest.x - PARAM_GAU->dest.x) + 5;
+			PARAM_GAU->active_value = gui_gauge_get_norm(PARAM_GAU);
 			gui_main_refresh(gui);
 			return (1);
 		}
