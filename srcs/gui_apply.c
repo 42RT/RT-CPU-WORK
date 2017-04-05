@@ -60,5 +60,8 @@ void		gui_apply_setting(t_gui *gui)
 	free(ptr);
 	e->set->deph = (unsigned int)(PARAM->gauge[0]->active_value + 1);
 	e->set->fov = (unsigned int)PARAM->gauge[1]->active_value;
+	e->set->cam->pos.x = ft_atof(PARAM->textbox[0]->value);
+	e->set->cam->pos.y = ft_atof(PARAM->textbox[1]->value);
+	e->set->cam->pos.z = ft_atof(PARAM->textbox[2]->value);
 	e->set->preview = PARAM->checkbox[0]->selected;
 }
