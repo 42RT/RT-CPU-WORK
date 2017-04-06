@@ -32,8 +32,10 @@ void		gui_apply_object(t_gui *gui)
 		tmp->procedural = NULL;
 	else
 		tmp->procedural = ft_strdup(GUI_SCL_PCD_VALUE);
-	printf("%s\n", GUI_SCL_NML_VALUE);
-	tmp->texture = ft_strdup(GUI_SCL_NML_VALUE);
+	if (!ft_strcmp(GUI_SCL_NML_VALUE, "none"))
+		tmp->texture = NULL;
+	else
+		tmp->texture = ft_strdup(GUI_SCL_NML_VALUE);
 	if (tmp->texture)
 		Load_Texture(tmp);
 	//if (tmp->normalmap)
