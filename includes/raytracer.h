@@ -303,6 +303,8 @@ float				turbulence(float x, float y, float size);
 ** Textures
 */
 void				choose_texture(t_ray_data *d, float turb);
+void				Load_Texture(t_obj *obj);
+void				Load_Normalmap(t_obj *obj);
 t_vector			get_normalmap(SDL_Surface *surface, int x, int y);
 
 /*
