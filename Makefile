@@ -13,6 +13,7 @@
 NAME = raytracer
 
 PATH_SRC = srcs/
+PATH_GUI = $(PATH_SRC)gui/
 PATH_LIB = lib/
 UNAME_S =	$(shell uname -s)
 THREADS =	$(shell grep -c ^processor /proc/cpuinfo)
@@ -75,31 +76,31 @@ SRC =		$(PATH_SRC)main.c \
 			$(PATH_SRC)cube.c \
 			$(PATH_SRC)other_primitive.c \
 			$(PATH_SRC)procedural.c \
-			$(PATH_SRC)gui_error.c \
-			$(PATH_SRC)gui_widget_tool.c \
-			$(PATH_SRC)gui_background.c \
-			$(PATH_SRC)gui_container.c \
-			$(PATH_SRC)gui_button.c \
-			$(PATH_SRC)gui_textbox.c \
-			$(PATH_SRC)gui_scroll.c \
-			$(PATH_SRC)gui_gauge.c \
-			$(PATH_SRC)gui_freetxt.c \
-			$(PATH_SRC)gui_help.c \
-			$(PATH_SRC)gui_param.c \
-			$(PATH_SRC)gui_param_checkbox.c \
-			$(PATH_SRC)gui_param_button.c \
-			$(PATH_SRC)gui_main.c \
-			$(PATH_SRC)gui_ttf.c \
-			$(PATH_SRC)gui_anti_aliasing.c \
-			$(PATH_SRC)gui_parse.c \
-			$(PATH_SRC)gui_parse_param.c \
-			$(PATH_SRC)gui_parse_main.c \
-			$(PATH_SRC)gui_apply.c \
-			$(PATH_SRC)gui_save.c \
-			$(PATH_SRC)gui_pixel_put.c \
-			$(PATH_SRC)gui_event.c \
 			$(PATH_SRC)error.c \
-			$(PATH_SRC)glass.c
+			$(PATH_SRC)glass.c \
+			$(PATH_GUI)gui_error.c \
+			$(PATH_GUI)gui_widget_tool.c \
+			$(PATH_GUI)gui_background.c \
+			$(PATH_GUI)gui_container.c \
+			$(PATH_GUI)gui_button.c \
+			$(PATH_GUI)gui_textbox.c \
+			$(PATH_GUI)gui_scroll.c \
+			$(PATH_GUI)gui_gauge.c \
+			$(PATH_GUI)gui_freetxt.c \
+			$(PATH_GUI)gui_help.c \
+			$(PATH_GUI)gui_param.c \
+			$(PATH_GUI)gui_param_checkbox.c \
+			$(PATH_GUI)gui_param_button.c \
+			$(PATH_GUI)gui_main.c \
+			$(PATH_GUI)gui_ttf.c \
+			$(PATH_GUI)gui_anti_aliasing.c \
+			$(PATH_GUI)gui_parse.c \
+			$(PATH_GUI)gui_parse_param.c \
+			$(PATH_GUI)gui_parse_main.c \
+			$(PATH_GUI)gui_apply.c \
+			$(PATH_GUI)gui_save.c \
+			$(PATH_GUI)gui_pixel_put.c \
+			$(PATH_GUI)gui_event.c
 
 ifeq ($(UNAME_S),Darwin)
 	INC 	+=	-I ~/.brew/Cellar/sdl2/2.0.5/include/SDL2 \
