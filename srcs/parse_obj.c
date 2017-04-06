@@ -60,7 +60,7 @@ void	Load_Texture(t_obj *obj)
 	path = ft_strjoin("ressources/textures/", obj->texture);
 	path2 = ft_strjoin(path, ".bmp");
 	free(path);
-	obj->surface = SDL_LoadBMP(path);
+	obj->surface = SDL_LoadBMP(path2);
 	if (obj->surface)
 	{
 		obj->tex_surface = SDL_CreateRGBSurface(SDL_SWSURFACE, obj->surface->w,
@@ -117,7 +117,7 @@ void	parse_object(t_env *e, t_item *item)
 	}
 	if (obj->type == GLASS)
 		glass(obj);
-	obj->texture = "jenexistepas";
+	obj->texture = "test";
 	Load_Texture(obj);
 	obj->func = get_func(obj->type, obj->negative);
 	obj->normale = get_normale(obj->type);
