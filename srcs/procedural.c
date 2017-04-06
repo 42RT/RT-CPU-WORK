@@ -41,6 +41,17 @@ t_color			skybox(float turb)
 	return (color);
 }
 
+t_color			perlin(t_color objcolor, float turb)
+{
+	t_color			color;
+
+	turb /= 255;
+	color.r = objcolor.r * turb;
+	color.g = objcolor.g * turb;
+	color.b = objcolor.b * turb;
+	return (color);
+}
+
 t_color			square(t_env *e, t_obj *obj, float turb)
 {
 	t_color 		color;
@@ -82,21 +93,20 @@ void			choose_texture(t_ray_data *d, float turb)
 	t_env			*e;
 
 	e = get_env();
-	if (!e->surface)
-		e->surface = SDL_LoadBMP("textures/PoolWater.bmp");
 	if (!ft_strncmp(d->shorter->texture, "marble", 6))
 		d->shorter->color = stripe(e, d->shorter, turb);
-	else if (!ft_strncmp(d->shorter->texture, "bricks", 6))
+	else if (!ft_strncmp(d->shorter->texture, "stripe", 6))
+		d->shorter->color = stripe(e, d->shorter, 0);
+	else if (!ft_strncmp(d->shorter->texture, "square", 6))
+		d->shorter->color = square(e, d->shorter, 0);
+	else if (!ft_strncmp(d->shorter->texture, "perlin", 6))
+		d->shorter->color = perlin(d->shorter->color, turb);
+	else if (d->shorter->tex_surface)
 	{
-		SDL_LockSurface(e->surface);
-		if (e->surface == NULL)
-		{
-			ft_printf("Can't load bricks.bmp");
-			exit(1);
-		}
-		d->shorter->color = get_pixel(e->surface, (int)e->x,
+		SDL_LockSurface(d->shorter->tex_surface);
+		d->shorter->color = get_pixel(d->shorter->tex_surface, (int)e->x,
 			(int)e->y);
-		SDL_UnlockSurface(e->surface);
+		SDL_UnlockSurface(d->shorter->tex_surface);
 	}
 }
 

@@ -97,6 +97,8 @@ typedef struct		s_obj
 	float			coef_ambient;
 	float			coef_diffuse;
 	float			coef_spec;
+	SDL_Surface		*surface;
+	SDL_Surface		*tex_surface;
 	t_vector		pos;
 	t_vector		ang;
 	t_vector		exp;
@@ -139,7 +141,6 @@ typedef struct		s_env
 	t_obj			*obj;
 	t_obj			*neg_obj;
 	t_light			*light;
-	SDL_Surface		*surface;
 	SDL_Thread		*worker;
 	int				worker_stop;
 	int				rendering_preview;

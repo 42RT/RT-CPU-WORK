@@ -52,6 +52,28 @@ void	add_obj(t_env *e, t_obj *obj)
 	}
 }
 
+void	Load_Texture(t_obj *obj)
+{
+	char	*path;
+	char	*path2;
+
+	path = ft_strjoin("ressources/textures/", obj->texture);
+	path2 = ft_strjoin(path, ".bmp");
+	free(path);
+	obj->surface = SDL_LoadBMP(path);
+	if (obj->surface)
+	{
+		obj->tex_surface = SDL_CreateRGBSurface(SDL_SWSURFACE, obj->surface->w,
+			obj->surface->h, 32, 0x00ff0000, 0x0000ff00, 0x000000ff,
+			0xff000000);
+		SDL_BlitSurface(obj->surface, NULL, obj->tex_surface, NULL);
+		SDL_FreeSurface(obj->surface);
+	}
+	else
+		obj->tex_surface = NULL;
+	free(path2);
+}
+
 void	parse_object(t_env *e, t_item *item)
 {
 	t_obj	*obj;
@@ -95,7 +117,8 @@ void	parse_object(t_env *e, t_item *item)
 	}
 	if (obj->type == GLASS)
 		glass(obj);
-	//obj->texture = "marble";
+	obj->texture = "jenexistepas";
+	Load_Texture(obj);
 	obj->func = get_func(obj->type, obj->negative);
 	obj->normale = get_normale(obj->type);
 	obj->base = new_base();
