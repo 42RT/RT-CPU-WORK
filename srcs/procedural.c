@@ -18,7 +18,7 @@ t_color			get_pixel(SDL_Surface *surface, int x, int y)
 	t_color			color;
 
 	x = x % surface->w;
-	y = y % surface->h / 2;
+	y = y % surface->h;
 	pixels = (unsigned int *)surface->pixels;
 	color.r = (pixels[(y * surface->w) + x] & surface->format->Rmask) >> 16;
 	color.g = (pixels[(y * surface->w) + x] & surface->format->Gmask) >> 8;
