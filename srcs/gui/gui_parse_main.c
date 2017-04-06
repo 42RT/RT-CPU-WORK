@@ -409,6 +409,85 @@ char	**gui_get_scroll_res(t_scroll *scroll)
 		return (gui_get_exotic_res(scroll, e));
 }
 
+char	**gui_get_scroll_texture_nml(t_scroll *scroll)
+{
+	DIR				*rep;
+	struct dirent	*rfile;
+	int				i;
+	FILE			*sortie;
+	char			*lu;
+	char			**value;
+	char			**tmp;
+
+	rep = NULL;
+	i = 1;
+	sortie = popen("find ./ressources/textures/*.bmp | wc -l", "r");
+	if ((lu = (char *)malloc(sizeof(char) * 2)) == NULL)
+		error(1);
+	fread(lu, sizeof(char), 2, sortie);
+	scroll->nb_value = ft_atoi(lu) + 1;
+	free(lu);
+	scroll->active_value = 0;
+	scroll->mod = 0;
+	if (!(value = (char **)malloc(sizeof(char *) * scroll->nb_value)))
+		error(1);
+	if (!(rep = opendir("./ressources/textures")))
+		gui_error(13);
+	value[0] = ft_strdup("none");
+	while ((rfile = readdir(rep)))
+	{
+		if (ft_strcmp(rfile->d_name, ".") && ft_strcmp(rfile->d_name, ".."))
+		{
+			tmp = ft_strsplit(rfile->d_name, '.');
+			value[i++] = ft_strdup(tmp[0]);
+			printf("nml : %s\n", value[i - 1]);
+			free(tmp);
+		}
+	}
+	if (closedir(rep) == -1)
+		gui_error(14);
+	return (value);
+}
+
+char	**gui_get_scroll_texture_pcd(t_scroll *scroll)
+{
+	char	**value;
+	t_obj	*tmp;
+	t_env	*e;
+	t_gui	*gui;
+	int		i;
+
+	scroll->nb_value = 5;
+	if (!(value = (char **)malloc(sizeof(char *) * scroll->nb_value)))
+		error(1);
+	value[0] = ft_strdup("none");
+	value[1] = ft_strdup("perlin");
+	value[2] = ft_strdup("square");
+	value[3] = ft_strdup("stripe");
+	value[4] = ft_strdup("marble");
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	if (!ft_strcmp(tmp->procedural, "perlin"))
+		scroll->active_value = 1;
+	else if (!ft_strcmp(tmp->procedural, "square"))
+		scroll->active_value = 2;
+	else if (!ft_strcmp(tmp->procedural, "stripe"))
+		scroll->active_value = 3;
+	else if (!ft_strcmp(tmp->procedural, "marble"))
+		scroll->active_value = 4;
+	else
+		scroll->active_value = 0;
+	scroll->mod = 0;
+	return (value);
+}
+
 char	**gui_get_scroll_value(t_scroll *scroll)
 {
 	char	**value;
@@ -421,6 +500,10 @@ char	**gui_get_scroll_value(t_scroll *scroll)
 		return (gui_get_scroll_aa(scroll));
 	else if (!ft_strcmp(scroll->tag, "RES"))
 		return (gui_get_scroll_res(scroll));
+	else if (!ft_strcmp(scroll->tag, "NML"))
+		return (gui_get_scroll_texture_nml(scroll));
+	else if (!ft_strcmp(scroll->tag, "PCD"))
+		return (gui_get_scroll_texture_pcd(scroll));
 	else
 	{
 		scroll->nb_value = 10;

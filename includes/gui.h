@@ -59,6 +59,11 @@
 # define GUI_CONTAINER_RESIZED ((gui->height - \
 	GUI_CONTAINER_RESERVED) / GUI_CONTAINER_DYNAMIC_NB)
 
+# define GUI_SCL_PCD_VALUE BLOCK[7]->scroll[0]->value[\
+	BLOCK[7]->scroll[0]->active_value]
+# define GUI_SCL_NML_VALUE BLOCK[7]->scroll[1]->value[\
+	BLOCK[7]->scroll[1]->active_value]
+
 typedef enum
 {
 				BTN,
