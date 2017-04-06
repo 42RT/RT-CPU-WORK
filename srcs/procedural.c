@@ -12,6 +12,23 @@
 
 #include <raytracer.h>
 
+t_vector		get_normalmap(SDL_Surface *surface, int x, int y)
+{
+	unsigned int	*pixels;
+	t_vector		n;
+
+	x = x % surface->w;
+	y = y % surface->h;
+	pixels = (unsigned int *)surface->pixels;
+	n.x = (pixels[(y * surface->w) + x] & surface->format->Rmask) >> 16;
+	n.y = (pixels[(y * surface->w) + x] & surface->format->Gmask) >> 8;
+	n.z = pixels[(y * surface->w) + x] & surface->format->Bmask;
+	n.x = n.x / 255 * 2 - 1;
+	n.y = n.y / 255 * 2 - 1;
+	n.z = n.z / 255 * 2 - 1;
+	return (n);
+}
+
 t_color			get_pixel(SDL_Surface *surface, int x, int y)
 {
 	unsigned int	*pixels;

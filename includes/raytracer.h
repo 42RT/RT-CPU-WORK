@@ -98,6 +98,7 @@ typedef struct		s_obj
 	float			coef_diffuse;
 	float			coef_spec;
 	SDL_Surface		*surface;
+	SDL_Surface		*nm_surface;
 	SDL_Surface		*tex_surface;
 	t_vector		pos;
 	t_vector		ang;
@@ -117,6 +118,7 @@ typedef struct		s_obj
 	float			x1;
 	float			x2;
 	char			*texture;
+	char			*normalmap;
 	struct s_obj	*compose;
 	struct s_obj	*next;
 }					t_obj;
@@ -300,6 +302,7 @@ float				turbulence(float x, float y, float size);
 ** Textures
 */
 void				choose_texture(t_ray_data *d, float turb);
+t_vector			get_normalmap(SDL_Surface *surface, int x, int y);
 
 /*
 ** Events

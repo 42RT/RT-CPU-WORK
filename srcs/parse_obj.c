@@ -74,6 +74,28 @@ void	Load_Texture(t_obj *obj)
 	free(path2);
 }
 
+void	Load_Normalmap(t_obj *obj)
+{
+	char	*path;
+	char	*path2;
+
+	path = ft_strjoin("ressources/normalmap/", obj->normalmap);
+	path2 = ft_strjoin(path, ".bmp");
+	free(path);
+	obj->surface = SDL_LoadBMP(path2);
+	if (obj->surface)
+	{
+		obj->nm_surface = SDL_CreateRGBSurface(SDL_SWSURFACE, obj->surface->w,
+			obj->surface->h, 32, 0x00ff0000, 0x0000ff00, 0x000000ff,
+			0xff000000);
+		SDL_BlitSurface(obj->surface, NULL, obj->nm_surface, NULL);
+		SDL_FreeSurface(obj->surface);
+	}
+	else
+		obj->nm_surface = NULL;
+	free(path2);
+}
+
 void	parse_object(t_env *e, t_item *item)
 {
 	t_obj	*obj;
@@ -117,8 +139,12 @@ void	parse_object(t_env *e, t_item *item)
 	}
 	if (obj->type == GLASS)
 		glass(obj);
-	obj->texture = "test";
-	Load_Texture(obj);
+	obj->texture = "Water";
+	obj->normalmap = "normalmap";
+	if (obj->texture)
+		Load_Texture(obj);
+	if (obj->normalmap)
+		Load_Normalmap(obj);
 	obj->func = get_func(obj->type, obj->negative);
 	obj->normale = get_normale(obj->type);
 	obj->base = new_base();

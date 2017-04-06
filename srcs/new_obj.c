@@ -55,6 +55,9 @@ t_obj		*new_obj(void)
 	res->refract_k = DEF_REFRACT_K;
 	res->refract_ind = DEF_REFRACT_IND;
 	res->texture = NULL;
+	res->normalmap = NULL;
+	res->nm_surface = NULL;
+	res->tex_surface = NULL;
 	res->compose = 0;
 	res->next = 0;
 	return (res);
