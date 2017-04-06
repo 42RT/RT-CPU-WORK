@@ -110,13 +110,13 @@ void			choose_texture(t_ray_data *d, float turb)
 	t_env			*e;
 
 	e = get_env();
-	if (!ft_strncmp(d->shorter->texture, "marble", 6))
+	if (!ft_strncmp(d->shorter->procedural, "marble", 6))
 		d->shorter->color = stripe(e, d->shorter, turb);
-	else if (!ft_strncmp(d->shorter->texture, "stripe", 6))
+	else if (!ft_strncmp(d->shorter->procedural, "stripe", 6))
 		d->shorter->color = stripe(e, d->shorter, 0);
-	else if (!ft_strncmp(d->shorter->texture, "square", 6))
+	else if (!ft_strncmp(d->shorter->procedural, "square", 6))
 		d->shorter->color = square(e, d->shorter, 0);
-	else if (!ft_strncmp(d->shorter->texture, "perlin", 6))
+	else if (!ft_strncmp(d->shorter->procedural, "perlin", 6))
 		d->shorter->color = perlin(d->shorter->color, turb);
 	else if (d->shorter->tex_surface)
 	{

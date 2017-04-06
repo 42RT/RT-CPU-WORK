@@ -118,6 +118,7 @@ typedef struct		s_obj
 	float			x1;
 	float			x2;
 	char			*texture;
+	char			*procedural;
 	char			*normalmap;
 	struct s_obj	*compose;
 	struct s_obj	*next;

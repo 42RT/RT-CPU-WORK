@@ -139,8 +139,9 @@ void	parse_object(t_env *e, t_item *item)
 	}
 	if (obj->type == GLASS)
 		glass(obj);
-	obj->texture = "Water";
-	obj->normalmap = "normalmap";
+	//obj->procedural = "perlin";
+	//obj->texture = "bricks";
+	//obj->normalmap = "normalmap";
 	if (obj->texture)
 		Load_Texture(obj);
 	if (obj->normalmap)
