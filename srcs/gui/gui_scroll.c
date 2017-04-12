@@ -9,29 +9,41 @@ void	gui_scroll_value_free(char **value, int nb)
 		value[i--] = NULL;
 }
 
-void	gui_scroll_load_object(t_gui *gui)
+void	gui_reparse_scroll_value(t_gui *gui, char *target)
 {
 	int	i;
 	int	id;
 
-	id = 0;
-	while (id < GUI_CONTAINER_TOTAL_NB)
+	if (!ft_strcmp(target, "MAIN") || !ft_strcmp(target, "ALL"))
 	{
-		if (BLOCK[id]->scroll == NULL)
-			id++;
-		else
+		id = 2;
+		while (id < GUI_CONTAINER_TOTAL_NB)
 		{
-			i = 0;
-			while (i < BLOCK[id]->scroll_qt)
+			if (BLOCK[id]->scroll == NULL)
+				id++;
+			else
 			{
-				free(SCROLL[i]->value);
-				SCROLL[i]->value = gui_get_scroll_value(SCROLL[i]);
-				i++;
+				i = 0;
+				while (i < BLOCK[id]->scroll_qt)
+				{
+					free(SCROLL[i]->value);
+					SCROLL[i]->value = gui_get_scroll_value(SCROLL[i]);
+					i++;
+				}
+				id++;
 			}
-			id++;
 		}
 	}
-
+	else if (!ft_strcmp(target, "PARAM") || !ft_strcmp(target, "ALL"))
+	{
+		i = 1;
+		while (i < PARAM->scroll_qt)
+		{
+			free(PARAM_SCL->value);
+			PARAM_SCL->value = gui_get_scroll_value(PARAM_SCL);
+			i++;
+		}
+	}
 }
 
 void	gui_scroll_set_halign(t_scroll *scroll)
@@ -128,7 +140,10 @@ int		gui_scroll_value_select(t_gui *gui, SDL_Event event, t_scroll *scroll)
 		else
 		{
 			if (!ft_strcmp(scroll->tag, "OBJ"))
-				gui_textbox_load_object(gui);
+			{
+				gui_reparse_textbox_value(gui, "ALL");
+				gui_reparse_scroll_value(gui, "ALL");
+			}
 			gui_scroll_toggle(gui, scroll);
 		}
 		free(scene);

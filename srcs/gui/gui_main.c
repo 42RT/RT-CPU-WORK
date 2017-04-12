@@ -35,7 +35,7 @@ void		gui_rt_reload_object(t_env *e, t_gui *gui)
 	ft_render(e);
 	SDL_RaiseWindow(e->gfx->win);
 	//gui_scroll_load_object(gui);
-	//gui_textbox_load_object(gui);
+	//gui_reparse_textbox_value(gui);
 	gui_main_refresh(gui);
 }
 
@@ -44,8 +44,8 @@ void		gui_rt_reload(t_env *e, t_gui *gui, char *scene)
 	e->av[1] = ft_strdup(scene);
 	reload(e);
 	SDL_RaiseWindow(e->gfx->win);
-	gui_scroll_load_object(gui);
-	gui_textbox_load_object(gui);
+	gui_reparse_scroll_value(gui, "ALL");
+	gui_reparse_textbox_value(gui, "ALL");
 	gui_main_refresh(gui);
 }
 

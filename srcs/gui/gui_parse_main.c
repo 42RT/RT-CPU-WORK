@@ -418,9 +418,11 @@ char	**gui_get_scroll_texture_nml(t_scroll *scroll)
 	char			*lu;
 	char			**value;
 	char			**tmp;
+	t_env			*e;
+	t_gui			*gui;
+	t_obj			*obj;
 
 	rep = NULL;
-	i = 1;
 	sortie = popen("find ./ressources/textures/*.bmp | wc -l", "r");
 	if ((lu = (char *)malloc(sizeof(char) * 2)) == NULL)
 		error(1);
@@ -434,13 +436,24 @@ char	**gui_get_scroll_texture_nml(t_scroll *scroll)
 	if (!(rep = opendir("./ressources/textures")))
 		gui_error(13);
 	value[0] = ft_strdup("none");
+	e = get_env();
+	gui = get_gui();
+	obj = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		obj = obj->next;
+		i++;
+	}
+	i = 1;
 	while ((rfile = readdir(rep)))
 	{
 		if (ft_strcmp(rfile->d_name, ".") && ft_strcmp(rfile->d_name, ".."))
 		{
 			tmp = ft_strsplit(rfile->d_name, '.');
 			value[i++] = ft_strdup(tmp[0]);
-			printf("nml : %s\n", value[i - 1]);
+			if (!ft_strcmp(value[i - 1], obj->texture))
+				scroll->active_value = i - 1;
 			free(tmp);
 		}
 	}
@@ -1014,6 +1027,7 @@ void	gui_parse_main_builder(t_gui *gui, int fd, int nb)
 		CONTAINER->scroll = NULL;
 		CONTAINER->textbox = NULL;
 		CONTAINER->checkbox = NULL;
+		CONTAINER->gauge = NULL;
 		CONTAINER->txt->content = NULL;
 		CONTAINER->txt->anchor = NULL;
 		CONTAINER->txt->align = -1;

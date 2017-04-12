@@ -52,7 +52,7 @@ void	gui_help_close(t_gui *gui)
 
 void	gui_help_toggle(t_gui *gui)
 {
-	if (WIDGET == HELP)
+	if (HELP->active == 1)
 		gui_help_close(gui);
 	else
 		gui_help_open(gui);

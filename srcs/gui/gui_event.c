@@ -262,7 +262,10 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 	if (ft_strstr(action, "RESET") != NULL)
 	{
 		gui_pending_action_prevent(gui);
-		gui_textbox_load_object(gui);
+		if (PARAM->active == 1)
+			gui_reset(gui, "PARAM");
+		else
+			gui_reset(gui, "MAIN");
 		gui_main_refresh(gui);
 	}
 	else if (ft_strstr(action, "SAVE") != NULL)
@@ -280,13 +283,13 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 	}
 	else if (ft_strstr(action, "PARAM") != NULL)
 	{
-		if (WIDGET == HELP)
+		if (HELP->active == 1)
 			gui_help_close(gui);
 		gui_param_toggle(gui);
 	}
 	else if (ft_strstr(action, "HELP") != NULL)
 	{
-		if (WIDGET == PARAM)
+		if (PARAM->active == 1)
 			gui_param_close(gui);
 		gui_help_toggle(gui);
 	}

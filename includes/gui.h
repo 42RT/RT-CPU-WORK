@@ -16,6 +16,8 @@
 # define SCROLL BLOCK[id]->scroll
 # define SCROLL_B SCROLL[i]->button
 # define CHECKBOX BLOCK[id]->checkbox
+# define GAUGE BLOCK[id]->gauge
+# define GAUGE_B GAUGE[i]->cursor
 # define ALT_SCREEN_CENTERED 2325
 # define SCANCODE event.key.keysym.scancode
 # define HELP gui->help
@@ -129,6 +131,7 @@ typedef struct	s_button
 	int			id;
 	int			p;
 	char		*action;
+	int			oldx;
 }				t_button;
 
 typedef struct	s_scroll
@@ -178,6 +181,7 @@ typedef struct	s_gauge
 	char		*tag;
 	t_button	*cursor;
 	float		active_value;
+	float		old_active;
 	float		mod;
 	int			norm;
 	int			min;
@@ -364,7 +368,7 @@ void		gui_write_textbox_value(t_gui *gui, t_textbox *textbox, char *color);
 void		event_textbox_edit(t_gui *gui, t_textbox *textbox, char *color);
 void		gui_get_textbox_value(t_textbox *textbox);
 void		gui_textbox_value_clear(t_textbox *textbox, int len);
-void		gui_textbox_load_object(t_gui *gui);
+void		gui_reparse_textbox_value(t_gui *gui, char *target);
 
 /* SCROLL */
 void		gui_scroll_build(t_gui *gui);
@@ -376,7 +380,7 @@ void		gui_scroll_toggle(t_gui *gui, t_scroll *scroll);
 void		gui_scroll_free(t_scroll *scroll);
 void		gui_scroll_write_list(t_gui *gui, t_scroll *scroll, int motion);
 void		gui_scroll_value_write(t_gui *gui, t_scroll *scroll, char *color);
-void		gui_scroll_load_object(t_gui *gui);
+void		gui_reparse_scroll_value(t_gui *gui, char *target);
 
 /* CHECKBOX */
 void		gui_checkbox_get_state(t_checkbox *checkbox);
@@ -385,6 +389,7 @@ void		gui_checkbox_get_state(t_checkbox *checkbox);
 void		gui_gauge_convert_value(t_gauge *gauge);
 void		gui_gauge_get_value(t_gauge *gauge);
 float		gui_gauge_get_norm(t_gauge *gauge);
+void		gui_reset_gauge_value(t_gui *gui, char *target);
 
 /* FREETXT */
 t_freetxt	*gui_freetxt_init(void);
@@ -435,5 +440,6 @@ void		gui_rt_reload_object(t_env *e, t_gui *gui);
 void		gui_apply_object(t_gui *gui);
 void		gui_apply_setting(t_gui *gui);
 void		gui_save_object(t_gui *gui, t_env *e);
+void		gui_reset(t_gui *gui, char *target);
 void		gui_anti_aliasing_set(int x, int y, int w, int h);
 #endif

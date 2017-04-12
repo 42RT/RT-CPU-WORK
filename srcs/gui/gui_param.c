@@ -201,7 +201,7 @@ void	gui_param_close(t_gui *gui)
 
 void	gui_param_toggle(t_gui *gui)
 {
-	if (WIDGET == PARAM)
+	if (PARAM->active == 1)
 		gui_param_close(gui);
 	else
 		gui_param_open(gui);

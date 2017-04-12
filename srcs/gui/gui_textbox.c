@@ -1,49 +1,38 @@
 #include <gui.h>
 
-void	gui_reparse_textbox_value(t_gui *gui)
+void	gui_reparse_textbox_value(t_gui *gui, char *target)
 {
 	int i;
 	int id;
 
-	id = 0;
-	while (id < GUI_CONTAINER_TOTAL_NB)
+	if (!ft_strcmp(target, "MAIN") || !ft_strcmp(target, "ALL"))
 	{
-		if (BLOCK[id]->textbox == NULL)
-			id++;
-		else
+		id = 0;
+		while (id < GUI_CONTAINER_TOTAL_NB)
 		{
-			i = 0;
-			while (i < BLOCK[id]->textbox_qt)
+			if (BLOCK[id]->textbox == NULL)
+				id++;
+			else
 			{
-				free(TEXTBOX[i]->value);
-				gui_get_textbox_value(TEXTBOX[i]);
-				i++;
+				i = 0;
+				while (i < BLOCK[id]->textbox_qt)
+				{
+					free(TEXTBOX[i]->value);
+					gui_get_textbox_value(TEXTBOX[i]);
+					i++;
+				}
+				id++;
 			}
-			id++;
 		}
 	}
-}
-
-void	gui_textbox_load_object(t_gui *gui)
-{
-	int i;
-	int id;
-
-	id = 0;
-	while (id < GUI_CONTAINER_TOTAL_NB)
+	else if (!ft_strcmp(target, "PARAM") || !ft_strcmp(target, "ALL"))
 	{
-		if (BLOCK[id]->textbox == NULL)
-			id++;
-		else
+		i = 0;
+		while (i < PARAM->textbox_qt)
 		{
-			i = 0;
-			while (i < BLOCK[id]->textbox_qt)
-			{
-				free(TEXTBOX[i]->value);
-				gui_get_textbox_value(TEXTBOX[i]);
-				i++;
-			}
-			id++;
+			free(PARAM_TXB->value);
+			gui_get_textbox_value(PARAM_TXB);
+			i++;
 		}
 	}
 }
