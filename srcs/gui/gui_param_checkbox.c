@@ -1,5 +1,40 @@
 #include <gui.h>
 
+void		gui_reset_checkbox_state(t_gui *gui, char *target)
+{
+	int i;
+	int id;
+
+	if (!ft_strcmp(target, "MAIN") || !ft_strcmp(target, "ALL"))
+	{
+		id = 0;
+		while (id < GUI_CONTAINER_TOTAL_NB)
+		{
+			if (BLOCK[id]->checkbox == NULL)
+				id++;
+			else
+			{
+				i = 0;
+				while (i < BLOCK[id]->checkbox_qt)
+				{
+					gui_checkbox_get_state(CHECKBOX[i]);
+					i++;
+				}
+				id++;
+			}
+		}
+	}
+	else if (!ft_strcmp(target, "PARAM") || !ft_strcmp(target, "ALL"))
+	{
+		i = 0;
+		while (i < PARAM->checkbox_qt)
+		{
+			gui_checkbox_get_state(PARAM_CBX);
+			i++;
+		}
+	}
+}
+
 t_checkbox	*gui_param_checkbox_init(void)
 {
 	t_checkbox	*checkbox;

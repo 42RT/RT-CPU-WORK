@@ -384,6 +384,7 @@ void		gui_reparse_scroll_value(t_gui *gui, char *target);
 
 /* CHECKBOX */
 void		gui_checkbox_get_state(t_checkbox *checkbox);
+void		gui_reset_checkbox_state(t_gui *gui, char *target);
 
 /* GAUGE */
 void		gui_gauge_convert_value(t_gauge *gauge);
