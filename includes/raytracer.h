@@ -14,7 +14,7 @@
 # define RAYTRACER_H
 
 # include <libft.h>
-# include <libxmlx.h>
+# include <gfx.h>
 # include <rtdefs.h>
 # include <pthread.h>
 

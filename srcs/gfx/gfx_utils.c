@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libxmlx_utils.c                                    :+:      :+:    :+:   */
+/*   gfx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libxmlx.h>
+#include <gfx.h>
 
 // a refaire en alpha
 unsigned int	get_alpha_color(unsigned int origin, unsigned int color)
@@ -31,21 +31,21 @@ unsigned int	get_alpha_color(unsigned int origin, unsigned int color)
 	return (res);
 }
 
-void			libxmlx_flip_screen(t_gfx *gfx) // useless ??
+void			gfx_flip_screen(t_gfx *gfx) // useless ??
 {
 	if (!gfx->expose)
 		return ;
 	//mlx_put_image_to_window(gfx->mlx, gfx->win, gfx->screen, 0, 0);
 }
 
-void			libxmlx_change_screen(t_gfx *gfx, unsigned int nb)
+void			gfx_change_screen(t_gfx *gfx, unsigned int nb)
 {
 	if (nb > 0 || nb < 5)
 		gfx->act = nb - 1;
-	libxmlx_display_image(gfx, 0, 0, gfx->buff[gfx->act]);
+	gfx_display_image(gfx, 0, 0, gfx->buff[gfx->act]);
 }
 
-t_gfx			*libxmlx_reload(t_gfx *gfx, int res_x, int res_y,
+t_gfx			*gfx_reload(t_gfx *gfx, int res_x, int res_y,
 								int buff_nb)//////////////////////////////////////////////////////////////
 {
 	int		i;
@@ -58,8 +58,8 @@ t_gfx			*libxmlx_reload(t_gfx *gfx, int res_x, int res_y,
 		buff_nb = (buff_nb < 5 ? buff_nb : 4);
 		while (++i < buff_nb)
 		{
-			libxmlx_destroy_image(gfx->buff[i]); // si buff (changement du nombre de buff)
-			gfx->buff[i] = libxmlx_new_image(gfx, res_x, res_y);
+			gfx_destroy_image(gfx->buff[i]); // si buff (changement du nombre de buff)
+			gfx->buff[i] = gfx_new_image(gfx, res_x, res_y);
 		}
 		while (++i < 4)
 			gfx->buff[i] = 0;

@@ -65,7 +65,7 @@ static void	console_aff(t_env *e, char *str)
 	area.w = e->set->width;
 	area.x = 0;
 	area.y = e->set->height - area.h;
-	libxmlx_blitz_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+	gfx_blitz_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
 	SDL_SetRenderDrawBlendMode(e->gfx->renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(e->gfx->renderer, 0, 0, 0, 192);
 	SDL_RenderDrawRect(e->gfx->renderer, &area);

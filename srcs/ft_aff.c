@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <stdlib.h>
-#include <libxmlx.h>
+#include <gfx.h>
 #include <raytracer.h>
 
 void		ft_render(t_env *e)
@@ -32,7 +32,7 @@ void		ft_render(t_env *e)
 		{
 			if (old && !e->rendering_preview)
 			{
-				libxmlx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+				gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
 				old = e->rendering_preview;
 			}
 			loading_bar(e, (float)(e->y * 100) / e->set->height,
@@ -46,14 +46,14 @@ void		ft_render(t_env *e)
 		usleep(42000);
 		while (e->remaining && !(e->worker_stop))
 		{
-			libxmlx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+			gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
 			event_poll(e);
 			usleep(16000);
 		}
 	}
 	if (!(e->worker_stop))
 		SDL_WaitThread(e->worker, &thread_ret);
-	libxmlx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
 	e->worker = 0;
 	e->worker_stop = 1;
 }
@@ -105,14 +105,14 @@ void		ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 				return;
 			color = compute_color(e, obj, e->set->deph);
 			color.a = 255;
-			libxmlx_pixel_put_to_image(e->gfx->buff[e->gfx->act],
+			gfx_pixel_put_to_image(e->gfx->buff[e->gfx->act],
 										(int)e->x, (int)e->y, color);
 			e->x += 2;
 		}
 		e->y += 2;
 	}
 	e->rendering_preview = 0;
-//	libxmlx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+//	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
 }
 
 void		ft_aff_random(t_env *e, t_obj *obj, int multithread)
@@ -200,7 +200,7 @@ void		ft_aff_multithread(t_env *e, t_obj *obj)
 			i = (data.nb * 100) / data.res;
 		}
 		if (e->set->display == PROGRESSIVE)
-			libxmlx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);//fonction lente
+			gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);//fonction lente
 		else
 		{
 			loading_bar(e, 200.0 - (float)(data.nb * 200) / (float)data.res,
@@ -209,6 +209,6 @@ void		ft_aff_multithread(t_env *e, t_obj *obj)
 		event_poll(e);
 		usleep(10000);
 	}
-//	libxmlx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+//	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
 	ft_printf("\nRendering finished\n");
 }

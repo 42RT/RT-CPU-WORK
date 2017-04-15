@@ -69,7 +69,7 @@ int			key_hook(int keycode, t_env *e)
 	static char	mode = 0;
 
 	if (keycode == 65307)
-		libxmlx_exit(e->gfx, 0);
+		gfx_exit(e->gfx, 0);
 	if (keycode == 96)
 		mode = !mode;
 	if (!mode)
@@ -86,6 +86,6 @@ int			key_hook(int keycode, t_env *e)
 	else if (keycode == F5_KEY)
 		reload(e);
 	else if (keycode >= KEY_1 && keycode <= KEY_4)
-		libxmlx_change_screen(e->gfx, keycode + 1 - KEY_1);
+		gfx_change_screen(e->gfx, keycode + 1 - KEY_1);
 	return (0);
 }

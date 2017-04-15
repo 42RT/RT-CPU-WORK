@@ -18,7 +18,7 @@
 - [OK] intensite flou focus
 - ombres floues
 - bruit de perlin
-- ecran : afficher le rendu d'une scene dans une scene: integrer les images libxmlx comme objet
+- ecran : afficher le rendu d'une scene dans une scene: integrer les images gfx comme objet
 - faire calcul reflets
 - faire calcul refraction
 // - correction du calcul des reflets.

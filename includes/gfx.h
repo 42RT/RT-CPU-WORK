@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libmlx.h                                           :+:      :+:    :+:   */
+/*   gfx.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBXMLX_H
-# define LIBXMLX_H
+#ifndef GFX_H
+# define GFX_H
 
 # ifdef __APPLE__
 #  include <SDL.h>
@@ -56,41 +56,41 @@ typedef struct		s_gfx
 /*
 ** init GFX before using it
 */
-t_gfx				*libxmlx_init(char *title, int res_x, int res_y,
+t_gfx				*gfx_init(char *title, int res_x, int res_y,
 									int buff_nb);
-void				libxmlx_exit(t_gfx *gfx, int ex);
+void				gfx_exit(t_gfx *gfx, int ex);
 /*
 ** reload main window, and reset it if size changed
 */
-t_gfx				*libxmlx_reload(t_gfx *gfx, int res_x, int res_y,
+t_gfx				*gfx_reload(t_gfx *gfx, int res_x, int res_y,
 									int buff_nb);
 
 /*
 ** image creation and manipulation
 */
-t_img				*libxmlx_new_image(t_gfx *gfx, int res_x, int res_y);
-void				libxmlx_destroy_image(t_img *img);
-void				libxmlx_pixel_put_to_image(t_img *img, int x, int y,
+t_img				*gfx_new_image(t_gfx *gfx, int res_x, int res_y);
+void				gfx_destroy_image(t_img *img);
+void				gfx_pixel_put_to_image(t_img *img, int x, int y,
 												t_color color);
-t_color				libxmlx_get_pixel_color(t_img *img, int x, int y);
-void				libxmlx_blitz_image(t_gfx *gfx, int x, int y, t_img *img);
-void				libxmlx_display_image(t_gfx *gfx, int x, int y, t_img *img);
-void				libxmlx_blitz_black_image(t_gfx *gfx, int x, int y);
+t_color				gfx_get_pixel_color(t_img *img, int x, int y);
+void				gfx_blitz_image(t_gfx *gfx, int x, int y, t_img *img);
+void				gfx_display_image(t_gfx *gfx, int x, int y, t_img *img);
+void				gfx_blitz_black_image(t_gfx *gfx, int x, int y);
 
 /*
 ** several utilities
 */
-void				libxmlx_loop(t_gfx *gfx);
-void				libxmlx_poll(t_gfx *gfx);
-void				libxmlx_pixel_put(t_gfx *gfx, int x, int y,
+void				gfx_loop(t_gfx *gfx);
+void				gfx_poll(t_gfx *gfx);
+void				gfx_pixel_put(t_gfx *gfx, int x, int y,
 										t_color color);
-void				libxmlx_exit(t_gfx *gfx, int exit);
-void				libxmlx_flip_screen(t_gfx *gfx);
+void				gfx_exit(t_gfx *gfx, int exit);
+void				gfx_flip_screen(t_gfx *gfx);
 unsigned int		get_alpha_color(unsigned int origin, unsigned int color);
 
 /*
 ** change virtual screen (1-4)
 */
-void				libxmlx_change_screen(t_gfx *gfx, unsigned int nb);
+void				gfx_change_screen(t_gfx *gfx, unsigned int nb);
 
 #endif

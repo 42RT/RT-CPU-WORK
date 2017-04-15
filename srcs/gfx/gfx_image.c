@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libxmlx_image.c                                    :+:      :+:    :+:   */
+/*   gfx_image.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <libxmlx.h>
+#include <gfx.h>
 #include <raytracer.h>
 
-t_img			*libxmlx_new_image(t_gfx *gfx, int res_x, int res_y)
+t_img			*gfx_new_image(t_gfx *gfx, int res_x, int res_y)
 {
 	t_img	*res;
 	int		i;
@@ -36,13 +36,13 @@ t_img			*libxmlx_new_image(t_gfx *gfx, int res_x, int res_y)
 	return ((void *)res);
 }
 
-void			libxmlx_destroy_image(t_img *img)
+void			gfx_destroy_image(t_img *img)
 {
 	free(img->data);
 	free(img);
 }
 
-void			libxmlx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
+void			gfx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
 {
 	int				i;
 	int				j;
@@ -67,7 +67,7 @@ void			libxmlx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
 	}
 }
 
-void			libxmlx_blitz_black_image(t_gfx *gfx, int x, int y)
+void			gfx_blitz_black_image(t_gfx *gfx, int x, int y)
 {
 	int		i;
 	int		j;
@@ -83,8 +83,8 @@ void			libxmlx_blitz_black_image(t_gfx *gfx, int x, int y)
 	SDL_RenderPresent(gfx->renderer);
 }
 
-void			libxmlx_display_image(t_gfx *gfx, int x, int y, t_img *img)
+void			gfx_display_image(t_gfx *gfx, int x, int y, t_img *img)
 {
-	libxmlx_blitz_image(gfx, x, y, img);
+	gfx_blitz_image(gfx, x, y, img);
 	SDL_RenderPresent(gfx->renderer);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libxmlx_pixel.c                                    :+:      :+:    :+:   */
+/*   gfx_pixel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libxmlx.h>
+#include <gfx.h>
 
-/*void			libxmlx_pixel_put_to_image(t_img *img, int x, int y,
+/*void			gfx_pixel_put_to_image(t_img *img, int x, int y,
 											unsigned int color)
 {
 	if (!(color >> 24) || (color >> 24) == 255)
@@ -24,19 +24,19 @@
 */
 
 // a refaire en addition + alpha comme plus haut
-void			libxmlx_pixel_put_to_image(t_img *img, int x, int y,
+void			gfx_pixel_put_to_image(t_img *img, int x, int y,
 											t_color color)
 {
 		img->data[img->width * y + x] = color;
 }
 
-t_color		libxmlx_get_pixel_color(t_img *img, int x, int y)
+t_color		gfx_get_pixel_color(t_img *img, int x, int y)
 {
 	return (img->data[img->width * y + x]);
 }
 
 // a refaire
-void			libxmlx_pixel_put(t_gfx *gfx, int x, int y, t_color color)
+void			gfx_pixel_put(t_gfx *gfx, int x, int y, t_color color)
 {
 	(void)gfx;
 	(void)x;

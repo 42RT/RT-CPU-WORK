@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libxmlx.h>
+#include <gfx.h>
 #include <raytracer.h>
 
 int		expose_hook(t_env *e)
 {
-	libxmlx_blitz_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
-	libxmlx_flip_screen(e->gfx);
+	gfx_blitz_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+	gfx_flip_screen(e->gfx);
 	return (0);
 }

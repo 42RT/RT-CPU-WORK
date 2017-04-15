@@ -28,7 +28,7 @@ void		gui_rt_reload_object(t_env *e, t_gui *gui)
 	e->worker_stop = 1;
 	SDL_WaitThread(e->worker, &thread_ret);
 	if ((e->set->oldw != e->set->width) || (e->set->oldh != e->set->width))
-		libxmlx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB);
+		gfx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB);
 	if (e->set->verbose)
 		print_debug(e);
 	loading_bar(e, 0, int_to_tcolor(0x0101A0), int_to_tcolor(0));

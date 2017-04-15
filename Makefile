@@ -12,17 +12,32 @@
 
 NAME = raytracer
 
-PATH_SRC = srcs/
-PATH_GUI = $(PATH_SRC)gui/
-PATH_LIB = lib/
-UNAME_S =	$(shell uname -s)
-THREADS =	$(shell grep -c ^processor /proc/cpuinfo)
+PATH_SRC =		srcs/
+PATH_GFX =		$(PATH_SRC)gfx/
+PATH_GUI =		$(PATH_SRC)gui/
+PATH_PARSER =	$(PATH_SRC)parser/
+PATH_LIB =		lib/
+UNAME_S =		$(shell uname -s)
+THREADS =		$(shell grep -c ^processor /proc/cpuinfo)
 
-INCLUDES =	-I lib/libft/includes -I lib/libvec/include -I includes
-CFLAGS =	-Wall -Wextra -Werror
-LDFLAGS =	-lm -L ./$(PATH_LIB)libft -lft -L ./$(PATH_LIB)libvec -lpthread
+INCLUDES =		-I lib/libft/includes -I lib/libvec/include -I includes
+CFLAGS =		-Wall -Wextra -Werror
+LDFLAGS =		-lm -L ./$(PATH_LIB)libft -lft -L ./$(PATH_LIB)libvec -lpthread
 
-SRC =		$(PATH_SRC)main.c \
+SRC =		$(PATH_PARSER)parse.c \
+			$(PATH_PARSER)parse_file.c \
+			$(PATH_PARSER)parse_light.c \
+			$(PATH_PARSER)parse_obj.c \
+			$(PATH_PARSER)parse_obj_utils.c \
+			$(PATH_PARSER)parse_settings.c \
+			$(PATH_PARSER)parse_settings_utils.c \
+			$(PATH_PARSER)parse_utils.c \
+			$(PATH_PARSER)parse_utils_2.c \
+			$(PATH_GFX)gfx.c \
+			$(PATH_GFX)gfx_image.c \
+			$(PATH_GFX)gfx_pixel.c \
+			$(PATH_GFX)gfx_utils.c \
+			$(PATH_SRC)main.c \
 			$(PATH_SRC)ft_err.c \
 			$(PATH_SRC)anti_aliasing.c \
 			$(PATH_SRC)display.c \
@@ -44,21 +59,8 @@ SRC =		$(PATH_SRC)main.c \
 			$(PATH_SRC)aff_light.c \
 			$(PATH_SRC)aff_obj.c \
 			$(PATH_SRC)aff_settings.c \
-			$(PATH_SRC)parse.c \
-			$(PATH_SRC)parse_file.c \
-			$(PATH_SRC)parse_light.c \
-			$(PATH_SRC)parse_obj.c \
-			$(PATH_SRC)parse_obj_utils.c \
-			$(PATH_SRC)parse_settings.c \
-			$(PATH_SRC)parse_settings_utils.c \
-			$(PATH_SRC)parse_utils.c \
-			$(PATH_SRC)parse_utils_2.c \
 			$(PATH_SRC)reload.c \
 			$(PATH_SRC)bmp.c \
-			$(PATH_SRC)libxmlx.c \
-			$(PATH_SRC)libxmlx_image.c \
-			$(PATH_SRC)libxmlx_pixel.c \
-			$(PATH_SRC)libxmlx_utils.c \
 			$(PATH_SRC)utils.c \
 			$(PATH_SRC)utils_2.c \
 			$(PATH_SRC)hdr_colors.c \

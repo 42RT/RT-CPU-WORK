@@ -71,15 +71,18 @@ static void	write_pixels(int fd, int w, int h, t_img *img)
 int			save_image(t_img *img, char *name)
 {
 	int			fd;
+	char		*path;
 
 	if (!*name)
 		return (ft_error("Please enter a filename !"));
-	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	path = ft_newstrcat("screenshots/", name);
+	free(name);
+	fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	free(path);
 	if (!fd)
 		return (ft_error("Unable to create file :("));
 	write_header(fd, img->width, img->height);
 	write_pixels(fd, img->width, img->height, img);
 	close(fd);
-	free(name);
 	return (0);
 }

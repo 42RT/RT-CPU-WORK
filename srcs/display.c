@@ -15,7 +15,7 @@
 #include <time.h>
 #include <math.h>
 #include <pthread.h>
-#include <libxmlx.h>
+#include <gfx.h>
 #include <raytracer.h>
 
 void		trace_ray_lights(t_env *e, t_obj *obj, t_vector *o, t_vector *v)
@@ -60,17 +60,17 @@ void		blur_mod(t_env *e, int x, int y, t_color *color)
 	k *= e->set->focus_k;
 	if (k > 5)
 		k = 5;
-	color_mix_k(color, libxmlx_get_pixel_color(e->gfx->buff[e->gfx->act],
+	color_mix_k(color, gfx_get_pixel_color(e->gfx->buff[e->gfx->act],
 				x - 2, y - 2), 8 * k);
-	color_mix_k(color, libxmlx_get_pixel_color(e->gfx->buff[e->gfx->act],
+	color_mix_k(color, gfx_get_pixel_color(e->gfx->buff[e->gfx->act],
 				x - 2, y), 7 * k);
-	color_mix_k(color, libxmlx_get_pixel_color(e->gfx->buff[e->gfx->act],
+	color_mix_k(color, gfx_get_pixel_color(e->gfx->buff[e->gfx->act],
 				x, y - 2), 6 * k);
-	color_mix_k(color, libxmlx_get_pixel_color(e->gfx->buff[e->gfx->act],
+	color_mix_k(color, gfx_get_pixel_color(e->gfx->buff[e->gfx->act],
 				x - 1, y - 1), 5 * k);
-	color_mix_k(color, libxmlx_get_pixel_color(e->gfx->buff[e->gfx->act],
+	color_mix_k(color, gfx_get_pixel_color(e->gfx->buff[e->gfx->act],
 				x, y - 1), 4 * k);
-	color_mix_k(color, libxmlx_get_pixel_color(e->gfx->buff[e->gfx->act],
+	color_mix_k(color, gfx_get_pixel_color(e->gfx->buff[e->gfx->act],
 				x - 1, y), 3 * k);
 }
 
@@ -89,7 +89,7 @@ void		fill_pixel(t_env *e, t_obj *obj)
 	else
 		color = compute_color(e, obj, e->set->deph);
 	color.a = 255;
-	libxmlx_pixel_put_to_image(e->gfx->buff[e->gfx->act],
+	gfx_pixel_put_to_image(e->gfx->buff[e->gfx->act],
 								(int)e->x, (int)e->y, color);
 }
 

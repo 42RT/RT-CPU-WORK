@@ -294,7 +294,7 @@ void		button_perform_action(t_env *env, t_gui *gui, char *action)
 		gui_help_toggle(gui);
 	}
 	else if (ft_strstr(action, "EXIT") != NULL)
-		libxmlx_exit(env->gfx, 0);
+		gfx_exit(env->gfx, 0);
 }
 
 int			event_is_button(SDL_Event event, t_env *env, t_gui *gui)

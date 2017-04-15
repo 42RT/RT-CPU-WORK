@@ -54,7 +54,7 @@ void		reload(t_env *e)
 	parse(e, e->av[1]);
 	if (e->set->verbose)
 		print_debug(e);
-	if (!libxmlx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB))
+	if (!gfx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB))
 		exit (1);
 	loading_bar(e, 0, int_to_tcolor(0x1010A0), int_to_tcolor(0));
 	ft_render(e);
