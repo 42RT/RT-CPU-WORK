@@ -194,6 +194,7 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 	int				i;
 	FILE			*sortie;
 	char			*lu;
+	char			*lu_trim;
 	char			**value;
 	char			**tmp;
 	t_env			*e;
@@ -202,12 +203,13 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 	rep = NULL;
 	i = 0;
 	sortie = popen("find ./scene/*.rts | wc -l", "r");
-	if ((lu = (char *)malloc(sizeof(char) * 3)) == NULL)
+	if ((lu = (char *)malloc(sizeof(char) * 10)) == NULL)
 		error(1);
-	fread(lu, sizeof(char), 2, sortie);
-	lu[2] = '\0';
-	scroll->nb_value = ft_atoi(lu);
+	fread(lu, sizeof(char), 10, sortie);
+	lu_trim = ft_strdup_trim(lu);
+	scroll->nb_value = ft_atoi(lu_trim);
 	free(lu);
+	free(lu_trim);
 	scroll->active_value = 0;
 	scroll->mod = 0;
 	if ((value = (char **)malloc(sizeof(char *) * scroll->nb_value)) == NULL)
@@ -417,6 +419,7 @@ char	**gui_get_scroll_texture_nml(t_scroll *scroll)
 	int				i;
 	FILE			*sortie;
 	char			*lu;
+	char			*lu_trim;
 	char			**value;
 	char			**tmp;
 	t_env			*e;
@@ -425,12 +428,13 @@ char	**gui_get_scroll_texture_nml(t_scroll *scroll)
 
 	rep = NULL;
 	sortie = popen("find ./ressources/textures/*.bmp | wc -l", "r");
-	if ((lu = (char *)malloc(sizeof(char) * 3)) == NULL)
+	if ((lu = (char *)malloc(sizeof(char) * 10)) == NULL)
 		error(1);
-	fread(lu, sizeof(char), 2, sortie);
-	lu[2] = '\0';
-	scroll->nb_value = ft_atoi(lu) + 1;
+	fread(lu, sizeof(char), 10, sortie);
+	lu_trim = ft_strdup_trim(lu);
+	scroll->nb_value = ft_atoi(lu_trim) + 1;
 	free(lu);
+	free(lu_trim);
 	scroll->active_value = 0;
 	scroll->mod = 0;
 	if (!(value = (char **)malloc(sizeof(char *) * scroll->nb_value)))

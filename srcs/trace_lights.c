@@ -92,6 +92,7 @@ static t_color	trace_lights_3(t_env *e, t_ray_data d, t_vector *v, float len)
 ** data.y = refangle = angle entre rayon reflechi + vecteur directeur
 ** data.z = angle = angle entre rayon lumiere + normale de l'objet
 */
+
 static t_color	trace_lights_2(t_env *e, t_ray_data d, t_light *light)
 {
 	t_vector	v2;
@@ -129,7 +130,7 @@ t_color			trace_lights(t_env *e, t_ray_data d, t_light *light)
 	turb = turbulence(e->x, e->y, SMOOTH_NOISE);
 	color = void_tcolor();
 	save_color = d.shorter->color;
-	if (d.shorter->texture)
+	if (d.shorter->texture || d.shorter->procedural)
 		choose_texture(&d, turb);
 	while (light)
 	{

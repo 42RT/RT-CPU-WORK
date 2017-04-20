@@ -17,6 +17,10 @@ t_vector		get_normalmap(SDL_Surface *surface, int x, int y)
 	unsigned int	*pixels;
 	t_vector		n;
 
+	if (x < 0)
+		x = -x;
+	if (y < 0)
+		y = -y;
 	x = x % surface->w;
 	y = y % surface->h;
 	pixels = (unsigned int *)surface->pixels;
@@ -34,6 +38,10 @@ t_color			get_pixel(SDL_Surface *surface, int x, int y)
 	unsigned int	*pixels;
 	t_color			color;
 
+	if (x < 0)
+		x = -x;
+	if (y < 0)
+		y = -y;
 	x = x % surface->w;
 	y = y % surface->h;
 	pixels = (unsigned int *)surface->pixels;
@@ -121,8 +129,15 @@ void			choose_texture(t_ray_data *d, float turb)
 	else if (d->shorter->tex_surface)
 	{
 		SDL_LockSurface(d->shorter->tex_surface);
-		d->shorter->color = get_pixel(d->shorter->tex_surface, (int)e->x,
-			(int)e->y);
+		if (d->shorter->type & (CYLINDER | CONE | PLANE | SQUARE | DISK))
+			d->shorter->color = get_pixel(d->shorter->tex_surface,
+				((int)d->o->x + (int)d->o->z * d->shorter->ang.x / M_PI_2)
+				/ 10, ((int)d->o->y * d->shorter->ang.x
+					/ M_PI_2 + (int)d->o->z) / 10);
+		else
+			d->shorter->color = get_pixel(d->shorter->tex_surface,
+				((int)d->o->x + (int)d->o->z) / 10,
+				((int)d->o->y + (int)d->o->z) / 10);
 		SDL_UnlockSurface(d->shorter->tex_surface);
 	}
 }
