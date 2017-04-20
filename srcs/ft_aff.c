@@ -89,6 +89,50 @@ int			ft_aff(void *data)
 	return (0);
 }
 
+void		smooth_quickrender_mix(t_env *e, unsigned int x, unsigned int y)
+{
+	t_color	color;
+	t_color	c2;
+
+	color = gfx_get_pixel_color(e->gfx->buff[e->gfx->act],
+								x - (x & 1), y - (y & 1));
+	if (x < (e->set->width - 2) && y < (e->set->height - 2) && 0)
+	{
+		c2 = gfx_get_pixel_color(e->gfx->buff[e->gfx->act],
+									x + (x & 1), y + (y & 1));
+		color_mix_k(&color, c2, 127);
+		color.a = 255;
+	}
+	gfx_pixel_put_to_image(e->gfx->buff[e->gfx->act], x, y, color);
+}
+
+void		smooth_quickrender(t_env *e)
+{
+	unsigned int	x;
+	unsigned int	y;
+
+	y = 0;
+	while (y < e->set->height)
+	{
+		x = 0;
+		while (x < e->set->width)
+		{
+			if (e->worker_stop)
+				return;
+			if (x < (e->set->width - 3))
+				smooth_quickrender_mix(e, x + 1, y);
+			if (y < (e->set->height - 3))
+			{
+				smooth_quickrender_mix(e, x, y + 1);
+				if (x < (e->set->width - 3))
+					smooth_quickrender_mix(e, x + 1, y + 1);
+			}
+			x += 2;
+		}
+		y += 2;
+	}
+}
+
 void		ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 {
 	t_color	color;
@@ -111,8 +155,10 @@ void		ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 		}
 		e->y += 2;
 	}
+	//ft_printf("1\n");
+	smooth_quickrender(e); // bug random ????????????!!!!!!!!!!!!!!!!!!!!
+	//ft_printf("2\n");
 	e->rendering_preview = 0;
-//	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
 }
 
 void		ft_aff_random(t_env *e, t_obj *obj, int multithread)

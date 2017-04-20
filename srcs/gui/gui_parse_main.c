@@ -202,9 +202,10 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 	rep = NULL;
 	i = 0;
 	sortie = popen("find ./scene/*.rts | wc -l", "r");
-	if ((lu = (char *)malloc(sizeof(char) * 2)) == NULL)
+	if ((lu = (char *)malloc(sizeof(char) * 3)) == NULL)
 		error(1);
 	fread(lu, sizeof(char), 2, sortie);
+	lu[2] = '\0';
 	scroll->nb_value = ft_atoi(lu);
 	free(lu);
 	scroll->active_value = 0;
@@ -424,9 +425,10 @@ char	**gui_get_scroll_texture_nml(t_scroll *scroll)
 
 	rep = NULL;
 	sortie = popen("find ./ressources/textures/*.bmp | wc -l", "r");
-	if ((lu = (char *)malloc(sizeof(char) * 2)) == NULL)
+	if ((lu = (char *)malloc(sizeof(char) * 3)) == NULL)
 		error(1);
 	fread(lu, sizeof(char), 2, sortie);
+	lu[2] = '\0';
 	scroll->nb_value = ft_atoi(lu) + 1;
 	free(lu);
 	scroll->active_value = 0;
