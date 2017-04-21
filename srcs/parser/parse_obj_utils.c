@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:06:23 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/02/22 14:18:52 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/21 18:02:19 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ void	parse_object_other(t_obj *obj, char *str)
 		str = get_value(str);
 		obj->negative = (!ft_strncmp(str, "1", 1)
 						|| !ft_strncmp(str, "true", 4));
+	}
+	else if (!ft_strncmp(str, "\"texture\"", 9))
+	{
+		obj->texture = ft_strtrim(get_value(str));
+		ft_strcpy(obj->texture, get_value(str));
 	}
 }
 
