@@ -36,7 +36,6 @@ void	gui_help_open(t_gui *gui)
 		event_widget_deselect(gui);
 	gui->widget_active = HELP;
 	HELP->active = 1;
-	//printf("WIDGET ACTIVE = %d\n", *(int *)WIDGET);
 	gui_button_selected(gui, BLOCK[9]->button[1]);
 	gui_help_get_bmp_n_display(gui);
 	gui_help_build(gui);
@@ -46,7 +45,7 @@ void	gui_help_close(t_gui *gui)
 {
 	gui->widget_active = NULL;
 	HELP->active = 0;
-	printf("WIDGET NULL\n");
+	ft_printf("WIDGET NULL\n");
 	gui_main_refresh(gui);
 }
 

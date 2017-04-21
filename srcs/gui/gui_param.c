@@ -76,7 +76,7 @@ void	gui_param_textbox_create_all(t_gui *gui)
 			gui_widget_texture_get_bmp(PARAM_TXB, "textbox_white.bmp");
 		gui_widget_display(PARAM_TXB);
 		gui_widget_draw_in_line(PARAM_TXB->dest, 1, "black");
-		event_textbox_edit(gui, PARAM_TXB, "black");
+		event_txb_edit(gui, PARAM_TXB, "black");
 		i++;
 	}
 }

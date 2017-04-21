@@ -81,9 +81,10 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_SRC)error.c \
 			$(PATH_SRC)glass.c \
 			$(PATH_GUI)gui_error.c \
+			$(PATH_GUI)gui_tool.c \
+			$(PATH_GUI)gui_refresher.c \
 			$(PATH_GUI)gui_widget_tool.c \
 			$(PATH_GUI)gui_background.c \
-			$(PATH_GUI)gui_container.c \
 			$(PATH_GUI)gui_button.c \
 			$(PATH_GUI)gui_textbox.c \
 			$(PATH_GUI)gui_scroll.c \
@@ -95,7 +96,6 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GUI)gui_param_button.c \
 			$(PATH_GUI)gui_main.c \
 			$(PATH_GUI)gui_ttf.c \
-			$(PATH_GUI)gui_anti_aliasing.c \
 			$(PATH_GUI)gui_parse.c \
 			$(PATH_GUI)gui_parse_param.c \
 			$(PATH_GUI)gui_parse_main.c \
@@ -103,7 +103,10 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GUI)gui_reset.c \
 			$(PATH_GUI)gui_save.c \
 			$(PATH_GUI)gui_pixel_put.c \
-			$(PATH_GUI)gui_event.c
+			$(PATH_GUI)gui_event.c \
+			$(PATH_GUI)gui_event_textbox.c \
+			$(PATH_GUI)gui_event_textbox_2.c \
+			$(PATH_GUI)gui_event_textbox_3.c
 
 ifeq ($(UNAME_S),Darwin)
 	INC 	+=	-I ~/.brew/Cellar/sdl2/2.0.5/include/SDL2 \

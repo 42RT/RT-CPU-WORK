@@ -167,7 +167,6 @@ void	gui_write_help(t_gui *gui, char *text, int align, int y)
 		TTF->rect.x = align;
 	TTF->rect.y = y;
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
-	gui_anti_aliasing_set(TTF->rect.x, TTF->rect.y, TTF->w_px, TTF->h_px);
 	SDL_DestroyTexture(TTF->texture);
 }
 

@@ -51,7 +51,7 @@
 # define GUI_SCROLL_MAX_SHOWN 5
 # define GUI_LIST_STEP 20
 # define GUI_BUTTON_H 25
-# define GUI_BUTTON_DEPTH 1
+# define GUI_BTN_DEPTH 1
 # define GUI_CHECKBOX_SIZE 20
 # define GUI_HELP_W 360
 # define GUI_HELP_H 530
@@ -65,6 +65,10 @@
 	BLOCK[7]->scroll[0]->active_value]
 # define GUI_SCL_NML_VALUE BLOCK[7]->scroll[1]->value[\
 	BLOCK[7]->scroll[1]->active_value]
+# define GUI_SCL_RES_VALUE PARAM->scroll[0]->value[\
+	PARAM->scroll[0]->active_value]
+# define GUI_SCL_AA_VALUE PARAM->scroll[1]->value[\
+	PARAM->scroll[1]->active_value]
 
 typedef enum
 {
@@ -166,6 +170,7 @@ typedef struct	s_textbox
 	int			maxlen;
 	int			min;
 	int			max;
+	int			reserved;
 	int			edited;
 }				t_textbox;
 
@@ -431,8 +436,15 @@ int			event_is_checkbox(SDL_Event event, t_gui *gui);
 int			event_is_gauge(SDL_Event event, t_gui *gui);
 int			event_is_button(SDL_Event event, t_env *env, t_gui *gui);
 int			event_is_textbox(SDL_Event event, t_gui *gui);
-void		event_textbox_insert(SDL_Event event, t_gui *gui, t_textbox *textbox);
 void		event_scroll_mouse_over(SDL_Event event, t_gui *gui, t_scroll *scroll);
+void		event_txb_switch_select(t_gui *gui, t_textbox *textbox);
+void		event_txb_insert(SDL_Event event, t_gui *gui, t_textbox *textbox);
+void		event_txb_deselect(t_gui *gui);
+void		event_txb_select(t_gui *gui, t_textbox *textbox);
+void		event_txb_value_clear(t_textbox *textbox, int len);
+void		event_txb_edit(t_gui *gui, t_textbox *textbox, char *color);
+void		event_txb_backspace(t_textbox *textbox);
+void		event_txb_value_rot(t_textbox *textbox, char nb);
 
 /* OTHER */
 void		gui_main_refresh(t_gui *gui);
@@ -443,4 +455,5 @@ void		gui_apply_setting(t_gui *gui);
 void		gui_save_object(t_gui *gui, t_env *e);
 void		gui_reset(t_gui *gui, char *target);
 void		gui_anti_aliasing_set(int x, int y, int w, int h);
+char		*str_tolower(char *str);
 #endif

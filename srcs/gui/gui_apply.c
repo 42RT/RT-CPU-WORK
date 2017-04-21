@@ -1,5 +1,21 @@
 #include <gui.h>
 
+void		gui_apply_numerical(t_gui *gui, t_obj *tmp)
+{
+	tmp->pos.x = ft_atoi(gui->container[1]->textbox[0]->value);
+	tmp->pos.y = ft_atoi(gui->container[1]->textbox[1]->value);
+	tmp->pos.z = ft_atoi(gui->container[1]->textbox[2]->value);
+	tmp->ang.x = ft_atof(gui->container[2]->textbox[0]->value) * M_PI_2 / 90;
+	tmp->ang.y = ft_atof(gui->container[2]->textbox[1]->value) * M_PI_2 / 90;
+	tmp->ang.z = ft_atof(gui->container[2]->textbox[2]->value) * M_PI_2 / 90;
+	tmp->color.r = ft_atoi(gui->container[3]->textbox[0]->value);
+	tmp->color.g = ft_atoi(gui->container[3]->textbox[1]->value);
+	tmp->color.b = ft_atoi(gui->container[3]->textbox[2]->value);
+	tmp->color.a = ft_atoi(gui->container[3]->textbox[3]->value);
+	tmp->reflect_k = ft_atoi(gui->container[4]->textbox[0]->value);
+	tmp->refract_ind = ft_atof(gui->container[5]->textbox[0]->value);
+}
+
 void		gui_apply_object(t_gui *gui)
 {
 	t_env	*e;
@@ -14,20 +30,7 @@ void		gui_apply_object(t_gui *gui)
 		tmp = tmp->next;
 		i++;
 	}
-	tmp->pos.x = ft_atoi(gui->container[1]->textbox[0]->value);
-	tmp->pos.y = ft_atoi(gui->container[1]->textbox[1]->value);
-	tmp->pos.z = ft_atoi(gui->container[1]->textbox[2]->value);
-	tmp->ang.x = ft_atof(gui->container[2]->textbox[0]->value) * M_PI_2 / 90;
-	tmp->ang.y = ft_atof(gui->container[2]->textbox[1]->value) * M_PI_2 / 90;
-	tmp->ang.z = ft_atof(gui->container[2]->textbox[2]->value) * M_PI_2 / 90;
-	tmp->color.r = ft_atoi(gui->container[3]->textbox[0]->value);
-	tmp->color.g = ft_atoi(gui->container[3]->textbox[1]->value);
-	tmp->color.b = ft_atoi(gui->container[3]->textbox[2]->value);
-	tmp->color.a = ft_atoi(gui->container[3]->textbox[3]->value);
-	tmp->reflect_k = ft_atoi(gui->container[4]->textbox[0]->value);
-	tmp->refract_ind = ft_atof(gui->container[5]->textbox[0]->value);
-	//free(tmp->procedural);
-	//free(tmp->texture);
+	gui_apply_numerical(gui, tmp);
 	if (!ft_strcmp(GUI_SCL_PCD_VALUE, "none"))
 		tmp->procedural = NULL;
 	else
@@ -44,20 +47,20 @@ void		gui_apply_object(t_gui *gui)
 
 void		gui_apply_setting(t_gui *gui)
 {
-	t_env		*e;
+	t_env	*e;
 	char	*ptr;
-	char	**tab;
+	char	**res;
 
 	e = get_env();
-	tab = ft_strsplit(PARAM->scroll[0]->value[PARAM->scroll[0]->active_value], 'x');
+	res = ft_strsplit(GUI_SCL_RES_VALUE, 'x');
 	e->set->oldw = e->set->width;
 	e->set->oldh = e->set->height;
-	e->set->width = ft_atoi((const char *)tab[0]);
-	e->set->height = ft_atoi((const char *)tab[1]);
-	free(tab[0]);
-	free(tab[1]);
-	free(tab);
-	ptr = ft_strdup(PARAM->scroll[1]->value[PARAM->scroll[1]->active_value]);
+	e->set->width = ft_atoi((const char *)res[0]);
+	e->set->height = ft_atoi((const char *)res[1]);
+	free(res[0]);
+	free(res[1]);
+	free(res);
+	ptr = ft_strdup(GUI_SCL_AA_VALUE);
 	e->set->aa = ft_atoi((const char *)ptr);
 	free(ptr);
 	e->set->deph = (unsigned int)(PARAM->gauge[0]->active_value + 1);

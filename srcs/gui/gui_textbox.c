@@ -73,17 +73,6 @@ void	gui_block_textbox_init(t_gui *gui, int id, int nb)
 	}
 }
 
-void	gui_textbox_value_clear(t_textbox *textbox, int len)
-{
-	int i;
-
-	i = 0;
-	while (i < len)
-		textbox->value[i++] = ' ';
-	textbox->value[i] = '\0';
-	textbox->vlen = 0;
-}
-
 void		gui_textbox_get_len(t_textbox *textbox)
 {
 	char	*tag;
@@ -150,7 +139,7 @@ void	gui_textbox_create_all(t_gui *gui)
 					gui_widget_texture_get_bmp(TEXTBOX[i], "textbox_white.bmp");
 				gui_widget_display(TEXTBOX[i]);
 				gui_widget_draw_in_line(TEXTBOX[i]->dest, 1, "black");
-				event_textbox_edit(gui, TEXTBOX[i], "black");
+				event_txb_edit(gui, TEXTBOX[i], "black");
 				i++;
 			}
 			id++;

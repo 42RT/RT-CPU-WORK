@@ -51,7 +51,7 @@ static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 			gfx_display_image(env->gfx, 0, 0, env->gfx->buff[env->gfx->act]);
 	}
 	if (gui->widget_active && (event.window.windowID == gui->winID))
-		event_textbox_insert(event, gui, gui->widget_active);
+		event_txb_insert(event, gui, gui->widget_active);
 	return (0);
 }
 

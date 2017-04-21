@@ -86,7 +86,6 @@ void	gui_scroll_value_write(t_gui *gui, t_scroll *scroll, char *color)
 	TTF->rect.x = scroll->dest.x + 5;
 	TTF->rect.y = scroll->dest.y - 4;
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
-	gui_anti_aliasing_set(TTF->rect.x, TTF->rect.y, TTF->w_px, TTF->h_px);
 	SDL_DestroyTexture(TTF->texture);
 	TTF_CloseFont(TTF->font);
 }
@@ -171,7 +170,6 @@ void	gui_scroll_write_list(t_gui *gui, t_scroll *scroll, int motion)
 		TTF->rect.x = scroll->dest.x + 3;
 		TTF->rect.y = (scroll->dest.y - GUI_SCROLL_H - 4) + ((i - scroll->mod + 1) * GUI_LIST_STEP);
 		SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
-		gui_anti_aliasing_set(TTF->rect.x, TTF->rect.y, TTF->w_px, TTF->h_px);
 		SDL_DestroyTexture(TTF->texture);
 		i++;
 	}

@@ -14,10 +14,11 @@
 
 void		gui_background_get_set_n_display(t_gui *gui)
 {
-	char *path;
+	char	*path;
 
 	path = ft_strjoin(PATH->texture, "bg_deadrealm.bmp");
 	BG->surface = SDL_LoadBMP(path);
+	free(path);
 	if (!BG->surface)
 		gui_error(2);
 	BG->bmp = SDL_CreateTextureFromSurface(gui->img, BG->surface);

@@ -842,9 +842,7 @@ void	gui_get_textbox_value(t_textbox *textbox)
 	else if (!ft_strcmp(textbox->tag, "_CZ"))
 		textbox->value = ft_itoa(e->set->cam->pos.z);
 	else
-	{
-		gui_textbox_value_clear(textbox, textbox->maxlen);
-	}
+			event_txb_value_clear(textbox, textbox->maxlen);
 }
 
 t_textbox	*gui_parse_textbox(int fd, int nb)
@@ -878,7 +876,13 @@ t_textbox	*gui_parse_textbox(int fd, int nb)
 			textbox->tag = tmp[1];
 		}
 		else if (!ft_strcmp(tmp[0], "\t\tmin"))
+		{
 			textbox->min = ft_atoi(tmp[1]);
+			if (textbox->min >= 0)
+				textbox->reserved = 1;
+			else
+				textbox->reserved = 0;
+		}
 		else if (!ft_strcmp(tmp[0], "\t\tmax"))
 			textbox->max = ft_atoi(tmp[1]);
 		else if (!ft_strcmp(tmp[0], "\t\ttxt"))
