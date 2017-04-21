@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:06:23 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/21 18:02:19 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/21 18:44:34 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ void	parse_object_other(t_obj *obj, char *str)
 						|| !ft_strncmp(str, "true", 4));
 	}
 	else if (!ft_strncmp(str, "\"texture\"", 9))
-	{
-		obj->texture = ft_strtrim(get_value(str));
-		ft_strcpy(obj->texture, get_value(str));
-	}
+		obj->texture = ft_strdup(get_value(str));
+	else if (!ft_strncmp(str, "\"procedural\"", 12))
+		obj->procedural = ft_strdup(get_value(str));
+	else if (!ft_strncmp(str, "\"normalmap\"", 11))
+		obj->normalmap = ft_strdup(get_value(str));
 }
 
 void	parse_obj_exp(t_obj *obj, char *str)
