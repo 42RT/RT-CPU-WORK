@@ -104,7 +104,7 @@ t_button	**gui_parse_container_button(int fd, int qt, int id)
 	get_next_line(fd, &line);
 	if (ft_strcmp(line, "\tbutton:"))
 		gui_error(12);
-	if ((button = (t_button **)malloc(sizeof(t_button *))) == NULL)
+	if ((button = (t_button **)malloc(sizeof(t_button *) * qt)) == NULL)
 		error(1);
 	i = 0;
 	while (i < qt)
@@ -911,7 +911,7 @@ t_textbox	**gui_parse_container_textbox(int fd, int qt, int id)
 	get_next_line(fd, &line);
 	if (ft_strcmp(line, "\ttextbox:"))
 		gui_error(12);
-	if ((textbox = (t_textbox **)malloc(sizeof(t_textbox *))) == NULL)
+	if ((textbox = (t_textbox **)malloc(sizeof(t_textbox *) * qt)) == NULL)
 		error(1);
 	i = 0;
 	while (i < qt)
