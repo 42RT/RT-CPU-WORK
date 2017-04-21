@@ -56,9 +56,9 @@ t_button	*gui_parse_button(int fd, int nb)
 	int			i;
 
 	i = 0;
-	if ((button = (t_button *)malloc(sizeof(t_button))) == NULL)
+	if (!(button = (t_button *)malloc(sizeof(t_button))))
 		error(1);
-	if ((button->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
+	if (!(button->txt = (t_txt *)malloc(sizeof(t_txt))))
 		error(1);
 	button->nature = BTN;
 	button->surface = NULL;
@@ -74,8 +74,6 @@ t_button	*gui_parse_button(int fd, int nb)
 		if (!ft_strcmp(tmp[0], "\t\taction"))
 		{
 			tmp = ft_strsplit(tmp[1], '"');
-			//if ((button->action = (char *)malloc(sizeof(char) * 3)) == NULL)
-			//	error(1);
 			button->action = tmp[1];
 		}
 		if (!ft_strcmp(tmp[0], "\t\ttxt"))
@@ -553,7 +551,7 @@ t_scroll	**gui_parse_container_scroll(int fd, int qt, int id)
 	get_next_line(fd, &line);
 	if (ft_strcmp(line, "\tscroll:"))
 		gui_error(12);
-	if ((scroll = (t_scroll **)malloc(sizeof(t_scroll *))) == NULL)
+	if (!(scroll = (t_scroll **)malloc(sizeof(t_scroll *) * qt)))
 		error(1);
 	i = 0;
 	while (i < qt)
@@ -857,9 +855,9 @@ t_textbox	*gui_parse_textbox(int fd, int nb)
 	int			i;
 
 	i = 0;
-	if ((textbox = (t_textbox *)malloc(sizeof(t_textbox))) == NULL)
+	if (!(textbox = (t_textbox *)malloc(sizeof(t_textbox))))
 		error(1);
-	if ((textbox->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
+	if (!(textbox->txt = (t_txt *)malloc(sizeof(t_txt))))
 		error(1);
 	textbox->nature = TXB;
 	textbox->surface = NULL;
@@ -875,7 +873,7 @@ t_textbox	*gui_parse_textbox(int fd, int nb)
 		else if (!ft_strcmp(tmp[0], "\t\ttag"))
 		{
 			tmp = ft_strsplit(tmp[1], '"');
-			if ((textbox->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
+			if (!(textbox->tag = (char *)malloc(sizeof(char) * 3)))
 				error(1);
 			textbox->tag = tmp[1];
 		}
@@ -911,7 +909,7 @@ t_textbox	**gui_parse_container_textbox(int fd, int qt, int id)
 	get_next_line(fd, &line);
 	if (ft_strcmp(line, "\ttextbox:"))
 		gui_error(12);
-	if ((textbox = (t_textbox **)malloc(sizeof(t_textbox *) * qt)) == NULL)
+	if (!(textbox = (t_textbox **)malloc(sizeof(t_textbox *) * qt)))
 		error(1);
 	i = 0;
 	while (i < qt)
@@ -947,9 +945,9 @@ t_checkbox	*gui_parse_checkbox(int fd, int nb)
 	int			i;
 
 	i = 0;
-	if ((checkbox = (t_checkbox *)malloc(sizeof(t_checkbox))) == NULL)
+	if (!(checkbox = (t_checkbox *)malloc(sizeof(t_checkbox))))
 		error(1);
-	if ((checkbox->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
+	if (!(checkbox->txt = (t_txt *)malloc(sizeof(t_txt))))
 		error(1);
 	checkbox->nature = CBX;
 	checkbox->surface = NULL;
@@ -995,7 +993,7 @@ t_checkbox	**gui_parse_container_checkbox(int fd, int qt)
 	get_next_line(fd, &line);
 	if (ft_strcmp(line, "\tcheckbox:"))
 		gui_error(10);
-	if ((checkbox = (t_checkbox **)malloc(sizeof(t_checkbox *))) == NULL)
+	if (!(checkbox = (t_checkbox **)malloc(sizeof(t_checkbox *) * qt)))
 		error(1);
 	i = 0;
 	while (i < qt)
@@ -1021,13 +1019,13 @@ void	gui_parse_main_builder(t_gui *gui, int fd, int nb)
 
 	id = 0;
 	printf("parsing MAIN BUILDER : \n");
-	if ((gui->container = (t_container **)malloc(sizeof(t_container *) * GUI_CONTAINER_TOTAL_NB)) == NULL)
+	if (!(gui->container = (t_container **)malloc(sizeof(t_container *) * GUI_CONTAINER_TOTAL_NB)))
 		error(1);
 	while (id < nb)
 	{
-		if ((CONTAINER = (t_container *)malloc(sizeof(t_container))) == NULL)
+		if (!(CONTAINER = (t_container *)malloc(sizeof(t_container))))
 			error(1);
-		if ((CONTAINER->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
+		if (!(CONTAINER->txt = (t_txt *)malloc(sizeof(t_txt))))
 			error(1);
 		CONTAINER->button = NULL;
 		CONTAINER->scroll = NULL;

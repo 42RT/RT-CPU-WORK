@@ -10,7 +10,7 @@ void	gui_parse_param_scroll(t_gui *gui, int fd, int nb)
 	get_next_line(fd, &line);
 	if (!ft_strcmp(line, "\tscroll:"))
 	{
-		if ((PARAM->scroll = (t_scroll **)malloc(sizeof(t_scroll *) * nb)) == NULL)
+		if (!(PARAM->scroll = (t_scroll **)malloc(sizeof(t_scroll *) * nb)))
 			error(1);
 		i = 0;
 		while (i < nb)
@@ -73,7 +73,7 @@ void	gui_parse_param_checkbox(t_gui *gui, int fd, int nb)
 	get_next_line(fd, &line);
 	if (!ft_strcmp(line, "\tcheckbox:"))
 	{
-		if ((PARAM->checkbox = (t_checkbox **)malloc(sizeof(t_checkbox *) * nb)) == NULL)
+		if (!(PARAM->checkbox = (t_checkbox **)malloc(sizeof(t_checkbox *) * nb)))
 			error(1);
 		i = 0;
 		while (i < nb)
