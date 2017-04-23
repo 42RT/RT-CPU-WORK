@@ -19,7 +19,7 @@
 # define GAUGE BLOCK[id]->gauge
 # define GAUGE_B GAUGE[i]->cursor
 # define ALT_SCREEN_CENTERED 2325
-# define SCANCODE event.key.keysym.scancode
+# define SCCODE event.key.keysym.scancode
 # define HELP gui->help
 # define PARAM gui->param
 # define PARAM_SCL PARAM->scroll[i]
@@ -316,6 +316,7 @@ typedef struct		s_gui
 	t_def_widget	*def_widget;
 	void			*widget_active;
 	int				action;
+	int				txb_action;
 	int				anchor_x;
 	int				anchor_y;
 	int				tmp_lim;
@@ -445,6 +446,7 @@ void		event_txb_value_clear(t_textbox *textbox, int len);
 void		event_txb_edit(t_gui *gui, t_textbox *textbox, char *color);
 void		event_txb_backspace(t_textbox *textbox);
 void		event_txb_value_rot(t_textbox *textbox, char nb);
+void		event_txb_value_move(t_textbox *textbox);
 
 /* OTHER */
 void		gui_main_refresh(t_gui *gui);

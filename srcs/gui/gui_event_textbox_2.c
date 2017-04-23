@@ -1,5 +1,17 @@
 #include <gui.h>
 
+void	event_txb_value_move(t_textbox *textbox)
+{
+	int	i;
+
+	i = textbox->maxlen;
+	while (i > 0)
+	{
+		textbox->value[i] = textbox->value[i - 1];
+		i--;
+	}
+}
+
 void	event_txb_value_rot(t_textbox *textbox, char nb)
 {
 	int	i;

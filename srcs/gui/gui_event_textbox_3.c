@@ -1,69 +1,103 @@
 #include <gui.h>
 
-void	event_txb_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
+void	event_txb_insert_3(SDL_Event event, t_gui *gui, t_textbox *textbox)
 {
-	int	action;
-
-	action = 1;
-	if (SCANCODE == 40 || SCANCODE == 88)
+	if (SCCODE == 40 || SCCODE == 88)
 	{
 		event_widget_deselect(gui);
-		action = 0;
+		gui->txb_action = 0;
 	}
-	else if (SCANCODE == 43)
+	else if (SCCODE == 43)
 	{
 		event_txb_switch_select(gui, textbox);
-		action = 0;
+		gui->txb_action = 0;
 	}
-	else if (SCANCODE == 87 && textbox->maxlen > 3)
-		textbox->value[0] = ' ';
-	else if (SCANCODE == 86 && textbox->maxlen > 3)
-		textbox->value[0] = '-';
-	else if (SCANCODE == 42)
-		event_txb_backspace(textbox);
-	else if (SCANCODE == 76)
-		event_txb_value_clear(textbox, textbox->maxlen);
-	else if (SCANCODE >= 30 && SCANCODE <= 39)
-	{
-		if (textbox->edited == 0)
-		{
-			event_txb_value_clear(textbox, textbox->maxlen);
-			textbox->edited = 1;
-		}
-		if (SCANCODE == 39)
-			event_txb_value_rot(textbox, '0');
-		else
-			event_txb_value_rot(textbox, SCANCODE + 19);
-	}
-	else if (SCANCODE >= 89 && SCANCODE <= 99)
-	{
-		if (textbox->edited == 0)
-		{
-			event_txb_value_clear(textbox, textbox->maxlen);
-			textbox->edited = 1;
-		}
-		if (SCANCODE == 98)
-			event_txb_value_rot(textbox, '0');
-		else
-			event_txb_value_rot(textbox, SCANCODE - 40);
-	}
-	else
-		action = 0;
-	if (action == 1)
+	if (gui->txb_action == 1)
 	{
 		gui_widget_texture_get_bmp(textbox, "textbox_black.bmp");
 		gui_widget_display(textbox);
 		event_txb_edit(gui, textbox, "white");
-		SDL_RenderPresent(gui->img);
 	}
+}
+
+void	event_txb_insert_2(SDL_Event event, t_gui *gui, t_textbox *textbox)
+{
+	if ((SCCODE >= 30 && SCCODE <= 39) && (SCCODE >= 89 && SCCODE <= 99)
+	&& textbox->edited == 0)
+	{
+		event_txb_value_clear(textbox, textbox->maxlen);
+		textbox->edited = 1;
+	}
+	if (SCCODE >= 30 && SCCODE <= 39)
+	{
+		if (SCCODE == 39)
+			event_txb_value_rot(textbox, '0');
+		else
+			event_txb_value_rot(textbox, SCCODE + 19);
+	}
+	else if (SCCODE >= 89 && SCCODE <= 99)
+	{
+		if (SCCODE == 98)
+			event_txb_value_rot(textbox, '0');
+		else
+			event_txb_value_rot(textbox, SCCODE - 40);
+	}
+	event_txb_insert_3(event, gui, textbox);
+}
+
+void	event_txb_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
+{
+	gui->txb_action = 1;
+	if (SCCODE == 87 && textbox->reserved == 0)
+	{
+		if (textbox->value[0] != '-' && textbox->value[0] != ' ')
+			event_txb_value_move(textbox);
+		textbox->value[0] = ' ';
+	}
+	else if (SCCODE == 86 && textbox->reserved == 0)
+	{
+		if (textbox->value[0] != '-' && textbox->value[0] != ' ')
+			event_txb_value_move(textbox);
+		textbox->value[0] = '-';
+	}
+	else if (SCCODE == 42)
+		event_txb_backspace(textbox);
+	else if (SCCODE == 76)
+		event_txb_value_clear(textbox, textbox->maxlen);
+	event_txb_insert_2(event, gui, textbox);
+}
+
+int		event_is_textbox_suite(SDL_Event event, t_gui *gui, int id, int i)
+{
+	while (id < GUI_CONTAINER_TOTAL_NB)
+	{
+		if (BLOCK[id]->textbox == NULL)
+			id++;
+		else
+		{
+			i = 0;
+			while (i < BLOCK[id]->textbox_qt)
+			{
+				if ((event.button.x >= TEXTBOX[i]->dest.x) &&
+				(event.button.x <= TEXTBOX[i]->dest.x + TEXTBOX[i]->dest.w)
+				&& (event.button.y >= TEXTBOX[i]->dest.y) &&
+				(event.button.y <= TEXTBOX[i]->dest.y + TEXTBOX[i]->dest.h))
+				{
+					event_txb_select(gui, TEXTBOX[i]);
+					return (1);
+				}
+				i++;
+			}
+			id++;
+		}
+	}
+	return (0);
 }
 
 int		event_is_textbox(SDL_Event event, t_gui *gui)
 {
-	int	id;
 	int	i;
 
-	id = 0;
 	if (HELP && HELP->active == 1)
 		return (0);
 	else if (PARAM && PARAM->active == 1)
@@ -83,29 +117,6 @@ int		event_is_textbox(SDL_Event event, t_gui *gui)
 		}
 	}
 	else
-	{
-		while (id < GUI_CONTAINER_TOTAL_NB)
-		{
-			if (BLOCK[id]->textbox == NULL)
-				id++;
-			else
-			{
-				i = 0;
-				while (i < BLOCK[id]->textbox_qt)
-				{
-					if ((event.button.x >= TEXTBOX[i]->dest.x) &&
-					(event.button.x <= TEXTBOX[i]->dest.x + TEXTBOX[i]->dest.w)
-					&& (event.button.y >= TEXTBOX[i]->dest.y) &&
-					(event.button.y <= TEXTBOX[i]->dest.y + TEXTBOX[i]->dest.h))
-					{
-						event_txb_select(gui, TEXTBOX[i]);
-						return (1);
-					}
-					i++;
-				}
-				id++;
-			}
-		}
-	}
+		return (event_is_textbox_suite(event, gui, 0, 0));
 	return (0);
 }
