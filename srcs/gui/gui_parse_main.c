@@ -55,14 +55,8 @@ t_button	*gui_parse_button(int fd, int nb)
 	char		*line;
 	int			i;
 
+	button = gui_button_init();
 	i = 0;
-	if (!(button = (t_button *)malloc(sizeof(t_button))))
-		error(1);
-	if (!(button->txt = (t_txt *)malloc(sizeof(t_txt))))
-		error(1);
-	button->nature = BTN;
-	button->surface = NULL;
-	button->bmp = NULL;
 	while (i < nb)
 	{
 		get_next_line(fd, &line);
@@ -124,19 +118,6 @@ t_button	**gui_parse_container_button(int fd, int qt, int id)
 	return (button);
 }
 
-t_button	*gui_init_scroll_button()
-{
-	t_button	*button;
-
-	if ((button = (t_button *)malloc(sizeof(t_button))) == NULL)
-		error(1);
-	button->nature = BTN;
-	button->action = "scroll";
-	button->surface = NULL;
-	button->bmp = NULL;
-	return (button);
-}
-
 t_scroll	*gui_parse_scroll(int fd, int nb)
 {
 	t_scroll	*scroll;
@@ -144,15 +125,8 @@ t_scroll	*gui_parse_scroll(int fd, int nb)
 	char		*line;
 	int			i;
 
+	scroll = gui_scroll_init();
 	i = 0;
-	if ((scroll = (t_scroll *)malloc(sizeof(t_scroll))) == NULL)
-		error(1);
-	scroll->nature = SCL;
-	scroll->surface = NULL;
-	scroll->bmp = NULL;
-	scroll->button = gui_init_scroll_button();
-	if ((scroll->txt = (t_txt *)malloc(sizeof(t_txt))) == NULL)
-		error(1);
 	while (i < nb)
 	{
 		get_next_line(fd, &line);
@@ -164,8 +138,6 @@ t_scroll	*gui_parse_scroll(int fd, int nb)
 		else if (!ft_strcmp(tmp[0], "\t\ttag"))
 		{
 			tmp = ft_strsplit(tmp[1], '"');
-			if ((scroll->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
-				error(1);
 			scroll->tag = tmp[1];
 		}
 		else if (!ft_strcmp(tmp[0], "\t\ttxt"))
@@ -853,15 +825,8 @@ t_textbox	*gui_parse_textbox(int fd, int nb)
 	char		*line;
 	int			i;
 
+	textbox = gui_textbox_init();
 	i = 0;
-	if (!(textbox = (t_textbox *)malloc(sizeof(t_textbox))))
-		error(1);
-	if (!(textbox->txt = (t_txt *)malloc(sizeof(t_txt))))
-		error(1);
-	textbox->nature = TXB;
-	textbox->surface = NULL;
-	textbox->bmp = NULL;
-	textbox->edited = 0;
 	while (i < nb)
 	{
 		get_next_line(fd, &line);

@@ -28,7 +28,7 @@ void		gui_build_main(t_gui	*gui)
 	ft_printf("GUI : \033[33mContainer \033[0m: ");
 	ft_printf("\033[1;32mOK\033[0m\n");
 	ft_printf("GUI : \033[33mTextbox \033[0m: ");
-	gui_textbox_build(gui);
+	gui_textbox_create_all(gui);
 	ft_printf("\033[1;32mOK\033[0m\n");
 	ft_printf("GUI : \033[33mButton \033[0m: ");
 	gui_button_create_all(gui);

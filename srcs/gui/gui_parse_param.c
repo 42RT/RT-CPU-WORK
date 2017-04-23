@@ -16,7 +16,7 @@ void	gui_parse_param_scroll(t_gui *gui, int fd, int nb)
 		while (i < nb)
 		{
 			printf("\tSCL : (%d) : ", i);
-			PARAM_SCL = gui_param_scroll_init();
+			PARAM_SCL = gui_scroll_init();
 			PARAM_SCL->id = i;
 			PARAM_SCL->p = -1;
 			j = 0;
@@ -49,7 +49,7 @@ void	gui_parse_param_scroll(t_gui *gui, int fd, int nb)
 			}
 			printf("(%d,%d,%s) [\"%s\",%s,%d]\n", PARAM_SCL->dest.x, PARAM_SCL->dest.y, PARAM_SCL->tag, PARAM_SCL->txt->content, PARAM_SCL->txt->anchor, PARAM_SCL->txt->align);
 			PARAM_SCL->value = gui_get_scroll_value(PARAM_SCL);
-			gui_param_scroll_set(PARAM_SCL);
+			gui_scroll_set(PARAM_SCL);
 			i++;
 			if (i < nb)
 			{
@@ -149,7 +149,7 @@ void	gui_parse_param_button(t_gui *gui, int fd, int nb)
 		while (i < nb)
 		{
 			printf("\tBTN : (%d) : ", i);
-			PARAM_BTN = gui_param_button_init();
+			PARAM_BTN = gui_button_init();
 			PARAM_BTN->id = i;
 			PARAM_BTN->p = -1;
 			j = 0;

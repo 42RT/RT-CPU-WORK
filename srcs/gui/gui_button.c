@@ -12,40 +12,21 @@
 
 #include <gui.h>
 
-void	gui_button_selected(t_gui *gui, t_button *button)
+t_button	*gui_button_init(void)
 {
-	gui_font_init(gui, "Starjedi", TTF->def_size);
-	gui_widget_draw_depth(button->dest, GUI_BTN_DEPTH, "red brick");
-	gui_widget_write_txt(button, "red brick");
-	TTF_CloseFont(TTF->font);
+	t_button	*button;
+
+	if (!(button = (t_button *)malloc(sizeof(t_button))))
+		error(1);
+	if (!(button->txt = (t_txt *)malloc(sizeof(t_txt))))
+		error(1);
+	button->surface = NULL;
+	button->bmp = NULL;
+	button->nature = BTN;
+	return (button);
 }
 
-void	gui_button_create_all(t_gui *gui)
-{
-	int	i;
-	int	id;
-
-	id = 0;
-	while (id < GUI_CONTAINER_TOTAL_NB)
-	{
-		if (BLOCK[id]->button == NULL)
-			id++;
-		else
-		{
-			i = 0;
-			while (i < BLOCK[id]->button_qt)
-			{
-				gui_widget_texture_get_bmp(BUTTON[i], "button_jade.bmp");
-				gui_widget_display(BUTTON[i]);
-				gui_widget_draw_depth(BUTTON[i]->dest, GUI_BTN_DEPTH, "white");
-				i++;
-			}
-			id++;
-		}
-	}
-}
-
-void	gui_button_set_halign(t_button *button)
+void		gui_button_set_halign(t_button *button)
 {
 	t_gui	*gui;
 
@@ -60,7 +41,7 @@ void	gui_button_set_halign(t_button *button)
 		button->dest.x = button->dest.x;
 }
 
-void	gui_button_set_valign(t_button *button)
+void		gui_button_set_valign(t_button *button)
 {
 	t_gui	*gui;
 
@@ -77,7 +58,7 @@ void	gui_button_set_valign(t_button *button)
 		button->dest.y = button->dest.y;
 }
 
-void	gui_button_set(t_button *button)
+void		gui_button_set(t_button *button)
 {
 	t_gui	*gui;
 

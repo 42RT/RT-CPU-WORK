@@ -1,5 +1,35 @@
 #include <gui.h>
 
+t_button	*gui_scroll_button_init(void)
+{
+	t_button	*button;
+
+	if (!(button = (t_button *)malloc(sizeof(t_button))))
+		error(1);
+	button->nature = BTN;
+	button->action = "scroll";
+	button->surface = NULL;
+	button->bmp = NULL;
+	return (button);
+}
+
+t_scroll	*gui_scroll_init(void)
+{
+	t_scroll	*scroll;
+
+	if (!(scroll = (t_scroll *)malloc(sizeof(t_scroll))))
+		error(1);
+	if (!(scroll->tag = (char *)malloc(sizeof(char) * 3)))
+		error(1);
+	if (!(scroll->txt = (t_txt *)malloc(sizeof(t_txt))))
+		error(1);
+	scroll->nature = SCL;
+	scroll->surface = NULL;
+	scroll->bmp = NULL;
+	scroll->button = gui_scroll_button_init();
+	return (scroll);
+}
+
 void	gui_scroll_value_free(char **value, int nb)
 {
 	int i;
@@ -14,7 +44,6 @@ void	gui_reparse_scroll_value(t_gui *gui, char *target, int ptid, int pti)
 	int	i;
 	int	id;
 
-	printf("REPARSE SCROLL : ");
 	if (!ft_strcmp(target, "MAIN") || !ft_strcmp(target, "ALL"))
 	{
 		id = 0;
@@ -29,7 +58,6 @@ void	gui_reparse_scroll_value(t_gui *gui, char *target, int ptid, int pti)
 					i++;
 				while (i < BLOCK[id]->scroll_qt)
 				{
-					printf("MAIN [%d][%d]\n", id, i);
 					free(SCROLL[i]->value);
 					SCROLL[i]->value = NULL;
 					SCROLL[i]->value = gui_get_scroll_value(SCROLL[i]);
@@ -45,7 +73,6 @@ void	gui_reparse_scroll_value(t_gui *gui, char *target, int ptid, int pti)
 		i = 1;
 		while (i < PARAM->scroll_qt)
 		{
-			printf("PARAM [0][%d]\n", i);
 			free(PARAM_SCL->value);
 			PARAM_SCL->value = NULL;
 			PARAM_SCL->value = gui_get_scroll_value(PARAM_SCL);
@@ -77,7 +104,8 @@ void	gui_scroll_set(t_scroll *scroll)
 	gui = get_gui();
 	scroll->dest.w = DEF->scl_w;
 	scroll->dest.h = DEF->scl_h;
-	scroll->dest.y += BLOCK[scroll->p]->dest.y;
+	if (scroll->p != -1)
+		scroll->dest.y += BLOCK[scroll->p]->dest.y;
 	gui_scroll_set_halign(scroll);
 	scroll->button->dest.x = scroll->dest.x + scroll->dest.w;
 	scroll->button->dest.y = scroll->dest.y;

@@ -357,6 +357,7 @@ void		gui_font_init(t_gui *gui, char *ttf, int size);
 void		gui_font_build(t_gui *gui);
 
 /* BUTTON */
+t_button	*gui_button_init(void);
 void		gui_button_build(t_gui *gui);
 void		gui_button_set(t_button *button);
 void		gui_button_create_all(t_gui *gui);
@@ -377,6 +378,7 @@ void		gui_textbox_value_clear(t_textbox *textbox, int len);
 void		gui_reparse_textbox_value(t_gui *gui, char *target);
 
 /* SCROLL */
+t_scroll	*gui_scroll_init(void);
 void		gui_scroll_build(t_gui *gui);
 void		gui_scroll_set(t_scroll *scroll);
 void		gui_scroll_set_halign(t_scroll *scroll);
@@ -413,19 +415,22 @@ void		gui_write_help(t_gui *gui, char *text, int align, int y);
 void		gui_param_toggle(t_gui *gui);
 void		gui_param_open(t_gui *gui);
 void		gui_param_close(t_gui *gui);
+void		gui_param_get_bmp_n_display(t_gui *gui);
 void		gui_write_param(t_gui *gui, char *text, int aligne, int y);
 void		gui_param_refresh(t_gui *gui);
-t_scroll	*gui_param_scroll_init(void);
 void		gui_param_scroll_set(t_scroll *scroll);
+void		gui_param_scroll_create_all(t_gui *gui);
+void		gui_param_textbox_create_all(t_gui *gui);
 t_checkbox	*gui_param_checkbox_init(void);
 void		gui_param_checkbox_set(t_checkbox *checkbox);
 void		gui_param_checkbox_get_bmp(t_gui *gui, t_checkbox *checkbox, char *file);
 void		gui_param_checkbox_display(t_gui *gui, t_checkbox *checkbox);
 void		gui_param_checkbox_create_all(t_gui *gui);
 void		gui_param_checkbox_toggle(t_gui *gui, t_checkbox *checkbox);
-t_button	*gui_param_button_init(void);
 t_gauge		*gui_gauge_init(void);
 void		gui_gauge_set(t_gauge *gauge);
+void		gui_param_gauge_create_all(t_gui *gui);
+void		gui_param_text_build(t_gui *gui);
 
 /* ERROR HANDLING */
 void		gui_error(int n);

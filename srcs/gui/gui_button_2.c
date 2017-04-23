@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui_freetxt.c                                      :+:      :+:    :+:   */
+/*   gui_button_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,29 +12,35 @@
 
 #include <gui.h>
 
-t_freetxt	*gui_freetxt_init(void)
+void	gui_button_selected(t_gui *gui, t_button *button)
 {
-	t_freetxt	*freetxt;
-
-	if (!(freetxt = (t_freetxt *)malloc(sizeof(t_freetxt))))
-		error(1);
-	if (!(freetxt->txt = (t_txt *)malloc(sizeof(t_txt))))
-		error(1);
-	freetxt->nature = FTT;
-	return (freetxt);
+	gui_font_init(gui, "Starjedi", TTF->def_size);
+	gui_widget_draw_depth(button->dest, GUI_BTN_DEPTH, "red brick");
+	gui_widget_write_txt(button, "red brick");
+	TTF_CloseFont(TTF->font);
 }
 
-void		gui_freetxt_set(t_freetxt *freetxt, SDL_Rect dest)
+void	gui_button_create_all(t_gui *gui)
 {
-	freetxt->dest.w = ft_strlen(freetxt->txt->content) * 10;
-	freetxt->dest.h = 20;
-	if (freetxt->dest.x == GUI_ALIGN_LEFT)
-		freetxt->dest.x = dest.x + 15;
-	else if (freetxt->dest.x == GUI_ALIGN_MID)
-		freetxt->dest.x = ((dest.w + (dest.x * 2.5)) / 2)
-		- (freetxt->dest.w / 2) + 10;
-	else if (freetxt->dest.x == GUI_ALIGN_RIGHT)
-		freetxt->dest.x = (dest.w + (dest.x * 1.5)) - (freetxt->dest.w + 20);
-	else
-		freetxt->dest.x = freetxt->dest.x;
+	int	i;
+	int	id;
+
+	id = 0;
+	while (id < GUI_CONTAINER_TOTAL_NB)
+	{
+		if (BLOCK[id]->button == NULL)
+			id++;
+		else
+		{
+			i = 0;
+			while (i < BLOCK[id]->button_qt)
+			{
+				gui_widget_texture_get_bmp(BUTTON[i], "button_jade.bmp");
+				gui_widget_display(BUTTON[i]);
+				gui_widget_draw_depth(BUTTON[i]->dest, GUI_BTN_DEPTH, "white");
+				i++;
+			}
+			id++;
+		}
+	}
 }
