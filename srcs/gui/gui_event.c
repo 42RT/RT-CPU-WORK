@@ -121,65 +121,6 @@ int			event_is_button(SDL_Event event, t_env *env, t_gui *gui)
 	return (0);
 }
 
-int			event_is_param_scroll(SDL_Event event, t_gui *gui)
-{
-	int	i;
-
-	i = 0;
-	while (i < PARAM->scroll_qt)
-	{
-		if (PARAM_SCL == gui->widget_active)
-			return (gui_scroll_value_select(gui, event, PARAM_SCL));
-		if ((event.button.x >= PARAM_SCL_B->dest.x) &&
-		(event.button.x <= PARAM_SCL_B->dest.x + PARAM_SCL_B->dest.w) &&
-		(event.button.y >= PARAM_SCL_B->dest.y) &&
-		(event.button.y <= PARAM_SCL_B->dest.y + PARAM_SCL_B->dest.h))
-		{
-			printf("EVENT : PARAM SCROLL [%d]\n", i);
-			gui_scroll_toggle(gui, PARAM_SCL);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int			event_is_scroll(SDL_Event event, t_gui *gui)
-{
-	int id;
-	int i;
-
-	id = 0;
-	if (PARAM && PARAM->active == 1)
-		return (event_is_param_scroll(event, gui));
-	while (id < GUI_CONTAINER_TOTAL_NB && HELP && HELP->active == 0)
-	{
-		if (BLOCK[id]->scroll == NULL)
-			id++;
-		else
-		{
-			i = 0;
-			while (i < BLOCK[id]->scroll_qt)
-			{
-				if (SCROLL[i] == gui->widget_active)
-					return (gui_scroll_value_select(gui, event, SCROLL[i]));
-				if ((event.button.x >= SCROLL_B->dest.x) &&
-				(event.button.x <= SCROLL_B->dest.x + SCROLL_B->dest.w) &&
-				(event.button.y >= SCROLL_B->dest.y) &&
-				(event.button.y <= SCROLL_B->dest.y + SCROLL_B->dest.h))
-				{
-					printf("EVENT : SCROLL [%d][%d]\n", id, i);
-					gui_scroll_toggle(gui, SCROLL[i]);
-					return (1);
-				}
-				i++;
-			}
-			id++;
-		}
-	}
-	return (0);
-}
-
 int			event_is_param_checkbox(SDL_Event event, t_gui *gui)
 {
 	int	i;
@@ -238,59 +179,5 @@ int			event_is_gauge(SDL_Event event, t_gui *gui)
 	if (PARAM && PARAM->active == 1)
 		return (event_is_param_gauge(event, gui));
 	// main window gauge research to be included here
-	return (0);
-}
-
-void		event_scroll_mouse_over(SDL_Event event, t_gui *gui, t_scroll *scroll)
-{
-	int	motion;
-
-	if ((event.motion.x >= scroll->dest.x) &&
-	(event.motion.x <= scroll->dest.x + scroll->dest.w) &&
-	(event.motion.y >= scroll->dest.y) &&
-	(event.motion.y <= scroll->dest.y + scroll->dest.h))
-	{
-		motion = (event.motion.y - scroll->dest.y + (scroll->mod * GUI_LIST_STEP)) / GUI_LIST_STEP;
-		gui_scroll_write_list(gui, scroll, motion);
-	}
-}
-
-void		event_scroll_down(t_gui *gui, t_scroll *scroll)
-{
-	if (scroll->mod < scroll->nb_value - GUI_SCROLL_MAX_SHOWN)
-	{
-		scroll->mod++;
-		gui_widget_texture_get_bmp(scroll, "scroll_white.bmp");
-		gui_widget_display(scroll);
-		gui_scroll_write_list(gui, scroll, -1);
-	}
-}
-
-void		event_scroll_up(t_gui *gui, t_scroll *scroll)
-{
-	if (scroll->mod > 0)
-	{
-		scroll->mod--;
-		gui_widget_texture_get_bmp(scroll, "scroll_white.bmp");
-		gui_widget_display(scroll);
-		gui_scroll_write_list(gui, scroll, -1);
-	}
-}
-
-int			event_scroll_mouse_wheel(SDL_Event event, t_gui *gui)
-{
-	t_scroll	*tmp;
-	
-	if (WIDGET && *(int *)WIDGET == SCL)
-	{
-		tmp = WIDGET;
-		if (event.wheel.y > 0)
-			event_scroll_up(gui, tmp);
-		else if (event.wheel.y < 0)
-			event_scroll_down(gui, tmp);
-		else
-			return (0);
-		return (1);
-	}
 	return (0);
 }

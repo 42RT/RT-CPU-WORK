@@ -386,7 +386,7 @@ void		gui_scroll_toggle(t_gui *gui, t_scroll *scroll);
 void		gui_scroll_free(t_scroll *scroll);
 void		gui_scroll_write_list(t_gui *gui, t_scroll *scroll, int motion);
 void		gui_scroll_value_write(t_gui *gui, t_scroll *scroll, char *color);
-void		gui_reparse_scroll_value(t_gui *gui, char *target);
+void		gui_reparse_scroll_value(t_gui *gui, char *target, int ptid, int pti);
 
 /* CHECKBOX */
 void		gui_checkbox_get_state(t_checkbox *checkbox);

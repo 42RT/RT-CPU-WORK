@@ -22,8 +22,8 @@ void	event_txb_insert_3(SDL_Event event, t_gui *gui, t_textbox *textbox)
 
 void	event_txb_insert_2(SDL_Event event, t_gui *gui, t_textbox *textbox)
 {
-	if ((SCCODE >= 30 && SCCODE <= 39) && (SCCODE >= 89 && SCCODE <= 99)
-	&& textbox->edited == 0)
+	if (((SCCODE >= 30 && SCCODE <= 39) || (SCCODE >= 89 && SCCODE <= 99))
+	&& (textbox->edited == 0))
 	{
 		event_txb_value_clear(textbox, textbox->maxlen);
 		textbox->edited = 1;
@@ -35,26 +35,28 @@ void	event_txb_insert_2(SDL_Event event, t_gui *gui, t_textbox *textbox)
 		else
 			event_txb_value_rot(textbox, SCCODE + 19);
 	}
-	else if (SCCODE >= 89 && SCCODE <= 99)
+	else if (SCCODE >= 89 && SCCODE <= 98)
 	{
 		if (SCCODE == 98)
 			event_txb_value_rot(textbox, '0');
 		else
 			event_txb_value_rot(textbox, SCCODE - 40);
 	}
+	else if (SCCODE == 99 && !ft_strcmp(textbox->tag, "RFR"))
+		event_txb_value_rot(textbox, '.');
 	event_txb_insert_3(event, gui, textbox);
 }
 
 void	event_txb_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
 {
 	gui->txb_action = 1;
-	if (SCCODE == 87 && textbox->reserved == 0)
+	if (SCCODE == 87 && textbox->reserved == 1)
 	{
 		if (textbox->value[0] != '-' && textbox->value[0] != ' ')
 			event_txb_value_move(textbox);
 		textbox->value[0] = ' ';
 	}
-	else if (SCCODE == 86 && textbox->reserved == 0)
+	else if (SCCODE == 86 && textbox->reserved == 1)
 	{
 		if (textbox->value[0] != '-' && textbox->value[0] != ' ')
 			event_txb_value_move(textbox);

@@ -234,6 +234,7 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 
 char	**gui_get_scroll_object(t_scroll *scroll)
 {
+	printf("REPARSE OBJ\n");
 	char	**value;
 	t_env	*e;
 	t_obj	*tmp;
@@ -860,6 +861,7 @@ t_textbox	*gui_parse_textbox(int fd, int nb)
 	textbox->nature = TXB;
 	textbox->surface = NULL;
 	textbox->bmp = NULL;
+	textbox->edited = 0;
 	while (i < nb)
 	{
 		get_next_line(fd, &line);
@@ -879,9 +881,9 @@ t_textbox	*gui_parse_textbox(int fd, int nb)
 		{
 			textbox->min = ft_atoi(tmp[1]);
 			if (textbox->min >= 0)
-				textbox->reserved = 1;
-			else
 				textbox->reserved = 0;
+			else
+				textbox->reserved = 1;
 		}
 		else if (!ft_strcmp(tmp[0], "\t\tmax"))
 			textbox->max = ft_atoi(tmp[1]);

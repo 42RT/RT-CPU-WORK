@@ -232,9 +232,9 @@ void	gui_parse_param_textbox(t_gui *gui, int fd, int nb)
 				{
 					PARAM_TXB->min = ft_atoi(tmp[1]);
 					if (PARAM_TXB->min >= 0)
-						PARAM_TXB->reserved = 1;
-					else
 						PARAM_TXB->reserved = 0;
+					else
+						PARAM_TXB->reserved = 1;
 				}
 				else if (!ft_strcmp(tmp[0], "\t\tmax"))
 					PARAM_TXB->max = ft_atoi(tmp[1]);

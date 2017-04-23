@@ -9,14 +9,15 @@ void	gui_scroll_value_free(char **value, int nb)
 		value[i--] = NULL;
 }
 
-void	gui_reparse_scroll_value(t_gui *gui, char *target)
+void	gui_reparse_scroll_value(t_gui *gui, char *target, int ptid, int pti)
 {
 	int	i;
 	int	id;
 
+	printf("REPARSE SCROLL : ");
 	if (!ft_strcmp(target, "MAIN") || !ft_strcmp(target, "ALL"))
 	{
-		id = 2;
+		id = 0;
 		while (id < GUI_CONTAINER_TOTAL_NB)
 		{
 			if (BLOCK[id]->scroll == NULL)
@@ -24,10 +25,15 @@ void	gui_reparse_scroll_value(t_gui *gui, char *target)
 			else
 			{
 				i = 0;
+				while ((id == 0 && i == 0) || (id == ptid && i == pti))
+					i++;
 				while (i < BLOCK[id]->scroll_qt)
 				{
+					printf("MAIN [%d][%d]\n", id, i);
 					free(SCROLL[i]->value);
+					SCROLL[i]->value = NULL;
 					SCROLL[i]->value = gui_get_scroll_value(SCROLL[i]);
+					SCROLL[i]->active_value = 0;
 					i++;
 				}
 				id++;
@@ -39,8 +45,11 @@ void	gui_reparse_scroll_value(t_gui *gui, char *target)
 		i = 1;
 		while (i < PARAM->scroll_qt)
 		{
+			printf("PARAM [0][%d]\n", i);
 			free(PARAM_SCL->value);
+			PARAM_SCL->value = NULL;
 			PARAM_SCL->value = gui_get_scroll_value(PARAM_SCL);
+			PARAM_SCL->active_value = 0;
 			i++;
 		}
 	}
@@ -141,7 +150,7 @@ int		gui_scroll_value_select(t_gui *gui, SDL_Event event, t_scroll *scroll)
 			if (!ft_strcmp(scroll->tag, "OBJ"))
 			{
 				gui_reparse_textbox_value(gui, "ALL");
-				gui_reparse_scroll_value(gui, "ALL");
+				gui_reparse_scroll_value(gui, "ALL", 0, 1);
 			}
 			gui_scroll_toggle(gui, scroll);
 		}
