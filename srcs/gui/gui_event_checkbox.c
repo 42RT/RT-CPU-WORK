@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui_event.c                                        :+:      :+:    :+:   */
+/*   gui_event_checkbox.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,35 +12,29 @@
 
 #include <gui.h>
 
-void	gui_pending_action_prevent(t_gui *gui)
+int		event_is_param_checkbox(SDL_Event event, t_gui *gui)
 {
-	SDL_Surface	*surf;
-	SDL_Texture	*bmp;
-	SDL_Rect	dest;
+	int	i;
 
-	dest.x = 0;
-	dest.y = 0;
-	dest.w = gui->dest.w;
-	dest.h = gui->dest.h;
-	gui->action = 1;
-	surf = SDL_LoadBMP("./ressources/gui_texture/help_black.bmp");
-	if (!surf)
-		gui_error(2);
-	bmp = SDL_CreateTextureFromSurface(gui->img, surf);
-	if (!bmp)
-		gui_error(3);
-	SDL_SetTextureBlendMode(bmp, SDL_BLENDMODE_BLEND);
-	SDL_SetTextureAlphaMod(bmp, 200);
-	SDL_RenderCopy(gui->img, bmp, NULL, &dest);
-	SDL_DestroyTexture(bmp);
-	SDL_FreeSurface(surf);
-	SDL_RenderPresent(gui->img);
+	i = 0;
+	while (i < PARAM->checkbox_qt)
+	{
+		if ((event.button.x >= PARAM_CBX->dest.x) &&
+		(event.button.x <= PARAM_CBX->dest.x + PARAM_CBX->dest.w) &&
+		(event.button.y >= PARAM_CBX->dest.y) &&
+		(event.button.y <= PARAM_CBX->dest.y + PARAM_CBX->dest.h))
+		{
+			gui_param_checkbox_toggle(gui, PARAM_CBX);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
-void	event_widget_deselect(t_gui *gui)
+int		event_is_checkbox(SDL_Event event, t_gui *gui)
 {
-	if (*(int *)WIDGET == TXB)
-		event_txb_deselect(gui);
-	else if (*(int *)WIDGET == SCL)
-		gui_scroll_toggle(gui, (t_scroll *)gui->widget_active);
+	if (PARAM && PARAM->active == 1)
+		return (event_is_param_checkbox(event, gui));
+	return (0);
 }

@@ -431,11 +431,12 @@ void		gui_gauge_set(t_gauge *gauge);
 void		gui_error(int n);
 
 /* EVENT */
+void		gui_pending_action_prevent(t_gui *gui);
 int			event_scroll_mouse_wheel(SDL_Event event, t_gui *gui);
 int			event_is_scroll(SDL_Event event, t_gui *gui);
 int			event_is_checkbox(SDL_Event event, t_gui *gui);
 int			event_is_gauge(SDL_Event event, t_gui *gui);
-int			event_is_button(SDL_Event event, t_env *env, t_gui *gui);
+int			event_is_button(SDL_Event event, t_gui *gui, int id, int i);
 int			event_is_textbox(SDL_Event event, t_gui *gui);
 void		event_scroll_mouse_over(SDL_Event event, t_gui *gui, t_scroll *scroll);
 void		event_txb_switch_select(t_gui *gui, t_textbox *textbox);
@@ -447,6 +448,7 @@ void		event_txb_edit(t_gui *gui, t_textbox *textbox, char *color);
 void		event_txb_backspace(t_textbox *textbox);
 void		event_txb_value_rot(t_textbox *textbox, char nb);
 void		event_txb_value_move(t_textbox *textbox);
+void		event_button_perform_action(t_gui *gui, char *action);
 
 /* OTHER */
 void		gui_main_refresh(t_gui *gui);

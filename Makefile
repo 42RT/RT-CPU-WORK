@@ -108,7 +108,10 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GUI)gui_event_textbox_2.c \
 			$(PATH_GUI)gui_event_textbox_3.c \
 			$(PATH_GUI)gui_event_scroll.c \
-			$(PATH_GUI)gui_event_scroll_2.c
+			$(PATH_GUI)gui_event_scroll_2.c \
+			$(PATH_GUI)gui_event_button.c \
+			$(PATH_GUI)gui_event_checkbox.c \
+			$(PATH_GUI)gui_event_gauge.c
 
 ifeq ($(UNAME_S),Darwin)
 	INC 	+=	-I ~/.brew/Cellar/sdl2/2.0.5/include/SDL2 \
