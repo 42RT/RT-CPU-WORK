@@ -16,7 +16,7 @@
 		"y": 1500,
 		"z": -1000
 	},
-	"texture": PoolWater,
+	"texture": PoolWater
 }
 
 "cylindre": {
@@ -43,7 +43,7 @@
 	"angle": {
 		"x": 90
 	},
-	"normalmap": normalmap,
+	"normalmap": normalmap
 }
 
 "light": {

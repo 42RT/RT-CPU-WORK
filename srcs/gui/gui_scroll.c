@@ -60,8 +60,8 @@ void	gui_reparse_scroll_value(t_gui *gui, char *target, int ptid, int pti)
 				{
 					free(SCROLL[i]->value);
 					SCROLL[i]->value = NULL;
-					SCROLL[i]->value = gui_get_scroll_value(SCROLL[i]);
 					SCROLL[i]->active_value = 0;
+					SCROLL[i]->value = gui_get_scroll_value(SCROLL[i]);
 					i++;
 				}
 				id++;
@@ -75,8 +75,8 @@ void	gui_reparse_scroll_value(t_gui *gui, char *target, int ptid, int pti)
 		{
 			free(PARAM_SCL->value);
 			PARAM_SCL->value = NULL;
-			PARAM_SCL->value = gui_get_scroll_value(PARAM_SCL);
 			PARAM_SCL->active_value = 0;
+			PARAM_SCL->value = gui_get_scroll_value(PARAM_SCL);
 			i++;
 		}
 	}
