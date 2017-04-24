@@ -58,6 +58,16 @@ typedef struct		s_cam
 	t_vector		ang;
 }					t_cam;
 
+typedef	struct		s_smooth_noise
+{
+	float			fractx;
+	float			fracty;
+	int				x1;
+	int				x2;
+	int				y1;
+	int				y2;
+}					t_smooth_noise;
+
 typedef struct		s_settings
 {
 	unsigned int	width;
@@ -234,6 +244,7 @@ t_color				get_color(char *str);
 void				print_debug(t_env *e);
 void				exp_compute(t_vector *o, t_vector *exp);
 t_color				mod_light(t_color color, float dst, float coef2);
+void				swap_cap(t_obj *obj);
 
 /*
 ** Init
@@ -298,6 +309,10 @@ void				paraboloid_normale(t_vector *n, t_vector *o, t_obj *obj);
 */
 void				generate_noise(t_env *e);
 float				turbulence(float x, float y, float size);
+t_color				stripe(t_obj *obj, float turb, int x);
+t_color				square(t_obj *obj, float turb, int x, int y);
+t_color				perlin(t_color objcolor, float turb);
+t_color				skybox(float turb);
 
 /*
 ** Textures

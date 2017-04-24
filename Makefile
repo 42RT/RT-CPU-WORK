@@ -16,6 +16,8 @@ PATH_SRC =		srcs/
 PATH_GFX =		$(PATH_SRC)gfx/
 PATH_GUI =		$(PATH_SRC)gui/
 PATH_PARSER =	$(PATH_SRC)parser/
+PATH_TEXTURES =	$(PATH_SRC)textures/
+PATH_OBJECTS =	$(PATH_SRC)objects/
 PATH_LIB =		lib/
 UNAME_S =		$(shell uname -s)
 THREADS =		$(shell grep -c ^processor /proc/cpuinfo)
@@ -46,15 +48,21 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_SRC)expose_hook.c \
 			$(PATH_SRC)loading.c \
 			$(PATH_SRC)console.c \
-			$(PATH_SRC)cone.c \
-			$(PATH_SRC)cylinder.c \
-			$(PATH_SRC)dfloor.c \
-			$(PATH_SRC)disk.c \
-			$(PATH_SRC)floor.c \
-			$(PATH_SRC)sphere.c \
-			$(PATH_SRC)square.c \
-			$(PATH_SRC)new_light.c \
-			$(PATH_SRC)new_obj.c \
+			$(PATH_OBJECTS)cone.c \
+			$(PATH_OBJECTS)cylinder.c \
+			$(PATH_OBJECTS)dfloor.c \
+			$(PATH_OBJECTS)disk.c \
+			$(PATH_OBJECTS)floor.c \
+			$(PATH_OBJECTS)sphere.c \
+			$(PATH_OBJECTS)square.c \
+			$(PATH_OBJECTS)new_light.c \
+			$(PATH_OBJECTS)new_obj.c \
+			$(PATH_OBJECTS)compose.c \
+			$(PATH_OBJECTS)cube.c \
+			$(PATH_OBJECTS)other_primitive.c \
+			$(PATH_OBJECTS)glass.c \
+			$(PATH_OBJECTS)obj_utils.c \
+			$(PATH_OBJECTS)swap_cap.c \
 			$(PATH_SRC)new_settings.c \
 			$(PATH_SRC)aff_light.c \
 			$(PATH_SRC)aff_obj.c \
@@ -68,18 +76,15 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_SRC)color_utils.c \
 			$(PATH_SRC)copy_utils.c \
 			$(PATH_SRC)get_utils.c \
-			$(PATH_SRC)obj_utils.c \
 			$(PATH_SRC)thread_utils.c \
 			$(PATH_SRC)vec_utils.c \
 			$(PATH_SRC)vec_utils_2.c \
 			$(PATH_SRC)vec_utils_3.c \
 			$(PATH_SRC)trace_lights.c \
-			$(PATH_SRC)compose.c \
-			$(PATH_SRC)cube.c \
-			$(PATH_SRC)other_primitive.c \
-			$(PATH_SRC)procedural.c \
+			$(PATH_TEXTURES)procedural.c \
+			$(PATH_TEXTURES)perlin_noise_init.c \
+			$(PATH_TEXTURES)get_textures.c \
 			$(PATH_SRC)error.c \
-			$(PATH_SRC)glass.c \
 			$(PATH_GUI)gui_error.c \
 			$(PATH_GUI)gui_tool.c \
 			$(PATH_GUI)gui_refresher.c \

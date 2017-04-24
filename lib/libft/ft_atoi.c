@@ -38,6 +38,8 @@ int			ft_atoi(const char *str)
 	negatif = (*ptr == 0x2D);
 	if (negatif)
 		++ptr;
+	if (*ptr == ' ' && ptr)
+		++ptr;
 	while (*ptr >= 0x30 && *ptr < 0x3A)
 	{
 		result *= 10;
