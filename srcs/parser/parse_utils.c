@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/02/23 15:02:46 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/24 18:18:10 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,20 @@
 
 char	*get_value(char *str)
 {
+	char	*str2;
+	int		i;
+
+	i = 0;
 	while (*str && *str != ':')
 		++str;
 	if (*str)
 		++str;
+	str2 = malloc((ft_strlen(str)) * sizeof(char));
+	while (str[i] && str[i] != ',')
+	{
+		str2[i] = str[i];
+		i++;
+	}
 	return (str);
 }
 

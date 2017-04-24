@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:04:33 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/02/24 12:47:50 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/04/21 20:04:13 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,9 +139,6 @@ void	parse_object(t_env *e, t_item *item)
 	}
 	if (obj->type == GLASS)
 		glass(obj);
-	//obj->procedural = "perlin";
-	//obj->texture = "bricks";
-	//obj->normalmap = "normalmap";
 	if (obj->texture)
 		Load_Texture(obj);
 	if (obj->normalmap)
