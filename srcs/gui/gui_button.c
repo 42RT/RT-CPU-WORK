@@ -49,7 +49,7 @@ void		gui_button_set_valign(t_button *button)
 	if (button->dest.y == GUI_ALIGN_LEFT)
 		button->dest.y = BLOCK[button->p]->dest.y;
 	else if (button->dest.y == GUI_ALIGN_MID)
-		button->dest.y = BLOCK[button->p]->dest.y 
+		button->dest.y = BLOCK[button->p]->dest.y
 		+ (BLOCK[button->p]->dest.h / 7);
 	else if (button->dest.y == GUI_ALIGN_RIGHT)
 		button->dest.y = BLOCK[button->p]->dest.y + BLOCK[button->p]->dest.h

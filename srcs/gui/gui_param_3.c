@@ -56,4 +56,3 @@ void	gui_param_text_build(t_gui *gui)
 		gui_widget_write_txt(PARAM_CBX, "white");
 	gui_param_text_build_suite(gui);
 }
-

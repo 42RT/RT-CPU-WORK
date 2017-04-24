@@ -52,7 +52,7 @@ void	event_scroll_up(t_gui *gui, t_scroll *scroll)
 int		event_scroll_mouse_wheel(SDL_Event event, t_gui *gui)
 {
 	t_scroll	*tmp;
-	
+
 	if (WIDGET && *(int *)WIDGET == SCL)
 	{
 		tmp = WIDGET;

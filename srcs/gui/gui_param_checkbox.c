@@ -1,6 +1,6 @@
 #include <gui.h>
 
-void		gui_reset_checkbox_state(t_gui *gui, char *target)
+void	gui_reset_checkbox_state(t_gui *gui, char *target)
 {
 	int i;
 	int id;

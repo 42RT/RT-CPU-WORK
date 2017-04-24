@@ -50,7 +50,7 @@ void		gui_reset_gauge_value(t_gui *gui, char *target)
 		gui_reset_gauge_value_suite(gui, 0, 0);
 }
 
-float	gui_gauge_get_norm(t_gauge *gauge)
+float		gui_gauge_get_norm(t_gauge *gauge)
 {
 	float	norm;
 

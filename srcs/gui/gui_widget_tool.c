@@ -49,7 +49,6 @@ void	gui_widget_draw_in_line(SDL_Rect widget, int px, char *color)
 	}
 }
 
-
 void	gui_widget_draw_outline(SDL_Rect widget, int px, char *color)
 {
 	int		i;

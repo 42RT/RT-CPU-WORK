@@ -53,7 +53,7 @@ void	event_txb_value_allowed(t_textbox *textbox)
 		free(tmp);
 	}
 	else
-		return;
+		return ;
 }
 
 void	event_txb_deselect(t_gui *gui)

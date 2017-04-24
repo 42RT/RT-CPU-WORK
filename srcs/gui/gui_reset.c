@@ -7,4 +7,3 @@ void	gui_reset(t_gui *gui, char *target)
 	gui_reset_gauge_value(gui, target);
 	gui_reset_checkbox_state(gui, target);
 }
-

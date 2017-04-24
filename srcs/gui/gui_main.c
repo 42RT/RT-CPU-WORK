@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <gui.h>
-# include <rtdefs.h>
-# include <parser.h>
+#include <gui.h>
+#include <rtdefs.h>
+#include <parser.h>
 
 t_gui		*get_gui(void)
 {
@@ -21,7 +21,7 @@ t_gui		*get_gui(void)
 	return (&gui);
 }
 
-void		gui_build_main(t_gui	*gui)
+void		gui_build_main(t_gui *gui)
 {
 	ft_printf("GUI : \033[33mBUILDING CONTENT ...\033[0m\n");
 	gui_background_get_set_n_display(gui);
