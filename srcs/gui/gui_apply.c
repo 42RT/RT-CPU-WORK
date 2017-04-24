@@ -28,6 +28,18 @@ void		gui_apply_numerical(t_gui *gui, t_obj *tmp)
 	tmp->refract_ind = ft_atof(gui->container[5]->textbox[0]->value);
 }
 
+void		gui_apply_object_suite(t_gui *gui, t_obj *tmp)
+{
+	if (!ft_strcmp(GUI_SCL_MTR_VALUE, "none"))
+		tmp->normalmap = NULL;
+	else
+		tmp->normalmap = ft_strdup(GUI_SCL_MTR_VALUE);
+	if (tmp->texture)
+		Load_Texture(tmp);
+	if (tmp->normalmap)
+		Load_Normalmap(tmp);
+}
+
 void		gui_apply_object(t_gui *gui)
 {
 	t_env	*e;
@@ -51,10 +63,8 @@ void		gui_apply_object(t_gui *gui)
 		tmp->texture = NULL;
 	else
 		tmp->texture = ft_strdup(GUI_SCL_NML_VALUE);
-	if (tmp->texture)
-		Load_Texture(tmp);
-	//if (tmp->normalmap)
-	//	Load_Normalmap(tmp);
+
+	gui_apply_object_suite(gui, tmp);
 }
 
 void		gui_apply_setting(t_gui *gui)

@@ -478,6 +478,63 @@ char	**gui_get_scroll_texture_pcd(t_scroll *scroll)
 	return (value);
 }
 
+char	**gui_get_scroll_texture_mtr(t_scroll *scroll)
+{
+	DIR				*rep;
+	struct dirent	*rfile;
+	int				i;
+	FILE			*sortie;
+	char			*lu;
+	char			*lu_trim;
+	char			**value;
+	char			**tmp;
+	t_env			*e;
+	t_gui			*gui;
+	t_obj			*obj;
+
+	rep = NULL;
+	sortie = popen("find ./ressources/normalmap/*.bmp | wc -l", "r");
+	if ((lu = (char *)malloc(sizeof(char) * 10)) == NULL)
+		error(1);
+	fread(lu, sizeof(char), 10, sortie);
+	lu_trim = ft_strdup_trim(lu);
+	scroll->nb_value = ft_atoi(lu_trim) + 1;
+	free(lu);
+	free(lu_trim);
+	scroll->active_value = 0;
+	scroll->mod = 0;
+	if (!(value = (char **)malloc(sizeof(char *) * scroll->nb_value)))
+		error(1);
+	if (!(rep = opendir("./ressources/normalmap")))
+		gui_error(13);
+	value[0] = ft_strdup("none");
+	e = get_env();
+	gui = get_gui();
+	obj = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		obj = obj->next;
+		i++;
+	}
+	i = 1;
+	while ((rfile = readdir(rep)))
+	{
+		if (ft_strcmp(rfile->d_name, ".") && ft_strcmp(rfile->d_name, ".."))
+		{
+			tmp = ft_strsplit(rfile->d_name, '.');
+			value[i++] = ft_strdup(tmp[0]);
+			if (!ft_strcmp(value[i - 1], obj->normalmap))
+				scroll->active_value = i - 1;
+			free(tmp);
+		}
+	}
+	if (closedir(rep) == -1)
+		gui_error(14);
+	return (value);
+}
+
+
 char	**gui_get_scroll_value(t_scroll *scroll)
 {
 	char	**value;
@@ -494,6 +551,8 @@ char	**gui_get_scroll_value(t_scroll *scroll)
 		return (gui_get_scroll_texture_nml(scroll));
 	else if (!ft_strcmp(scroll->tag, "PCD"))
 		return (gui_get_scroll_texture_pcd(scroll));
+	else if (!ft_strcmp(scroll->tag, "MTR"))
+		return (gui_get_scroll_texture_mtr(scroll));
 	else
 	{
 		scroll->nb_value = 10;

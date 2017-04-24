@@ -65,6 +65,8 @@
 	BLOCK[7]->scroll[0]->active_value]
 # define GUI_SCL_NML_VALUE BLOCK[7]->scroll[1]->value[\
 	BLOCK[7]->scroll[1]->active_value]
+# define GUI_SCL_MTR_VALUE BLOCK[6]->scroll[0]->value[\
+	BLOCK[6]->scroll[0]->active_value]
 # define GUI_SCL_RES_VALUE PARAM->scroll[0]->value[\
 	PARAM->scroll[0]->active_value]
 # define GUI_SCL_AA_VALUE PARAM->scroll[1]->value[\
