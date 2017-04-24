@@ -46,7 +46,7 @@ void	gui_reparse_textbox_value(t_gui *gui, char *target)
 			i++;
 		}
 	}
-	else if (!ft_strcmp(target, "MAIN") || !ft_strcmp(target, "ALL"))
+	if (!ft_strcmp(target, "MAIN") || !ft_strcmp(target, "ALL"))
 		gui_reparse_textbox_value_suite(gui, 0, 0);
 }
 
