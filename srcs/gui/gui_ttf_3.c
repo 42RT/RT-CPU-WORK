@@ -51,3 +51,26 @@ void	gui_write_help(t_gui *gui, char *text, int align, int y)
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
 	SDL_DestroyTexture(TTF->texture);
 }
+
+void	gui_scroll_write_list(t_gui *gui, t_scroll *scroll, int motion)
+{
+	int	i;
+
+	i = scroll->mod;
+	gui_font_init(gui, "Starjedi", 16);
+	while ((i < scroll->nb_value + scroll->mod) &&
+	(i < GUI_SCROLL_MAX_SHOWN + scroll->mod))
+	{
+		if (i == motion)
+			gui_txt_to_texture(scroll->value[i], "SOLID", "teal");
+		else
+			gui_txt_to_texture(scroll->value[i], "SOLID", "black");
+		TTF->rect.x = scroll->dest.x + 3;
+		TTF->rect.y = (scroll->dest.y - GUI_SCROLL_H - 4)
+			+ ((i - scroll->mod + 1) * GUI_LIST_STEP);
+		SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);
+		SDL_DestroyTexture(TTF->texture);
+		i++;
+	}
+	TTF_CloseFont(TTF->font);
+}

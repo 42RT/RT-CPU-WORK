@@ -334,6 +334,12 @@ void		gui_parse_param_builder(t_gui *gui, int fd, int nb);
 void		gui_parse_main_builder(t_gui *gui, int fd, int nb);
 void		gui_find_header(t_gui *gui, int fd, char *line);
 char		**gui_get_scroll_value(t_scroll *scroll);
+void		gui_parse_window(t_gui *gui, int fd, int nb);
+void		gui_parse_path(t_gui *gui, int fd, int nb);
+void		gui_parse_def_font(t_gui *gui, int fd, int nb);
+void		gui_parse_def_textbox(t_gui *gui, int fd, int nb);
+void		gui_parse_def_scroll(t_gui *gui, int fd, int nb);
+void		gui_parse_def_button(t_gui *gui, int fd, int nb);
 
 /* DRAW */
 void		gui_pixel_put(t_gui *gui, int x, int y);
@@ -386,7 +392,6 @@ void		gui_scroll_build(t_gui *gui);
 void		gui_scroll_set(t_scroll *scroll);
 void		gui_scroll_set_halign(t_scroll *scroll);
 void		gui_scroll_create_all(t_gui *gui);
-int			gui_scroll_value_select(t_gui *gui, SDL_Event event, t_scroll *scroll);
 void		gui_scroll_toggle(t_gui *gui, t_scroll *scroll);
 void		gui_scroll_free(t_scroll *scroll);
 void		gui_scroll_write_list(t_gui *gui, t_scroll *scroll, int motion);
@@ -447,6 +452,7 @@ int			event_is_gauge(SDL_Event event, t_gui *gui);
 int			event_is_button(SDL_Event event, t_gui *gui, int id, int i);
 int			event_is_textbox(SDL_Event event, t_gui *gui);
 void		event_scroll_mouse_over(SDL_Event event, t_gui *gui, t_scroll *scroll);
+int			event_scroll_value_select(t_gui *gui, SDL_Event ev, t_scroll *scl);
 void		event_txb_switch_select(t_gui *gui, t_textbox *textbox);
 void		event_txb_insert(SDL_Event event, t_gui *gui, t_textbox *textbox);
 void		event_txb_deselect(t_gui *gui);

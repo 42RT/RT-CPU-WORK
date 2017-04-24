@@ -34,7 +34,7 @@ void		gui_build_main(t_gui *gui)
 	gui_button_create_all(gui);
 	ft_printf("\033[1;32mOK\033[0m\n");
 	ft_printf("GUI : \033[33mScroll \033[0m: ");
-	gui_scroll_build(gui);
+	gui_scroll_create_all(gui);
 	ft_printf("\033[1;32mOK\033[0m\n");
 	ft_printf("GUI : \033[33mFont \033[0m: ");
 	gui_font_build(gui);

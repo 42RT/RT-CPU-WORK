@@ -12,7 +12,7 @@
 
 #include <gui.h>
 
-int			event_is_scroll_suite(SDL_Event event, t_gui *gui, int id, int i)
+int	event_is_scroll_suite(SDL_Event event, t_gui *gui, int id, int i)
 {
 	while (id < GUI_CONTAINER_TOTAL_NB)
 	{
@@ -24,7 +24,7 @@ int			event_is_scroll_suite(SDL_Event event, t_gui *gui, int id, int i)
 			while (i < BLOCK[id]->scroll_qt)
 			{
 				if (SCROLL[i] == gui->widget_active)
-					return (gui_scroll_value_select(gui, event, SCROLL[i]));
+					return (event_scroll_value_select(gui, event, SCROLL[i]));
 				if ((event.button.x >= SCROLL_B->dest.x) &&
 				(event.button.x <= SCROLL_B->dest.x + SCROLL_B->dest.w) &&
 				(event.button.y >= SCROLL_B->dest.y) &&
@@ -41,7 +41,7 @@ int			event_is_scroll_suite(SDL_Event event, t_gui *gui, int id, int i)
 	return (0);
 }
 
-int			event_is_scroll(SDL_Event event, t_gui *gui)
+int	event_is_scroll(SDL_Event event, t_gui *gui)
 {
 	int	i;
 
@@ -53,7 +53,7 @@ int			event_is_scroll(SDL_Event event, t_gui *gui)
 		while (i < PARAM->scroll_qt)
 		{
 			if (PARAM_SCL == gui->widget_active)
-				return (gui_scroll_value_select(gui, event, PARAM_SCL));
+				return (event_scroll_value_select(gui, event, PARAM_SCL));
 			if ((event.button.x >= PARAM_SCL_B->dest.x) &&
 			(event.button.x <= PARAM_SCL_B->dest.x + PARAM_SCL_B->dest.w) &&
 			(event.button.y >= PARAM_SCL_B->dest.y) &&
@@ -67,5 +67,42 @@ int			event_is_scroll(SDL_Event event, t_gui *gui)
 	}
 	else
 		return (event_is_scroll_suite(event, gui, 0, 0));
+	return (0);
+}
+
+int	event_scroll_value_found(t_gui *gui, SDL_Event ev, t_scroll *scl)
+{
+	char	*scene;
+	char	*tmp;
+	t_env	*e;
+
+	e = get_env();
+	scl->active_value = (ev.button.y - scl->dest.y
+		+ (scl->mod * GUI_LIST_STEP)) / GUI_LIST_STEP;
+	tmp = ft_strjoin("scene/", scl->value[scl->active_value]);
+	scene = ft_strjoin(tmp, ".rts");
+	free(tmp);
+	if (!ft_strcmp(scl->tag, "SCN") && (ft_strcmp(scene, e->av[1])))
+		gui_rt_reload(e, gui, scene);
+	else
+	{
+		if (!ft_strcmp(scl->tag, "OBJ"))
+		{
+			gui_reparse_textbox_value(gui, "ALL");
+			gui_reparse_scroll_value(gui, "ALL", 0, 1);
+		}
+		gui_scroll_toggle(gui, scl);
+	}
+	free(scene);
+	return (1);
+}
+
+int	event_scroll_value_select(t_gui *gui, SDL_Event ev, t_scroll *scl)
+{
+	if ((ev.button.x >= scl->dest.x) &&
+	(ev.button.x <= scl->dest.x + scl->dest.w) &&
+	(ev.button.y >= scl->dest.y) &&
+	(ev.button.y <= scl->dest.y + scl->dest.h))
+		return (event_scroll_value_found(gui, ev, scl));
 	return (0);
 }

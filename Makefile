@@ -95,6 +95,8 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GUI)gui_textbox.c \
 			$(PATH_GUI)gui_textbox_2.c \
 			$(PATH_GUI)gui_scroll.c \
+			$(PATH_GUI)gui_scroll_2.c \
+			$(PATH_GUI)gui_scroll_3.c \
 			$(PATH_GUI)gui_gauge.c \
 			$(PATH_GUI)gui_gauge_2.c \
 			$(PATH_GUI)gui_freetxt.c \
@@ -108,7 +110,9 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GUI)gui_ttf.c \
 			$(PATH_GUI)gui_ttf_2.c \
 			$(PATH_GUI)gui_ttf_3.c \
-			$(PATH_GUI)gui_parse.c \
+			$(PATH_GUI)gui_parse_def.c \
+			$(PATH_GUI)gui_parse_def_2.c \
+			$(PATH_GUI)gui_parse_def_3.c \
 			$(PATH_GUI)gui_parse_param.c \
 			$(PATH_GUI)gui_parse_main.c \
 			$(PATH_GUI)gui_apply.c \
