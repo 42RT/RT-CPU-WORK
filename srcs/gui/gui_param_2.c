@@ -72,3 +72,27 @@ void	gui_param_gauge_create_all(t_gui *gui)
 		i++;
 	}
 }
+
+void	gui_param_checkbox_create_all(t_gui *gui)
+{
+	int	i;
+
+	i = 0;
+	while (i < PARAM->checkbox_qt)
+	{
+		if (PARAM_CBX->selected == 1)
+		{
+			gui_widget_texture_get_bmp(PARAM_CBX, "checkbox_selected.bmp");
+			gui_widget_display(PARAM_CBX);
+			gui_widget_draw_in_line(PARAM_CBX->dest, 3, "teal");
+			gui_widget_draw_in_line(PARAM_CBX->dest, 1, "black");
+		}
+		else
+		{
+			gui_widget_texture_get_bmp(PARAM_CBX, "textbox_white.bmp");
+			gui_widget_display(PARAM_CBX);
+			gui_widget_draw_in_line(PARAM_CBX->dest, 1, "black");
+		}
+		i++;
+	}
+}

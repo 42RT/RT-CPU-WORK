@@ -12,7 +12,7 @@
 
 #include <gui.h>
 
-void		gui_rt_reload_object(t_env *e, t_gui *gui)
+void	gui_rt_reload_object(t_env *e, t_gui *gui)
 {
 	int	thread_ret;
 
@@ -28,7 +28,7 @@ void		gui_rt_reload_object(t_env *e, t_gui *gui)
 	gui_main_refresh(gui);
 }
 
-void		gui_rt_reload(t_env *e, t_gui *gui, char *scene)
+void	gui_rt_reload(t_env *e, t_gui *gui, char *scene)
 {
 	e->av[1] = ft_strdup(scene);
 	reload(e);
@@ -38,7 +38,7 @@ void		gui_rt_reload(t_env *e, t_gui *gui, char *scene)
 	gui_main_refresh(gui);
 }
 
-void		gui_main_refresh(t_gui *gui)
+void	gui_main_refresh(t_gui *gui)
 {
 	gui_background_get_set_n_display(gui);
 	gui_textbox_create_all(gui);
@@ -48,4 +48,12 @@ void		gui_main_refresh(t_gui *gui)
 	if (PARAM && PARAM->active)
 		gui_param_refresh(gui);
 	gui->action = 0;
+}
+
+void	gui_reset(t_gui *gui, char *target)
+{
+	gui_reparse_scroll_value(gui, target, 0, 0);
+	gui_reparse_textbox_value(gui, target);
+	gui_reset_gauge_value(gui, target);
+	gui_reset_checkbox_state(gui, target);
 }

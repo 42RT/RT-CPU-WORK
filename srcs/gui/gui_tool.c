@@ -31,3 +31,16 @@ char	*str_tolower(char *str)
 	tmp[i] = '\0';
 	return (tmp);
 }
+
+SDL_Texture	*gui_txt_to_texture(char *content, char *color)
+{
+	t_gui		*gui;
+	SDL_Texture	*bmp;
+	SDL_Surface	*tmp;
+
+	gui = get_gui();
+	tmp = TTF_RenderText_Solid(TTF->font, content, gui_color(color));
+	bmp = SDL_CreateTextureFromSurface(gui->img, tmp);
+	SDL_FreeSurface(tmp);
+	return (bmp);
+}

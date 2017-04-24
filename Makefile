@@ -102,14 +102,15 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GUI)gui_param.c \
 			$(PATH_GUI)gui_param_2.c \
 			$(PATH_GUI)gui_param_3.c \
-			$(PATH_GUI)gui_param_checkbox.c \
+			$(PATH_GUI)gui_checkbox.c \
+			$(PATH_GUI)gui_checkbox_2.c \
 			$(PATH_GUI)gui_main.c \
 			$(PATH_GUI)gui_ttf.c \
+			$(PATH_GUI)gui_ttf_2.c \
 			$(PATH_GUI)gui_parse.c \
 			$(PATH_GUI)gui_parse_param.c \
 			$(PATH_GUI)gui_parse_main.c \
 			$(PATH_GUI)gui_apply.c \
-			$(PATH_GUI)gui_reset.c \
 			$(PATH_GUI)gui_save.c \
 			$(PATH_GUI)gui_pixel_put.c \
 			$(PATH_GUI)gui_event.c \

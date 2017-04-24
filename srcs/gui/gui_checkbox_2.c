@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui_save.c                                         :+:      :+:    :+:   */
+/*   gui_checkbox.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,40 +12,37 @@
 
 #include <gui.h>
 
-char	*gui_old_path(char *path)
+void	gui_checkbox_get_state(t_checkbox *checkbox)
 {
-	char	*old;
-	char	*tmp;
+	t_env	*e;
 
-	tmp = ft_strjoin("cp ", path);
-	old = ft_strjoin(tmp, " ");
-	free(tmp);
-	tmp = ft_strjoin(old, path);
-	free(old);
-	old = ft_strjoin(tmp, ".old");
-	free(tmp);
-	return (old);
+	e = get_env();
+	if (!ft_strcmp(checkbox->tag, "PVW"))
+		checkbox->selected = e->set->preview;
+	else
+		checkbox->selected = 0;
 }
 
-void	gui_save_object(t_gui *gui, t_env *e)
+void	gui_param_checkbox_enable(t_gui *gui, t_checkbox *checkbox)
 {
-	int	fd1;
-	int	fd2;
+	if (WIDGET)
+		event_widget_deselect(gui);
+	WIDGET = checkbox;
+	checkbox->selected = 1;
+	gui_main_refresh(gui);
+}
 
-	errno = 0;
-	(void)gui;
-	system(gui_old_path(e->av[1]));
-	if ((fd1 = open(e->av[1], O_RDONLY)) != -1)
-	{
-		if ((fd2 = creat("scene/tmpsave.rts", O_CREAT | S_IRWXU |
-			S_IRWXG | S_IRWXO)) != -1)
-		{
-			close(fd1);
-			close(fd2);
-		}
-		else
-			gui_error(15);
-	}
+void	gui_param_checkbox_disable(t_gui *gui, t_checkbox *checkbox)
+{
+	WIDGET = NULL;
+	checkbox->selected = 0;
+	gui_main_refresh(gui);
+}
+
+void	gui_param_checkbox_toggle(t_gui *gui, t_checkbox *checkbox)
+{
+	if (checkbox->selected == 1)
+		gui_param_checkbox_disable(gui, checkbox);
 	else
-		gui_error(9);
+		gui_param_checkbox_enable(gui, checkbox);
 }

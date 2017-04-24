@@ -351,11 +351,12 @@ char	**gui_get_exotic_res(t_scroll *scroll, t_env *e)
 {
 	char	**value;
 
-	scroll->nb_value = 2;
+	scroll->nb_value = 3;
 	if (!(value = (char **)malloc(sizeof(char *) * scroll->nb_value)))
 		error(1);
-	value[0] = ft_strdup("1152x864");
-	value[1] = ft_strdup("1600x1024");
+	value[0] = ft_strdup("42x42");
+	value[1] = ft_strdup("1152x864");
+	value[2] = ft_strdup("1600x1024");
 	if (e->set->height == 1024)
 		scroll->active_value = 1;
 	else

@@ -18,7 +18,7 @@ void	gui_param_text_build_suite(t_gui *gui)
 	char	*tmp;
 
 	i = 0;
-	while (PARAM->gauge_qt > i++)
+	while (PARAM->gauge_qt > i)
 	{
 		gui_widget_write_txt(PARAM_GAU, "white");
 		PARAM_GAU->txt->align = 315;
@@ -30,10 +30,11 @@ void	gui_param_text_build_suite(t_gui *gui)
 		PARAM_GAU->txt->content = ft_strdup(tmp);
 		free(tmp);
 		PARAM_GAU->txt->align = GUI_ALIGN_LEFT;
+		i++;
 	}
 	i = 0;
-	while (PARAM->freetxt_qt > i++)
-		gui_freetxt_write(PARAM_FTT, "white");
+	while (PARAM->freetxt_qt > i)
+		gui_freetxt_write(PARAM->freetxt[i++], "white");
 	TTF_CloseFont(TTF->font);
 }
 
@@ -43,16 +44,16 @@ void	gui_param_text_build(t_gui *gui)
 
 	gui_font_init(gui, "Audiowide-Regular", GUI_FONT_SIZE + 1);
 	i = 0;
-	while (PARAM->button_qt > i++)
-		gui_widget_write_txt(PARAM_BTN, "white");
+	while (PARAM->button_qt > i)
+		gui_widget_write_txt(PARAM->button[i++], "white");
 	i = 0;
-	while (PARAM->scroll_qt > i++)
-		gui_widget_write_txt(PARAM_SCL, "white");
+	while (PARAM->scroll_qt > i)
+		gui_widget_write_txt(PARAM->scroll[i++], "white");
 	i = 0;
-	while (PARAM->textbox_qt > i++)
-		gui_widget_write_txt(PARAM_TXB, "white");
+	while (PARAM->textbox_qt > i)
+		gui_widget_write_txt(PARAM->textbox[i++], "white");
 	i = 0;
-	while (PARAM->checkbox_qt > i++)
-		gui_widget_write_txt(PARAM_CBX, "white");
+	while (PARAM->checkbox_qt > i)
+		gui_widget_write_txt(PARAM->checkbox[i++], "white");
 	gui_param_text_build_suite(gui);
 }
