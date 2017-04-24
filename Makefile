@@ -107,6 +107,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GUI)gui_main.c \
 			$(PATH_GUI)gui_ttf.c \
 			$(PATH_GUI)gui_ttf_2.c \
+			$(PATH_GUI)gui_ttf_3.c \
 			$(PATH_GUI)gui_parse.c \
 			$(PATH_GUI)gui_parse_param.c \
 			$(PATH_GUI)gui_parse_main.c \

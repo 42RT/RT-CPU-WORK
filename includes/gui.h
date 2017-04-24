@@ -468,5 +468,5 @@ void		gui_save_object(t_gui *gui, t_env *e);
 void		gui_reset(t_gui *gui, char *target);
 void		gui_anti_aliasing_set(int x, int y, int w, int h);
 char		*str_tolower(char *str);
-SDL_Texture	*gui_txt_to_texture(char *content, char *color);
+void		gui_txt_to_texture(char *content, char *style, char *color);
 #endif

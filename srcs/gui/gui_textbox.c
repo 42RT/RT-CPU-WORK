@@ -33,8 +33,10 @@ void		gui_textbox_get_len(t_textbox *textbox)
 
 	tag = ft_strdup(textbox->tag);
 	if (!ft_strcmp(tag, "__X") || !ft_strcmp(tag, "__Y")
-	|| !ft_strcmp(tag, "__Z") || !ft_strcmp(tag, "_CX")
-	|| !ft_strcmp(tag, "_CY") || !ft_strcmp(tag, "_CZ"))
+	|| !ft_strcmp(tag, "__Z") || !ft_strcmp(tag, "CPX")
+	|| !ft_strcmp(tag, "CPY") || !ft_strcmp(tag, "CPZ")
+	|| !ft_strcmp(tag, "CAX") || !ft_strcmp(tag, "CAY")
+	|| !ft_strcmp(tag, "CAZ"))
 		textbox->maxlen = 6;
 	if (!ft_strcmp(tag, "_AX") || !ft_strcmp(tag, "_AY")
 		|| !ft_strcmp(tag, "_AZ"))

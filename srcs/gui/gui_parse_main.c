@@ -868,14 +868,20 @@ void	gui_get_textbox_value(t_textbox *textbox)
 		textbox->value = gui_get_textbox_RFR();
 	else if (!ft_strcmp(textbox->tag, "RFL"))
 		textbox->value = gui_get_textbox_RFL();
-	else if (!ft_strcmp(textbox->tag, "_CX"))
+	else if (!ft_strcmp(textbox->tag, "CPX"))
 		textbox->value = ft_itoa(e->set->cam->pos.x);
-	else if (!ft_strcmp(textbox->tag, "_CY"))
+	else if (!ft_strcmp(textbox->tag, "CPY"))
 		textbox->value = ft_itoa(e->set->cam->pos.y);
-	else if (!ft_strcmp(textbox->tag, "_CZ"))
+	else if (!ft_strcmp(textbox->tag, "CPZ"))
 		textbox->value = ft_itoa(e->set->cam->pos.z);
+	else if (!ft_strcmp(textbox->tag, "CAX"))
+		textbox->value = ft_itoa(e->set->cam->ang.x);
+	else if (!ft_strcmp(textbox->tag, "CAY"))
+		textbox->value = ft_itoa(e->set->cam->ang.y);
+	else if (!ft_strcmp(textbox->tag, "CAZ"))
+		textbox->value = ft_itoa(e->set->cam->ang.z);
 	else
-			event_txb_value_clear(textbox, textbox->maxlen);
+		event_txb_value_clear(textbox, textbox->maxlen);
 }
 
 t_textbox	*gui_parse_textbox(int fd, int nb)

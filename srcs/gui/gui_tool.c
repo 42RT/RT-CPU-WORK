@@ -32,15 +32,20 @@ char	*str_tolower(char *str)
 	return (tmp);
 }
 
-SDL_Texture	*gui_txt_to_texture(char *content, char *color)
+void	gui_txt_to_texture(char *content, char *style, char *color)
 {
 	t_gui		*gui;
-	SDL_Texture	*bmp;
 	SDL_Surface	*tmp;
 
 	gui = get_gui();
-	tmp = TTF_RenderText_Solid(TTF->font, content, gui_color(color));
-	bmp = SDL_CreateTextureFromSurface(gui->img, tmp);
+	TTF_SizeText(TTF->font, content, &TTF->w_px, &TTF->h_px);
+	if (!ft_strcmp(style, "SOLID"))
+		tmp = TTF_RenderText_Solid(TTF->font, content, gui_color(color));
+	else if (!ft_strcmp(style, "BLENDED"))
+		tmp = TTF_RenderText_Blended(TTF->font, content, gui_color(color));
+	else
+		tmp = TTF_RenderText_Solid(TTF->font, content, gui_color(color));
+	TTF->texture = SDL_CreateTextureFromSurface(gui->img, tmp);
+	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
 	SDL_FreeSurface(tmp);
-	return (bmp);
 }

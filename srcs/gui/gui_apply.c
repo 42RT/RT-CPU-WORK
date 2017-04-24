@@ -90,5 +90,8 @@ void		gui_apply_setting(t_gui *gui)
 	e->set->cam->pos.x = ft_atof(PARAM->textbox[0]->value);
 	e->set->cam->pos.y = ft_atof(PARAM->textbox[1]->value);
 	e->set->cam->pos.z = ft_atof(PARAM->textbox[2]->value);
+	e->set->cam->ang.x = ft_atof(PARAM->textbox[3]->value);
+	e->set->cam->ang.y = ft_atof(PARAM->textbox[4]->value);
+	e->set->cam->ang.z = ft_atof(PARAM->textbox[5]->value);
 	e->set->preview = PARAM->checkbox[0]->selected;
 }
