@@ -16,40 +16,44 @@
 #include <gfx.h>
 #include <raytracer.h>
 
+void		ft_render_preview(t_env *e)
+{
+	usleep(2000);
+	if (!e->rendering_preview)
+		return ;
+	while (e->rendering_preview && !(e->worker_stop))
+	{
+		if (e->set->display == PROGRESSIVE)
+			gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+		else
+			loading_bar(e, (float)(e->y * 100) / e->set->height,
+						int_to_tcolor(0x1010A0), int_to_tcolor(0));
+		event_poll(e);
+		usleep(4000);
+	}
+	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+}
+
 void		ft_render(t_env *e)
 {
-	int		old;
 	int		thread_ret;
 
 	e->worker_stop = 0;
 	e->worker = SDL_CreateThread(ft_aff, "rt_worker", e);
-	usleep(2000);
-	old = e->rendering_preview;
-	if (e->set->display == LEGACY)
+	ft_render_preview(e);
+	while (!(e->worker_stop) &&
+			((e->y < e->set->height && e->x < e->set->width
+				&& e->set->display == LEGACY && e->set->threads <= 1)
+			|| (e->render_progression < 100
+				&& (e->set->display == PROGRESSIVE || e->set->threads > 1))))
 	{
-		while (e->y < e->set->height && e->x < e->set->width && e->worker
-				 && !(e->worker_stop))
-		{
-			if (old && !e->rendering_preview)
-			{
-				gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
-				old = e->rendering_preview;
-			}
-			loading_bar(e, (float)(e->y * 100) / e->set->height,
-						int_to_tcolor(0x1010A0), int_to_tcolor(0));
-			event_poll(e);
-			usleep(16000);
-		}
-	}
-	else if (e->set->threads <= 1)
-	{
-		usleep(42000);
-		while (e->remaining && !(e->worker_stop))
-		{
+		if (e->set->display == LEGACY)
+				loading_bar(e, e->render_progression,
+							int_to_tcolor(0x1010A0), int_to_tcolor(0));
+		else
 			gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
-			event_poll(e);
-			usleep(16000);
-		}
+		event_poll(e);
+		usleep(16000);
 	}
 	if (!(e->worker_stop))
 		SDL_WaitThread(e->worker, &thread_ret);
@@ -65,6 +69,7 @@ int			ft_aff(void *data)
 	e = (t_env *)data;
 	if (e->set->preview)
 		ft_aff_quick(e, e->obj);
+	usleep(64000);
 	if (e->set->display == PROGRESSIVE)
 		ft_aff_random(e, e->obj, DEF_MULTITHREAD);
 	else if (e->set->threads > 1)
@@ -84,6 +89,7 @@ int			ft_aff(void *data)
 			}
 			++e->y;
 			change_cam(e);//load_add_line(e->load_bar, (e->y * 200 - 1) / e->set->height, 0x1010A0);1
+			e->render_progression = (float)(e->y * 100) / e->set->height;
 		}
 	}
 	return (0);
@@ -96,7 +102,7 @@ void		smooth_quickrender_mix(t_env *e, unsigned int x, unsigned int y)
 
 	color = gfx_get_pixel_color(e->gfx->buff[e->gfx->act],
 								x - (x & 1), y - (y & 1));
-	if (x < (e->set->width - 2) && y < (e->set->height - 2) && 0)
+	if (x < (e->set->width - 2) && y < (e->set->height - 2) && 0) // delete & 0
 	{
 		c2 = gfx_get_pixel_color(e->gfx->buff[e->gfx->act],
 									x + (x & 1), y + (y & 1));
@@ -155,9 +161,7 @@ void		ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 		}
 		e->y += 2;
 	}
-	//ft_printf("1\n");
-	smooth_quickrender(e); // bug random ????????????!!!!!!!!!!!!!!!!!!!!
-	//ft_printf("2\n");
+	smooth_quickrender(e);
 	e->rendering_preview = 0;
 }
 
@@ -166,7 +170,6 @@ void		ft_aff_random(t_env *e, t_obj *obj, int multithread)
 	int				*map;
 	int				res;
 	int				pos;
-//	int				i;
 
 	if (e->set->threads > 1 && multithread)
 	{
@@ -176,7 +179,6 @@ void		ft_aff_random(t_env *e, t_obj *obj, int multithread)
 	res = e->set->width * e->set->height;
 	map = init_map(res);
 	e->remaining = res;
-//	i = 0;
 	while (e->remaining > 0)
 	{
 		if (e->worker_stop)
@@ -185,8 +187,7 @@ void		ft_aff_random(t_env *e, t_obj *obj, int multithread)
 		e->y = pos / e->set->width;
 		e->x = pos % e->set->width;
 		fill_pixel(e, obj);
-//		if (!(++i % 2000))
-//			expose_hook(e);
+		e->render_progression = 100 - ((e->remaining * 100) / res);
 	}
 	ft_printf("Rendering finished\n");
 }
@@ -232,29 +233,24 @@ void		ft_aff_multithread(t_env *e, t_obj *obj)
 	data.mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 	data.res = e->set->width * e->set->height;
 	data.nb = data.res;
+	e->render_progression = 0;
 	data.map = init_map(data.res);
 	data.e = e;
 	launch_threads(&data);
 	while (data.nb)
 	{
+
 		if (e->worker_stop)
 			return;//kill threads before
 		++j;
+		e->render_progression = 100.0 - ((data.nb * 100) / data.res);// res == 0 care
 		if (i != (data.nb * 100) / data.res)
 		{
-			ft_printf("%sRendering: %d", (i != 0 ? "\r" : ""), 100 - i);
+			ft_printf("%sRendering: %d ", (i != 0 ? "\r" : ""), 100 - i);
+			ft_putchar('%');
 			i = (data.nb * 100) / data.res;
 		}
-		if (e->set->display == PROGRESSIVE)
-			gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);//fonction lente
-		else
-		{
-			loading_bar(e, 200.0 - (float)(data.nb * 200) / (float)data.res,
-						int_to_tcolor(0x1010A0), int_to_tcolor(0));
-		}
-		event_poll(e);
-		usleep(10000);
 	}
-//	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
-	ft_printf("\nRendering finished\n");
+	e->remaining = 0;
+	ft_printf("\rRendering finished !\n");
 }
