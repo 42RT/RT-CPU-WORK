@@ -73,7 +73,9 @@ int			ft_aff(void *data)
 	if (e->set->display == PROGRESSIVE)
 		ft_aff_random(e, e->obj, DEF_MULTITHREAD);
 	else if (e->set->threads > 1)
-		ft_aff_multithread(e, e->obj);
+		ft_aff_multithread_line(e, e->obj);
+//	else if (e->set->threads > 1)
+//		ft_aff_multithread(e, e->obj);
 	else
 	{
 		e->y = 0;
@@ -161,7 +163,7 @@ void		ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 		}
 		e->y += 2;
 	}
-	smooth_quickrender(e);
+//	smooth_quickrender(e);
 	e->rendering_preview = 0;
 }
 
@@ -173,7 +175,8 @@ void		ft_aff_random(t_env *e, t_obj *obj, int multithread)
 
 	if (e->set->threads > 1 && multithread)
 	{
-		ft_aff_multithread(e, e->obj);
+//		ft_aff_multithread(e, e->obj);
+		ft_aff_multithread_line(e, e->obj);
 		return ;
 	}
 	res = e->set->width * e->set->height;
@@ -221,6 +224,28 @@ void		ft_aff_rand(t_th_data *a, t_env *e)
 	free(e);
 }
 
+void		ft_aff_line(t_th_data *a, t_env *e)
+{
+	int		y;
+
+	while (a->nb > 0)
+	{
+		while (pthread_mutex_lock(&(a->mutex)) != 0)
+			;
+		y = a->nb;
+		--a->nb;
+		pthread_mutex_unlock(&(a->mutex));
+		e->y = e->set->height - y;
+		e->x = -1;
+		while (++e->x < e->set->width)
+		{
+			fill_pixel(e, e->obj);
+		}
+		event_poll(e);
+	}
+	free(e);
+}
+
 void		ft_aff_multithread(t_env *e, t_obj *obj)
 {
 	int			i;
@@ -239,11 +264,41 @@ void		ft_aff_multithread(t_env *e, t_obj *obj)
 	launch_threads(&data);
 	while (data.nb)
 	{
-
 		if (e->worker_stop)
 			return;//kill threads before
 		++j;
 		e->render_progression = 100.0 - ((data.nb * 100) / data.res);// res == 0 care
+		if (i != (data.nb * 100) / data.res)
+		{
+			ft_printf("%sRendering: %d ", (i != 0 ? "\r" : ""), 100 - i);
+			ft_putchar('%');
+			i = (data.nb * 100) / data.res;
+		}
+	}
+	e->remaining = 0;
+	ft_printf("\rRendering finished !\n");
+}
+
+void		ft_aff_multithread_line(t_env *e, t_obj *obj)
+{
+	int			i;
+	int			j;
+	t_th_data	data;
+
+	i = 99;
+	j = 0;
+	(void)obj;
+	data.mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+	data.map = init_map(e->set->width * e->set->height);
+	data.nb = e->set->height;
+	data.e = e;
+	launch_threads_line(&data);
+	while (data.nb)
+	{
+		if (e->worker_stop)
+			return;//kill threads before
+		++j;
+		e->render_progression = 100.0 - ((data.nb * 100) / e->set->height);// res == 0 care
 		if (i != (data.nb * 100) / data.res)
 		{
 			ft_printf("%sRendering: %d ", (i != 0 ? "\r" : ""), 100 - i);

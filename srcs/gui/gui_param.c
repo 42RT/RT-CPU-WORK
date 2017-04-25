@@ -25,7 +25,6 @@ void	gui_param_open(t_gui *gui)
 {
 	if (gui->widget_active)
 		event_widget_deselect(gui);
-	gui->widget_active = PARAM;
 	gui_button_selected(gui, BLOCK[9]->button[0]);
 	gui_param_get_bmp_n_display(gui);
 	gui_param_build(gui);
@@ -49,7 +48,7 @@ void	gui_param_toggle(t_gui *gui)
 
 void	gui_param_refresh(t_gui *gui)
 {
-	gui->widget_active = PARAM;
+	PARAM->active = 1;
 	gui_button_selected(gui, BLOCK[9]->button[0]);
 	gui_param_get_bmp_n_display(gui);
 	gui_param_scroll_create_all(gui);

@@ -24,6 +24,17 @@ static int	thread_aff(void *arg)
 	return (0);
 }
 
+static int	thread_aff_line(void *arg)
+{
+	t_th_data	*a;
+	t_env		*e;
+
+	a = (t_th_data *)arg;
+	e = copy_env(a->e);
+	ft_aff_line(a, e);
+	return (0);
+}
+
 void		launch_threads(t_th_data *data)
 {
 	int			i;
@@ -37,7 +48,21 @@ void		launch_threads(t_th_data *data)
 			data->e->worker_stop = 1;
 			return ;
 		}
-//		if (pthread_create(&thread_ptr, NULL, thread_aff, data))
-//			return ;
+	}
+}
+
+void		launch_threads_line(t_th_data *data)
+{
+	int			i;
+	SDL_Thread	*thread_ptr;
+
+	i = -1;
+	while (++i < data->e->set->threads)
+	{
+		if ((thread_ptr = SDL_CreateThread(thread_aff_line, "workers", data)) == 0)
+		{
+			data->e->worker_stop = 1;
+			return ;
+		}
 	}
 }

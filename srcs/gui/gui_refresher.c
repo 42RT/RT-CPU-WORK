@@ -30,6 +30,7 @@ void	gui_rt_reload_object(t_env *e, t_gui *gui)
 
 void	gui_rt_reload(t_env *e, t_gui *gui, char *scene)
 {
+	free(e->av[1]);
 	e->av[1] = ft_strdup(scene);
 	reload(e);
 	SDL_RaiseWindow(e->gfx->win);
