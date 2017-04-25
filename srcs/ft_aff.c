@@ -23,11 +23,11 @@ void		ft_render_preview(t_env *e)
 		return ;
 	while (e->rendering_preview && !(e->worker_stop))
 	{
-		if (e->set->display == PROGRESSIVE)
+//		if (e->set->display == PROGRESSIVE)
 			gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
-		else
-			loading_bar(e, (float)(e->y * 100) / e->set->height,
-						int_to_tcolor(0x1010A0), int_to_tcolor(0));
+//		else
+//			loading_bar(e, (float)(e->y * 100) / e->set->height,
+//						int_to_tcolor(0x1010A0), int_to_tcolor(0));
 		event_poll(e);
 		usleep(4000);
 	}
@@ -299,11 +299,11 @@ void		ft_aff_multithread_line(t_env *e, t_obj *obj)
 			return;//kill threads before
 		++j;
 		e->render_progression = 100.0 - ((data.nb * 100) / e->set->height);// res == 0 care
-		if (i != (data.nb * 100) / data.res)
+		if (i != (int)((data.nb * 100) / e->set->height))
 		{
 			ft_printf("%sRendering: %d ", (i != 0 ? "\r" : ""), 100 - i);
 			ft_putchar('%');
-			i = (data.nb * 100) / data.res;
+			i = (data.nb * 100) / e->set->height;
 		}
 	}
 	e->remaining = 0;
