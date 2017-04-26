@@ -94,7 +94,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 0
-		y: 200
+		y: 210
 		tag: "CAX"
 		min: -99999
 		max: 99999
@@ -103,7 +103,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 1
-		y: 200
+		y: 210
 		tag: "CAY"
 		min: -99999
 		max: 99999
@@ -112,7 +112,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 2
-		y: 200
+		y: 210
 		tag: "CAZ"
 		min: -99999
 		max: 99999
@@ -169,8 +169,8 @@ PARAM MENU BUILDER:
 		tag: "CPO"
 		txt: "Camera position"
 		,
-		x : 0
-		y : 170
+		x: 0
+		y: 180
 		tag: "CAN"
 		txt: "Camera angle"
 MAIN BUILDER:
