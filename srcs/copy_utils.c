@@ -27,7 +27,7 @@ t_obj		*copy_obj_elem_2(t_obj *res, t_obj *obj)
 	res->texture = obj->texture ? ft_strdup(obj->texture) : 0;
 	res->procedural = obj->procedural ? ft_strdup(obj->procedural) : 0;
 	res->normalmap = obj->normalmap ? ft_strdup(obj->normalmap) : 0;
-//	res->compose = copy_obj_elem(obj->compose);
+	res->compose = obj->compose ? copy_obj_elem(obj->compose) : 0;
 	return (res);
 }
 
@@ -75,7 +75,27 @@ t_obj		*copy_obj(t_obj *obj)
 		obj = obj->next;
 		act = act->next;
 	}
+	act->next = NULL;
 	return (res);
+}
+
+void		copy_noise(t_env *res, t_env *env)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (i < NOISE_HEIGHT)
+	{
+		while (j < NOISE_WIDTH)
+		{
+			res->noise[i][j] = env->noise[i][j];
+			++j;
+		}
+		j = 0;
+		++i;
+	}
 }
 
 t_env		*copy_env(t_env *e)
@@ -100,7 +120,7 @@ t_env		*copy_env(t_env *e)
 	res->last_refract = e->last_refract;
 	res->remaining = e->remaining;
 	res->render_progression = e->render_progression;
-//	res->noise = e->noise;
+	copy_noise(res, e);
 	res->inside_obj = e->inside_obj;
 	return (res);
 }
