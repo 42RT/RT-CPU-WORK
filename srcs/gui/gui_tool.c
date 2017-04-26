@@ -49,3 +49,13 @@ void	gui_txt_to_texture(char *content, char *style, char *color)
 	SDL_QueryTexture(TTF->texture, NULL, NULL, &TTF->rect.w, &TTF->rect.h);
 	SDL_FreeSurface(tmp);
 }
+
+void	gui_free_array(void **array, int dimension)
+{
+	int	i;
+
+	i = 0;
+	while (i < dimension)
+		free(array[i++]);
+	free(array);
+}

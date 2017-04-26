@@ -79,14 +79,13 @@ void		gui_apply_setting(t_gui *gui)
 	e->set->oldh = e->set->height;
 	e->set->width = ft_atoi((const char *)res[0]);
 	e->set->height = ft_atoi((const char *)res[1]);
-	free(res[0]);
-	free(res[1]);
-	free(res);
+	gui_free_array((void **)res, 2);
 	ptr = ft_strdup(GUI_SCL_AA_VALUE);
 	e->set->aa = ft_atoi((const char *)ptr);
 	free(ptr);
-	e->set->deph = (unsigned int)(PARAM->gauge[0]->active_value + 1);
-	e->set->fov = (unsigned int)PARAM->gauge[1]->active_value;
+	e->set->threads = PARAM->gauge[0]->active_value;
+	e->set->deph = (unsigned int)(PARAM->gauge[1]->active_value + 1);
+	e->set->fov = (unsigned int)PARAM->gauge[2]->active_value;
 	e->set->cam->pos.x = ft_atof(PARAM->textbox[0]->value);
 	e->set->cam->pos.y = ft_atof(PARAM->textbox[1]->value);
 	e->set->cam->pos.z = ft_atof(PARAM->textbox[2]->value);

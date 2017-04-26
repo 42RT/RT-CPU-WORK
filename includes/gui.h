@@ -475,4 +475,5 @@ void		gui_reset(t_gui *gui, char *target);
 void		gui_anti_aliasing_set(int x, int y, int w, int h);
 char		*str_tolower(char *str);
 void		gui_txt_to_texture(char *content, char *style, char *color);
+void		gui_free_array(void **array, int dimension);
 #endif

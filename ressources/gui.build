@@ -49,7 +49,7 @@ PARAM MENU BUILDER:
 	scroll_qt: 2
 	textbox_qt: 6
 	checkbox_qt: 1
-	gauge_qt: 4
+	gauge_qt: 5
 	freetxt_qt: 2
 	scroll:
 		x: 2
@@ -67,7 +67,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 	textbox:
 		x: 0
-		y: 150
+		y: 350
 		tag: "CPX"
 		min: -99999
 		max: 99999
@@ -76,7 +76,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 1
-		y: 150
+		y: 350
 		tag: "CPY"
 		min: -99999
 		max: 99999
@@ -85,7 +85,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 2
-		y: 150
+		y: 350
 		tag: "CPZ"
 		min: -99999
 		max: 99999
@@ -94,7 +94,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 0
-		y: 210
+		y: 420
 		tag: "CAX"
 		min: -99999
 		max: 99999
@@ -103,7 +103,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 1
-		y: 210
+		y: 420
 		tag: "CAY"
 		min: -99999
 		max: 99999
@@ -112,7 +112,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 2
-		y: 210
+		y: 420
 		tag: "CAZ"
 		min: -99999
 		max: 99999
@@ -129,7 +129,16 @@ PARAM MENU BUILDER:
 		txt_align: 0
 	gauge:
 		x: 2
-		y: 270
+		y: 120
+		tag: "MLT"
+		min: 1
+		max: 160
+		txt: "Threads"
+		txt_anchor:"parent"
+		txt_align: 0
+		,
+		x: 2
+		y: 160
 		tag: "DPH"
 		min: 0
 		max: 10
@@ -138,7 +147,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 2
-		y: 320
+		y: 200
 		tag: "FOV"
 		min: 30
 		max: 120
@@ -147,7 +156,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 2
-		y: 370
+		y: 240
 		tag: "CON"
 		min: 0
 		max: 1
@@ -156,7 +165,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 2
-		y: 420
+		y: 280
 		tag: "LUM"
 		min: 0
 		max: 1
@@ -165,12 +174,12 @@ PARAM MENU BUILDER:
 		txt_align: 0
 	freetxt:
 		x: 0
-		y: 120
+		y: 320
 		tag: "CPO"
 		txt: "Camera position"
 		,
 		x: 0
-		y: 180
+		y: 390
 		tag: "CAN"
 		txt: "Camera angle"
 MAIN BUILDER:

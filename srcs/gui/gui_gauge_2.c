@@ -54,45 +54,32 @@ float		gui_gauge_get_norm(t_gauge *gauge)
 {
 	float	norm;
 
-	if (!ft_strcmp(gauge->tag, "DPH"))
-		norm = gauge->active_value / gauge->mod;
-	else if (!ft_strcmp(gauge->tag, "FOV"))
-		norm = gauge->active_value + gauge->mod;
-	else if (!ft_strcmp(gauge->tag, "CON"))
-		norm = gauge->active_value / gauge->mod;
-	else if (!ft_strcmp(gauge->tag, "LUM"))
-		norm = gauge->active_value / gauge->mod;
-	else
-		norm = gauge->mod / gauge->active_value;
+	norm = gauge->active_value / (gauge->dest.w / gauge->mod) + gauge->min;
 	return (norm);
 }
 
-void		gui_gauge_get_value_suite(t_gauge *gauge)
+void		gui_gauge_get_value_suite(t_gauge *gauge, t_env *e)
 {
 	if (!ft_strcmp(gauge->tag, "CON"))
 	{
 		gauge->active_value = 0.5;
-		gauge->old_active = gauge->active_value;
-		gauge->mod = 100;
-		gauge->cursor->dest.x += (gauge->active_value * gauge->mod);
-		gauge->cursor->oldx = gauge->cursor->dest.x;
+		gauge->mod = 1;
 	}
 	else if (!ft_strcmp(gauge->tag, "LUM"))
 	{
 		gauge->active_value = 0.5;
-		gauge->old_active = gauge->active_value;
-		gauge->mod = 100;
-		gauge->cursor->dest.x += (gauge->active_value * gauge->mod);
-		gauge->cursor->oldx = gauge->cursor->dest.x;
-	}
-	else
-	{
-		gauge->active_value = 50;
-		gauge->old_active = gauge->active_value;
 		gauge->mod = 1;
-		gauge->cursor->dest.x += (gauge->active_value * gauge->mod);
-		gauge->cursor->oldx = gauge->cursor->dest.x;
 	}
+	else if (!ft_strcmp(gauge->tag, "MLT"))
+	{
+		gauge->active_value = e->set->threads;
+		gauge->mod = 15;
+	}
+	gauge->old_active = gauge->active_value;
+	gauge->cursor->dest.x += (gauge->active_value
+		* (gauge->dest.w / gauge->mod) - gauge->min);
+	gauge->cursor->oldx = gauge->cursor->dest.x;
+
 }
 
 void		gui_gauge_get_value(t_gauge *gauge)
@@ -103,19 +90,12 @@ void		gui_gauge_get_value(t_gauge *gauge)
 	if (!ft_strcmp(gauge->tag, "DPH"))
 	{
 		gauge->active_value = e->set->deph;
-		gauge->old_active = gauge->active_value;
 		gauge->mod = 10;
-		gauge->cursor->dest.x += (gauge->active_value * gauge->mod);
-		gauge->cursor->oldx = gauge->cursor->dest.x;
 	}
 	else if (!ft_strcmp(gauge->tag, "FOV"))
 	{
 		gauge->active_value = e->set->fov;
-		gauge->old_active = gauge->active_value;
-		gauge->mod = 30;
-		gauge->cursor->dest.x += (gauge->active_value - gauge->mod);
-		gauge->cursor->oldx = gauge->cursor->dest.x;
+		gauge->mod = 100;
 	}
-	else
-		gui_gauge_get_value_suite(gauge);
+	gui_gauge_get_value_suite(gauge, e);
 }
