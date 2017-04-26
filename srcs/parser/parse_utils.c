@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/24 18:18:10 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/27 00:26:19 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_value(char *str)
 		str2[i] = str[i];
 		i++;
 	}
-	return (str);
+	return (str2);
 }
 
 t_item	*get_next_item(char **str)
