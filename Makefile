@@ -1,4 +1,4 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,9 +6,9 @@
 #    By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/15 01:15:01 by jrouilly          #+#    #+#              #
-#    Updated: 2017/03/29 13:32:26 by rfriscca         ###   ########.fr        #
+#    Updated: 2017/04/26 16:37:16 by vcaquant         ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 NAME = raytracer
 
@@ -35,6 +35,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_PARSER)parse_settings_utils.c \
 			$(PATH_PARSER)parse_utils.c \
 			$(PATH_PARSER)parse_utils_2.c \
+			$(PATH_PARSER)secu_parse.c \
 			$(PATH_GFX)gfx.c \
 			$(PATH_GFX)gfx_image.c \
 			$(PATH_GFX)gfx_pixel.c \
@@ -130,9 +131,9 @@ SRC =		$(PATH_PARSER)parse.c \
 
 ifeq ($(UNAME_S),Darwin)
 	INC 	+=	-I ~/.brew/Cellar/sdl2/2.0.5/include/SDL2 \
-				-I ~/.brew/Cellar/sdl2_ttf/2.0.14/include/SDL2
+			-I ~/.brew/Cellar/sdl2_ttf/2.0.14/include/SDL2
 	LDFLAGS +=	-L ~/.brew/Cellar/sdl2/2.0.5/lib -lSDL2 \
-				-L ~/.brew/Cellar/sdl2_ttf/2.0.14/lib -lSDL2_ttf
+			-L ~/.brew/Cellar/sdl2_ttf/2.0.14/lib -lSDL2_ttf
 else ifeq ($(UNAME_S),Linux)
 	LDFLAGS +=	-lSDL2 -lSDL2_ttf
 endif
@@ -174,4 +175,3 @@ debug:		fclean
 	@echo "\033[34mCompiling $(NAME) (debug mode): \033[0m"
 	@gcc -g $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LDFLAGS)
 	@echo "\033[1;32m$(NAME) Compiled ! (debug mode)\n\033[0m"
-

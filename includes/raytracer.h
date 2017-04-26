@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 22:50:11 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/03/27 15:20:58 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/04/26 11:32:08 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ typedef struct		s_env
 	int				ac;
 	char			**av;
 	float			last_dst;
+	int				nb_line;
 }					t_env;
 
 typedef struct		s_equation

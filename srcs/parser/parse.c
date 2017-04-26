@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:02:31 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/02/23 16:45:01 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/26 12:52:08 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,13 @@ void		parse(t_env *e, char *filename)
 	char	*file;
 	t_item	*item;
 	int		i;
+	int		err;
 
 	i = -1;
-	if (!(ft_check_valid_file(filename)))
+	if ((ft_check_valid_file(filename)) < 1)
 		parse_error();
+	if ((err = first_chek(e, filename)) < 1)
+		code_error_parser(e, err);
 	file = ft_getfile(filename);
 	e->file = file;
 	if (!file)

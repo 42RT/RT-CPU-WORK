@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 03:28:43 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/11/28 03:28:50 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/04/26 12:52:56 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ void				parse_set_cam(t_env *e, char *str);
 void				parse_other_setting(t_env *e, char *str);
 void				parse_set_focus(t_env *e, char *str);
 void				parse_light(t_env *e, t_item *item);
+int     			first_chek(t_env *e, char *str);
+void    			code_error_parser(t_env *e, int error);
 
 #endif
