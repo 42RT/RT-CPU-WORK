@@ -6,7 +6,7 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 16:44:43 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/04/27 13:55:45 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/27 14:35:13 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,29 +120,22 @@ int		first_chek(t_env *e, char *str)
 void	code_error_parser(t_env *e, int error)
 {
 	if (error == -1)
-		ft_putstr("Missing or Too much Brace. Between first line to ");
+		ft_printf("Missing or Too much Brace. Between 1 to %d", e->nb_line);
 	else if (error == -2)
-		ft_putstr("Missing or Too much Quotation mark. Between first line to ");
+		ft_printf("Missing or Too much Quotes. Between 1 to %d", e->nb_line);
 	else if (error == -3)
-		ft_putstr("Missing Two points before Opening brace. In ");
+		ft_printf("Missing Two points, line %d", e->nb_line);
 	else if (error == -4)
-		ft_putstr("The file is too short for a valid file. Number of line is ");
+		ft_printf("Too short file. Number of line is %d", e->nb_line);
 	else if (error == -5)
-		ft_putstr("get_next_line crash at the line ");
+		ft_printf("get_next_line crash at the line %d", e->nb_line);
 	else if (error == -6)
-	{
-		ft_putstr("Missing Coma line ");
-		e->nb_line--;
-	}
+		ft_printf("Missing Coma line %d", e->nb_line - 1);
 	else if (error == -7)
-	{
-		ft_putstr("Bad syntax, Not need Coma in the line ");
-		e->nb_line--;
-	}
+		ft_printf("Bad syntax, Not need Coma in the line %d", e->nb_line - 1);
 	else if (error == -8)
-		ft_putstr("Something after Opening brace in line ");
+		ft_printf("Something after Opening brace in line %d", e->nb_line);
 	else if (error == -9)
-		ft_putstr("Character after a Coma, line ");
-	ft_putnbr(e->nb_line);
+		ft_printf("Character after a Coma, line %d", e->nb_line);
 	exit(EXIT_SUCCESS);
 }
