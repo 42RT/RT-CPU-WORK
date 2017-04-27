@@ -74,18 +74,18 @@ void	check_coma(t_env *e, char *str)
 	}
 }
 
-void    coma_count(t_env *e, char *line)
+void	coma_count(t_env *e, char *line)
 {
-    if (ft_strchr(line, '{') == NULL && *line != '\0')
-    {
-        if ((ft_strchr(line, '}') == NULL) && e->coma == 0)
-            code_error_parser(e, -6);
-        else if ((ft_strchr(line, '}') != NULL) && e->coma == 1)
-            code_error_parser(e, -7);
-        check_coma(e, line);
-    }
-    else
-        e->coma = 1;
+	if (ft_strchr(line, '{') == NULL && *line != '\0')
+	{
+		if ((ft_strchr(line, '}') == NULL) && e->coma == 0)
+			code_error_parser(e, -6);
+		else if ((ft_strchr(line, '}') != NULL) && e->coma == 1)
+			code_error_parser(e, -7);
+		check_coma(e, line);
+	}
+	else
+		e->coma = 1;
 }
 
 int		first_chek(t_env *e, char *str)
@@ -105,7 +105,7 @@ int		first_chek(t_env *e, char *str)
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		e->nb_line++;
-        coma_count(e, line);
+		coma_count(e, line);
 		ac = ac_count(e, ac, line);
 		gui = gui_count(e, gui, line);
 		free(line);
