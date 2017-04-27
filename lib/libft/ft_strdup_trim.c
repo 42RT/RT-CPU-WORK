@@ -14,7 +14,8 @@
 
 char	*ft_strdup_trim(char *str)
 {
-	while (*str && (*str == ' ' || *str == '\n' || *str == '\r' || *str == '\t'))
+	while (*str && (*str == ' ' || *str == '\n' || *str == '\r' ||
+		*str == '\t'))
 		++str;
 	if (!str)
 		return (0);

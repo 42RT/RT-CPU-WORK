@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 22:50:11 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/26 21:13:27 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/27 15:43:34 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,8 +322,8 @@ t_color				skybox(float turb);
 ** Textures
 */
 void				choose_texture(t_ray_data *d, float turb);
-void				Load_Texture(t_obj *obj);
-void				Load_Normalmap(t_obj *obj);
+void				load_texture(t_obj *obj);
+void				load_normalmap(t_obj *obj);
 t_vector			get_normalmap(SDL_Surface *surface, int x, int y);
 
 /*

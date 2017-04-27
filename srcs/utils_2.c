@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/21 21:02:17 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/02/24 12:49:01 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/04/27 15:47:28 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,10 +165,7 @@ t_color			ray_effect(t_env *e, t_vector *vec[2], t_obj *start,
 	d.o = vec[0];
 	d.v = vec[1];
 	d.start = start;
-	if (d.shorter->normalmap && d.shorter->nm_surface)
-		d.n = get_normalmap(d.shorter->nm_surface, e->x, e->y);
-	else
-		(d.shorter->normale)(&(d.n), vec[0], d.shorter);
+	(d.shorter->normale)(&(d.n), vec[0], d.shorter);
 //	color_mix_k(&color, trace_lights(e, d, e->light), 192);
 	//color = mod_dazzle(e->lights, color, &d); // passerpar copie ??
 	color = trace_lights(e, d, e->light);

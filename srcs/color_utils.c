@@ -109,7 +109,7 @@ t_color				calc_color(t_vector data, t_color color,
 	newcolor.r = (unsigned char)ocolor[0];
 	newcolor.g = (unsigned char)ocolor[1];
 	newcolor.b = (unsigned char)ocolor[2];
-	return (color);
+	return (newcolor);
 }
 
 t_color				shadow(t_color obj_color)

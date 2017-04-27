@@ -35,9 +35,9 @@ void		gui_apply_object_suite(t_gui *gui, t_obj *tmp)
 	else
 		tmp->normalmap = ft_strdup(GUI_SCL_MTR_VALUE);
 	if (tmp->texture)
-		Load_Texture(tmp);
+		load_texture(tmp);
 	if (tmp->normalmap)
-		Load_Normalmap(tmp);
+		load_normalmap(tmp);
 }
 
 void		gui_apply_object(t_gui *gui)

@@ -15,7 +15,7 @@
 
 char	*ft_strcchr(const char *s, int c, int f)
 {
-    int	i;
+	int	i;
 
 	i = 0;
 	while (s[i] != '\0' && s[i] != c && s[i] != f)

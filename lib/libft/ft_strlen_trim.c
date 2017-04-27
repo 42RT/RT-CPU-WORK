@@ -17,7 +17,8 @@ size_t	ft_strlen_trim(char *str)
 	size_t	size;
 
 	size = 0;
-	while (*str && (*str == ' ' || *str == '\n' || *str == '\r' || *str == '\t'))
+	while (*str && (*str == ' ' || *str == '\n' || *str == '\r' ||
+		*str == '\t'))
 		++str;
 	while (*str && *str != ' ' && *str != '\n' && *str != '\r' && *str != '\t')
 	{

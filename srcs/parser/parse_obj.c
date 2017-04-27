@@ -52,7 +52,7 @@ void	add_obj(t_env *e, t_obj *obj)
 	}
 }
 
-void	Load_Texture(t_obj *obj)
+void	load_texture(t_obj *obj)
 {
 	char	*path;
 	char	*path2;
@@ -74,7 +74,7 @@ void	Load_Texture(t_obj *obj)
 	free(path2);
 }
 
-void	Load_Normalmap(t_obj *obj)
+void	load_normalmap(t_obj *obj)
 {
 	char	*path;
 	char	*path2;
@@ -140,9 +140,9 @@ void	parse_object(t_env *e, t_item *item)
 	if (obj->type == GLASS)
 		glass(obj);
 	if (obj->texture)
-		Load_Texture(obj);
+		load_texture(obj);
 	if (obj->normalmap)
-		Load_Normalmap(obj);
+		load_normalmap(obj);
 	obj->func = get_func(obj->type, obj->negative);
 	obj->normale = get_normale(obj->type);
 	obj->base = new_base();

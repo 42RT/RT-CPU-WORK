@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atof.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrouilly <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/27 13:12:10 by jrouilly          #+#    #+#             */
+/*   Updated: 2017/04/27 13:12:13 by jrouilly         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <libft.h>
 #include <math.h>
 
@@ -21,9 +33,9 @@ float	ft_atof_ext(char *str, int i, float a, int sign)
 
 float	ft_atof(char *str)
 {
-	float a;
-	int i;
-	int sign;
+	float	a;
+	int		i;
+	int		sign;
 
 	i = 0;
 	sign = 0;

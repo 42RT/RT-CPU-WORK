@@ -30,6 +30,7 @@ t_vector		get_normalmap(SDL_Surface *surface, int x, int y)
 	n.x = n.x / 255 * 2 - 1;
 	n.y = n.y / 255 * 2 - 1;
 	n.z = n.z / 255 * 2 - 1;
+	normalize(&n);
 	return (n);
 }
 
@@ -72,6 +73,12 @@ void			choose_texture(t_ray_data *d, float turb)
 	int		y;
 
 	get_x_y_value(d, &x, &y);
+	if (d->shorter->normalmap && d->shorter->nm_surface)
+	{
+		SDL_LockSurface(d->shorter->nm_surface);
+		d->n = get_normalmap(d->shorter->nm_surface, x, y);
+		SDL_UnlockSurface(d->shorter->nm_surface);
+	}
 	if (!ft_strncmp(d->shorter->procedural, "marble", 6))
 		d->shorter->color = stripe(d->shorter, turb, x);
 	else if (!ft_strncmp(d->shorter->procedural, "stripe", 6))
@@ -80,7 +87,7 @@ void			choose_texture(t_ray_data *d, float turb)
 		d->shorter->color = square(d->shorter, 0, x, y);
 	else if (!ft_strncmp(d->shorter->procedural, "perlin", 6))
 		d->shorter->color = perlin(d->shorter->color, turb);
-	else if (d->shorter->tex_surface)
+	else if (d->shorter->texture && d->shorter->tex_surface)
 	{
 		SDL_LockSurface(d->shorter->tex_surface);
 		d->shorter->color = get_pixel(d->shorter->tex_surface, x, y);

@@ -18,10 +18,10 @@ size_t	ft_strlen_trim2(char *str)
 
 	size = 0;
 	while (*str && (*str == ' ' || *str == '\n' || *str == '\r' || *str == '\t'
-					 || *str == ':' || *str == ';'))
+					|| *str == ':' || *str == ';'))
 		++str;
 	while (*str && *str != ' ' && *str != '\n' && *str != '\r' && *str != '\t'
-			 && *str != ':' && *str != ';')
+			&& *str != ':' && *str != ';')
 	{
 		++str;
 		++size;

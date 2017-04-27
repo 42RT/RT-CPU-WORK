@@ -21,7 +21,7 @@ char	*ft_newstrcat(char *dest, const char *src)
 
 	i = 0;
 	j = -1;
-	result = (char *) malloc((ft_strlen(dest) + ft_strlen(src) + 1)
+	result = (char *)malloc((ft_strlen(dest) + ft_strlen(src) + 1)
 								* sizeof(char));
 	while (dest[++j])
 		result[j] = dest[j];
