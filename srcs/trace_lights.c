@@ -130,7 +130,7 @@ t_color			trace_lights(t_env *e, t_ray_data d, t_light *light)
 	turb = turbulence(e->x, e->y, SMOOTH_NOISE);
 	color = void_tcolor();
 	save_color = d.shorter->color;
-	if (d.shorter->texture || d.shorter->procedural)
+	if (d.shorter->texture || d.shorter->procedural || d.shorter->normalmap)
 		choose_texture(&d, turb);
 	while (light)
 	{
