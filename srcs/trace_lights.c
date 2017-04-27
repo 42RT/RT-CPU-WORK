@@ -117,8 +117,8 @@ static t_color	trace_lights_2(t_env *e, t_ray_data d, t_light *light)
 		data.z = -data.z;
 	color = trace_lights_3(e, d, &obj_to_light, data.x);
 	if (!is_void_tcolor(color))
-		return (calc_color(data.y, data.z, d.shorter, light));
-	return (shadow(color));
+		return (calc_color(data, color, d.shorter, light));
+	return (shadow(d.shorter->color));
 }
 
 t_color			trace_lights(t_env *e, t_ray_data d, t_light *light)

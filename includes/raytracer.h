@@ -375,7 +375,7 @@ void				not_vec(t_vector *v);
 */
 void				get_spec(t_color *color, t_light light,
 					t_vector v, t_env *e);
-t_color				calc_color(float refangle, float angle,
+t_color				calc_color(t_vector data, t_color color,
 								t_obj *obj, t_light *light);
 t_color				shadow(t_color color);
 
