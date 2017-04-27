@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/17 19:10:37 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/02/22 15:01:36 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/27 17:36:12 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ void	add_light(t_env *e, t_light *obj)
 	e->light = obj;
 }
 
+int 	parse_dis(t_item *it, t_vector *v, int i, void (*f)(t_vector *, char *))
+{
+	while (ft_strchr(it->set[i + 1], ',') != NULL)
+		f(v, it->set[++i]);
+	f(v, it->set[++i]);
+	return (i);
+}
+
 void	parse_light(t_env *e, t_item *item)
 {
 	t_light	*obj;
@@ -41,17 +49,9 @@ void	parse_light(t_env *e, t_item *item)
 	while (++i < item->setnb)
 	{
 		if (!ft_strncmp(item->set[i], "\"position\"", 10))
-		{
-			while (ft_strchr(item->set[i + 1], ',') != NULL)
-				parse_pos(&(obj->pos), item->set[++i]);
-			parse_pos(&(obj->pos), item->set[++i]);
-		}
+			i = parse_dis(item, &(obj->pos), i, (parse_pos));
 		else if (!ft_strncmp(item->set[i], "\"angle\"", 7))
-		{
-			while (ft_strchr(item->set[i + 1], ',') != NULL)
-				parse_ang(&(obj->ang), item->set[++i]);
-			parse_ang(&(obj->ang), item->set[++i]);
-		}
+			i = parse_dis(item, &(obj->ang), i, (parse_ang));
 		else if (!ft_strncmp(item->set[i], "\"color\"", 7))
 			obj->color = get_color(get_value(item->set[i]));
 		else if (!ft_strncmp(item->set[i], "\"k1\"", 4))
