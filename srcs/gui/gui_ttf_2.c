@@ -59,7 +59,7 @@ void	gui_widget_write_anchored_txt(t_gui *gui, void *widget, char *color)
 		TTF->rect.x = ((REF *)widget)->dest.x - TTF->w_px
 			- GUI_FONT_BORDER_STEP;
 	else if (((REF *)widget)->txt->align == GUI_ALIGN_MID)
-		TTF->rect.x = ((REF *)widget)->dest.x 
+		TTF->rect.x = ((REF *)widget)->dest.x
 			+ ((((REF *)widget)->dest.w - TTF->w_px) / 2);
 	else if (((REF *)widget)->txt->align == GUI_ALIGN_RIGHT)
 		TTF->rect.x = GUI_WIDTH - TTF->w_px - GUI_FONT_BORDER_STEP;

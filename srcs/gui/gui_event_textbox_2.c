@@ -96,6 +96,6 @@ void	event_txb_value_clear(t_textbox *textbox, int len)
 	i = 0;
 	while (i < len)
 		textbox->value[i++] = ' ';
-		textbox->value[i] = '\0';
-		textbox->vlen = 0;
+	textbox->value[i] = '\0';
+	textbox->vlen = 0;
 }

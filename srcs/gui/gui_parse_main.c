@@ -206,7 +206,6 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 
 char	**gui_get_scroll_object(t_scroll *scroll)
 {
-	printf("REPARSE OBJ\n");
 	char	**value;
 	t_env	*e;
 	t_obj	*tmp;
@@ -738,7 +737,6 @@ char	*gui_get_textbox_R(void)
 		i++;
 	}
 	return (ft_itoa(tmp->color.r));
-//	return (ft_strdup(ft_itoa(tmp->color.a))); // pas de strdup, deja malloc...
 }
 
 char	*gui_get_textbox_G(void)
@@ -841,9 +839,8 @@ void	gui_get_textbox_value(t_textbox *textbox)
 	t_env *e;
 
 	e = get_env();
+	printf("CAM Z : %f\n", e->set->cam->pos.z);
 	gui_textbox_get_len(textbox);
-	if (!(textbox->value = (char *)malloc(sizeof(char) * textbox->maxlen)))
-		error(1);
 	if (!ft_strcmp(textbox->tag, "__X"))
 		textbox->value = gui_get_textbox_X();
 	else if (!ft_strcmp(textbox->tag, "__Y"))

@@ -63,7 +63,6 @@ void		gui_apply_object(t_gui *gui)
 		tmp->texture = NULL;
 	else
 		tmp->texture = ft_strdup(GUI_SCL_NML_VALUE);
-
 	gui_apply_object_suite(gui, tmp);
 }
 

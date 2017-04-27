@@ -96,7 +96,7 @@ void	gui_parse_def_textbox(t_gui *gui, int fd, int nb)
 		if (!ft_strcmp(tmp[0], "\tw"))
 			DEF->txb_w = ft_atoi(tmp[1]);
 		else if (!ft_strcmp(tmp[0], "\th"))
-			DEF->txb_h  = ft_atoi(tmp[1]);
+			DEF->txb_h = ft_atoi(tmp[1]);
 		else if (!ft_strcmp(tmp[0], "\ttexture"))
 		{
 			tmp = ft_strsplit(tmp[1], '"');

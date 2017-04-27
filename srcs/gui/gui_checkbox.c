@@ -86,4 +86,3 @@ void		gui_param_checkbox_set(t_checkbox *checkbox)
 	checkbox->dest.h = DEF->cbx_size;
 	gui_param_checkbox_set_halign(checkbox);
 }
-

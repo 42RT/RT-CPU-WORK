@@ -79,7 +79,6 @@ void		gui_gauge_get_value_suite(t_gauge *gauge, t_env *e)
 	gauge->cursor->dest.x += (gauge->active_value
 		* (gauge->dest.w / gauge->mod) - gauge->min);
 	gauge->cursor->oldx = gauge->cursor->dest.x;
-
 }
 
 void		gui_gauge_get_value(t_gauge *gauge)
