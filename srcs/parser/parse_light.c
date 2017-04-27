@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/17 19:10:37 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/27 17:36:12 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/27 18:01:39 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	add_light(t_env *e, t_light *obj)
 	e->light = obj;
 }
 
-int		parse_dis(t_item *it, t_vector *v, int i, void (*f)(t_vector *, char *))
+int 	parse_dis(t_item *it, t_vector *v, int i, void (*f)(t_vector *, char *))
 {
 	while (ft_strchr(it->set[i + 1], ',') != NULL)
 		f(v, it->set[++i]);

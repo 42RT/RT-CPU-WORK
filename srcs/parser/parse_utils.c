@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/27 00:26:19 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/27 19:04:15 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,34 @@
 #include <parser.h>
 #include <math.h>
 
+char	*ft_strtrim_coma(char const *s)
+{
+	int		i;
+	char	*ptr;
+	char	*result;
+
+	if (!s || !*s)
+		return (NULL);
+	i = 0;
+	ptr = (char *)(s - 1);
+	while (*ptr == ':')
+		++ptr;
+	result = (char *)malloc(ft_strlen(ptr) * sizeof(char));
+	ptr -= 1;
+	i = -1;
+	while (*++ptr)
+		*(++i + result) = *ptr;
+	ptr = i + result;
+	while (*ptr == ',')
+	{
+		*ptr = '\0';
+		--ptr;
+	}
+	return (result);
+}
+
 char	*get_value(char *str)
 {
-	char	*str2;
 	int		i;
 
 	i = 0;
@@ -24,13 +49,9 @@ char	*get_value(char *str)
 		++str;
 	if (*str)
 		++str;
-	str2 = malloc((ft_strlen(str)) * sizeof(char));
-	while (str[i] && str[i] != ',')
-	{
-		str2[i] = str[i];
-		i++;
-	}
-	return (str2);
+	if (ft_strchr(str, ',') != NULL)
+		str = ft_strtrim_coma(str);
+	return (str);
 }
 
 t_item	*get_next_item(char **str)
