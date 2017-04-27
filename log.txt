@@ -620,3 +620,659 @@ Norme: ./srcs/vec_utils.c
 Norme: ./srcs/vec_utils_2.c
 Norme: ./srcs/vec_utils_3.c
 Error: global scope bad aligned
+Norme: ./includes/gfx.h
+Error (line 45, col 14): winID not unixcase
+Error (line 49): C++ comment
+Error (line 50): C++ comment
+Error (line 51): C++ comment
+Error (line 52): C++ comment
+Norme: ./includes/osx_keyset.h
+Norme: ./includes/hdr_colors.h
+Error: global scope bad aligned
+Norme: ./includes/rtdefs.h
+Norme: ./includes/parser.h
+Error (line 50, col 3): bad spacing
+Error (line 51, col 4): bad spacing
+Norme: ./includes/x11_keyset.h
+Norme: ./lib/libft/ft_abs.c
+Norme: ./lib/libft/ft_atoi.c
+Norme: ./lib/libft/ft_atof.c
+Error: 42 header not at top of the file
+Error (line 22): declarations in ft_atof are bad aligned
+Norme: ./lib/libft/ft_bzero.c
+Norme: ./lib/libft/ft_error.c
+Error (line 15, col 19): __progname not unixcase
+Error (line 15, col 19): global named __progname is not well prefixed
+Norme: ./lib/libft/ft_ftoa.c
+Error: 42 header not at top of the file
+Norme: ./lib/libft/ft_concat.c
+Norme: ./lib/libft/ft_getfile.c
+Error: file must end with a single empty line
+Error (line 28, col 0): no newline after block
+Norme: ./lib/libft/ft_hextoa.c
+Norme: ./lib/libft/ft_hextoi.c
+Error: file must end with a single empty line
+Error (line 29, col 0): no newline after block
+Norme: ./lib/libft/ft_hexval.c
+Error: file must end with a single empty line
+Error (line 23, col 0): no newline after block
+Norme: ./lib/libft/ft_isalnum.c
+Norme: ./lib/libft/ft_isalpha.c
+Norme: ./lib/libft/ft_isascii.c
+Norme: ./lib/libft/ft_isdigit.c
+Norme: ./lib/libft/ft_ishex.c
+Error: file must end with a single empty line
+Error (line 17, col 0): no newline after block
+Norme: ./lib/libft/ft_isprint.c
+Norme: ./lib/libft/ft_itoa.c
+Norme: ./lib/libft/ft_limit_nb.c
+Norme: ./lib/libft/ft_lstadd.c
+Norme: ./lib/libft/ft_lstdelone.c
+Norme: ./lib/libft/ft_get_next_line.c
+Norme: ./lib/libft/ft_lstnew.c
+Norme: ./lib/libft/ft_memalloc.c
+Norme: ./lib/libft/ft_memccpy.c
+Norme: ./lib/libft/ft_memchr.c
+Norme: ./lib/libft/ft_memcmp.c
+Norme: ./lib/libft/ft_memcpy.c
+Norme: ./lib/libft/ft_memdel.c
+Norme: ./lib/libft/ft_memmove.c
+Norme: ./lib/libft/ft_memset.c
+Norme: ./lib/libft/ft_newstrcpy.c
+Norme: ./lib/libft/ft_newstrcat.c
+Error (line 24, col 17): space after cast
+Norme: ./lib/libft/ft_putchar.c
+Norme: ./lib/libft/ft_putchar_fd.c
+Norme: ./lib/libft/ft_putendl.c
+Norme: ./lib/libft/ft_putendl_fd.c
+Norme: ./lib/libft/ft_putfloat.c
+Error: file must end with a single empty line
+Error (line 29, col 0): no newline after block
+Norme: ./lib/libft/ft_puthex.c
+Norme: ./lib/libft/ft_putnbr.c
+Norme: ./lib/libft/ft_putnbr_fd.c
+Norme: ./lib/libft/ft_putstr.c
+Norme: ./includes/raytracer.h
+Error (line 325, col 8): Load_Texture not unixcase
+Error (line 326, col 8): Load_Normalmap not unixcase
+Norme: ./lib/libft/ft_putstr_fd.c
+Norme: ./lib/libft/ft_printf.c
+Norme: ./lib/libft/ft_strcat.c
+Norme: ./lib/libft/ft_strcchr.c
+Error (line 18): bad indentation
+Error (line 18): must begin only by tabulations
+Norme: ./lib/libft/ft_readfile.c
+Norme: ./lib/libft/ft_strclr.c
+Norme: ./lib/libft/ft_strchr.c
+Norme: ./lib/libft/ft_strcpy.c
+Norme: ./lib/libft/ft_strdel.c
+Norme: ./lib/libft/ft_strdup_trim.c
+Error: file must end with a single empty line
+Error (line 17): line has 82 characters
+Error (line 22, col 0): no newline after block
+Norme: ./lib/libft/ft_strcmp.c
+Norme: ./lib/libft/ft_strdup.c
+Norme: ./lib/libft/ft_strequ.c
+Norme: ./lib/libft/ft_striteri.c
+Norme: ./lib/libft/ft_striter.c
+Norme: ./lib/libft/ft_strlen.c
+Norme: ./lib/libft/ft_strlen_trim.c
+Error: file must end with a single empty line
+Error (line 20): line has 82 characters
+Error (line 28, col 0): no newline after block
+Norme: ./lib/libft/ft_strjoin.c
+Norme: ./lib/libft/ft_strlcat.c
+Norme: ./lib/libft/ft_strlen_trim2.c
+Error: file must end with a single empty line
+Error (line 21): must begin only by tabulations
+Error (line 24): must begin only by tabulations
+Error (line 32, col 0): no newline after block
+Norme: ./lib/libft/ft_strmap.c
+Norme: ./lib/libft/ft_strnclr.c
+Norme: ./lib/libft/ft_strmapi.c
+Norme: ./lib/libft/ft_strncat.c
+Norme: ./lib/libft/ft_strndup.c
+Norme: ./lib/libft/ft_strncpy.c
+Norme: ./lib/libft/ft_strnequ.c
+Norme: ./lib/libft/ft_strncmp.c
+Norme: ./lib/libft/ft_strnew.c
+Norme: ./lib/libft/ft_strrchr.c
+Norme: ./lib/libft/ft_strnstr.c
+Norme: ./lib/libft/ft_strsub.c
+Norme: ./lib/libft/ft_strstr.c
+Norme: ./lib/libft/ft_strsplit.c
+Norme: ./lib/libft/ft_tolower.c
+Norme: ./lib/libft/ft_toupper.c
+Norme: ./lib/libft/get_next_line.h
+Error: global scope bad aligned
+Norme: ./includes/gui.h
+Error: global scope bad aligned
+Error: 42 header not at top of the file
+Error (line 61): preprocessor block must be followed by one empty line
+Error (line 61): multiline define
+Error (line 64): preprocessor block must be followed by one empty line
+Error (line 64): multiline define
+Error (line 66): preprocessor block must be followed by one empty line
+Error (line 66): multiline define
+Error (line 68): preprocessor block must be followed by one empty line
+Error (line 68): multiline define
+Error (line 70): preprocessor block must be followed by one empty line
+Error (line 70): multiline define
+Error (line 72): preprocessor block must be followed by one empty line
+Error (line 72): multiline define
+Error (line 77): bad indentation
+Error (line 78): bad indentation
+Error (line 79): bad indentation
+Error (line 80): bad indentation
+Error (line 81): bad indentation
+Error (line 82): bad indentation
+Error (line 83): bad indentation
+Error (line 84): bad indentation
+Error (line 85): bad indentation
+Error (line 86, col 5): widget_type have not a good prefix.
+Error (line 306, col 14): winID not unixcase
+Error (line 327): comment not well formatted
+Error (line 331): comment not well formatted
+Error (line 344): comment not well formatted
+Error (line 348): comment not well formatted
+Error (line 357): comment not well formatted
+Error (line 360): comment not well formatted
+Error (line 364): comment not well formatted
+Error (line 368): comment not well formatted
+Error (line 377): comment not well formatted
+Error (line 383): line has 82 characters
+Error (line 389): comment not well formatted
+Error (line 399): line has 83 characters
+Error (line 401): comment not well formatted
+Error (line 405): comment not well formatted
+Error (line 411): comment not well formatted
+Error (line 416): comment not well formatted
+Error (line 422): comment not well formatted
+Error (line 434): line has 86 characters
+Error (line 443): comment not well formatted
+Error (line 446): comment not well formatted
+Error (line 454): line has 84 characters
+Error (line 467): comment not well formatted
+Norme: ./lib/libft/ft_strtrim.c
+Norme: ./lib/libvec/src/add_vec.c
+Norme: ./lib/libvec/src/calc_vec.c
+Norme: ./lib/libvec/src/div_vec.c
+Norme: ./lib/libvec/include/libvec.h
+Error: has double inclusion protection but not with the good define name
+Norme: ./lib/libvec/src/get_dist.c
+Norme: ./lib/libvec/src/dot_div.c
+Norme: ./lib/libvec/src/dot.c
+Norme: ./lib/libvec/src/get_inters.c
+Norme: ./lib/libvec/src/normalize.c
+Norme: ./lib/libvec/src/multiply_vec.c
+Norme: ./lib/libvec/src/not_vec.c
+Norme: ./lib/libvec/src/product_vec.c
+Norme: ./lib/libvec/src/reflect_vec.c
+Norme: ./lib/libvec/src/rotvec.c
+Norme: ./lib/libvec/src/rotx.c
+Norme: ./lib/libvec/src/rot.c
+Norme: ./lib/libvec/src/roty.c
+Norme: ./lib/libvec/src/sub_vec.c
+Norme: ./lib/libvec/src/rotz.c
+Norme: ./srcs/aff_light.c
+Norme: ./srcs/aff_obj.c
+Norme: ./srcs/aff_settings.c
+Norme: ./lib/libft/includes/libft.h
+Norme: ./srcs/anti_aliasing.c
+Error (line 19): bad spacing before mix_color
+Norme: ./srcs/bmp.c
+Error (line 53): bad spacing before write_pixels
+Error (line 55, col 4): bad spacing
+Error (line 56, col 4): bad spacing
+Norme: ./srcs/color_utils.c
+Error: global scope bad aligned
+Error (line 16): declarations must be followed by one empty line in mod_light
+Error (line 21): multiple empty lines
+Error (line 21): Empty line
+Error (line 30, col 45): bad character after ,
+Error (line 42): C++ comment
+Error (line 51): comment not well formatted
+Error (line 68): line has 83 characters
+Error (line 71): line has 83 characters
+Error (line 74): line has 83 characters
+Error (line 135): comment not well formatted
+Error (line 142): line has 104 characters
+Norme: ./srcs/error.c
+Norme: ./srcs/copy_utils.c
+Error (line 119): C++ comment
+Norme: ./srcs/expose_hook.c
+Norme: ./srcs/console.c
+Error (line 53): function console_aff has 38 lines
+Error (line 58, col 12): bad spacing
+Error (line 64): Empty line
+Error (line 73): Empty line
+Error (line 82): Empty line
+Error (line 90): Empty line
+Norme: ./srcs/ft_err.c
+Norme: ./srcs/ft_read.c
+Error: file must end with a single empty line
+Error (line 20): comment not well formatted
+Norme: ./srcs/display.c
+Error: 6 functions in the file
+Norme: ./srcs/get_utils.c
+Error (line 22): function get_func has 26 lines
+Norme: ./srcs/gfx/gfx.c
+Error (line 48): C++ comment
+Error (line 48): line has 117 characters
+Norme: ./srcs/gfx/gfx_pixel.c
+Error: global scope bad aligned
+Error (line 15): comment not well formatted
+Error (line 26): C++ comment
+Error (line 27): bad spacing before gfx_pixel_put_to_image
+Error (line 30): bad indentation
+Error (line 38): C++ comment
+Error (line 39): bad spacing before gfx_pixel_put
+Error (line 45): C++ comment
+Norme: ./srcs/event.c
+Error: global scope bad aligned
+Error: 7 functions in the file
+Error: 42 header not at top of the file
+Error (line 18, col 2): missing space after return
+Error (line 45): line has 83 characters
+Norme: ./srcs/gfx/gfx_utils.c
+Error (line 15): C++ comment
+Error (line 16): bad spacing before get_alpha_color
+Error (line 34): C++ comment
+Error (line 38): bad indentation
+Error (line 38): C++ comment
+Error (line 49): C++ comment
+Error (line 49): line has 107 characters
+Error (line 61): C++ comment
+Error (line 61): line has 87 characters
+Norme: ./srcs/gfx/gfx_image.c
+Error (line 60): C++ comment
+Error (line 60): line has 87 characters
+Norme: ./srcs/gui/gui_background.c
+Norme: ./srcs/gui/gui_button_2.c
+Norme: ./srcs/gui/gui_button.c
+Norme: ./srcs/gui/gui_checkbox_2.c
+Norme: ./srcs/gui/gui_checkbox.c
+Error: file must end with a single empty line
+Norme: ./srcs/gui/gui_error.c
+Norme: ./srcs/gui/gui_apply.c
+Error (line 66): Empty line
+Norme: ./srcs/gui/gui_event.c
+Norme: ./srcs/gui/gui_event_checkbox.c
+Norme: ./srcs/gui/gui_event_gauge.c
+Norme: ./srcs/gui/gui_event_button.c
+Norme: ./srcs/gui/gui_event_scroll_2.c
+Norme: ./srcs/gui/gui_event_textbox.c
+Norme: ./srcs/gui/gui_event_scroll.c
+Norme: ./srcs/gui/gui_event_textbox_2.c
+Error (line 99): bad indentation
+Error (line 100): bad indentation
+Norme: ./srcs/gui/gui_freetxt.c
+Norme: ./srcs/gui/gui_gauge.c
+Norme: ./srcs/gui/gui_gauge_2.c
+Error (line 82): Empty line
+Error (line 83, col 0): no empty line before block
+Norme: ./srcs/gui/gui_help.c
+Norme: ./srcs/gui/gui_param.c
+Norme: ./srcs/gui/gui_event_textbox_3.c
+Norme: ./srcs/gui/gui_main.c
+Norme: ./srcs/gui/gui_param_2.c
+Norme: ./srcs/gui/gui_param_3.c
+Norme: ./srcs/gui/gui_parse_def_3.c
+Norme: ./srcs/gui/gui_parse_def_2.c
+Error (line 99, col 13): bad spacing
+Norme: ./srcs/gui/gui_parse_def.c
+Error (line 122, col 2): missing space after return
+Norme: ./srcs/ft_aff.c
+Error: 11 functions in the file
+Error (line 26): C++ comment
+Error (line 27): bad indentation
+Error (line 28): C++ comment
+Error (line 29): C++ comment
+Error (line 30): C++ comment
+Error (line 51): bad indentation
+Error (line 65): function ft_aff has 31 lines
+Error (line 77): C++ comment
+Error (line 78): C++ comment
+Error (line 93): C++ comment
+Error (line 93): line has 102 characters
+Error (line 107): missing newline after if
+Error (line 107): C++ comment
+Error (line 129, col 4): missing space after return
+Error (line 144): C++ comment
+Error (line 149): C++ comment
+Error (line 157, col 4): missing space after return
+Error (line 166): C++ comment
+Error (line 178): C++ comment
+Error (line 188, col 3): missing space after return
+Error (line 227): function ft_aff_line has 28 lines
+Error (line 259): function ft_aff_multithread has 29 lines
+Error (line 278): C++ comment
+Error (line 278, col 3): missing space after return
+Error (line 280): C++ comment
+Error (line 280): line has 86 characters
+Error (line 292): function ft_aff_multithread_line has 27 lines
+Error (line 309): C++ comment
+Error (line 309, col 3): missing space after return
+Error (line 311): C++ comment
+Error (line 311): line has 92 characters
+Norme: ./srcs/gui/gui_pixel_put.c
+Norme: ./srcs/gui/gui_save.c
+Norme: ./srcs/gui/gui_refresher.c
+Error (line 33): bad indentation
+Error (line 33): C++ comment
+Norme: ./srcs/gui/gui_scroll_2.c
+Norme: ./srcs/gui/gui_scroll.c
+Norme: ./srcs/gui/gui_scroll_3.c
+Norme: ./srcs/gui/gui_textbox_2.c
+Norme: ./srcs/gui/gui_textbox.c
+Norme: ./srcs/gui/gui_ttf.c
+Norme: ./srcs/gui/gui_tool.c
+Norme: ./srcs/gui/gui_ttf_3.c
+Norme: ./srcs/gui/gui_ttf_2.c
+Error (line 62): spaces at the end of line
+Norme: ./srcs/hdr_colors.c
+Error: global scope bad aligned
+Error (line 33): comment not well formatted
+Error (line 40): multiple empty lines
+Error (line 59): bad spacing before color_add
+Error (line 60): C++ comment
+Error (line 79): comment not well formatted
+Error (line 85): declarations must be followed by one empty line in color_mix_k
+Error (line 110): C++ comment
+Error (line 111): C++ comment
+Error (line 112): C++ comment
+Error (line 113, col 0): no empty line before block
+Error (line 126): comment not well formatted
+Norme: ./srcs/gui/gui_widget_tool.c
+Norme: ./srcs/hdr_colors_convert.c
+Norme: ./srcs/loading.c
+Error: file must end with a single empty line
+Error (line 22, col 2): missing space after return
+Error (line 28): Empty line
+Error (line 29, col 51): bad character after ,
+Error (line 40): C++ comment
+Error (line 42, col 0): no newline after block
+Norme: ./srcs/key_hook.c
+Error (line 77): C++ comment
+Error (line 78): C++ comment
+Norme: ./srcs/main.c
+Error (line 37): function main has 37 lines
+Error (line 58): bad indentation
+Error (line 58): C++ comment
+Error (line 64): Empty line
+Error (line 66): Empty line
+Error (line 67): multiple empty lines
+Error (line 67): Empty line
+Error (line 68): C++ comment
+Error (line 69): C++ comment
+Error (line 70): C++ comment
+Error (line 71): C++ comment
+Norme: ./srcs/objects/compose.c
+Norme: ./srcs/new_settings.c
+Norme: ./srcs/objects/cone.c
+Norme: ./srcs/objects/cube.c
+Norme: ./srcs/objects/cylinder.c
+Norme: ./srcs/objects/dfloor.c
+Norme: ./srcs/objects/disk.c
+Norme: ./srcs/objects/floor.c
+Norme: ./srcs/objects/new_light.c
+Norme: ./srcs/objects/glass.c
+Norme: ./srcs/objects/new_obj.c
+Norme: ./srcs/objects/obj_utils.c
+Norme: ./srcs/objects/other_primitive.c
+Norme: ./srcs/objects/square.c
+Norme: ./srcs/objects/swap_cap.c
+Norme: ./srcs/objects/sphere.c
+Norme: ./srcs/parser/parse_file.c
+Norme: ./srcs/parser/parse.c
+Error (line 19): Space before function name
+Error (line 19, col 4): bad spacing
+Error (line 72): function parse has 35 lines
+Norme: ./srcs/parser/parse_light.c
+Error (line 34): function parse_light has 33 lines
+Norme: ./srcs/parser/parse_obj_utils.c
+Norme: ./srcs/parser/parse_sav.c
+Norme: ./srcs/parser/parse_settings.c
+Norme: ./srcs/parser/parse_obj.c
+Error (line 55, col 0): Load_Texture not unixcase
+Error (line 77, col 0): Load_Normalmap not unixcase
+Error (line 99): function parse_object has 50 lines
+Norme: ./srcs/parser/parse_settings_utils.c
+Norme: ./srcs/parser/parse_utils.c
+Error (line 36): function get_next_item has 31 lines
+Norme: ./srcs/parser/parse_utils_2.c
+Error (line 26): function add_next_set has 31 lines
+Norme: ./srcs/reload.c
+Error (line 47): declarations must be followed by one empty line in reload
+Error (line 58, col 7): Spacing after call to exit
+Error (line 61): C++ comment
+Error (line 62): C++ comment
+Error (line 63): C++ comment
+Error (line 64, col 0): no empty line before block
+Norme: ./srcs/parser/secu_parse.c
+Error (line 55): Space before function name
+Error (line 55): Space before function name
+Error (line 55): Space before function name
+Error (line 55): Space before function name
+Error (line 55, col 4): bad spacing
+Error (line 57): bad indentation
+Error (line 57): must begin only by tabulations
+Error (line 57, col 7): bad spacing
+Error (line 59): bad indentation
+Error (line 59): must begin only by tabulations
+Error (line 60): bad indentation
+Error (line 60): must begin only by tabulations
+Error (line 61): bad indentation
+Error (line 61): must begin only by tabulations
+Error (line 62): bad indentation
+Error (line 62): must begin only by tabulations
+Error (line 63): bad indentation
+Error (line 63): must begin only by tabulations
+Error (line 64): bad indentation
+Error (line 64): must begin only by tabulations
+Error (line 65): bad indentation
+Error (line 65): must begin only by tabulations
+Error (line 66): bad indentation
+Error (line 66): must begin only by tabulations
+Error (line 67): bad indentation
+Error (line 67): must begin only by tabulations
+Error (line 68): bad indentation
+Error (line 68): must begin only by tabulations
+Error (line 69): bad indentation
+Error (line 69): must begin only by tabulations
+Error (line 70): bad indentation
+Error (line 70): must begin only by tabulations
+Error (line 71): bad indentation
+Error (line 71): must begin only by tabulations
+Error (line 72): bad indentation
+Error (line 72): must begin only by tabulations
+Error (line 73): bad indentation
+Error (line 73): must begin only by tabulations
+Error (line 74): bad indentation
+Error (line 74): must begin only by tabulations
+Error (line 77): function first_chek has 43 lines
+Error (line 87): bad indentation
+Error (line 87): must begin only by tabulations
+Error (line 93): bad indentation
+Error (line 93): must begin only by tabulations
+Error (line 94): bad indentation
+Error (line 94): must begin only by tabulations
+Error (line 95): bad indentation
+Error (line 95): must begin only by tabulations
+Error (line 96): bad indentation
+Error (line 96): must begin only by tabulations
+Error (line 97): bad indentation
+Error (line 97): must begin only by tabulations
+Error (line 98): bad indentation
+Error (line 98): must begin only by tabulations
+Error (line 99): bad indentation
+Error (line 99): must begin only by tabulations
+Error (line 100): bad indentation
+Error (line 100): must begin only by tabulations
+Error (line 101): bad indentation
+Error (line 101): must begin only by tabulations
+Error (line 102): bad indentation
+Error (line 102): must begin only by tabulations
+Error (line 103): bad indentation
+Error (line 103): must begin only by tabulations
+Error (line 136): bad indentation
+Error (line 136): must begin only by tabulations
+Error (line 137): bad indentation
+Error (line 137): must begin only by tabulations
+Error (line 138): bad indentation
+Error (line 138): must begin only by tabulations
+Error (line 139): bad indentation
+Error (line 139): must begin only by tabulations
+Error (line 140): bad indentation
+Error (line 140): must begin only by tabulations
+Error (line 141): bad indentation
+Error (line 141): must begin only by tabulations
+Error (line 142): bad indentation
+Error (line 142): must begin only by tabulations
+Error (line 143): bad indentation
+Error (line 143): must begin only by tabulations
+Error (line 144): bad indentation
+Error (line 144): must begin only by tabulations
+Error (line 145): bad indentation
+Error (line 145): must begin only by tabulations
+Norme: ./srcs/textures/perlin_noise_init.c
+Norme: ./srcs/textures/get_textures.c
+Norme: ./srcs/textures/procedural.c
+Norme: ./srcs/thread_utils.c
+Error (line 62): line has 84 characters
+Norme: ./srcs/trace_lights.c
+Error: global scope bad aligned
+Error (line 53): C++ comment
+Error (line 53): line has 99 characters
+Error (line 54): C++ comment
+Error (line 54): line has 82 characters
+Norme: ./srcs/utility.c
+Error: global scope bad aligned
+Error: 7 functions in the file
+Error: file must end with a single empty line
+Error (line 17): multiple empty lines
+Error (line 20): comment not well formatted
+Error (line 26): line has 82 characters
+Error (line 36): Empty line
+Error (line 37): multiple empty lines
+Error (line 37): Empty line
+Error (line 40): C++ comment
+Error (line 40): line has 94 characters
+Error (line 41): line has 82 characters
+Error (line 42): Empty line
+Error (line 50): comment not well formatted
+Error (line 51): comment not well formatted
+Error (line 79): missing void in function new_base
+Error (line 99): bad spacing after limit_nb
+Error (line 106): multiple empty lines
+Error (line 107): declarations in reflect_vector must be at the top of the function
+Error (line 107): declarations must be followed by one empty line in reflect_vector
+Error (line 107): bad spacing before reflect_vector
+Error (line 107): line has 83 characters
+Error (line 109): C++ comment
+Error (line 112): C++ comment
+Error (line 113): C++ comment
+Error (line 114): C++ comment
+Error (line 115): C++ comment
+Error (line 115): line has 104 characters
+Error (line 126): comment not well formatted
+Error (line 133): new_ray have 5 parameters
+Error (line 133): line has 91 characters
+Error (line 143): C++ comment
+Error (line 143): line has 105 characters
+Error (line 146): ray_effect have 5 parameters
+Error (line 146): function ray_effect has 48 lines
+Error (line 146): line has 94 characters
+Error (line 146, col 0): ray_effect has 6 variables
+Error (line 157, col 2): missing space after return
+Error (line 173): C++ comment
+Error (line 178): C++ comment
+Error (line 178): line has 125 characters
+Error (line 180): bad indentation
+Error (line 180): C++ comment
+Error (line 182): C++ comment
+Error (line 184): C++ comment
+Error (line 184): line has 123 characters
+Error (line 187): C++ comment
+Error (line 189): C++ comment
+Error (line 190): C++ comment
+Error (line 191): C++ comment
+Error (line 192, col 1): no empty line before block
+Error (line 193): C++ comment
+Error (line 198): declarations must be followed by one empty line in compute_color
+Error (line 204): C++ comment
+Error (line 206): C++ comment
+Error (line 207): C++ comment
+Error (line 212): C++ comment
+Error (line 213): C++ comment
+Error (line 216): C++ comment
+Error (line 217): C++ comment
+Error (line 218): C++ comment
+Error (line 221): C++ comment
+Norme: ./srcs/utils.c
+Error (line 51): new_ray have 5 parameters
+Norme: ./srcs/vec_utils.c
+Norme: ./srcs/vec_utils_2.c
+Norme: ./srcs/utils_2.c
+Error: 7 functions in the file
+Error (line 138): C++ comment
+Error (line 139): C++ comment
+Error (line 140): C++ comment
+Error (line 141): C++ comment
+Error (line 142): C++ comment
+Error (line 143): C++ comment
+Error (line 144): C++ comment
+Error (line 145): C++ comment
+Error (line 146): C++ comment
+Error (line 147): C++ comment
+Error (line 148): C++ comment
+Error (line 150): function ray_effect has 45 lines
+Error (line 172): C++ comment
+Error (line 173): bad indentation
+Error (line 173): C++ comment
+Error (line 177): C++ comment
+Error (line 177): line has 85 characters
+Error (line 178): C++ comment
+Error (line 179): C++ comment
+Error (line 179): line has 85 characters
+Error (line 180): C++ comment
+Error (line 181): C++ comment
+Error (line 181): line has 85 characters
+Error (line 182): C++ comment
+Error (line 182): line has 88 characters
+Error (line 183): C++ comment
+Error (line 183): line has 85 characters
+Error (line 184): C++ comment
+Error (line 184): line has 88 characters
+Error (line 185): Empty line
+Error (line 186): multiple empty lines
+Error (line 186): Empty line
+Error (line 188): line has 88 characters
+Norme: ./srcs/vec_utils_3.c
+Error: global scope bad aligned
+Norme: ./srcs/gui/gui_parse_param.c
+Error: 7 functions in the file
+Error: 42 header not at top of the file
+Error (line 3): function gui_parse_param_scroll has 59 lines
+Error (line 50): line has 177 characters
+Error (line 63): C++ comment
+Error (line 66): function gui_parse_param_checkbox has 66 lines
+Error (line 76): line has 83 characters
+Error (line 120): line has 201 characters
+Error (line 133): C++ comment
+Error (line 136): function gui_parse_param_button has 58 lines
+Error (line 183): line has 180 characters
+Error (line 195): C++ comment
+Error (line 198): function gui_parse_param_textbox has 72 lines
+Error (line 255): line has 215 characters
+Error (line 270): C++ comment
+Error (line 274): function gui_parse_param_gauge has 63 lines
+Error (line 325): line has 215 characters
+Error (line 338): C++ comment
+Error (line 341): function gui_parse_param_freetxt has 51 lines
+Error (line 381): line has 124 characters
+Error (line 393): C++ comment
+Error (line 396): function gui_parse_param_builder has 55 lines
+Error (line 440): line has 232 characters
+Norme: ./srcs/gui/gui_parse_main.c
+Warning: /Users/rfriscca/RT-TEST/srcs/gui/gui_parse_main.c: timeouted.
