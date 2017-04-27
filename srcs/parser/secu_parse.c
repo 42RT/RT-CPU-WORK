@@ -6,7 +6,7 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 16:44:43 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/04/27 00:35:55 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/27 13:19:57 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-int		ac_count(int ac, char *str)
+int		ac_count(t_env *e, int ac, char *str)
 {
 	int		i;
 
@@ -24,14 +24,18 @@ int		ac_count(int ac, char *str)
 	while (str[++i])
 	{
 		if (str[i] == '{')
+        {
 			ac++;
+            if (str[i + 1] != '\0')
+            code_error_parser(e, -8);
+        }
 		if (str[i] == '}')
 			ac--;
 	}
 	return (ac);
 }
 
-int		gui_count(int gui, char *str)
+int		gui_count(t_env *e, int gui, char *str)
 {
 	int		i;
 
@@ -44,11 +48,11 @@ int		gui_count(int gui, char *str)
 		{
 			gui--;
 			if (str[i + 1] != ':')
-				return (-2);
+                code_error_parser(e, -3);
 		}
 	}
 	if (gui != 0)
-		return (-1);
+	   code_error_parser(e, -2);
 	return (gui);
 }
 
@@ -101,12 +105,8 @@ int		first_chek(t_env *e, char *str)
         }
         else
             e->coma = 1;
-		ac = ac_count(ac, line);
-		gui = gui_count(gui, line);
-		if (gui == -1)
-			return (-2);
-		else if (gui == -2)
-			return (-3);
+		ac = ac_count(e, ac, line);
+		gui = gui_count(e, gui, line);
 		free(line);
 	}
 	if (e->nb_line < 3)
@@ -143,6 +143,8 @@ void	code_error_parser(t_env *e, int error)
         ft_putstr("Bad syntax, Not need Coma in the line ");
         e->nb_line--;
     }
+    else if (error == -8)
+        ft_putstr("Something after Opening brace in line ");
 	ft_putnbr(e->nb_line);
 	exit(EXIT_SUCCESS);
 }
