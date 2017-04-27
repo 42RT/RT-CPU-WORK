@@ -42,9 +42,6 @@ char	*ft_strtrim_coma(char const *s)
 
 char	*get_value(char *str)
 {
-	int		i;
-
-	i = 0;
 	while (*str && *str != ':')
 		++str;
 	if (*str)
