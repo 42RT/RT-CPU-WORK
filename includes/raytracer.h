@@ -82,6 +82,8 @@ typedef struct		s_settings
 	unsigned int	d3_mode;
 	float			d3_offset;
 	float			d3_conv;
+	float			luminosity;
+	float			contrast;
 	char			*name;
 	unsigned int	focus;
 	int				focus_dst;

@@ -448,7 +448,7 @@ void		gui_pending_action_prevent(t_gui *gui);
 int			event_scroll_mouse_wheel(SDL_Event event, t_gui *gui);
 int			event_is_scroll(SDL_Event event, t_gui *gui);
 int			event_is_checkbox(SDL_Event event, t_gui *gui);
-int			event_is_gauge(SDL_Event event, t_gui *gui);
+int			event_is_gauge(SDL_Event event, t_gui *gui, t_env *e);
 int			event_is_button(SDL_Event event, t_gui *gui, int id, int i);
 int			event_is_textbox(SDL_Event event, t_gui *gui);
 void		event_scroll_mouse_over(SDL_Event event, t_gui *gui, t_scroll *scroll);

@@ -12,7 +12,7 @@
 
 #include <gui.h>
 
-int		event_is_param_gauge(SDL_Event event, t_gui *gui)
+int		event_is_param_gauge(SDL_Event event, t_gui *gui, t_env *e)
 {
 	int	i;
 
@@ -29,6 +29,12 @@ int		event_is_param_gauge(SDL_Event event, t_gui *gui)
 			+ 5;
 			PARAM_GAU->active_value = gui_gauge_get_norm(PARAM_GAU);
 			gui_main_refresh(gui);
+			if (!ft_strcmp(PARAM_GAU->tag, "LUM") || !ft_strcmp(PARAM_GAU->tag, "CON"))
+			{
+				e->set->luminosity = PARAM_GAU->active_value;
+				e->set->contrast = PARAM_GAU->active_value;
+				posttraitment(e);
+			}
 			return (1);
 		}
 		i++;
@@ -36,9 +42,9 @@ int		event_is_param_gauge(SDL_Event event, t_gui *gui)
 	return (0);
 }
 
-int		event_is_gauge(SDL_Event event, t_gui *gui)
+int		event_is_gauge(SDL_Event event, t_gui *gui, t_env *e)
 {
 	if (PARAM && PARAM->active == 1)
-		return (event_is_param_gauge(event, gui));
+		return (event_is_param_gauge(event, gui, e));
 	return (0);
 }

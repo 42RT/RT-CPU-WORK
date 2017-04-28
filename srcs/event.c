@@ -20,9 +20,12 @@ void	event_mouse_wheel(SDL_Event event, t_gui *gui)
 
 void	event_mouse_click(SDL_Event event, t_gui *gui)
 {
+	t_env	*e;
+
+	e = get_env();
 	if (event.button.button == SDL_BUTTON_LEFT)
 	{
-		if (!event_is_gauge(event, gui))
+		if (!event_is_gauge(event, gui, e))
 			if (!event_is_scroll(event, gui))
 				if (!event_is_checkbox(event, gui))
 					if (!event_is_button(event, gui, 0, 0))
