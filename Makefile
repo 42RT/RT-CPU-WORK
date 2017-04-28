@@ -77,6 +77,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_SRC)color_utils.c \
 			$(PATH_SRC)copy_utils.c \
 			$(PATH_SRC)get_utils.c \
+			$(PATH_SRC)posttraitment.c \
 			$(PATH_SRC)thread_utils.c \
 			$(PATH_SRC)vec_utils.c \
 			$(PATH_SRC)vec_utils_2.c \

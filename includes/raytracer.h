@@ -249,6 +249,7 @@ void				print_debug(t_env *e);
 void				exp_compute(t_vector *o, t_vector *exp);
 t_color				mod_light(t_color color, float dst, float coef2);
 void				swap_cap(t_obj *obj);
+void				posttraitment(t_env *e);
 
 /*
 ** Init
