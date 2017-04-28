@@ -191,7 +191,7 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 		if (ft_strcmp(rfile->d_name, ".") && ft_strcmp(rfile->d_name, ".."))
 		{
 			lu = ft_strjoin("scene/", rfile->d_name);
-			if (!ft_strcmp(e->av[1], lu))
+			if (!ft_strcmp(e->av, lu))
 				scroll->active_value = i;
 			tmp = ft_strsplit(rfile->d_name, '.');
 			value[i++] = ft_strdup(tmp[0]);
