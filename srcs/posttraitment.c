@@ -61,8 +61,8 @@ void	posttraitment(t_env *e)
 		while (x < e->set->width)
 		{
 			c = gfx_get_pixel_color(e->gfx->buff[BUFF_NB], x, y);
-			c = pt_luminosity(c, e->set->luminosity * 2);// * 4 - 2);
-			c = pt_contrast(c, e->set->contrast * 2);
+			c = pt_contrast(c, log(e->set->contrast + 0.5) / 2 + 1);
+			c = pt_luminosity(c, exp((e->set->luminosity - 0.5) * 3));
 			gfx_pixel_put_to_image(e->gfx->buff[e->gfx->act], x, y, c);
 			x++;
 		}
