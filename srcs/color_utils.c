@@ -112,7 +112,7 @@ t_color				calc_color(t_vector data, t_color color,
 	return (newcolor);
 }
 
-t_color				shadow(t_color obj_color)
+t_color				shadow(t_color obj_color, t_vector data)
 {
 	t_color			color;
 	float			objr;
@@ -123,9 +123,9 @@ t_color				shadow(t_color obj_color)
 	objr = (float)obj_color.r;
 	objg = (float)obj_color.g;
 	objb = (float)obj_color.b;
-	objr = COEFAMBIENT * RAMBIENT * objr / 255;
-	objg = COEFAMBIENT * GAMBIENT * objg / 255;
-	objb = COEFAMBIENT * BAMBIENT * objb / 255;
+	objr = COEFAMBIENT * RAMBIENT * objr / 255 * data.z;
+	objg = COEFAMBIENT * GAMBIENT * objg / 255 * data.z;
+	objb = COEFAMBIENT * BAMBIENT * objb / 255 * data.z;
 	color.r = (unsigned char)objr;
 	color.g = (unsigned char)objg;
 	color.b = (unsigned char)objb;
