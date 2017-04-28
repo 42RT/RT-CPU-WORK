@@ -30,6 +30,24 @@ t_color	pt_luminosity(t_color c, float k)
 	return (c);
 }
 
+t_color	pt_contrast(t_color c, float k)
+{
+	int		tmp;
+
+	if (k <= 0)
+		return (int_to_tcolor(0));
+	tmp = c.r;
+	tmp = (tmp - 128) * k;
+	c.r = limit_nb(tmp < -128 ? 0 : tmp + 128, 255);
+	tmp = c.g;
+	tmp = (tmp - 128) * k;
+	c.g = limit_nb(tmp < -128 ? 0 : tmp + 128, 255);
+	tmp = c.b;
+	tmp = (tmp - 128) * k;
+	c.b = limit_nb(tmp < -128 ? 0 : tmp + 128, 255);
+	return (c);
+}
+
 void	posttraitment(t_env *e)
 {
 	unsigned int	x;
@@ -44,7 +62,7 @@ void	posttraitment(t_env *e)
 		{
 			c = gfx_get_pixel_color(e->gfx->buff[BUFF_NB], x, y);
 			c = pt_luminosity(c, e->set->luminosity * 2);// * 4 - 2);
-//			c = pt_contrast(c, e->set->contrast);
+			c = pt_contrast(c, e->set->contrast * 2);
 			gfx_pixel_put_to_image(e->gfx->buff[e->gfx->act], x, y, c);
 			x++;
 		}

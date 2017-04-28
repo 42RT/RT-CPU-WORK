@@ -29,12 +29,12 @@ int		event_is_param_gauge(SDL_Event event, t_gui *gui, t_env *e)
 			+ 5;
 			PARAM_GAU->active_value = gui_gauge_get_norm(PARAM_GAU);
 			gui_main_refresh(gui);
-			if (!ft_strcmp(PARAM_GAU->tag, "LUM") || !ft_strcmp(PARAM_GAU->tag, "CON"))
-			{
+			if (!ft_strcmp(PARAM_GAU->tag, "LUM"))
 				e->set->luminosity = PARAM_GAU->active_value;
+			if (!ft_strcmp(PARAM_GAU->tag, "CON"))
 				e->set->contrast = PARAM_GAU->active_value;
+			if (!ft_strcmp(PARAM_GAU->tag, "LUM") || !ft_strcmp(PARAM_GAU->tag, "CON"))
 				posttraitment(e);
-			}
 			return (1);
 		}
 		i++;
