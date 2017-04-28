@@ -15,7 +15,7 @@
 
 int		expose_hook(t_env *e)
 {
-	gfx_blitz_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+	gfx_blitz_image(e->gfx, 0, 0, e->gfx->buff[BUFF_NB]);
 	gfx_flip_screen(e->gfx);
 	return (0);
 }

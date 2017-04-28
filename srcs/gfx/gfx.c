@@ -32,10 +32,10 @@ t_gfx			*gfx_init(char *title, int res_x, int res_y, int buff_nb)
 		return (0);
 	res->renderer = SDL_CreateRenderer(res->win, -1, SDL_RENDERER_ACCELERATED);
 	i = -1;
-	buff_nb = (buff_nb < 5 ? buff_nb : 4);
+	buff_nb = (buff_nb < 6 ? buff_nb : 5);
 	while (++i < buff_nb)
 		res->buff[i] = gfx_new_image(res, res_x, res_y);
-	while (++i < 4)
+	while (++i < 8)
 		res->buff[i] = 0;
 	res->act = 0;
 	res->expose = 1;

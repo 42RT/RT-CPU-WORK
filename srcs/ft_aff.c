@@ -24,21 +24,23 @@ void		ft_render_preview(t_env *e)
 	while (e->rendering_preview && !*(e->worker_stop))
 	{
 //		if (e->set->display == PROGRESSIVE)
-			gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+//			gfx_display_image(e->gfx, 0, 0, e->gfx->buff[BUFF_NB]);
+		posttraitment(e);
 //		else
 //			loading_bar(e, (float)(e->y * 100) / e->set->height,
 //						int_to_tcolor(0x1010A0), int_to_tcolor(0));
 		event_poll(e);
 		usleep(4000);
 	}
-	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+//	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[BUFF_NB]);
+	posttraitment(e);
 }
 
 void		ft_render(t_env *e)
 {
 	int		thread_ret;
 
-	gfx_fill_image(e->gfx->buff[e->gfx->act], e->set->width,
+	gfx_fill_image(e->gfx->buff[BUFF_NB], e->set->width,
 								e->set->height, int_to_tcolor(0));
 	*(e->worker_stop) = 0;
 	e->worker = SDL_CreateThread(ft_aff, "rt_worker", e);
@@ -53,13 +55,13 @@ void		ft_render(t_env *e)
 				loading_bar(e, e->render_progression,
 							int_to_tcolor(0x1010A0), int_to_tcolor(0));
 		else
-			gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+			posttraitment(e);
 		event_poll(e);
 		usleep(16000);
 	}
 	if (!*(e->worker_stop))
 		SDL_WaitThread(e->worker, &thread_ret);
-	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+	posttraitment(e);
 	e->worker = 0;
 	*(e->worker_stop) = 1;
 }
@@ -107,16 +109,16 @@ void		smooth_quickrender_mix(t_env *e, unsigned int x, unsigned int y)
 	t_color	color;
 	t_color	c2;
 
-	color = gfx_get_pixel_color(e->gfx->buff[e->gfx->act],
+	color = gfx_get_pixel_color(e->gfx->buff[BUFF_NB],
 								x - (x & 1), y - (y & 1));
 	if (x < (e->set->width - 2) && y < (e->set->height - 2) && 0) // delete & 0
 	{
-		c2 = gfx_get_pixel_color(e->gfx->buff[e->gfx->act],
+		c2 = gfx_get_pixel_color(e->gfx->buff[BUFF_NB],
 									x + (x & 1), y + (y & 1));
 		color_mix_k(&color, c2, 127);
 		color.a = 255;
 	}
-	gfx_pixel_put_to_image(e->gfx->buff[e->gfx->act], x, y, color);
+	gfx_pixel_put_to_image(e->gfx->buff[BUFF_NB], x, y, color);
 }
 
 void		smooth_quickrender(t_env *e)
@@ -162,7 +164,7 @@ void		ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 				return;
 			color = compute_color(e, obj, e->set->deph);
 			color.a = 255;
-			gfx_pixel_put_to_image(e->gfx->buff[e->gfx->act],
+			gfx_pixel_put_to_image(e->gfx->buff[BUFF_NB],
 										(int)e->x, (int)e->y, color);
 			e->x += 2;
 		}

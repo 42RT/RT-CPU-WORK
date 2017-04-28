@@ -52,7 +52,7 @@ int			main(int ac, char **av)
 	else
 		error(2);
 	e->gfx = gfx_init(e->set->name, e->set->width,
-							e->set->height, BUFF_NB);
+							e->set->height, BUFF_NB + 1);
 	if (!e->gfx)
 		return (0);
 	//gui = gui_init();
