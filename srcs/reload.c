@@ -47,7 +47,7 @@ void		delete_all_lights(t_env *e)
 void		reload(t_env *e)
 {
 	int		thread_ret;
-	e->worker_stop = 1;
+	*(e->worker_stop) = 1;
 	SDL_WaitThread(e->worker, &thread_ret);
 	delete_all_obj(e);
 	delete_all_lights(e);

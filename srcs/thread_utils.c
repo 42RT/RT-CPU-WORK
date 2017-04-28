@@ -45,7 +45,7 @@ void		launch_threads(t_th_data *data)
 	{
 		if ((thread_ptr = SDL_CreateThread(thread_aff, "workers", data)) == 0)
 		{
-			data->e->worker_stop = 1;
+			*(data->e->worker_stop) = 1;
 			return ;
 		}
 	}
@@ -61,7 +61,7 @@ void		launch_threads_line(t_th_data *data)
 	{
 		if ((thread_ptr = SDL_CreateThread(thread_aff_line, "workers", data)) == 0)
 		{
-			data->e->worker_stop = 1;
+			*(data->e->worker_stop) = 1;
 			return ;
 		}
 	}

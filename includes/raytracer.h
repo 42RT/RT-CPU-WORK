@@ -155,7 +155,7 @@ typedef struct		s_env
 	t_obj			*neg_obj;
 	t_light			*light;
 	SDL_Thread		*worker;
-	int				worker_stop;
+	int				*worker_stop;
 	int				rendering_preview;
 	char			*file;
 	float			last_refract;

@@ -21,7 +21,7 @@ void		ft_render_preview(t_env *e)
 	usleep(2000);
 	if (!e->rendering_preview)
 		return ;
-	while (e->rendering_preview && !(e->worker_stop))
+	while (e->rendering_preview && !*(e->worker_stop))
 	{
 //		if (e->set->display == PROGRESSIVE)
 			gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
@@ -38,10 +38,12 @@ void		ft_render(t_env *e)
 {
 	int		thread_ret;
 
-	e->worker_stop = 0;
+	gfx_fill_image(e->gfx->buff[e->gfx->act], e->set->width,
+								e->set->height, int_to_tcolor(0));
+	*(e->worker_stop) = 0;
 	e->worker = SDL_CreateThread(ft_aff, "rt_worker", e);
 	ft_render_preview(e);
-	while (!(e->worker_stop) &&
+	while (!*(e->worker_stop) &&
 			((e->y < e->set->height && e->x < e->set->width
 				&& e->set->display == LEGACY && e->set->threads <= 1)
 			|| (e->render_progression < 100
@@ -55,11 +57,11 @@ void		ft_render(t_env *e)
 		event_poll(e);
 		usleep(16000);
 	}
-	if (!(e->worker_stop))
+	if (!*(e->worker_stop))
 		SDL_WaitThread(e->worker, &thread_ret);
 	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
 	e->worker = 0;
-	e->worker_stop = 1;
+	*(e->worker_stop) = 1;
 }
 
 int			ft_aff(void *data)
@@ -84,8 +86,11 @@ int			ft_aff(void *data)
 			e->x = 0;
 			while (e->x < e->set->width)
 			{
-				if (e->worker_stop)
+				if (*(e->worker_stop))
+				{
+					usleep(100000);
 					return (0);
+				}
 				fill_pixel(e, e->obj);
 				++e->x;
 			}
@@ -125,7 +130,7 @@ void		smooth_quickrender(t_env *e)
 		x = 0;
 		while (x < e->set->width)
 		{
-			if (e->worker_stop)
+			if (*(e->worker_stop))
 				return;
 			if (x < (e->set->width - 3))
 				smooth_quickrender_mix(e, x + 1, y);
@@ -153,7 +158,7 @@ void		ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 		e->x = 0;
 		while (e->x < e->set->width)
 		{
-			if (e->worker_stop)
+			if (*(e->worker_stop))
 				return;
 			color = compute_color(e, obj, e->set->deph);
 			color.a = 255;
@@ -184,7 +189,7 @@ void		ft_aff_random(t_env *e, t_obj *obj, int multithread)
 	e->remaining = res;
 	while (e->remaining > 0)
 	{
-		if (e->worker_stop)
+		if (*(e->worker_stop))
 			return;
 		pos = get_pos(map, res, &(e->remaining));
 		e->y = pos / e->set->width;
@@ -200,7 +205,7 @@ void		ft_aff_rand(t_th_data *a, t_env *e)
 	int		pos;
 
 	srand(time(NULL));
-	while (a->nb > 0)
+	while (a->nb > 0 && !*(e->worker_stop))
 	{
 		pos = rand() % a->res;
 		while (!a->map[pos] && a->nb)
@@ -228,7 +233,7 @@ void		ft_aff_line(t_th_data *a, t_env *e)
 {
 	int		y;
 
-	while (a->nb > 0)
+	while (a->nb > 0 && !*(e->worker_stop))
 	{
 		while (pthread_mutex_lock(&(a->mutex)) != 0)
 			;
@@ -264,8 +269,11 @@ void		ft_aff_multithread(t_env *e, t_obj *obj)
 	launch_threads(&data);
 	while (data.nb)
 	{
-		if (e->worker_stop)
-			return;//kill threads before
+		if (*(e->worker_stop))
+		{
+			usleep(50000);
+			return;
+		}
 		++j;
 		e->render_progression = 100.0 - ((data.nb * 100) / data.res);// res == 0 care
 		if (i != (data.nb * 100) / data.res)
@@ -295,8 +303,11 @@ void		ft_aff_multithread_line(t_env *e, t_obj *obj)
 	launch_threads_line(&data);
 	while (data.nb)
 	{
-		if (e->worker_stop)
-			return;//kill threads before
+		if (*(e->worker_stop))
+		{
+			usleep(50000);
+			return;
+		}
 		++j;
 		e->render_progression = 100.0 - ((data.nb * 100) / e->set->height);// res == 0 care
 		if (i != (int)((data.nb * 100) / e->set->height))

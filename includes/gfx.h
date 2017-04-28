@@ -76,6 +76,8 @@ t_color				gfx_get_pixel_color(t_img *img, int x, int y);
 void				gfx_blitz_image(t_gfx *gfx, int x, int y, t_img *img);
 void				gfx_display_image(t_gfx *gfx, int x, int y, t_img *img);
 void				gfx_blitz_black_image(t_gfx *gfx, int x, int y);
+void				gfx_fill_image(t_img *img, unsigned int width,
+									unsigned int height, t_color color);
 
 /*
 ** several utilities

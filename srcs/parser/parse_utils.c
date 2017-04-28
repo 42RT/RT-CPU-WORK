@@ -94,7 +94,8 @@ int		init(t_env *e, char *scene)
 	parse(e, scene);
 	parse(e, "set.rtc");
 	e->worker = 0;
-	e->worker_stop = 0;
+	e->worker_stop = (int *)malloc(sizeof(int));
+	*(e->worker_stop) = 0;
 	e->rendering_preview = 0;
 	return (0);
 }

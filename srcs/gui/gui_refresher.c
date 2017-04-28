@@ -16,7 +16,7 @@ void	gui_rt_reload_object(t_env *e, t_gui *gui)
 {
 	int	thread_ret;
 
-	e->worker_stop = 1;
+	*(e->worker_stop) = 1;
 	SDL_WaitThread(e->worker, &thread_ret);
 	if ((e->set->oldw != e->set->width) || (e->set->oldh != e->set->width))
 		gfx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB);
@@ -30,7 +30,7 @@ void	gui_rt_reload_object(t_env *e, t_gui *gui)
 
 void	gui_rt_reload(t_env *e, t_gui *gui, char *scene)
 {
-	free(e->av[1]);
+//	free(e->av[1]);
 	e->av[1] = ft_strdup(scene);
 	reload(e);
 	SDL_RaiseWindow(e->gfx->win);

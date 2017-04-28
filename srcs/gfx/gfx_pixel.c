@@ -27,7 +27,7 @@
 void			gfx_pixel_put_to_image(t_img *img, int x, int y,
 											t_color color)
 {
-		img->data[img->width * y + x] = color;
+	img->data[img->width * y + x] = color;
 }
 
 t_color		gfx_get_pixel_color(t_img *img, int x, int y)

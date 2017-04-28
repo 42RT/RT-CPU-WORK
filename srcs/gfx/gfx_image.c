@@ -88,3 +88,18 @@ void			gfx_display_image(t_gfx *gfx, int x, int y, t_img *img)
 	gfx_blitz_image(gfx, x, y, img);
 	SDL_RenderPresent(gfx->renderer);
 }
+
+void			gfx_fill_image(t_img *img, unsigned int width,
+								unsigned int height, t_color color)
+{
+	unsigned int	x;
+	unsigned int	y;
+
+	y = height;
+	while (y--)
+	{
+		x = width;
+		while (x--)
+			img->data[img->width * y + x] = color;
+	}
+}
