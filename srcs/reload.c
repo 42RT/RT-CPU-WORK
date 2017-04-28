@@ -51,7 +51,7 @@ void		reload(t_env *e)
 	SDL_WaitThread(e->worker, &thread_ret);
 	delete_all_obj(e);
 	delete_all_lights(e);
-	parse(e, e->av);
+	parse(e, e->av[1]);
 	if (e->set->verbose)
 		print_debug(e);
 	if (!gfx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB + 1))

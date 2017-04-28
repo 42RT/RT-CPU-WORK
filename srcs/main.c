@@ -44,7 +44,7 @@ int			main(int ac, char **av)
 	e->inside_obj = 0;
 	e->last_refract = 1;
 	e->ac = ac;
-	e->av = ft_strdup(av[1]);
+	e->av = av;
 	if (ac == 2)
 		init(e, av[1]);
 	else if (ac == 1)

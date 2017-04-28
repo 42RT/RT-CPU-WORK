@@ -82,7 +82,7 @@ int	event_scroll_value_found(t_gui *gui, SDL_Event ev, t_scroll *scl)
 	tmp = ft_strjoin("scene/", scl->value[scl->active_value]);
 	scene = ft_strjoin(tmp, ".rts");
 	free(tmp);
-	if (!ft_strcmp(scl->tag, "SCN") && (ft_strcmp(scene, e->av)))
+	if (!ft_strcmp(scl->tag, "SCN") && (ft_strcmp(scene, e->av[1])))
 		gui_rt_reload(e, gui, scene);
 	else
 	{
