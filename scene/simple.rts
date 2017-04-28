@@ -30,7 +30,11 @@
 	"angle": {
 		"x": 90
 	},
-	"procedural": marble
+	"procedural": marble,
+	"cap": {
+		"cap1": 0,
+		"cap2": 1000
+	}
 }
 
 "square": {

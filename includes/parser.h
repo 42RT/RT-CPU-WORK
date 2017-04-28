@@ -47,7 +47,8 @@ void				parse_set_cam(t_env *e, char *str);
 void				parse_other_setting(t_env *e, char *str);
 void				parse_set_focus(t_env *e, char *str);
 void				parse_light(t_env *e, t_item *item);
-int     			first_chek(t_env *e, char *str);
-void    			code_error_parser(t_env *e, int error);
+int					first_chek(t_env *e, char *str);
+void				code_error_parser(t_env *e, int error);
+int					parse_dis(t_item *it, t_vector *v, int i, void (*f)(t_vector *, char *));
 
 #endif

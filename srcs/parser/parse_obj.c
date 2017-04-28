@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:04:33 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/21 20:04:13 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/28 14:43:44 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,22 @@ void	load_normalmap(t_obj *obj)
 	free(path2);
 }
 
+void 	parse_cap(t_obj *obj, char *str)
+{
+	if (!ft_strncmp(str, "\"cap1\"", 6))
+		obj->cap1 = ft_atof(get_value(str));
+	else if (!ft_strncmp(str, "\"cap2\"", 6))
+		obj->cap2 = ft_atof(get_value(str));
+}
+
+int 	parse_dis2(t_item *it, t_obj *o, int i, void (*f)(t_obj *, char *))
+{
+	while (ft_strchr(it->set[i + 1], ',') != NULL)
+		f(o, it->set[++i]);
+	f(o, it->set[++i]);
+	return (i);
+}
+
 void	parse_object(t_env *e, t_item *item)
 {
 	t_obj	*obj;
@@ -106,37 +122,25 @@ void	parse_object(t_env *e, t_item *item)
 	while (++i < item->setnb)
 	{
 		if (!ft_strncmp(item->set[i], "\"position\"", 10))
-		{
-			while (ft_strchr(item->set[i + 1], ',') != NULL)
-				parse_pos(&(obj->pos), item->set[++i]);
-			parse_pos(&(obj->pos), item->set[++i]);
-		}
+			i = parse_dis(item, &(obj->pos), i, (parse_pos));
 		else if (!ft_strncmp(item->set[i], "\"angle\"", 7))
-		{
-			while (ft_strchr(item->set[i + 1], ',') != NULL)
-				parse_ang(&(obj->ang), item->set[++i]);
-			parse_ang(&(obj->ang), item->set[++i]);
-		}
+			i = parse_dis(item, &(obj->ang), i, (parse_ang));
 		else if (!ft_strncmp(item->set[i], "\"exp\"", 5))
-		{
-			while (ft_strchr(item->set[i + 1], ',') != NULL)
-				parse_obj_exp(obj, item->set[++i]);
-			parse_obj_exp(obj, item->set[++i]);
-		}
+			i = parse_dis2(item, obj, i, (parse_obj_exp));
 		else if (!ft_strncmp(item->set[i], "\"color", 6))
 			parse_obj_color(obj, item->set[i]);
+		else if (!ft_strncmp(item->set[i], "\"def\"", 5))
+			i = parse_dis(item, &(obj->def), i, (parse_pos));
+		else if (!ft_strncmp(item->set[i], "\"cap\"", 5))
+			i = parse_dis2(item, obj, i, (parse_cap));
+		// else if (!ft_strncmp(item->set[i], "\"compose\"", 9))
+		// 	i = parse_compose(e, item, obj, i);
 		else
 			parse_object_other(obj, item->set[i]);
 	}
 	obj->type = obj_gettype(item->type);
 	if (obj->type == 128)
 		obj->cap2 = 1000;
-	if (obj->type == DPLANE && obj->color.r == 0 && obj->color.g == 0xff
-		&& obj->color.b == 0xff)
-	{
-		obj->def.x = 1;
-		obj->def.z = 1;
-	}
 	if (obj->type == GLASS)
 		glass(obj);
 	if (obj->texture)
