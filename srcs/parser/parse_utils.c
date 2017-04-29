@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/27 19:04:15 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/29 15:54:11 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,11 @@ t_item	*get_next_item(char **str)
 	file += (*file != 0);
 	while (file && *file)
 	{
-		if (i == 0)
-		{
-			if (ft_strcchr(file, '{', '}') != NULL)
-				i++;
-		}
-		if (*file == '}' && i == 0)
+		if (ft_strcchr(file, '{', '\n') != NULL)
+			i++;
+		if (ft_strcchr(file, '}', '\n') != NULL && i == 0)
 			break ;
-		else if (*file == '}' && i > 0)
+		else if (ft_strcchr(file, '}', '\n') != NULL && i > 0)
 			i--;
 		add_next_set(item, &file);
 	}

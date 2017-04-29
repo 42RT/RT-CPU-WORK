@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:06:23 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/21 20:02:54 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/28 16:06:24 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void	parse_object_other(t_obj *obj, char *str)
 		obj->normalmap = ft_strdup(get_value(str));
 }
 
-void	parse_obj_exp(t_obj *obj, char *str)
+void	parse_obj_exp(t_vector *v, char *str)
 {
 	if (!ft_strncmp(str, "\"x\"", 3))
-		obj->exp.x = ft_atof(get_value(str));
+		v->x = ft_atof(get_value(str));
 	else if (!ft_strncmp(str, "\"y\"", 3))
-		obj->exp.y = ft_atof(get_value(str));
+		v->y = ft_atof(get_value(str));
 	else if (!ft_strncmp(str, "\"z\"", 3))
-		obj->exp.z = ft_atof(get_value(str));
+		v->z = ft_atof(get_value(str));
 }
 
 void	parse_obj_color(t_obj *obj, char *str)

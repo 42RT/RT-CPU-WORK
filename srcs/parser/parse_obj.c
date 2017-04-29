@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:04:33 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/28 14:43:44 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/04/29 23:10:51 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,15 +126,15 @@ void	parse_object(t_env *e, t_item *item)
 		else if (!ft_strncmp(item->set[i], "\"angle\"", 7))
 			i = parse_dis(item, &(obj->ang), i, (parse_ang));
 		else if (!ft_strncmp(item->set[i], "\"exp\"", 5))
-			i = parse_dis2(item, obj, i, (parse_obj_exp));
+			i = parse_dis(item, &(obj->exp), i, (parse_obj_exp));
 		else if (!ft_strncmp(item->set[i], "\"color", 6))
 			parse_obj_color(obj, item->set[i]);
 		else if (!ft_strncmp(item->set[i], "\"def\"", 5))
 			i = parse_dis(item, &(obj->def), i, (parse_pos));
 		else if (!ft_strncmp(item->set[i], "\"cap\"", 5))
 			i = parse_dis2(item, obj, i, (parse_cap));
-		// else if (!ft_strncmp(item->set[i], "\"compose\"", 9))
-		// 	i = parse_compose(e, item, obj, i);
+		else if (!ft_strncmp(item->set[i], "\"compose\"", 9))
+			i = parse_compose(e, item, obj, i);
 		else
 			parse_object_other(obj, item->set[i]);
 	}
