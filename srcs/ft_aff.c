@@ -30,7 +30,7 @@ void		ft_render_preview(t_env *e)
 //			loading_bar(e, (float)(e->y * 100) / e->set->height,
 //						int_to_tcolor(0x1010A0), int_to_tcolor(0));
 		event_poll(e);
-		usleep(4000);
+		usleep(16000);
 	}
 //	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[BUFF_NB]);
 	posttraitment(e);
@@ -248,7 +248,6 @@ void		ft_aff_line(t_th_data *a, t_env *e)
 		{
 			fill_pixel(e, e->obj);
 		}
-		event_poll(e);
 	}
 	free(e);
 }
