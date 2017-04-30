@@ -177,7 +177,8 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 		error(1);
 	fread(lu, sizeof(char), 10, sortie);
 	lu_trim = ft_strdup_trim(lu);
-	scroll->nb_value = ft_atoi(lu_trim);
+	scroll->nb_value = ft_atoi(lu_trim) + 1;
+	printf("NB SCENE : %d\n", scroll->nb_value);
 	free(lu);
 	free(lu_trim);
 	scroll->active_value = 0;

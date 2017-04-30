@@ -63,7 +63,7 @@ void		ft_welcome(t_env *e)
 int			main(int ac, char **av)
 {
 	t_env		*e;
-	t_gui		*gui;
+	//t_gui		*gui;
 
 	e = get_env();
 	generate_noise(e);
@@ -74,18 +74,17 @@ int			main(int ac, char **av)
 	if (ac == 2)
 		init(e, av[1]);
 	else if (ac == 1)
-		init(e, ".default.rts");
+		init(e, "scene/.default.rts");
 	else
 		error(2);
 	e->gfx = gfx_init(e->set->name, e->set->width,
 							e->set->height, BUFF_NB + 1);
 	if (!e->gfx)
 		return (0);
-	//gui = gui_init();
 	if (e->set->verbose)
 		print_debug(e);
 	gfx_blitz_black_image(e->gfx, 0, 0);
-	gui = gui_init();
+	//gui = gui_init();
 	SDL_RaiseWindow(e->gfx->win);
 
 //	ft_render(e);
@@ -97,6 +96,6 @@ int			main(int ac, char **av)
 	//gfx_exit(e->gfx, 0);
 	while (1)
 		wait_event(e);
-	(void)gui;
+	//(void)gui;
 	return (0);
 }

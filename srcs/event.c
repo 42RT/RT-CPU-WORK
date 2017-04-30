@@ -49,6 +49,7 @@ static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 								|| event.key.keysym.sym == SDLK_SPACE))
 		{
 			env->background = 0;
+			gui = gui_init();
 			ft_render(env);
 		}
 		else if (!env->background)
