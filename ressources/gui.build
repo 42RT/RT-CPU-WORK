@@ -167,8 +167,8 @@ PARAM MENU BUILDER:
 		x: 2
 		y: 280
 		tag: "LUM"
-		min: -3
-		max: 3
+		min: 0
+		max: 6
 		txt: "Luminosity"
 		txt_anchor: "parent"
 		txt_align: 0

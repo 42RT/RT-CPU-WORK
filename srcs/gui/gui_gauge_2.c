@@ -55,30 +55,9 @@ float		gui_gauge_get_norm(t_gauge *gauge)
 	float	norm;
 
 	norm = gauge->active_value / (gauge->dest.w / gauge->mod) + gauge->min;
+	if (!ft_strcmp(gauge->tag, "LUM"))
+		norm -= 3;
 	return (norm);
-}
-
-void		gui_gauge_get_value_suite(t_gauge *gauge, t_env *e)
-{
-	if (!ft_strcmp(gauge->tag, "CON"))
-	{
-		gauge->active_value = e->set->contrast;
-		gauge->mod = 1;
-	}
-	else if (!ft_strcmp(gauge->tag, "LUM"))
-	{
-		gauge->active_value = e->set->luminosity;
-		gauge->mod = 6;
-	}
-	else if (!ft_strcmp(gauge->tag, "MLT"))
-	{
-		gauge->active_value = e->set->threads;
-		gauge->mod = 15;
-	}
-	gauge->old_active = gauge->active_value;
-	gauge->cursor->dest.x += (gauge->active_value
-		* (gauge->dest.w / gauge->mod) - gauge->min);
-	gauge->cursor->oldx = gauge->cursor->dest.x;
 }
 
 void		gui_gauge_get_value(t_gauge *gauge)
@@ -87,14 +66,22 @@ void		gui_gauge_get_value(t_gauge *gauge)
 
 	e = get_env();
 	if (!ft_strcmp(gauge->tag, "DPH"))
-	{
 		gauge->active_value = e->set->deph;
-		gauge->mod = 10;
-	}
-	else if (!ft_strcmp(gauge->tag, "FOV"))
-	{
+	if (!ft_strcmp(gauge->tag, "FOV"))
 		gauge->active_value = e->set->fov;
-		gauge->mod = 100;
-	}
-	gui_gauge_get_value_suite(gauge, e);
+	if (!ft_strcmp(gauge->tag, "CON"))
+		gauge->active_value = e->set->contrast;
+	else if (!ft_strcmp(gauge->tag, "LUM"))
+		gauge->active_value = e->set->luminosity;
+	else if (!ft_strcmp(gauge->tag, "MLT"))
+		gauge->active_value = e->set->threads;
+	gauge->old_active = gauge->active_value;
+	gauge->mod = gauge->max - gauge->min;
+	if (!ft_strcmp(gauge->tag, "LUM"))
+		gauge->cursor->dest.x += ((gauge->active_value + 3)
+			* (gauge->dest.w / gauge->mod) - gauge->min);
+	else
+		gauge->cursor->dest.x += (gauge->active_value
+			* (gauge->dest.w / gauge->mod) - gauge->min);
+	gauge->cursor->oldx = gauge->cursor->dest.x;
 }

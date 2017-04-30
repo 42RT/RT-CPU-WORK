@@ -16,11 +16,20 @@
 char	*ft_ftoa(float nb, int precision)
 {
 	char	*str;
+	char	*entier;
+	char	*decimal;
+	char	*tmp;
 
-	str = ft_itoa((int)nb);
+	tmp = ft_itoa((int)nb);
 	nb = nb - (int)nb;
 	nb = nb * pow(10, precision);
-	str = ft_strjoin(str, ".");
-	str = ft_strjoin(str, ft_itoa((int)nb));
+	entier = ft_strjoin(tmp, ".");
+	free(tmp);
+	if (nb < 0)
+		nb *= -1;
+	decimal = ft_itoa((int)nb);
+	str = ft_strjoin(entier, decimal);
+	free(entier);
+	free(decimal);
 	return (str);
 }
