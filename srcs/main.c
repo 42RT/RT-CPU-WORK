@@ -34,6 +34,32 @@ void		print_debug(t_env *e)
 	}
 }
 
+void		ft_welcome(t_env *e)
+{
+	SDL_Surface	*img;
+	SDL_Texture	*texture;
+	SDL_Rect	pos;
+
+	pos.x = 0;
+	pos.y = 0;
+	pos.w = e->set->width;
+	pos.h = e->set->height;
+
+	img = SDL_LoadBMP("ressources/background.bmp");
+	if (img)
+	{
+		texture = SDL_CreateTextureFromSurface(e->gfx->renderer, img);
+		if (texture)
+		{
+			SDL_FreeSurface(img);
+			SDL_RenderCopy(e->gfx->renderer, texture, NULL, &pos);
+			SDL_DestroyTexture(texture);
+			SDL_RenderPresent(e->gfx->renderer);
+			e->background = 1;
+		}
+	}
+}
+
 int			main(int ac, char **av)
 {
 	t_env		*e;
@@ -62,8 +88,8 @@ int			main(int ac, char **av)
 	gui = gui_init();
 	SDL_RaiseWindow(e->gfx->win);
 
-	ft_render(e);
-
+//	ft_render(e);
+	ft_welcome(e);
 
 	//if (e->set->preview)
 	//	ft_aff_quick(e, e->obj);

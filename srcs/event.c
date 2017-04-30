@@ -45,12 +45,21 @@ static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 	{
 		if (event.key.keysym.sym == SDLK_ESCAPE)
 			gfx_exit(env->gfx, 0);
-		if (event.key.keysym.sym == SDLK_BACKQUOTE || event.key.keysym.sym == 178)
-			console_mode = !console_mode;
-		if (console_mode)
-			console_mode = rt_console(event.key.keysym.sym, env, !old);
-		if (!console_mode)
-			gfx_display_image(env->gfx, 0, 0, env->gfx->buff[env->gfx->act]);
+		if (env->background && (event.key.keysym.sym == SDLK_RETURN
+								|| event.key.keysym.sym == SDLK_SPACE))
+		{
+			env->background = 0;
+			ft_render(env);
+		}
+		else if (!env->background)
+		{
+			if (event.key.keysym.sym == SDLK_BACKQUOTE || event.key.keysym.sym == 178)
+				console_mode = !console_mode;
+			if (console_mode)
+				console_mode = rt_console(event.key.keysym.sym, env, !old);
+			if (!console_mode)
+				gfx_display_image(env->gfx, 0, 0, env->gfx->buff[env->gfx->act]);
+		}
 	}
 	if (gui->widget_active && (event.window.windowID == gui->winID))
 		event_txb_insert(event, gui, gui->widget_active);

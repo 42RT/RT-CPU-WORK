@@ -32,7 +32,7 @@ static void	set_def_cam(t_settings *res)
 	res->cam2->ang.y = DEF_CAM2_ANGY;
 	res->cam2->ang.z = DEF_CAM2_ANGZ;
 	res->verbose = 0;
-	res->luminosity = 0.5;
+	res->luminosity = 0;
 	res->contrast = 0.5;
 }
 
