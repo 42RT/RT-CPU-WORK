@@ -35,6 +35,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_PARSER)parse_settings_utils.c \
 			$(PATH_PARSER)parse_utils.c \
 			$(PATH_PARSER)parse_utils_2.c \
+			$(PATH_PARSER)parse_compose.c \
 			$(PATH_PARSER)secu_parse.c \
 			$(PATH_GFX)gfx.c \
 			$(PATH_GFX)gfx_image.c \

@@ -839,7 +839,6 @@ void	gui_get_textbox_value(t_textbox *textbox)
 	t_env *e;
 
 	e = get_env();
-	printf("CAM Z : %f\n", e->set->cam->pos.z);
 	gui_textbox_get_len(textbox);
 	if (!ft_strcmp(textbox->tag, "__X"))
 		textbox->value = gui_get_textbox_X();

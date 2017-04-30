@@ -62,13 +62,13 @@ void		gui_gauge_get_value_suite(t_gauge *gauge, t_env *e)
 {
 	if (!ft_strcmp(gauge->tag, "CON"))
 	{
-		gauge->active_value = 0.5;
+		gauge->active_value = e->set->contrast;
 		gauge->mod = 1;
 	}
 	else if (!ft_strcmp(gauge->tag, "LUM"))
 	{
-		gauge->active_value = 0.5;
-		gauge->mod = 1;
+		gauge->active_value = e->set->luminosity;
+		gauge->mod = 6;
 	}
 	else if (!ft_strcmp(gauge->tag, "MLT"))
 	{
