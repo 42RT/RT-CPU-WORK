@@ -36,9 +36,32 @@ void		ft_render_preview(t_env *e)
 	posttraitment(e);
 }
 
+void		print_time(unsigned int start)
+{
+	unsigned int		hour;
+	unsigned int		min;
+	unsigned int		sec;
+
+	sec = (unsigned int)time(NULL) - start;
+	min = sec / 60;
+	sec %= 60;
+	hour = min / 60;
+	min %= 60;
+	if (hour)
+		printf("Rendering time: %u hour%s, %u minute%s and %u second%s.\n",
+				hour, hour ? "s" : "", min, min ? "s" : "", sec, sec ? "s" : "");
+	else if (min)
+		printf("Rendering time: %u minute%s and %u second%s.\n", min,
+				min ? "s" : "", sec, sec ? "s" : "");
+	else if (sec)
+		printf("Rendering time: %u second%s.\n", sec, sec ? "s" : "");
+	else
+		printf("Rendering time: <1 second.\n");
+}
+
 void		ft_render(t_env *e)
 {
-	int		thread_ret;
+	int				thread_ret;
 
 	gfx_fill_image(e->gfx->buff[BUFF_NB], e->set->width,
 								e->set->height, int_to_tcolor(0));
@@ -69,11 +92,13 @@ void		ft_render(t_env *e)
 int			ft_aff(void *data)
 {
 	t_env	*e;
+	unsigned int	start;
 
 	e = (t_env *)data;
 	if (e->set->preview)
 		ft_aff_quick(e, e->obj);
 	usleep(64000);
+	start = (unsigned int)time(NULL);
 	if (e->set->display == PROGRESSIVE)
 		ft_aff_random(e, e->obj, DEF_MULTITHREAD);
 	else if (e->set->threads > 1)
@@ -101,6 +126,8 @@ int			ft_aff(void *data)
 			e->render_progression = (float)(e->y * 100) / e->set->height;
 		}
 	}
+	usleep(32000);
+	print_time(start);
 	return (0);
 }
 

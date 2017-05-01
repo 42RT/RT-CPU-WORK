@@ -81,6 +81,16 @@ void			color_add(t_color *src, t_color color,
 	return (color_add(c1, color_attenuate(c2, k)));
 }
 */
+t_color			mix_color(t_color c1, t_color c2)
+{
+	t_color		color;
+
+	color.a = (c1.a >> 1) + (c2.a >> 1);
+	color.r = (c1.r >> 1) + (c2.r >> 1);
+	color.g = (c1.g >> 1) + (c2.g >> 1);
+	color.b = (c1.b >> 1) + (c2.b >> 1);
+	return (color);
+}
 
 void			color_mix_k(t_color *src, t_color color,
 							unsigned int k)

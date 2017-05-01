@@ -269,6 +269,8 @@ t_color				aa_2(t_env *e, t_obj *obj, unsigned int deph);
 t_color				aa_4(t_env *e, t_obj *obj, unsigned int deph);
 t_color				aa_8(t_env *e, t_obj *obj, unsigned int deph);
 t_color				aa_16(t_env *e, t_obj *obj, unsigned int deph);
+t_color				aa_32(t_env *e, t_obj *obj, unsigned int deph);
+t_color				aa_64(t_env *e, t_obj *obj, unsigned int deph);
 
 /*
 ** Trace objects

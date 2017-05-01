@@ -44,6 +44,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_SRC)main.c \
 			$(PATH_SRC)ft_err.c \
 			$(PATH_SRC)anti_aliasing.c \
+			$(PATH_SRC)anti_aliasing_2.c \
 			$(PATH_SRC)display.c \
 			$(PATH_SRC)ft_aff.c \
 			$(PATH_SRC)event.c \

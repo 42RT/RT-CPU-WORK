@@ -25,9 +25,10 @@ typedef struct		s_color
 /*
 ** Additions (aren't HDR for the moment)
 */
-void			color_add(t_color *src, t_color color,
-							unsigned int k);
-void			color_mix_k(t_color *src, t_color color,
+void				color_add(t_color *src, t_color color,
+								unsigned int k);
+t_color				mix_color(t_color c1, t_color c2);
+void				color_mix_k(t_color *src, t_color color,
 							unsigned int k);
 
 /*

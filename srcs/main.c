@@ -63,7 +63,6 @@ void		ft_welcome(t_env *e)
 int			main(int ac, char **av)
 {
 	t_env		*e;
-	//t_gui		*gui;
 
 	e = get_env();
 	generate_noise(e);
@@ -83,19 +82,9 @@ int			main(int ac, char **av)
 		return (0);
 	if (e->set->verbose)
 		print_debug(e);
-	gfx_blitz_black_image(e->gfx, 0, 0);
-	//gui = gui_init();
 	SDL_RaiseWindow(e->gfx->win);
-
-//	ft_render(e);
 	ft_welcome(e);
-
-	//if (e->set->preview)
-	//	ft_aff_quick(e, e->obj);
-//	ft_aff(e, e->obj);
-	//gfx_exit(e->gfx, 0);
 	while (1)
 		wait_event(e);
-	//(void)gui;
 	return (0);
 }
