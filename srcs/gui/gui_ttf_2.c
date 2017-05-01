@@ -85,7 +85,10 @@ void	gui_widget_write_txt(void *widget, char *color)
 void	gui_scroll_value_write(t_gui *gui, t_scroll *scroll, char *color)
 {
 	gui_font_init(gui, "Starjedi", 16);
-	gui_txt_to_texture(scroll->value[scroll->active_value], "SOLID", color);
+	if (!ft_strcmp(scroll->tag, "SCN") && scroll->active_value == -1)
+		gui_txt_to_texture("default", "SOLID", color);
+	else
+		gui_txt_to_texture(scroll->value[scroll->active_value], "SOLID", color);
 	TTF->rect.x = scroll->dest.x + 5;
 	TTF->rect.y = scroll->dest.y - 4;
 	SDL_RenderCopy(gui->img, TTF->texture, NULL, &TTF->rect);

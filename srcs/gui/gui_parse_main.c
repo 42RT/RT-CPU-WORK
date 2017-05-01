@@ -177,11 +177,10 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 		error(1);
 	fread(lu, sizeof(char), 10, sortie);
 	lu_trim = ft_strdup_trim(lu);
-	scroll->nb_value = ft_atoi(lu_trim) + 1;
-	printf("NB SCENE : %d\n", scroll->nb_value);
+	scroll->nb_value = ft_atoi(lu_trim);
 	free(lu);
 	free(lu_trim);
-	scroll->active_value = 0;
+	scroll->active_value = -1;
 	scroll->mod = 0;
 	if ((value = (char **)malloc(sizeof(char *) * scroll->nb_value)) == NULL)
 		error(1);
@@ -189,7 +188,7 @@ char	**gui_get_scroll_scene(t_scroll *scroll)
 		gui_error(13);
 	while ((rfile = readdir(rep)))
 	{
-		if (ft_strcmp(rfile->d_name, ".") && ft_strcmp(rfile->d_name, ".."))
+		if (rfile->d_name[0] != '.')
 		{
 			lu = ft_strjoin("scene/", rfile->d_name);
 			if (!ft_strcmp(e->av[1], lu))
