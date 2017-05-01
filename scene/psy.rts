@@ -1,0 +1,85 @@
+"plan": {
+	"color": 0x0000ff,
+	"reflect_k": 255,
+    "procedural": marble,
+	"position": {
+		"y": 1000
+	}
+},
+
+"plan": {
+	"color": 0x00ff00,
+	"reflect_k": 255,
+    "procedural": marble,
+	"position": {
+		"y": -1000
+	}
+},
+
+"plan": {
+	"color": 0xff0000,
+	"reflect_k": 255,
+    "procedural": marble,
+	"position": {
+		"x": 1000
+	},
+	"angle": {
+		"z": 90
+	}
+},
+
+"plan": {
+	"color": 0x8e44ad,
+	"reflect_k": 255,
+    "procedural": marble,
+	"position": {
+		"x": -3000
+	},
+	"angle": {
+		"z": 90
+	}
+},
+
+"plan": {
+	"color": 0x000000,
+	"reflect_k": 255,
+	"position": {
+        "z": 0
+	},
+    "angle": {
+		"x": 90
+	}
+},
+
+"plan": {
+	"color": 0x000000,
+	"reflect_k": 255,
+	"position": {
+        "z": 4000
+	},
+    "angle": {
+		"x": 90
+	}
+},
+
+"sphere": {
+	"color": 0xffffff,
+	"size": 1000,
+	"reflect_k": 150,
+	"refract_k": 0,
+    "procedural": stripe,
+	"position": {
+		"x": -1000,
+		"y": 250,
+		"z": 500
+	}
+},
+
+"light": {
+    "color": 0xffffff,
+	"position": {
+		"x": -1000,
+		"y": 0,
+		"z": 3200
+	}
+}
