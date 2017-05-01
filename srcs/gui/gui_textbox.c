@@ -39,7 +39,7 @@ void		gui_textbox_get_len(t_textbox *textbox)
 	|| !ft_strcmp(tag, "CAZ"))
 		textbox->maxlen = 6;
 	if (!ft_strcmp(tag, "_AX") || !ft_strcmp(tag, "_AY")
-		|| !ft_strcmp(tag, "_AZ"))
+		|| !ft_strcmp(tag, "_AZ") || !ft_strcmp(tag, "SIZ"))
 		textbox->maxlen = 4;
 	if (!ft_strcmp(tag, "__R") || !ft_strcmp(tag, "__G")
 		|| !ft_strcmp(tag, "__B") || !ft_strcmp(tag, "__A")

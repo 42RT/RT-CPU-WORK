@@ -797,6 +797,26 @@ char	*gui_get_textbox_A(void)
 	return (ft_itoa(tmp->color.a));
 }
 
+char	*gui_get_textbox_SIZ(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (ft_itoa(tmp->size));
+}
+
+
 char	*gui_get_textbox_RFR(void)
 {
 	t_env	*e;
@@ -861,6 +881,8 @@ void	gui_get_textbox_value(t_textbox *textbox)
 		textbox->value = gui_get_textbox_B();
 	else if (!ft_strcmp(textbox->tag, "__A"))
 		textbox->value = gui_get_textbox_A();
+	else if (!ft_strcmp(textbox->tag, "SIZ"))
+		textbox->value = gui_get_textbox_SIZ();
 	else if (!ft_strcmp(textbox->tag, "RFR"))
 		textbox->value = gui_get_textbox_RFR();
 	else if (!ft_strcmp(textbox->tag, "RFL"))

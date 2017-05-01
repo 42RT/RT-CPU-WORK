@@ -132,7 +132,7 @@ PARAM MENU BUILDER:
 		y: 120
 		tag: "MLT"
 		min: 1
-		max: 160
+		max: 16
 		txt: "Threads"
 		txt_anchor:"parent"
 		txt_align: 0
@@ -296,7 +296,7 @@ MAIN BUILDER:
 	txt_align: 0
 	button_qt: 0
 	scroll_qt: 0
-	textbox_qt: 4
+	textbox_qt: 5
 	checkbox_qt: 0
 	textbox:
 		x: 0
@@ -314,6 +314,15 @@ MAIN BUILDER:
 		min: 0
 		max: 255
 		txt: "g"
+		txt_anchor: "this"
+		txt_align: 0
+		,
+		x: 2
+		y: 45
+		tag: "SIZ"
+		min: 0
+		max: 9999
+		txt: "size"
 		txt_anchor: "this"
 		txt_align: 0
 		,
