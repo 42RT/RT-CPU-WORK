@@ -53,7 +53,7 @@ static void				trace_lights_3_extend(int *ref, t_color *color,
 			color_mix_k(color, d.shorter->color, data.obj->refract_k); // verifier si float ou int
 			color_mix_k(color, void_tcolor(), 255 - data.obj->refract_k); // idem
 		}
-		else if (data.obj->dst < data.len && data.obj->dst > 1)
+		else if (data.obj->dst + EPS < data.len && data.obj->dst > 1)
 			*ref = -1;
 	}
 }
