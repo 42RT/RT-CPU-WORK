@@ -237,6 +237,7 @@ t_color				ray_effect(t_env *e, t_vector *vec[2], t_obj *obj,
 void				fill_pixel(t_env *e, t_obj *obj);
 void				launch_threads(t_th_data *data);
 void				launch_threads_line(t_th_data *data);
+void				launch_threads_quick(t_th_data *data);
 void				change_cam(t_env *e);
 void				reload(t_env *e);
 int					get_pos(int *map, int res, int *nb);
@@ -353,11 +354,13 @@ void				wait_event(t_env *e);
 void				ft_render(t_env *e);
 int					ft_aff(void *data);
 int					ft_aff_quick(t_env *e, t_obj *obj);
+int					ft_aff_quick_mult(t_env *e);
 int					ft_aff_random(t_env *e, t_obj *obj, int multithread);
 int					ft_aff_multithread(t_env *e);
 int					ft_aff_multithread_line(t_env *e);
 void				ft_aff_rand(t_th_data *a, t_env *e);
 void				ft_aff_line(t_th_data *a, t_env *e);
+void				ft_aff_line_quick(t_th_data *a, t_env *e);
 
 /*
 ** Vector utils

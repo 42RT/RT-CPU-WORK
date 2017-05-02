@@ -49,7 +49,7 @@
 # define DEF_CAM2_ANGY		0.0
 # define DEF_CAM2_ANGZ		0.0
 # define DEF_THREADS		4
-# define MAX_THREADS		8
+# define MAX_THREADS		32
 
 # define DEF_OBJ_POSX		0.0
 # define DEF_OBJ_POSY		0.0

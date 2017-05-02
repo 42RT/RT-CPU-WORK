@@ -15,6 +15,6 @@
 	"preview": 1,
 	"progressive_display": 1,
 	"random_renderer": 1,
-	"threads": 16,
+	"threads": 4,
 	"verbose": 0
 }

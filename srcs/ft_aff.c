@@ -72,8 +72,9 @@ int			ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 {
 	t_color	color;
 
+	if (e->set->threads > 1)
+		return (ft_aff_quick_mult(e));
 	e->rendering_preview = 1;
-	//reset display
 	e->y = 0;
 	while (e->y < e->set->height)
 	{
@@ -81,7 +82,7 @@ int			ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 		while (e->x < e->set->width)
 		{
 			if (*(e->worker_stop))
-				return (0);
+				return (e->rendering_preview = 0);
 			color = compute_color(e, obj, e->set->deph);
 			color.a = 255;
 			gfx_pixel_put_to_image(e->gfx->buff[BUFF_NB],
