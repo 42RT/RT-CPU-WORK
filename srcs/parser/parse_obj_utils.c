@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:06:23 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/28 16:06:24 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/02 13:33:40 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parse_object_other(t_obj *obj, char *str)
 		obj->mod = ft_atof(get_value(str));
 	else if (!ft_strncmp(str, "\"reflect_k\"", 11))
 		obj->reflect_k = ft_atof(get_value(str));
-	else if (!ft_strncmp(str, "\"refract_k\"", 11))
+	else if (!ft_strncmp(str, "\"transparency\"", 11))
 		obj->transparency = ft_atof(get_value(str));
 	else if (!ft_strncmp(str, "\"refract_ind\"", 13))
 		obj->refract_ind = ft_atof(get_value(str));

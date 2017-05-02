@@ -22,7 +22,7 @@
 "cube": {
 	"color": 0xff0000,
 	"size": 1000,
-	"refract_k": 0,
+	"transparency": 0,
 	"reflect_k": 210,
 	"position": {
 	   "x": -4200,
@@ -38,7 +38,7 @@
 	"color": 0xffffff,
 	"size": 1000,
 	"reflect_k": 0,
-	"refract_k": 70,
+	"transparency": 70,
 	"position": {
 	   "x": -1200,
        "y": 1500,

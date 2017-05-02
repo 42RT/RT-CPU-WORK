@@ -6,7 +6,7 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 16:44:43 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/04/27 16:32:08 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/01 12:55:54 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	coma_count(t_env *e, char *line)
 			code_error_parser(e, -7);
 		check_coma(e, line);
 	}
+	else if (ft_strchr(line, '{') != NULL && e->coma == 0)
+		code_error_parser(e, -6);
 	else
 		e->coma = 1;
 }
@@ -98,7 +100,7 @@ int		first_chek(t_env *e, char *str)
 
 	ac = 0;
 	gui = 0;
-	e->coma = 0;
+	e->coma = 1;
 	e->nb_line = 0;
 	if ((fd = open(str, O_RDONLY)) == -1)
 		return (0);
@@ -142,5 +144,7 @@ void	code_error_parser(t_env *e, int error)
 		ft_printf("Something after Opening brace in line %d\n", e->nb_line);
 	else if (error == -9)
 		ft_printf("Character after a Coma, line %d\n", e->nb_line);
+	else if (error == -10)
+		ft_printf("No Object in file\n");
 	exit(EXIT_SUCCESS);
 }

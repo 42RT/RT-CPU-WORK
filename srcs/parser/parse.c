@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:02:31 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/26 12:52:08 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/02 15:15:19 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,15 @@ void		parse(t_env *e, char *filename)
 		if ((item = get_next_item(&file)) == NULL)
 			parse_error();
 		if (!item)
-			break ;
+			parse_error();
 		else if (!ft_strncmp(item->type, "\"settings\"", 10))
 			parse_settings(e, item);
 		else if (!ft_strncmp(item->type, "\"light\"", 7))
 			parse_light(e, item);
-		else
+		else if (obj_gettype(item->type) != NONE)
 			parse_object(e, item);
+		else
+			ft_printf("\033[31m%s Not found\n\033[0m", item->type);
 		while (++i < item->setnb)
 			free(item->set[i]);
 		i = -1;

@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/27 03:45:28 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/02/21 14:50:25 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/02 16:03:34 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ void	parse_settings(t_env *e, t_item *item)
 			e->set->deph = ft_abs(ft_atoi(get_value(item->set[i])));
 		else if (!ft_strncmp(item->set[i], "\"reflect\"", 9))
 			e->set->reflect = ft_abs(ft_atoi(get_value(item->set[i])));
+		else if (!ft_strncmp(item->set[i], "\"luminosity\"", 12))
+			e->set->luminosity = ft_atof(get_value(item->set[i]));
+		else if (!ft_strncmp(item->set[i], "\"contrast\"", 10))
+			e->set->contrast = ft_atof(get_value(item->set[i]));
 		else
 			parse_other_setting(e, item->set[i]);
 	}

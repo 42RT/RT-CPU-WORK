@@ -4,7 +4,7 @@
 	"color3": 0x00ffff,
 	"size": 500,
 	"reflect_k": 20,
-	"refract_k": 190,
+	"transparency": 190,
 	"refract_ind": 1.333,
 	"position": {
 		"y": 700
@@ -47,7 +47,7 @@
 "sphere": {
 	"color": 0xffffff,
 	"size": 1000,
-	"refract_k": 70,
+	"transparency": 70,
 	"position": {
 	   "x": -2000,
        "y": 1500,
