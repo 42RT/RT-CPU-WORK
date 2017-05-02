@@ -793,7 +793,7 @@ char	*gui_get_textbox_A(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_itoa(tmp->color.a));
+	return (ft_itoa(tmp->transparency));
 }
 
 char	*gui_get_textbox_SIZ(void)

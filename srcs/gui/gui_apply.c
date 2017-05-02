@@ -22,9 +22,9 @@ void		gui_apply_numerical(t_gui *gui, t_obj *tmp)
 	tmp->ang.z = ft_atof(gui->container[2]->textbox[2]->value) * M_PI_2 / 90;
 	tmp->color.r = ft_atoi(gui->container[3]->textbox[0]->value);
 	tmp->color.g = ft_atoi(gui->container[3]->textbox[1]->value);
-	tmp->color.b = ft_atoi(gui->container[3]->textbox[3]->value);
-	tmp->color.a = ft_atoi(gui->container[3]->textbox[4]->value);
 	tmp->size = ft_atoi(gui->container[3]->textbox[2]->value);
+	tmp->color.b = ft_atoi(gui->container[3]->textbox[3]->value);
+	tmp->transparency = ft_atoi(gui->container[3]->textbox[4]->value);
 	tmp->reflect_k = ft_atoi(gui->container[4]->textbox[0]->value);
 	tmp->refract_ind = ft_atof(gui->container[5]->textbox[0]->value);
 }
