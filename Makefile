@@ -47,6 +47,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_SRC)anti_aliasing_2.c \
 			$(PATH_SRC)smooth.c \
 			$(PATH_SRC)display.c \
+			$(PATH_SRC)render.c \
 			$(PATH_SRC)ft_aff.c \
 			$(PATH_SRC)ft_aff_multi.c \
 			$(PATH_SRC)ft_aff_utils.c \

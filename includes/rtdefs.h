@@ -13,6 +13,7 @@
 #ifndef RTDEFS_H
 # define RTDEFS_H
 
+# define RANDOM				2
 # define PROGRESSIVE		1
 # define LEGACY				0
 
@@ -24,7 +25,7 @@
 # define DEF_REFRACT		0
 # define DEF_FOV			70
 # define DEF_PREVIEW		1
-# define DEF_DISPLAY		PROGRESSIVE
+# define DEF_DISPLAY		LEGACY
 # define DEF_3D_MODE		0
 # define DEF_3D_OFFSET		0
 # define DEF_3D_CONV		0

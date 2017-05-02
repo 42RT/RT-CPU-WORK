@@ -56,7 +56,9 @@ void	parse_other_setting(t_env *e, char *str)
 	else if (!ft_strncmp(str, "\"preview\"", 9))
 		e->set->preview = ft_atoi(get_value(str));
 	else if (!ft_strncmp(str, "\"progressive_display\"", 21))
-		e->set->display = ft_atoi(get_value(str));
+		e->set->display |= (ft_atoi(get_value(str)) != 0);
+	else if (!ft_strncmp(str, "\"random_renderer\"", 17))
+		e->set->display |= ((ft_atoi(get_value(str)) != 0) << 1);
 	else if (!ft_strncmp(str, "\"threads\"", 9))
 		e->set->threads = ft_atoi(get_value(str));
 	else if (!ft_strncmp(str, "\"verbose\"", 9))

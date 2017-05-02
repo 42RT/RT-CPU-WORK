@@ -16,49 +16,6 @@
 #include <gfx.h>
 #include <raytracer.h>
 
-void		ft_render_preview(t_env *e)
-{
-	usleep(2000);
-	if (!e->rendering_preview)
-		return ;
-	while (e->rendering_preview && !*(e->worker_stop))
-	{
-		posttraitment(e);
-		event_poll(e);
-		usleep(32000);
-	}
-	posttraitment(e);
-}
-
-void		ft_render(t_env *e)
-{
-	int				thread_ret;
-
-	gfx_fill_image(e->gfx->buff[BUFF_NB], e->set->width,
-								e->set->height, int_to_tcolor(0));
-	*(e->worker_stop) = 0;
-	e->worker = SDL_CreateThread(ft_aff, "rt_worker", e);
-	ft_render_preview(e);
-	while (!*(e->worker_stop) && ((e->render_progression < 100
-			&& (e->set->display == PROGRESSIVE || e->set->threads > 1))
-			|| (e->y < e->set->height && e->x < e->set->width
-			&& e->set->display == LEGACY && e->set->threads <= 1)))
-	{
-		if (e->set->display == LEGACY)
-				loading_bar(e, e->render_progression,
-							int_to_tcolor(0x1010A0), int_to_tcolor(0));
-		else
-			posttraitment(e);
-		event_poll(e);
-		usleep(16000);
-	}
-	if (!*(e->worker_stop))
-		SDL_WaitThread(e->worker, &thread_ret);
-	posttraitment(e);
-	e->worker = 0;
-	*(e->worker_stop) = 1;
-}
-
 int			ft_aff(void *data)
 {
 	t_env	*e;
@@ -69,12 +26,12 @@ int			ft_aff(void *data)
 		ft_aff_quick(e, e->obj);
 	usleep(64000);
 	start = (unsigned int)time(NULL);
-	if (e->set->display == PROGRESSIVE)
+	if (e->set->display == (PROGRESSIVE | RANDOM))
 		ft_aff_random(e, e->obj, DEF_MULTITHREAD);
-	else if (e->set->threads > 1 && LINE_MULTITHREAD)
-		ft_aff_multithread_line(e, e->obj);
-	else if (e->set->threads > 1)
+	else if (e->set->threads > 1 && e->set->display & RANDOM)
 		ft_aff_multithread(e, e->obj);
+	else if (e->set->threads > 1)
+		ft_aff_multithread_line(e, e->obj);
 	else
 	{
 		e->y = 0;
@@ -136,10 +93,7 @@ void		ft_aff_random(t_env *e, t_obj *obj, int multithread)
 
 	if (e->set->threads > 1 && multithread)
 	{
-		if (LINE_MULTITHREAD)
-			ft_aff_multithread_line(e, e->obj);
-		else
-			ft_aff_multithread(e, e->obj);
+		ft_aff_multithread(e, e->obj);
 		return ;
 	}
 	res = e->set->width * e->set->height;
