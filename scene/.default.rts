@@ -48,7 +48,7 @@
 	"color": 0xffffff,
 	"size": 500,
 	"reflect_k": 0,
-	"refract_k": 0,
+	"transparency": 0,
 	"position": {
 		"x": -1500,
 		"y": 500,
@@ -60,7 +60,7 @@
 	"color": 0xffffff,
 	"size": 500,
 	"reflect_k": 0,
-	"refract_k": 0,
+	"transparency": 0,
 	"position": {
 		"x": -1500,
 		"y": -500,
@@ -72,7 +72,7 @@
 	"color": 0xffffff,
 	"size": 500,
 	"reflect_k": 0,
-	"refract_k": 0,
+	"transparency": 0,
 	"position": {
 		"x": -500,
 		"y": 500,
@@ -84,7 +84,7 @@
 	"color": 0xffffff,
 	"size": 500,
 	"reflect_k": 0,
-	"refract_k": 0,
+	"transparency": 0,
 	"position": {
 		"x": -500,
 		"y": -500,
@@ -96,7 +96,7 @@
 	"color": 0x0000ff,
 	"size": 500,
 	"reflect_k": 0,
-	"refract_k": 0,
+	"transparency": 0,
 	"position": {
 		"x": -1000,
 		"y": 0,
