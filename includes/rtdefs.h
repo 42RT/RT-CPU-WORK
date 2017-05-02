@@ -17,6 +17,8 @@
 # define PROGRESSIVE		1
 # define LEGACY				0
 
+# define RAND_TRY			7
+
 # define DEF_WIDTH			800
 # define DEF_HEIGHT			600
 # define DEF_AA				0

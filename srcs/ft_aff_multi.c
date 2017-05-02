@@ -28,7 +28,7 @@ void		ft_aff_multithread(t_env *e, t_obj *obj)
 	{
 		if (*(e->worker_stop))
 		{
-			usleep(50000);
+			usleep(128000);
 			return;
 		}
 		e->render_progression = 100.0 - ((data.nb * 100) / data.res);
@@ -52,7 +52,7 @@ void		ft_aff_multithread_line(t_env *e, t_obj *obj)
 	{
 		if (*(e->worker_stop))
 		{
-			usleep(50000);
+			usleep(128000);
 			return;
 		}
 		e->render_progression = 100.0 - ((data.nb * 100) / e->set->height);

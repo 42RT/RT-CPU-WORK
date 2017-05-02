@@ -16,13 +16,19 @@
 int				get_pos(int *map, int res, int *nb)
 {
 	int		pos;
+	int		try_nb;
 
+	try_nb = RAND_TRY;
 	pos = rand() % res;
 	while (!map[pos])
 	{
-		++pos;
-		if (pos > res)
-			pos = 0;
+		if (try_nb-- > 0)
+			pos = rand() % res;
+		else
+		{
+			++pos;
+			pos %= res;
+		}
 	}
 	--*nb;
 	map[pos] = 0;

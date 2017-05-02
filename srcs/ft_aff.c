@@ -51,6 +51,7 @@ int			ft_aff(void *data)
 			++e->y;
 			change_cam(e);//load_add_line(e->load_bar, (e->y * 200 - 1) / e->set->height, 0x1010A0);1
 			e->render_progression = (float)(e->y * 100) / e->set->height;
+			print_percentage((int)e->render_progression);
 		}
 	}
 	usleep(32000);
@@ -106,6 +107,7 @@ void		ft_aff_random(t_env *e, t_obj *obj, int multithread)
 		e->x = pos % e->set->width;
 		fill_pixel(e, obj);
 		e->render_progression = 100 - ((e->remaining * 100) / res);
+		print_percentage((int)e->render_progression);
 	}
 	if (!*(e->worker_stop))
 		ft_printf("Rendering finished\n");
