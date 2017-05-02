@@ -45,6 +45,9 @@
 # define COEFAMBIENT		0.2
 # define MAX_INT			2147483647
 
+# define SMOOTHING			0
+# define LINE_MULTITHREAD	1
+
 typedef struct		s_vector
 {
 	float			x;
@@ -253,6 +256,9 @@ void				exp_compute(t_vector *o, t_vector *exp);
 t_color				mod_light(t_color color, float dst, float coef2);
 void				swap_cap(t_obj *obj);
 void				posttraitment(t_env *e);
+void				smooth_quickrender(t_env *e);
+void				print_time(unsigned int start);
+void				print_percentage(int percent);
 
 /*
 ** Init

@@ -23,40 +23,11 @@ void		ft_render_preview(t_env *e)
 		return ;
 	while (e->rendering_preview && !*(e->worker_stop))
 	{
-//		if (e->set->display == PROGRESSIVE)
-//			gfx_display_image(e->gfx, 0, 0, e->gfx->buff[BUFF_NB]);
 		posttraitment(e);
-//		else
-//			loading_bar(e, (float)(e->y * 100) / e->set->height,
-//						int_to_tcolor(0x1010A0), int_to_tcolor(0));
 		event_poll(e);
-		usleep(16000);
+		usleep(32000);
 	}
-//	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[BUFF_NB]);
 	posttraitment(e);
-}
-
-void		print_time(unsigned int start)
-{
-	unsigned int		hour;
-	unsigned int		min;
-	unsigned int		sec;
-
-	sec = (unsigned int)time(NULL) - start;
-	min = sec / 60;
-	sec %= 60;
-	hour = min / 60;
-	min %= 60;
-	if (hour)
-		printf("Rendering time: %u hour%s, %u minute%s and %u second%s.\n",
-				hour, hour ? "s" : "", min, min ? "s" : "", sec, sec ? "s" : "");
-	else if (min)
-		printf("Rendering time: %u minute%s and %u second%s.\n", min,
-				min ? "s" : "", sec, sec ? "s" : "");
-	else if (sec)
-		printf("Rendering time: %u second%s.\n", sec, sec ? "s" : "");
-	else
-		printf("Rendering time: <1 second.\n");
 }
 
 void		ft_render(t_env *e)
@@ -68,11 +39,10 @@ void		ft_render(t_env *e)
 	*(e->worker_stop) = 0;
 	e->worker = SDL_CreateThread(ft_aff, "rt_worker", e);
 	ft_render_preview(e);
-	while (!*(e->worker_stop) &&
-			((e->y < e->set->height && e->x < e->set->width
-				&& e->set->display == LEGACY && e->set->threads <= 1)
-			|| (e->render_progression < 100
-				&& (e->set->display == PROGRESSIVE || e->set->threads > 1))))
+	while (!*(e->worker_stop) && ((e->render_progression < 100
+			&& (e->set->display == PROGRESSIVE || e->set->threads > 1))
+			|| (e->y < e->set->height && e->x < e->set->width
+			&& e->set->display == LEGACY && e->set->threads <= 1)))
 	{
 		if (e->set->display == LEGACY)
 				loading_bar(e, e->render_progression,
@@ -101,10 +71,10 @@ int			ft_aff(void *data)
 	start = (unsigned int)time(NULL);
 	if (e->set->display == PROGRESSIVE)
 		ft_aff_random(e, e->obj, DEF_MULTITHREAD);
-	else if (e->set->threads > 1)
+	else if (e->set->threads > 1 && LINE_MULTITHREAD)
 		ft_aff_multithread_line(e, e->obj);
-//	else if (e->set->threads > 1)
-//		ft_aff_multithread(e, e->obj);
+	else if (e->set->threads > 1)
+		ft_aff_multithread(e, e->obj);
 	else
 	{
 		e->y = 0;
@@ -131,50 +101,6 @@ int			ft_aff(void *data)
 	return (0);
 }
 
-void		smooth_quickrender_mix(t_env *e, unsigned int x, unsigned int y)
-{
-	t_color	color;
-	t_color	c2;
-
-	color = gfx_get_pixel_color(e->gfx->buff[BUFF_NB],
-								x - (x & 1), y - (y & 1));
-	if (x < (e->set->width - 2) && y < (e->set->height - 2) && 0) // delete & 0
-	{
-		c2 = gfx_get_pixel_color(e->gfx->buff[BUFF_NB],
-									x + (x & 1), y + (y & 1));
-		color_mix_k(&color, c2, 127);
-		color.a = 255;
-	}
-	gfx_pixel_put_to_image(e->gfx->buff[BUFF_NB], x, y, color);
-}
-
-void		smooth_quickrender(t_env *e)
-{
-	unsigned int	x;
-	unsigned int	y;
-
-	y = 0;
-	while (y < e->set->height)
-	{
-		x = 0;
-		while (x < e->set->width)
-		{
-			if (*(e->worker_stop))
-				return;
-			if (x < (e->set->width - 3))
-				smooth_quickrender_mix(e, x + 1, y);
-			if (y < (e->set->height - 3))
-			{
-				smooth_quickrender_mix(e, x, y + 1);
-				if (x < (e->set->width - 3))
-					smooth_quickrender_mix(e, x + 1, y + 1);
-			}
-			x += 2;
-		}
-		y += 2;
-	}
-}
-
 void		ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 {
 	t_color	color;
@@ -197,7 +123,8 @@ void		ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 		}
 		e->y += 2;
 	}
-//	smooth_quickrender(e);
+	if (SMOOTHING)
+		smooth_quickrender(e);
 	e->rendering_preview = 0;
 }
 
@@ -209,24 +136,25 @@ void		ft_aff_random(t_env *e, t_obj *obj, int multithread)
 
 	if (e->set->threads > 1 && multithread)
 	{
-//		ft_aff_multithread(e, e->obj);
-		ft_aff_multithread_line(e, e->obj);
+		if (LINE_MULTITHREAD)
+			ft_aff_multithread_line(e, e->obj);
+		else
+			ft_aff_multithread(e, e->obj);
 		return ;
 	}
 	res = e->set->width * e->set->height;
 	map = init_map(res);
 	e->remaining = res;
-	while (e->remaining > 0)
+	while (e->remaining > 0 && !*(e->worker_stop))
 	{
-		if (*(e->worker_stop))
-			return;
 		pos = get_pos(map, res, &(e->remaining));
 		e->y = pos / e->set->width;
 		e->x = pos % e->set->width;
 		fill_pixel(e, obj);
 		e->render_progression = 100 - ((e->remaining * 100) / res);
 	}
-	ft_printf("Rendering finished\n");
+	if (!*(e->worker_stop))
+		ft_printf("Rendering finished\n");
 }
 
 void		ft_aff_rand(t_th_data *a, t_env *e)
@@ -277,74 +205,4 @@ void		ft_aff_line(t_th_data *a, t_env *e)
 		}
 	}
 	free(e);
-}
-
-void		ft_aff_multithread(t_env *e, t_obj *obj)
-{
-	int			i;
-	int			j;
-	t_th_data	data;
-
-	i = 99;
-	j = 0;
-	(void)obj;
-	data.mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
-	data.res = e->set->width * e->set->height;
-	data.nb = data.res;
-	e->render_progression = 0;
-	data.map = init_map(data.res);
-	data.e = e;
-	launch_threads(&data);
-	while (data.nb)
-	{
-		if (*(e->worker_stop))
-		{
-			usleep(50000);
-			return;
-		}
-		++j;
-		e->render_progression = 100.0 - ((data.nb * 100) / data.res);// res == 0 care
-		if (i != (data.nb * 100) / data.res)
-		{
-			ft_printf("%sRendering: %d ", (i != 0 ? "\r" : ""), 100 - i);
-			ft_putchar('%');
-			i = (data.nb * 100) / data.res;
-		}
-	}
-	e->remaining = 0;
-	ft_printf("\rRendering finished !\n");
-}
-
-void		ft_aff_multithread_line(t_env *e, t_obj *obj)
-{
-	int			i;
-	int			j;
-	t_th_data	data;
-
-	i = 99;
-	j = 0;
-	(void)obj;
-	data.mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
-	data.map = init_map(e->set->width * e->set->height);
-	data.nb = e->set->height;
-	data.e = e;
-	launch_threads_line(&data);
-	while (data.nb)
-	{
-		if (*(e->worker_stop))
-		{
-			usleep(50000);
-			return;
-		}
-		++j;
-		e->render_progression = 100.0 - ((data.nb * 100) / e->set->height);// res == 0 care
-		if (i != (int)((data.nb * 100) / e->set->height))
-		{
-			ft_printf("%sRendering: %d ", (i != 0 ? "\r" : ""), 100 - i);
-			ft_putchar('%');
-			i = (data.nb * 100) / e->set->height;
-		}
-	}
-	e->remaining = 0;
-	ft_printf("\rRendering finished !\n");
 }
