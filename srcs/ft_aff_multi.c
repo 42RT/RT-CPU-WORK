@@ -12,11 +12,10 @@
 
 #include <raytracer.h>
 
-void		ft_aff_multithread(t_env *e, t_obj *obj)
+int			ft_aff_multithread(t_env *e)
 {
 	t_th_data	data;
 
-	(void)obj;
 	data.mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 	data.res = e->set->width * e->set->height;
 	data.nb = data.res;
@@ -29,20 +28,20 @@ void		ft_aff_multithread(t_env *e, t_obj *obj)
 		if (*(e->worker_stop))
 		{
 			usleep(128000);
-			return;
+			return (0);
 		}
 		e->render_progression = 100.0 - ((data.nb * 100) / data.res);
 		print_percentage((int)e->render_progression);
 	}
 	e->remaining = 0;
 	ft_printf("\rRendering finished !\n");
+	return (1);
 }
 
-void		ft_aff_multithread_line(t_env *e, t_obj *obj)
+int			ft_aff_multithread_line(t_env *e)
 {
 	t_th_data	data;
 
-	(void)obj;
 	data.mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 	data.map = init_map(e->set->width * e->set->height);
 	data.nb = e->set->height;
@@ -53,11 +52,62 @@ void		ft_aff_multithread_line(t_env *e, t_obj *obj)
 		if (*(e->worker_stop))
 		{
 			usleep(128000);
-			return;
+			return (0);
 		}
 		e->render_progression = 100.0 - ((data.nb * 100) / e->set->height);
 		print_percentage((int)e->render_progression);
 	}
 	e->remaining = 0;
 	ft_printf("\rRendering finished !\n");
+	return (1);
+}
+
+void		ft_aff_rand(t_th_data *a, t_env *e)
+{
+	int		pos;
+
+	srand(time(NULL));
+	while (a->nb > 0 && !*(e->worker_stop))
+	{
+		pos = rand() % a->res;
+		while (!a->map[pos] && a->nb)
+		{
+			++pos;
+			if (pos > a->res)
+				pos = 0;
+		}
+		if (a->nb)
+		{
+			a->map[pos] = 0;
+			e->y = pos / e->set->width;
+			e->x = pos % e->set->width;
+			fill_pixel(e, e->obj);
+			while (pthread_mutex_lock(&(a->mutex)) != 0)
+				;
+			--a->nb;
+			pthread_mutex_unlock(&(a->mutex));
+		}
+	}
+	free(e);
+}
+
+void		ft_aff_line(t_th_data *a, t_env *e)
+{
+	int		y;
+
+	while (a->nb > 0 && !*(e->worker_stop))
+	{
+		while (pthread_mutex_lock(&(a->mutex)) != 0)
+			;
+		y = a->nb;
+		--a->nb;
+		pthread_mutex_unlock(&(a->mutex));
+		e->y = e->set->height - y;
+		e->x = -1;
+		while (++e->x < e->set->width)
+		{
+			fill_pixel(e, e->obj);
+		}
+	}
+	free(e);
 }

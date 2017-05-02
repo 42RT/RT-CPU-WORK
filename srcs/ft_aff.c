@@ -16,50 +16,59 @@
 #include <gfx.h>
 #include <raytracer.h>
 
+int			ft_aff_std(t_env *e)
+{
+	e->y = 0;
+	while (e->y < e->set->height)
+	{
+		e->x = 0;
+		while (e->x < e->set->width)
+		{
+			if (*(e->worker_stop))
+			{
+				usleep(100000);
+					return (0);
+			}
+			fill_pixel(e, e->obj);
+			++e->x;
+		}
+		++e->y;
+		change_cam(e);//load_add_line(e->load_bar, (e->y * 200 - 1) / e->set->height, 0x1010A0);1
+		e->render_progression = (float)(e->y * 100) / e->set->height;
+		print_percentage((int)e->render_progression);
+	}
+	return (1);
+}
+
 int			ft_aff(void *data)
 {
-	t_env	*e;
+	t_env			*e;
 	unsigned int	start;
+	int				ret;
 
 	e = (t_env *)data;
+	ret = 1;
 	if (e->set->preview)
-		ft_aff_quick(e, e->obj);
+		ret = ft_aff_quick(e, e->obj);
 	usleep(64000);
 	start = (unsigned int)time(NULL);
-	if (e->set->display == (PROGRESSIVE | RANDOM))
-		ft_aff_random(e, e->obj, DEF_MULTITHREAD);
-	else if (e->set->threads > 1 && e->set->display & RANDOM)
-		ft_aff_multithread(e, e->obj);
-	else if (e->set->threads > 1)
-		ft_aff_multithread_line(e, e->obj);
-	else
+	if (ret && e->set->display == (PROGRESSIVE | RANDOM))
+		ret = ft_aff_random(e, e->obj, DEF_MULTITHREAD);
+	else if (ret && e->set->threads > 1 && e->set->display & RANDOM)
+		ret = ft_aff_multithread(e);
+	else if (ret && e->set->threads > 1)
+		ret = ft_aff_multithread_line(e);
+	else if (ret)
+		ret = ft_aff_std(e);
+	if (ret)
 	{
-		e->y = 0;
-		while (e->y < e->set->height)
-		{
-			e->x = 0;
-			while (e->x < e->set->width)
-			{
-				if (*(e->worker_stop))
-				{
-					usleep(100000);
-					return (0);
-				}
-				fill_pixel(e, e->obj);
-				++e->x;
-			}
-			++e->y;
-			change_cam(e);//load_add_line(e->load_bar, (e->y * 200 - 1) / e->set->height, 0x1010A0);1
-			e->render_progression = (float)(e->y * 100) / e->set->height;
-			print_percentage((int)e->render_progression);
-		}
+		usleep(32000);
+		print_time(start);
 	}
-	usleep(32000);
-	print_time(start);
 	return (0);
 }
 
-void		ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
+int			ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 {
 	t_color	color;
 
@@ -72,7 +81,7 @@ void		ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 		while (e->x < e->set->width)
 		{
 			if (*(e->worker_stop))
-				return;
+				return (0);
 			color = compute_color(e, obj, e->set->deph);
 			color.a = 255;
 			gfx_pixel_put_to_image(e->gfx->buff[BUFF_NB],
@@ -84,19 +93,17 @@ void		ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
 	if (SMOOTHING)
 		smooth_quickrender(e);
 	e->rendering_preview = 0;
+	return (1);
 }
 
-void		ft_aff_random(t_env *e, t_obj *obj, int multithread)
+int			ft_aff_random(t_env *e, t_obj *obj, int multithread)
 {
 	int				*map;
 	int				res;
 	int				pos;
 
 	if (e->set->threads > 1 && multithread)
-	{
-		ft_aff_multithread(e, e->obj);
-		return ;
-	}
+		return (ft_aff_multithread(e));
 	res = e->set->width * e->set->height;
 	map = init_map(res);
 	e->remaining = res;
@@ -110,55 +117,9 @@ void		ft_aff_random(t_env *e, t_obj *obj, int multithread)
 		print_percentage((int)e->render_progression);
 	}
 	if (!*(e->worker_stop))
+	{
 		ft_printf("Rendering finished\n");
-}
-
-void		ft_aff_rand(t_th_data *a, t_env *e)
-{
-	int		pos;
-
-	srand(time(NULL));
-	while (a->nb > 0 && !*(e->worker_stop))
-	{
-		pos = rand() % a->res;
-		while (!a->map[pos] && a->nb)
-		{
-			++pos;
-			if (pos > a->res)
-				pos = 0;
-		}
-		if (a->nb)
-		{
-			a->map[pos] = 0;
-			e->y = pos / e->set->width;
-			e->x = pos % e->set->width;
-			fill_pixel(e, e->obj);
-			while (pthread_mutex_lock(&(a->mutex)) != 0)
-				;
-			--a->nb;
-			pthread_mutex_unlock(&(a->mutex));
-		}
+		return (1);
 	}
-	free(e);
-}
-
-void		ft_aff_line(t_th_data *a, t_env *e)
-{
-	int		y;
-
-	while (a->nb > 0 && !*(e->worker_stop))
-	{
-		while (pthread_mutex_lock(&(a->mutex)) != 0)
-			;
-		y = a->nb;
-		--a->nb;
-		pthread_mutex_unlock(&(a->mutex));
-		e->y = e->set->height - y;
-		e->x = -1;
-		while (++e->x < e->set->width)
-		{
-			fill_pixel(e, e->obj);
-		}
-	}
-	free(e);
+	return (0);
 }

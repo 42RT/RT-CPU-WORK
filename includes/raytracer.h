@@ -352,10 +352,10 @@ void				wait_event(t_env *e);
 */
 void				ft_render(t_env *e);
 int					ft_aff(void *data);
-void				ft_aff_quick(t_env *e, t_obj *obj);
-void				ft_aff_random(t_env *e, t_obj *obj, int multithread);
-void				ft_aff_multithread(t_env *e, t_obj *obj);
-void				ft_aff_multithread_line(t_env *e, t_obj *obj);
+int					ft_aff_quick(t_env *e, t_obj *obj);
+int					ft_aff_random(t_env *e, t_obj *obj, int multithread);
+int					ft_aff_multithread(t_env *e);
+int					ft_aff_multithread_line(t_env *e);
 void				ft_aff_rand(t_th_data *a, t_env *e);
 void				ft_aff_line(t_th_data *a, t_env *e);
 
