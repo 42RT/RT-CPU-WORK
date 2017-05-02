@@ -23,7 +23,7 @@ void	parse_object_other(t_obj *obj, char *str)
 	else if (!ft_strncmp(str, "\"reflect_k\"", 11))
 		obj->reflect_k = ft_atof(get_value(str));
 	else if (!ft_strncmp(str, "\"refract_k\"", 11))
-		obj->refract_k = ft_atof(get_value(str));
+		obj->transparency = ft_atof(get_value(str));
 	else if (!ft_strncmp(str, "\"refract_ind\"", 13))
 		obj->refract_ind = ft_atof(get_value(str));
 	else if (!ft_strncmp(str, "\"negative\"", 10))

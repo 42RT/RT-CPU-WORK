@@ -30,7 +30,7 @@ static void	set_def_obj_pos(t_obj *obj)
 void		new_obj_extend(t_obj *res)
 {
 	res->reflect_k = DEF_REFLECT_K;
-	res->refract_k = DEF_REFRACT_K;
+	res->transparency = DEF_REFRACT_K;
 	res->refract_ind = DEF_REFRACT_IND;
 	res->texture = NULL;
 	res->procedural = NULL;

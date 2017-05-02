@@ -187,8 +187,8 @@ t_color			ray_effect(t_env *e, t_vector *vec[2], t_obj *start,
 //			color_mix_k(&color, safe_reflect_color(e, &d, deph), d.shorter->reflect_k);
 
 
-		if (d.shorter->refract_k > 0)
-			color_mix_k(&color, safe_refract_color(e, &d, deph), d.shorter->refract_k);
+		if (d.shorter->transparency > 0)
+			color_mix_k(&color, safe_refract_color(e, &d, deph), d.shorter->transparency);
 		if (d.shorter->reflect_k > 0 && e->inside_obj == 0)
 			color_add(&color, safe_reflect_color(e, &d, deph),
 								d.shorter->reflect_k);

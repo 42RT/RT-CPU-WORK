@@ -37,6 +37,6 @@ void		aff_obj(t_obj *obj)
 	printf("size: %d\n", obj->size);
 	printf("mod: %f\n", obj->mod);
 	printf("reflect_k: %f\n", obj->reflect_k);
-	printf("refract_k: %f\n", obj->refract_k);
+	printf("transparency: %f\n", obj->transparency);
 	printf("refract_ind: %f\n", obj->refract_ind);
 }

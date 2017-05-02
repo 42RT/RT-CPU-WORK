@@ -34,7 +34,7 @@ void	create_base_cone(t_obj *obj)
 	obj->next->cap1 = 400;
 	obj->next->cap2 = 500;
 	obj->next->color = obj->color;
-	obj->next->refract_k = obj->refract_k;
+	obj->next->transparency = obj->transparency;
 	obj->next->reflect_k = obj->reflect_k;
 	obj->next->refract_ind = obj->refract_ind;
 	obj->next->func = get_func(obj->next->type, obj->next->negative);
@@ -51,7 +51,7 @@ void	create_disk(t_obj *obj)
 	obj->next->size = 175;
 	obj->next->pos.z = 400;
 	obj->next->color = obj->color;
-	obj->next->refract_k = obj->refract_k;
+	obj->next->transparency = obj->transparency;
 	obj->next->reflect_k = obj->reflect_k;
 	obj->next->refract_ind = obj->refract_ind;
 	obj->next->ang.x = -M_PI_2;
@@ -73,7 +73,7 @@ void	create_demi_sphere(t_obj *obj)
 	obj->compose->func = get_func(obj->compose->type, obj->compose->negative);
 	obj->compose->normale = get_normale(obj->compose->type);
 	obj->compose->color = obj->color;
-	obj->compose->refract_k = obj->refract_k;
+	obj->compose->transparency = obj->transparency;
 	obj->compose->reflect_k = obj->reflect_k;
 	obj->compose->refract_ind = obj->refract_ind;
 	create_neg_plane(obj->compose);

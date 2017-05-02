@@ -38,20 +38,20 @@ static void				trace_lights_3_extend(int *ref, t_color *color,
 	if (data.obj->negative == 0)
 	{
 		trace_ray(e, data.obj, d.o, d.v);
-		if (d.shorter->refract_k == 0 && data.obj->refract_k > 0 &&
+		if (d.shorter->transparency == 0 && data.obj->transparency > 0 &&
 			data.obj->dst < data.len && data.obj->dst > EPS)
 		{
 			*ref = 1;
-			color_mix_k(color, d.shorter->color, data.obj->refract_k);
-			color_mix_k(color, data.obj->color, 255 - data.obj->refract_k);
-			color_mix_k(color, void_tcolor(), 255 - data.obj->refract_k);
+			color_mix_k(color, d.shorter->color, data.obj->transparency);
+			color_mix_k(color, data.obj->color, 255 - data.obj->transparency);
+			color_mix_k(color, void_tcolor(), 255 - data.obj->transparency);
 		}
-		else if (d.shorter->refract_k > 0 && data.obj == d.shorter &&
+		else if (d.shorter->transparency > 0 && data.obj == d.shorter &&
 			data.obj->dst < data.len && data.obj->dst > EPS)
 		{
 			*ref = 1;
-			color_mix_k(color, d.shorter->color, data.obj->refract_k); // verifier si float ou int
-			color_mix_k(color, void_tcolor(), 255 - data.obj->refract_k); // idem
+			color_mix_k(color, d.shorter->color, data.obj->transparency); // verifier si float ou int
+			color_mix_k(color, void_tcolor(), 255 - data.obj->transparency); // idem
 		}
 		else if (data.obj->dst + EPS < data.len && data.obj->dst > 1)
 			*ref = -1;

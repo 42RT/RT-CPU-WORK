@@ -127,7 +127,7 @@ typedef struct		s_obj
 	unsigned int	size;
 	float			mod;
 	float			reflect_k;
-	float			refract_k;
+	float			transparency;
 	float			refract_ind;
 	float			dst;
 	float			x1;
