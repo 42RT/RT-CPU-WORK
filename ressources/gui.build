@@ -132,7 +132,7 @@ PARAM MENU BUILDER:
 		y: 120
 		tag: "MLT"
 		min: 1
-		max: 16
+		max: 32
 		txt: "Threads"
 		txt_anchor:"parent"
 		txt_align: 0
