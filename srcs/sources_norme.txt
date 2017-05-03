@@ -1,0 +1,214 @@
+Norme: ./srcs/aff_light.c
+Norme: ./srcs/anti_aliasing_2.c
+Norme: ./srcs/aff_obj.c
+Norme: ./srcs/anti_aliasing.c
+Norme: ./srcs/aff_settings.c
+Norme: ./srcs/bmp.c
+Error (line 53): bad spacing before write_pixels
+Error (line 55, col 4): bad spacing
+Error (line 56, col 4): bad spacing
+Norme: ./srcs/color_utils.c
+Error: global scope bad aligned
+Error (line 16): declarations must be followed by one empty line in mod_light
+Error (line 21): multiple empty lines
+Error (line 21): Empty line
+Error (line 30, col 45): bad character after ,
+Error (line 42): C++ comment
+Error (line 51): comment not well formatted
+Error (line 68): line has 83 characters
+Error (line 71): line has 83 characters
+Error (line 74): line has 83 characters
+Error (line 135): comment not well formatted
+Error (line 142): line has 104 characters
+Norme: ./srcs/console.c
+Error (line 53): function console_aff has 38 lines
+Error (line 58, col 12): bad spacing
+Error (line 64): Empty line
+Error (line 73): Empty line
+Error (line 82): Empty line
+Error (line 90): Empty line
+Norme: ./srcs/error.c
+Norme: ./srcs/expose_hook.c
+Norme: ./srcs/copy_utils.c
+Error (line 119): C++ comment
+Norme: ./srcs/display.c
+Error: 6 functions in the file
+Norme: ./srcs/event.c
+Error: global scope bad aligned
+Error: 7 functions in the file
+Error: 42 header not at top of the file
+Error (line 18, col 2): missing space after return
+Error (line 38): function event_keydown has 28 lines
+Error (line 57): line has 87 characters
+Error (line 62): line has 82 characters
+Norme: ./srcs/ft_err.c
+Norme: ./srcs/ft_read.c
+Error: file must end with a single empty line
+Error (line 20): comment not well formatted
+Norme: ./srcs/ft_aff_utils.c
+Error (line 41): line has 82 characters
+Norme: ./srcs/ft_aff.c
+Error (line 30): bad indentation
+Error (line 36): C++ comment
+Error (line 36): line has 98 characters
+Error (line 71): C++ comment
+Norme: ./srcs/get_utils.c
+Error (line 22): function get_func has 26 lines
+Norme: ./srcs/hdr_colors_convert.c
+Norme: ./srcs/loading.c
+Error: file must end with a single empty line
+Error (line 22, col 2): missing space after return
+Error (line 28): Empty line
+Error (line 29, col 51): bad character after ,
+Error (line 40): C++ comment
+Error (line 42, col 0): no newline after block
+Norme: ./srcs/hdr_colors.c
+Error: global scope bad aligned
+Error: 6 functions in the file
+Error (line 33): comment not well formatted
+Error (line 40): multiple empty lines
+Error (line 59): bad spacing before color_add
+Error (line 60): C++ comment
+Error (line 79): comment not well formatted
+Error (line 84): bad spacing before mix_color
+Error (line 95): declarations must be followed by one empty line in color_mix_k
+Error (line 120): C++ comment
+Error (line 121): C++ comment
+Error (line 122): C++ comment
+Error (line 123, col 0): no empty line before block
+Error (line 136): comment not well formatted
+Norme: ./srcs/main.c
+Error (line 47): Empty line
+Norme: ./srcs/key_hook.c
+Error (line 77): C++ comment
+Error (line 78): C++ comment
+Norme: ./srcs/new_settings.c
+Norme: ./srcs/ft_aff_multi.c
+Error: 6 functions in the file
+Norme: ./srcs/reload.c
+Error (line 47): declarations must be followed by one empty line in reload
+Error (line 58, col 7): Spacing after call to exit
+Error (line 61): C++ comment
+Error (line 62): C++ comment
+Error (line 63): C++ comment
+Error (line 64, col 0): no empty line before block
+Norme: ./srcs/render.c
+Error (line 45): bad indentation
+Norme: ./srcs/posttraitment.c
+Norme: ./srcs/smooth.c
+Error (line 23): missing newline after if
+Error (line 23): C++ comment
+Error (line 45, col 4): missing space after return
+Norme: ./srcs/thread_utils.c
+Error: 6 functions in the file
+Error (line 73): line has 84 characters
+Error (line 89): line has 85 characters
+Norme: ./srcs/utils.c
+Error (line 51): new_ray have 5 parameters
+Norme: ./srcs/vec_utils.c
+Norme: ./srcs/trace_lights.c
+Error: global scope bad aligned
+Error (line 53): C++ comment
+Error (line 53): line has 102 characters
+Error (line 54): C++ comment
+Error (line 54): line has 85 characters
+Norme: ./srcs/utility.c
+Error: global scope bad aligned
+Error: 7 functions in the file
+Error: file must end with a single empty line
+Error (line 17): multiple empty lines
+Error (line 20): comment not well formatted
+Error (line 26): line has 82 characters
+Error (line 36): Empty line
+Error (line 37): multiple empty lines
+Error (line 37): Empty line
+Error (line 40): C++ comment
+Error (line 40): line has 94 characters
+Error (line 41): line has 82 characters
+Error (line 42): Empty line
+Error (line 50): comment not well formatted
+Error (line 51): comment not well formatted
+Error (line 79): missing void in function new_base
+Error (line 99): bad spacing after limit_nb
+Error (line 106): multiple empty lines
+Error (line 107): declarations in reflect_vector must be at the top of the function
+Error (line 107): declarations must be followed by one empty line in reflect_vector
+Error (line 107): bad spacing before reflect_vector
+Error (line 107): line has 83 characters
+Error (line 109): C++ comment
+Error (line 112): C++ comment
+Error (line 113): C++ comment
+Error (line 114): C++ comment
+Error (line 115): C++ comment
+Error (line 115): line has 104 characters
+Error (line 126): comment not well formatted
+Error (line 133): new_ray have 5 parameters
+Error (line 133): line has 91 characters
+Error (line 143): C++ comment
+Error (line 143): line has 105 characters
+Error (line 146): ray_effect have 5 parameters
+Error (line 146): function ray_effect has 48 lines
+Error (line 146): line has 94 characters
+Error (line 146, col 0): ray_effect has 6 variables
+Error (line 157, col 2): missing space after return
+Error (line 173): C++ comment
+Error (line 178): C++ comment
+Error (line 178): line has 125 characters
+Error (line 180): bad indentation
+Error (line 180): C++ comment
+Error (line 182): C++ comment
+Error (line 184): C++ comment
+Error (line 184): line has 123 characters
+Error (line 187): C++ comment
+Error (line 189): C++ comment
+Error (line 190): C++ comment
+Error (line 191): C++ comment
+Error (line 192, col 1): no empty line before block
+Error (line 193): C++ comment
+Error (line 198): declarations must be followed by one empty line in compute_color
+Error (line 204): C++ comment
+Error (line 206): C++ comment
+Error (line 207): C++ comment
+Error (line 212): C++ comment
+Error (line 213): C++ comment
+Error (line 216): C++ comment
+Error (line 217): C++ comment
+Error (line 218): C++ comment
+Error (line 221): C++ comment
+Norme: ./srcs/vec_utils_3.c
+Error: global scope bad aligned
+Norme: ./srcs/vec_utils_2.c
+Norme: ./srcs/utils_2.c
+Error: 7 functions in the file
+Error (line 144): C++ comment
+Error (line 145): C++ comment
+Error (line 146): C++ comment
+Error (line 147): C++ comment
+Error (line 148): C++ comment
+Error (line 149): C++ comment
+Error (line 150): C++ comment
+Error (line 151): C++ comment
+Error (line 152): C++ comment
+Error (line 153): C++ comment
+Error (line 154): C++ comment
+Error (line 156): function ray_effect has 42 lines
+Error (line 175): C++ comment
+Error (line 176): C++ comment
+Error (line 180): C++ comment
+Error (line 180): line has 85 characters
+Error (line 181): C++ comment
+Error (line 182): C++ comment
+Error (line 182): line has 85 characters
+Error (line 183): C++ comment
+Error (line 184): C++ comment
+Error (line 184): line has 85 characters
+Error (line 185): C++ comment
+Error (line 185): line has 88 characters
+Error (line 186): C++ comment
+Error (line 186): line has 85 characters
+Error (line 187): C++ comment
+Error (line 187): line has 88 characters
+Error (line 188): Empty line
+Error (line 189): multiple empty lines
+Error (line 189): Empty line
+Error (line 191): line has 91 characters

@@ -1,0 +1,78 @@
+Norme: ./includes/gfx.h
+Error (line 45, col 14): winID not unixcase
+Error (line 49): C++ comment
+Error (line 50): C++ comment
+Error (line 51): C++ comment
+Error (line 52): C++ comment
+Norme: ./includes/osx_keyset.h
+Norme: ./includes/hdr_colors.h
+Norme: ./includes/rtdefs.h
+Norme: ./includes/x11_keyset.h
+Norme: ./includes/parser.h
+Error: global scope bad aligned
+Error (line 29): comment not well formatted
+Error (line 30, col 3): bad spacing
+Error (line 32): comment not well formatted
+Error (line 35): comment not well formatted
+Error (line 37): line has 86 characters
+Error (line 39): comment not well formatted
+Error (line 44): comment not well formatted
+Error (line 46, col 3): bad spacing
+Error (line 47, col 4): bad spacing
+Error (line 50): comment not well formatted
+Error (line 55): comment not well formatted
+Error (line 58): comment not well formatted
+Error (line 61): comment not well formatted
+Error (line 67): comment not well formatted
+Error (line 70): comment not well formatted
+Error (line 74): comment not well formatted
+Error (line 82): multiple empty lines
+Norme: ./includes/raytracer.h
+Norme: ./includes/gui.h
+Error: global scope bad aligned
+Error: 42 header not at top of the file
+Error (line 61): preprocessor block must be followed by one empty line
+Error (line 61): multiline define
+Error (line 64): preprocessor block must be followed by one empty line
+Error (line 64): multiline define
+Error (line 66): preprocessor block must be followed by one empty line
+Error (line 66): multiline define
+Error (line 68): preprocessor block must be followed by one empty line
+Error (line 68): multiline define
+Error (line 70): preprocessor block must be followed by one empty line
+Error (line 70): multiline define
+Error (line 72): preprocessor block must be followed by one empty line
+Error (line 72): multiline define
+Error (line 77): bad indentation
+Error (line 78): bad indentation
+Error (line 79): bad indentation
+Error (line 80): bad indentation
+Error (line 81): bad indentation
+Error (line 82): bad indentation
+Error (line 83): bad indentation
+Error (line 84): bad indentation
+Error (line 85): bad indentation
+Error (line 86, col 5): widget_type have not a good prefix.
+Error (line 306, col 14): winID not unixcase
+Error (line 327): comment not well formatted
+Error (line 331): comment not well formatted
+Error (line 344): comment not well formatted
+Error (line 348): comment not well formatted
+Error (line 357): comment not well formatted
+Error (line 360): comment not well formatted
+Error (line 364): comment not well formatted
+Error (line 368): comment not well formatted
+Error (line 377): comment not well formatted
+Error (line 383): line has 82 characters
+Error (line 389): comment not well formatted
+Error (line 399): line has 83 characters
+Error (line 401): comment not well formatted
+Error (line 405): comment not well formatted
+Error (line 411): comment not well formatted
+Error (line 416): comment not well formatted
+Error (line 422): comment not well formatted
+Error (line 434): line has 86 characters
+Error (line 443): comment not well formatted
+Error (line 446): comment not well formatted
+Error (line 454): line has 84 characters
+Error (line 467): comment not well formatted
