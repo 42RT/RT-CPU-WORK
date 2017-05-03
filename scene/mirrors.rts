@@ -73,6 +73,24 @@
 		"x": -1500,
 		"y": 500,
 		"z": 500
+	},
+	"compose": {
+		"cylindre": {
+			"color": 0xff0000,
+			"size": 300,
+			"position": {
+				"x": 0
+			},
+			"negative": 1
+		}
+	},
+	"compose": {
+		"sphere": {
+			"color": 0xd35400,
+			"size": 200,
+			"reflect_k": 200,
+			"transparency": 100
+		}
 	}
 },
 
@@ -85,6 +103,24 @@
 		"x": -1500,
 		"y": -500,
 		"z": 500
+	},
+	"compose": {
+		"cylindre": {
+			"color": 0xff0000,
+			"size": 300,
+			"position": {
+				"x": 0
+			},
+			"negative": 1
+		}
+	},
+	"compose": {
+		"sphere": {
+			"color": 0xd35400,
+			"size": 200,
+			"reflect_k": 200,
+			"transparency": 100
+		}
 	}
 },
 
@@ -97,6 +133,24 @@
 		"x": -500,
 		"y": 500,
 		"z": 500
+	},
+	"compose": {
+		"cylindre": {
+			"color": 0xff0000,
+			"size": 300,
+			"position": {
+				"x": 0
+			},
+			"negative": 1
+		}
+	},
+	"compose": {
+		"sphere": {
+			"color": 0xd35400,
+			"size": 200,
+			"reflect_k": 200,
+			"transparency": 100
+		}
 	}
 },
 
@@ -109,6 +163,24 @@
 		"x": -500,
 		"y": -500,
 		"z": 500
+	},
+	"compose": {
+		"cylindre": {
+			"color": 0xff0000,
+			"size": 300,
+			"position": {
+				"x": 0
+			},
+			"negative": 1
+		}
+	},
+	"compose": {
+		"sphere": {
+			"color": 0xd35400,
+			"size": 200,
+			"reflect_k": 200,
+			"transparency": 100
+		}
 	}
 },
 

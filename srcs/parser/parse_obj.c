@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:04:33 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/29 23:10:51 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/02 22:59:19 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int		obj_gettype(char *str)
 		return (CUBE);
 	else if (!ft_strncmp(str, "\"paraboloid\"", 13))
 		return (PARABOLOID);
+	else if (!ft_strncmp(str, "\"glass\"", 7))
+		return (GLASS);
 	else
 		return (NONE);
 }
