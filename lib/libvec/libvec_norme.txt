@@ -1,0 +1,2 @@
+Norme: ./lib/libvec/*.c
+Warning: Not a valid file
