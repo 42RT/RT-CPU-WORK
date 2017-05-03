@@ -118,11 +118,13 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GUI)gui_ttf.c \
 			$(PATH_GUI)gui_ttf_2.c \
 			$(PATH_GUI)gui_ttf_3.c \
-			$(PATH_GUI)gui_parse_def.c \
-			$(PATH_GUI)gui_parse_def_2.c \
-			$(PATH_GUI)gui_parse_def_3.c \
+			$(PATH_GUI)gui_parse_builder.c \
+			$(PATH_GUI)gui_parse_builder_2.c \
+			$(PATH_GUI)gui_parse_builder_3.c \
 			$(PATH_GUI)gui_parse_param.c \
-			$(PATH_GUI)gui_parse_main.c \
+			$(PATH_GUI)gui_parse_main_container.c \
+			$(PATH_GUI)gui_parse_main_container_2.c \
+			$(PATH_GUI)gui_parse_items.c \
 			$(PATH_GUI)gui_apply.c \
 			$(PATH_GUI)gui_save.c \
 			$(PATH_GUI)gui_pixel_put.c \
