@@ -35,17 +35,6 @@ static int	thread_aff_line(void *arg)
 	return (0);
 }
 
-static int	thread_aff_quick(void *arg)
-{
-	t_th_data	*a;
-	t_env		*e;
-
-	a = (t_th_data *)arg;
-	e = copy_env(a->e);
-	ft_aff_line_quick(a, e);
-	return (0);
-}
-
 void		launch_threads(t_th_data *data)
 {
 	int			i;
@@ -70,23 +59,8 @@ void		launch_threads_line(t_th_data *data)
 	i = -1;
 	while (++i < data->e->set->threads)
 	{
-		if ((thread_ptr = SDL_CreateThread(thread_aff_line, "workers", data)) == 0)
-		{
-			*(data->e->worker_stop) = 1;
-			return ;
-		}
-	}
-}
-
-void		launch_threads_quick(t_th_data *data)
-{
-	int			i;
-	SDL_Thread	*thread_ptr;
-
-	i = -1;
-	while (++i < data->e->set->threads)
-	{
-		if ((thread_ptr = SDL_CreateThread(thread_aff_quick, "workers", data)) == 0)
+		if ((thread_ptr = SDL_CreateThread(thread_aff_line,
+											"workers", data)) == 0)
 		{
 			*(data->e->worker_stop) = 1;
 			return ;

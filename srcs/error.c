@@ -15,7 +15,7 @@
 void	error(int n)
 {
 	static char	*msg[10] = {0, "Malloc failed\n",
-							"Cant be more than 1 argument\n",
+							"Can\'t be more than 1 argument\n",
 							"get next line error\n",
 							"No spot\n",
 							"file is invalid.\n",

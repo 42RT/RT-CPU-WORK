@@ -49,6 +49,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_SRC)display.c \
 			$(PATH_SRC)render.c \
 			$(PATH_SRC)ft_aff.c \
+			$(PATH_SRC)ft_aff_quick.c \
 			$(PATH_SRC)ft_aff_multi.c \
 			$(PATH_SRC)ft_aff_utils.c \
 			$(PATH_SRC)event.c \

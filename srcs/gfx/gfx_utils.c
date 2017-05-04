@@ -46,7 +46,7 @@ void			gfx_change_screen(t_gfx *gfx, unsigned int nb)
 }
 
 t_gfx			*gfx_reload(t_gfx *gfx, int res_x, int res_y,
-								int buff_nb)//////////////////////////////////////////////////////////////
+								int buff_nb)
 {
 	int		i;
 
@@ -54,11 +54,16 @@ t_gfx			*gfx_reload(t_gfx *gfx, int res_x, int res_y,
 	{
 		gfx->expose = 0;
 		SDL_SetWindowSize(gfx->win, res_x, res_y);
+		SDL_DestroyTexture(gfx->texture);
+		gfx->texture = SDL_CreateTexture(gfx->renderer,
+											SDL_PIXELFORMAT_ARGB8888,
+											SDL_TEXTUREACCESS_STREAMING,
+											res_x, res_y);
 		i = -1;
 		buff_nb = (buff_nb < 5 ? buff_nb : 4);
 		while (++i < buff_nb)
 		{
-			gfx_destroy_image(gfx->buff[i]); // si buff (changement du nombre de buff)
+			gfx_destroy_image(gfx->buff[i]);
 			gfx->buff[i] = gfx_new_image(gfx, res_x, res_y);
 		}
 		while (++i < 4)

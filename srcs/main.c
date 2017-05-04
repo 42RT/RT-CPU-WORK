@@ -34,6 +34,12 @@ void		print_debug(t_env *e)
 	}
 }
 
+void		event_filter(void)
+{
+	//SDL_EventState(SDL_MOUSEMOTION, SDL_DISABLE);
+	SDL_EventState(SDL_WINDOWEVENT, SDL_DISABLE);
+}
+
 void		ft_welcome(t_env *e)
 {
 	SDL_Surface	*img;
@@ -42,9 +48,9 @@ void		ft_welcome(t_env *e)
 
 	pos.x = 0;
 	pos.y = 0;
-	pos.w = e->set->width;
-	pos.h = e->set->height;
-
+	pos.w = e->set->width + 200;
+	pos.h = e->set->height + 250;
+	event_filter();
 	img = SDL_LoadBMP("ressources/background.bmp");
 	if (img)
 	{
@@ -82,8 +88,8 @@ int			main(int ac, char **av)
 		return (0);
 	if (e->set->verbose)
 		print_debug(e);
-	SDL_RaiseWindow(e->gfx->win);
 	ft_welcome(e);
+	SDL_RaiseWindow(e->gfx->win);
 	while (1)
 		wait_event(e);
 	return (0);

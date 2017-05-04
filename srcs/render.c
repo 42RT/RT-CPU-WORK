@@ -51,6 +51,7 @@ void		ft_render(t_env *e)
 	}
 	if (!*(e->worker_stop))
 		SDL_WaitThread(e->worker, &thread_ret);
+	usleep(64000);//////////////// semaphore
 	posttraitment(e);
 	e->worker = 0;
 	*(e->worker_stop) = 1;

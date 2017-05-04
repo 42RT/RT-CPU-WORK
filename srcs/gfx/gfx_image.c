@@ -38,11 +38,14 @@ t_img			*gfx_new_image(t_gfx *gfx, int res_x, int res_y)
 
 void			gfx_destroy_image(t_img *img)
 {
-	free(img->data);
-	free(img);
+	if (img)
+	{
+		free(img->data);
+		free(img);		
+	}
 }
 
-void			gfx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
+/*void			gfx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
 {
 	int				i;
 	int				j;
@@ -65,6 +68,29 @@ void			gfx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
 			SDL_RenderDrawPoint(gfx->renderer, j + x, i + y);
 		}
 	}
+}*/
+
+void			gfx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
+{
+	static int		*map = 0;
+	int				i;
+	int				res;
+	SDL_Rect		dst;
+
+	if (!gfx->expose)
+		return ;
+	dst.x = x;
+	dst.y = y;
+	dst.w = gfx->buff[0]->width;
+	dst.h = gfx->buff[0]->height;
+	res = gfx->buff[0]->width * gfx->buff[0]->height;
+	if (!map)
+		map = (int *)malloc(res * sizeof(int));
+	i = -1;
+	while (++i < res)
+		map[i] = *((int *)(img->data + i));
+	SDL_UpdateTexture(gfx->texture, 0, map, 4 * gfx->buff[0]->width);
+	SDL_RenderCopy(gfx->renderer, gfx->texture, 0, &dst);
 }
 
 void			gfx_blitz_black_image(t_gfx *gfx, int x, int y)

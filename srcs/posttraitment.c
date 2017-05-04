@@ -53,7 +53,9 @@ void	posttraitment(t_env *e)
 	unsigned int	x;
 	unsigned int	y;
 	t_color			c;
+//	unsigned int	start;
 
+//	start = (unsigned int)clock();
 	y = 0;
 	while (y < e->set->height)
 	{
@@ -61,12 +63,17 @@ void	posttraitment(t_env *e)
 		while (x < e->set->width)
 		{
 			c = gfx_get_pixel_color(e->gfx->buff[BUFF_NB], x, y);
-			c = pt_contrast(c, log(e->set->contrast + 0.5) / 2 + 1);
-			c = pt_luminosity(c, exp(e->set->luminosity));
+			if (e->set->contrast != 0.5)
+				c = pt_contrast(c, log(e->set->contrast + 0.5) / 2 + 1);
+			if (e->set->luminosity != 0)
+				c = pt_luminosity(c, exp(e->set->luminosity));
 			gfx_pixel_put_to_image(e->gfx->buff[e->gfx->act], x, y, c);
 			x++;
 		}
 		y++;
 	}
+//	ft_printf("\nposttraitment time: %dms\n", (((unsigned int)clock() - start) * 1000) / CLOCKS_PER_SEC);
+//	start = (unsigned int)clock();
 	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
+//	ft_printf("display time: %dms\n", (((unsigned int)clock() - start) * 1000) / CLOCKS_PER_SEC);
 }

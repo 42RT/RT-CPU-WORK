@@ -44,13 +44,10 @@ typedef struct		s_gfx
 	void			*win;
 	unsigned int	winID;
 	void			*renderer;
+	void			*texture;
 	int				act;
 	t_img			*buff[8];
-	int				expose;//
-	int				bpp;//
-	int				width;//
-	int				endian;//
-
+	int				expose;
 }					t_gfx;
 
 /*
@@ -82,8 +79,8 @@ void				gfx_fill_image(t_img *img, unsigned int width,
 /*
 ** several utilities
 */
-void				gfx_loop(t_gfx *gfx);
-void				gfx_poll(t_gfx *gfx);
+int					gfx_loop(t_gfx *gfx);
+int					gfx_poll(t_gfx *gfx);
 void				gfx_pixel_put(t_gfx *gfx, int x, int y,
 										t_color color);
 void				gfx_exit(t_gfx *gfx, int exit);

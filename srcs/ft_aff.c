@@ -33,7 +33,7 @@ int			ft_aff_std(t_env *e)
 			++e->x;
 		}
 		++e->y;
-		change_cam(e);//load_add_line(e->load_bar, (e->y * 200 - 1) / e->set->height, 0x1010A0);1
+		change_cam(e);
 		e->render_progression = (float)(e->y * 100) / e->set->height;
 		print_percentage((int)e->render_progression);
 	}
@@ -66,35 +66,6 @@ int			ft_aff(void *data)
 		print_time(start);
 	}
 	return (0);
-}
-
-int			ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
-{
-	t_color	color;
-
-	if (e->set->threads > 1)
-		return (ft_aff_quick_mult(e));
-	e->rendering_preview = 1;
-	e->y = 0;
-	while (e->y < e->set->height)
-	{
-		e->x = 0;
-		while (e->x < e->set->width)
-		{
-			if (*(e->worker_stop))
-				return (e->rendering_preview = 0);
-			color = compute_color(e, obj, e->set->deph);
-			color.a = 255;
-			gfx_pixel_put_to_image(e->gfx->buff[BUFF_NB],
-										(int)e->x, (int)e->y, color);
-			e->x += 2;
-		}
-		e->y += 2;
-	}
-	if (SMOOTHING)
-		smooth_quickrender(e);
-	e->rendering_preview = 0;
-	return (1);
 }
 
 int			ft_aff_random(t_env *e, t_obj *obj, int multithread)

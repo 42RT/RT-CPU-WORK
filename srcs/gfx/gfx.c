@@ -31,6 +31,9 @@ t_gfx			*gfx_init(char *title, int res_x, int res_y, int buff_nb)
 	if (!res->win)
 		return (0);
 	res->renderer = SDL_CreateRenderer(res->win, -1, SDL_RENDERER_ACCELERATED);
+	res->texture = SDL_CreateTexture(res->renderer, SDL_PIXELFORMAT_ARGB8888,
+										SDL_TEXTUREACCESS_STREAMING,
+										res_x, res_y);
 	i = -1;
 	buff_nb = (buff_nb < 6 ? buff_nb : 5);
 	while (++i < buff_nb)
@@ -42,19 +45,19 @@ t_gfx			*gfx_init(char *title, int res_x, int res_y, int buff_nb)
 	return (res->renderer ? res : 0);
 }
 
-void			gfx_loop(t_gfx *gfx)
+int				gfx_loop(t_gfx *gfx)
 {
-	SDL_WaitEvent(&(gfx->event));
-	//printf("EVENT QUEUE : %d\n", SDL_PeepEvents(&(gfx->event), 10, SDL_PEEKEVENT, SDL_FIRSTEVENT, SDL_LASTEVENT));
+	return (SDL_WaitEvent(&(gfx->event)));
 }
 
-void			gfx_poll(t_gfx *gfx)
+int				gfx_poll(t_gfx *gfx)
 {
-	SDL_PollEvent(&(gfx->event));
+	return (SDL_PollEvent(&(gfx->event)));
 }
 
 void			gfx_exit(t_gfx *gfx, int ex)
 {
+	SDL_DestroyTexture(gfx->texture);
 	SDL_DestroyRenderer(gfx->renderer);
 	SDL_DestroyWindow(gfx->win);
 	TTF_Quit();

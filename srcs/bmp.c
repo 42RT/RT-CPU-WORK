@@ -62,7 +62,8 @@ static void	write_pixels(int fd, int w, int h, t_img *img)
 	{
 		x = -1;
 		while (++x < w)
-			map[w * y + x] = *(unsigned int *)(img->data + w * (h - 1 - y) + x);
+			map[w * y + x] = *(unsigned int *)(img->data + w * (h - 1 - y)
+												+ x);
 	}
 	write(fd, map, w * h * 4);
 	free(map);
