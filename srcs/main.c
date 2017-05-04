@@ -37,7 +37,7 @@ void		print_debug(t_env *e)
 void		event_filter(void)
 {
 	//SDL_EventState(SDL_MOUSEMOTION, SDL_DISABLE);
-	SDL_EventState(SDL_WINDOWEVENT, SDL_DISABLE);
+	//SDL_EventState(SDL_WINDOWEVENT, SDL_DISABLE);
 }
 
 void		ft_welcome(t_env *e)
@@ -74,14 +74,13 @@ int			main(int ac, char **av)
 	generate_noise(e);
 	e->inside_obj = 0;
 	e->last_refract = 1;
-	e->ac = ac;
-	e->av = av;
 	if (ac == 2)
-		init(e, av[1]);
+		e->scene = ft_strdup(av[1]);
 	else if (ac == 1)
-		init(e, "scene/.default.rts");
+		e->scene = ft_strdup("scene/.default.rts");
 	else
 		error(2);
+	init(e, e->scene);
 	e->gfx = gfx_init(e->set->name, e->set->width,
 							e->set->height, BUFF_NB + 1);
 	if (!e->gfx)

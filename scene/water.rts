@@ -8,7 +8,7 @@
 	"refract_ind": 1.333,
 	"position": {
 		"y": 700
-	}
+	},
 	"def": {
 		"x": 1,
 		"z": 1

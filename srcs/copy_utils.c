@@ -110,13 +110,11 @@ t_env		*copy_env(t_env *e)
 	res->light = e->light;
 	res->x = e->x;
 	res->y = e->y;
-	res->ac = e->ac;
-	res->av = e->av;
 	res->last_dst = e->last_dst;
 	res->worker = e->worker;
 	res->worker_stop = e->worker_stop;
 	res->rendering_preview = e->rendering_preview;
-	res->file = ft_strdup(e->file);//strdup necessaire ??
+	res->file = ft_strdup(e->file);
 	res->last_refract = e->last_refract;
 	res->remaining = e->remaining;
 	res->render_progression = e->render_progression;

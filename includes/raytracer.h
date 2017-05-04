@@ -171,8 +171,7 @@ typedef struct		s_env
 	float			y;
 	int				noise[NOISE_HEIGHT][NOISE_WIDTH];
 	int				inside_obj;
-	int				ac;
-	char			**av;
+	char			*scene;
 	float			last_dst;
 	int				nb_line;
 	int				coma;

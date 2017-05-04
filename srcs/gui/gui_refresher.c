@@ -30,8 +30,8 @@ void	gui_rt_reload_object(t_env *e, t_gui *gui)
 
 void	gui_rt_reload(t_env *e, t_gui *gui, char *scene)
 {
-	free(e->av[1]);
-	e->av[1] = ft_strdup(scene);
+	free(e->scene);
+	e->scene = ft_strdup(scene);
 	reload(e);
 	SDL_RaiseWindow(e->gfx->win);
 	gui_reparse_scroll_value(gui, "ALL", 0, 0);
