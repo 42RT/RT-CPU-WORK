@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 03:28:43 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/29 23:08:26 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/03 20:24:01 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		parse_other_setting(t_env *e, char *str);
 void		parse_set_focus(t_env *e, char *str);
 
 /*PARSE SETTINGS*/
-void		parse_settings(t_env *e, t_item *item);
+void		parse_settings(t_env *e, t_item *item, int i);
 
 /*PARSE UTILS 2*/
 int			add_next_set(t_item *item, char **file);
@@ -69,7 +69,7 @@ void		parse(t_env *e, char *filename);
 
 /*SECU PARSE*/
 void		code_error_parser(t_env *e, int error);
-int			first_chek(t_env *e, char *str);
+void		first_chek(t_env *e, char *str);
 
 /*PLUS*/
 void		aff_obj(t_obj *obj);

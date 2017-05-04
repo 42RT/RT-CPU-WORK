@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:02:31 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/02 19:09:34 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/03 20:24:54 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-void 		parse_error(void)
+void		parse_error(void)
 {
 	ft_putstr("Not a valid file\n");
 	exit(EXIT_SUCCESS);
@@ -74,13 +74,11 @@ void		parse(t_env *e, char *filename)
 	char	*file;
 	t_item	*item;
 	int		i;
-	int		err;
 
 	i = -1;
 	if ((ft_check_valid_file(filename)) < 1)
 		parse_error();
-	if ((err = first_chek(e, filename)) < 1)
-		code_error_parser(e, err);
+	first_chek(e, filename);
 	file = ft_getfile(filename);
 	e->file = file;
 	if (!file)
@@ -92,7 +90,7 @@ void		parse(t_env *e, char *filename)
 		if (!item)
 			parse_error();
 		else if (!ft_strncmp(item->type, "\"settings\"", 10))
-			parse_settings(e, item);
+			parse_settings(e, item, i);
 		else if (!ft_strncmp(item->type, "\"light\"", 7))
 			parse_light(e, item);
 		else if (obj_gettype(item->type) != NONE)

@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/02 17:44:57 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/04 15:11:24 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,11 @@ char	*get_value(char *str)
 	return (str);
 }
 
-t_item	*get_next_item(char **str)
+char	*while_item(t_item *item, char *file)
 {
-	char	*file;
-	t_item	*item;
 	int		i;
 
 	i = 0;
-	file = *str;
-	item = (t_item *)malloc(sizeof(t_item));
-	item->type = ft_strdup_trim(file);
-	item->setnb = 0;
-	if (!item)
-		return (0);
-	file = ft_strchr(file, '{');
-	file += (*file != 0);
 	while (file && *file)
 	{
 		if (ft_strcchr(file, '{', '\n') != NULL)
@@ -76,6 +66,27 @@ t_item	*get_next_item(char **str)
 			i--;
 		add_next_set(item, &file);
 	}
+	return (file);
+}
+
+t_item	*get_next_item(char **str)
+{
+	char	*file;
+	t_item	*item;
+	int		i;
+
+	i = 0;
+	file = *str;
+	item = (t_item *)malloc(sizeof(t_item));
+	item->type = ft_strdup_trim(file);
+	if (item->type == NULL)
+		ft_putstr("boom\n");
+	item->setnb = 0;
+	if (!item)
+		return (0);
+	file = ft_strchr(file, '{');
+	file += (*file != 0);
+	file = while_item(item, file);
 	while (*file && (*file == ' ' || *file == '\n' || *file == '\r'
 						|| *file == '\t' || *file == '}' || *file == ','))
 		++file;

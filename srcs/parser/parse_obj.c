@@ -98,7 +98,7 @@ void	load_normalmap(t_obj *obj)
 	free(path2);
 }
 
-void 	parse_cap(t_obj *obj, char *str)
+void	parse_cap(t_obj *obj, char *str)
 {
 	if (!ft_strncmp(str, "\"cap1\"", 6))
 		obj->cap1 = ft_atof(get_value(str));
@@ -106,7 +106,7 @@ void 	parse_cap(t_obj *obj, char *str)
 		obj->cap2 = ft_atof(get_value(str));
 }
 
-int 	parse_dis2(t_item *it, t_obj *o, int i, void (*f)(t_obj *, char *))
+int		parse_dis2(t_item *it, t_obj *o, int i, void (*f)(t_obj *, char *))
 {
 	while (ft_strchr(it->set[i + 1], ',') != NULL)
 		f(o, it->set[++i]);

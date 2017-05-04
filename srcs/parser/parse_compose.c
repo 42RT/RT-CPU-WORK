@@ -14,7 +14,7 @@
 #include <rtdefs.h>
 #include <parser.h>
 
-int 	parse_item_compo(t_item *item, int i)
+int		parse_item_compo(t_item *item, int i)
 {
 	int		j;
 	int		k;
@@ -34,11 +34,11 @@ int 	parse_item_compo(t_item *item, int i)
 			}
 			if (ft_strcchr(item->set[i], ',', '\n') == NULL &&
 				ft_strcchr(item->set[i], '{', '\n') == NULL && k == 0)
-            {
-                item->next->set[j] = item->set[i];
+			{
+				item->next->set[j] = item->set[i];
 				item->next->setnb++;
 				return (i);
-            }
+			}
 			else if (ft_strcchr(item->set[i], ',', '\n') == NULL &&
 					ft_strcchr(item->set[i], '{', '\n') == NULL && k > 0)
 				k--;
@@ -75,7 +75,7 @@ t_obj	*add_compose(t_obj *obj)
 	return (obj);
 }
 
-int 	parse_compose(t_env *e, t_item *item, t_obj *obj, int i)
+int		parse_compose(t_env *e, t_item *item, t_obj *obj, int i)
 {
 	int		j;
 

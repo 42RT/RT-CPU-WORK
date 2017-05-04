@@ -31,7 +31,7 @@ void	add_light(t_env *e, t_light *obj)
 	e->light = obj;
 }
 
-int 	parse_dis(t_item *it, t_vector *v, int i, void (*f)(t_vector *, char *))
+int		parse_dis(t_item *it, t_vector *v, int i, void (*f)(t_vector *, char *))
 {
 	while (ft_strchr(it->set[i + 1], ',') != NULL)
 		f(v, it->set[++i]);
