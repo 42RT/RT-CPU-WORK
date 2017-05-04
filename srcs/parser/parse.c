@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:02:31 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/04 21:50:57 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/04 22:21:51 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		parse_error(void)
 	exit(EXIT_SUCCESS);
 }
 
-static int	ft_check_valid_file(char *str)
+void		ft_check_valid_file(char *str)
 {
 	int		fd;
 	int		i;
@@ -30,7 +30,7 @@ static int	ft_check_valid_file(char *str)
 	char	buf[4096];
 
 	if ((fd = open(str, O_RDONLY)) == -1)
-		return (0);
+		parse_error();
 	while ((r = read(fd, buf, 4096)) > 0)
 	{
 		i = -1;
@@ -39,14 +39,13 @@ static int	ft_check_valid_file(char *str)
 			if (!buf[i])
 			{
 				close(fd);
-				return (0);
+				parse_error();
 			}
 		}
 	}
 	if (r == -1)
-		return (0);
+		parse_error();
 	close(fd);
-	return (1);
 }
 
 void		verif_set_validity(t_env *e)
@@ -76,8 +75,7 @@ void		parse(t_env *e, char *filename)
 	int		i;
 
 	i = -1;
-	if ((ft_check_valid_file(filename)) < 1)
-		parse_error();
+	ft_check_valid_file(filename);
 	first_chek(e, filename);
 	file = ft_getfile(filename);
 	e->file = file;

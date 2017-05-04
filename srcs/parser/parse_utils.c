@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/04 22:13:56 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/04 22:34:32 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ t_item	*get_next_item(char **str)
 	char	*file;
 	t_item	*item;
 
+	if (ft_strcchr(*str, '\"', '\n') == NULL)
+		exit(EXIT_SUCCESS);
 	file = *str;
 	item = (t_item *)malloc(sizeof(t_item));
 	item->type = ft_strdup_trim(file);
-	if (item->type == NULL)
-		ft_putstr("boom\n");
 	item->setnb = 0;
 	if (!item)
 		exit(EXIT_SUCCESS);
