@@ -1,0 +1,16 @@
+Norme: ./srcs/objects/compose.c
+Norme: ./srcs/objects/dfloor.c
+Norme: ./srcs/objects/disk.c
+Norme: ./srcs/objects/cone.c
+Norme: ./srcs/objects/cylinder.c
+Norme: ./srcs/objects/new_light.c
+Norme: ./srcs/objects/new_obj.c
+Norme: ./srcs/objects/floor.c
+Norme: ./srcs/objects/glass.c
+Error: global scope bad aligned
+Norme: ./srcs/objects/cube.c
+Norme: ./srcs/objects/obj_utils.c
+Norme: ./srcs/objects/square.c
+Norme: ./srcs/objects/swap_cap.c
+Norme: ./srcs/objects/other_primitive.c
+Norme: ./srcs/objects/sphere.c

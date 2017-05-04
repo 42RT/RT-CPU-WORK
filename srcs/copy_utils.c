@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/21 01:39:21 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/12/21 01:39:22 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/05/03 13:28:33 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_obj		*copy_obj_elem_2(t_obj *res, t_obj *obj)
 	res->texture = obj->texture ? ft_strdup(obj->texture) : 0;
 	res->procedural = obj->procedural ? ft_strdup(obj->procedural) : 0;
 	res->normalmap = obj->normalmap ? ft_strdup(obj->normalmap) : 0;
-	res->compose = obj->compose ? copy_obj_elem(obj->compose) : 0;
+	res->compose = obj->compose ? copy_obj(obj->compose) : 0;
 	return (res);
 }
 

@@ -33,6 +33,8 @@
 # define WIDGET gui->widget_active
 # define REF t_widget_ref
 # define DEF gui->def_widget
+# define HIT event.button
+# define CMP ft_strcmp
 
 # define GUI_WIDTH gui->dest.w
 # define GUI_HEIGHT gui->dest.h
@@ -333,13 +335,20 @@ void		gui_parse_builder(t_gui *gui, char *file);
 void		gui_parse_param_builder(t_gui *gui, int fd, int nb);
 void		gui_parse_main_builder(t_gui *gui, int fd, int nb);
 void		gui_find_header(t_gui *gui, int fd, char *line);
-char		**gui_get_scroll_value(t_scroll *scroll);
 void		gui_parse_window(t_gui *gui, int fd, int nb);
 void		gui_parse_path(t_gui *gui, int fd, int nb);
 void		gui_parse_def_font(t_gui *gui, int fd, int nb);
 void		gui_parse_def_textbox(t_gui *gui, int fd, int nb);
 void		gui_parse_def_scroll(t_gui *gui, int fd, int nb);
 void		gui_parse_def_button(t_gui *gui, int fd, int nb);
+void		gui_parse_container_info(t_gui *gui, int fd, int id, int nb);
+t_button	**gui_parse_container_button(int fd, int qt, int id);
+t_scroll	**gui_parse_container_scroll(int fd, int qt, int id);
+t_button	*gui_parse_button(int fd, int nb);
+t_scroll	*gui_parse_scroll(int fd, int nb);
+t_textbox	*gui_parse_textbox(int fd, int nb);
+t_checkbox	*gui_parse_checkbox(int fd, int nb);
+
 
 /* DRAW */
 void		gui_pixel_put(t_gui *gui, int x, int y);
@@ -396,6 +405,7 @@ void		gui_scroll_toggle(t_gui *gui, t_scroll *scroll);
 void		gui_scroll_free(t_scroll *scroll);
 void		gui_scroll_write_list(t_gui *gui, t_scroll *scroll, int motion);
 void		gui_scroll_value_write(t_gui *gui, t_scroll *scroll, char *color);
+char		**gui_get_scroll_value(t_scroll *scroll);
 void		gui_reparse_scroll_value(t_gui *gui, char *target, int ptid, int pti);
 
 /* CHECKBOX */

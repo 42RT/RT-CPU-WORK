@@ -19,21 +19,20 @@ int		event_is_param_gauge(SDL_Event event, t_gui *gui, t_env *e)
 	i = 0;
 	while (i < PARAM->gauge_qt)
 	{
-		if ((event.button.x >= PARAM_GAU->dest.x) &&
-		(event.button.x <= PARAM_GAU->dest.x + PARAM_GAU->dest.w) &&
-		(event.button.y >= PARAM_GAU->dest.y) &&
-		(event.button.y <= PARAM_GAU->dest.y + PARAM_GAU->dest.h))
+		if ((HIT.x >= PARAM_GAU->dest.x) && (HIT.y >= PARAM_GAU->dest.y) &&
+		(HIT.x <= PARAM_GAU->dest.x + PARAM_GAU->dest.w) &&
+		(HIT.y <= PARAM_GAU->dest.y + PARAM_GAU->dest.h))
 		{
 			PARAM_GAU_C->dest.x = event.button.x - (PARAM_GAU_C->dest.w / 2);
 			PARAM_GAU->active_value = (PARAM_GAU_C->dest.x - PARAM_GAU->dest.x)
 			+ 5;
 			PARAM_GAU->active_value = gui_gauge_get_norm(PARAM_GAU);
 			gui_main_refresh(gui);
-			if (!ft_strcmp(PARAM_GAU->tag, "LUM"))
+			if (!CMP(PARAM_GAU->tag, "LUM"))
 				e->set->luminosity = PARAM_GAU->active_value;
-			if (!ft_strcmp(PARAM_GAU->tag, "CON"))
+			if (!CMP(PARAM_GAU->tag, "CON"))
 				e->set->contrast = PARAM_GAU->active_value;
-			if (!ft_strcmp(PARAM_GAU->tag, "LUM") || !ft_strcmp(PARAM_GAU->tag, "CON"))
+			if (!CMP(PARAM_GAU->tag, "LUM") || !CMP(PARAM_GAU->tag, "CON"))
 				posttraitment(e);
 			return (1);
 		}
