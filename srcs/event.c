@@ -83,7 +83,6 @@ int		event(t_env *env, SDL_Event event)
 	t_gui *gui;
 
 	gui = get_gui();
-	ft_printf("Event: Type=%x \n", event.type);
 	if (event.type == SDL_WINDOWEVENT)
 		if (event.window.event == SDL_WINDOWEVENT_CLOSE)
 			gfx_exit(env->gfx, 0);
@@ -91,8 +90,6 @@ int		event(t_env *env, SDL_Event event)
 		event_keydown(event, env, gui);
 	else
 	{
-		if (event.type == SDL_KEYUP)
-			ft_printf("Keyup: %x\n", event.key.keysym.sym);
 		if (event.window.windowID == gui->winID && gui->action == 0)
 		{
 			if (event.type == SDL_MOUSEBUTTONDOWN)

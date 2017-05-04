@@ -38,12 +38,13 @@ void		print_time(unsigned int start)
 	min %= 60;
 	if (hour)
 		printf("Rendering time: %u hour%s, %u minute%s and %u second%s.\n",
-				hour, hour ? "s" : "", min, min ? "s" : "", sec, sec ? "s" : "");
+				hour, hour > 1 ? "s" : "", min, min > 1 ? "s" : "", sec,
+				sec > 1 ? "s" : "");
 	else if (min)
 		printf("Rendering time: %u minute%s and %u second%s.\n", min,
-				min ? "s" : "", sec, sec ? "s" : "");
+				min > 1 ? "s" : "", sec, sec > 1 ? "s" : "");
 	else if (sec)
-		printf("Rendering time: %u second%s.\n", sec, sec ? "s" : "");
+		printf("Rendering time: %u second%s.\n", sec, sec > 1 ? "s" : "");
 	else
 		printf("Rendering time: <1 second.\n");
 }
