@@ -73,7 +73,7 @@ void		ft_aff_rand(t_th_data *a, t_env *e)
 		while (!a->map[pos] && a->nb)
 		{
 			++pos;
-			if (pos > a->res)
+			if (pos >= a->res)
 				pos = 0;
 		}
 		if (a->nb)

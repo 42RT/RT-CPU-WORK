@@ -34,6 +34,8 @@ void		ft_render(t_env *e)
 	gfx_fill_image(e->gfx->buff[BUFF_NB], e->set->width,
 								e->set->height, int_to_tcolor(0));
 	*(e->worker_stop) = 0;
+	//e->gfx->expose = 1;
+	e->render_progression = 0;
 	e->worker = SDL_CreateThread(ft_aff, "rt_worker", e);
 	ft_render_preview(e);
 	while (!*(e->worker_stop) && ((e->render_progression < 100
@@ -46,9 +48,11 @@ void		ft_render(t_env *e)
 							int_to_tcolor(0x1010A0), int_to_tcolor(0));
 		else
 			posttraitment(e);
+
 		event_poll(e);
 		usleep(16000);
 	}
+
 	if (!*(e->worker_stop))
 		SDL_WaitThread(e->worker, &thread_ret);
 	usleep(64000);//////////////// semaphore
