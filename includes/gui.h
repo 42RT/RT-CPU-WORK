@@ -33,6 +33,7 @@
 # define WIDGET gui->widget_active
 # define REF t_widget_ref
 # define DEF gui->def_widget
+# define GUI_SYS gui->system
 # define HIT event.button
 # define CMP ft_strcmp
 
@@ -86,6 +87,13 @@ typedef enum
 				FTT,
 				CNT
 }				widget_type;
+
+typedef struct	s_system
+{
+	DIR				*dir;
+	struct dirent	*rfile;
+	FILE			*output;
+}				t_system;
 
 typedef struct	s_txt
 {
@@ -318,6 +326,7 @@ typedef struct		s_gui
 	t_help			*help;
 	t_param			*param;
 	t_def_widget	*def_widget;
+	t_system		*system;
 	void			*widget_active;
 	int				action;
 	int				txb_action;

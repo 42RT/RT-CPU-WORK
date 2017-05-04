@@ -56,6 +56,9 @@ void		gui_alloc(void)
 		error(1);
 	if (!(DEF = (t_def_widget *)malloc(sizeof(t_def_widget))))
 		error(1);
+	if (!(GUI_SYS = (t_system *)malloc(sizeof(t_system))))
+		error(1);
+	GUI_SYS->dir = NULL;
 	HELP = NULL;
 	PARAM = NULL;
 	WIDGET = NULL;
