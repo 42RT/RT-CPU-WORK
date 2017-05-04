@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:04:33 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/02 22:59:19 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/04 22:11:32 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,22 +98,6 @@ void	load_normalmap(t_obj *obj)
 	free(path2);
 }
 
-void	parse_cap(t_obj *obj, char *str)
-{
-	if (!ft_strncmp(str, "\"cap1\"", 6))
-		obj->cap1 = ft_atof(get_value(str));
-	else if (!ft_strncmp(str, "\"cap2\"", 6))
-		obj->cap2 = ft_atof(get_value(str));
-}
-
-int		parse_dis2(t_item *it, t_obj *o, int i, void (*f)(t_obj *, char *))
-{
-	while (ft_strchr(it->set[i + 1], ',') != NULL)
-		f(o, it->set[++i]);
-	f(o, it->set[++i]);
-	return (i);
-}
-
 void	parse_object(t_env *e, t_item *item)
 {
 	t_obj	*obj;
@@ -154,4 +138,5 @@ void	parse_object(t_env *e, t_item *item)
 	obj->base = new_base();
 	if (obj->type)
 		add_obj(e, obj);
+	e->yon = 1;
 }

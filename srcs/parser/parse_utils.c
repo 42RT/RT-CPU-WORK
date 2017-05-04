@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/04 15:11:24 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/04 22:13:56 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ char	*while_item(t_item *item, char *file)
 			break ;
 		else if (ft_strcchr(file, '}', '\n') != NULL && i > 0)
 			i--;
-		add_next_set(item, &file);
+		if (add_next_set(item, &file) == 0)
+			exit(EXIT_SUCCESS);
 	}
 	return (file);
 }
@@ -81,7 +82,7 @@ t_item	*get_next_item(char **str)
 		ft_putstr("boom\n");
 	item->setnb = 0;
 	if (!item)
-		return (0);
+		exit(EXIT_SUCCESS);
 	file = ft_strchr(file, '{');
 	file += (*file != 0);
 	file = while_item(item, file);
@@ -99,29 +100,14 @@ int		init(t_env *e, char *scene)
 	e->neg_obj = 0;
 	parse(e, scene);
 	parse(e, "set.rtc");
+	if (e->yon != 1)
+	{
+		ft_printf("No Object\n");
+		exit(EXIT_SUCCESS);
+	}
 	e->worker = 0;
 	e->worker_stop = (int *)malloc(sizeof(int));
 	*(e->worker_stop) = 0;
 	e->rendering_preview = 0;
 	return (0);
-}
-
-void	parse_ang(t_vector *v, char *str)
-{
-	if (!ft_strncmp(str, "\"x\"", 3))
-		v->x = ((float)ft_atoi(get_value(str)) * M_PI_2) / 90;
-	else if (!ft_strncmp(str, "\"y\"", 3))
-		v->y = ((float)ft_atoi(get_value(str)) * M_PI_2) / 90;
-	else if (!ft_strncmp(str, "\"z\"", 3))
-		v->z = ((float)ft_atoi(get_value(str)) * M_PI_2) / 90;
-}
-
-void	parse_pos(t_vector *v, char *str)
-{
-	if (!ft_strncmp(str, "\"x\"", 3))
-		v->x = ft_atof(get_value(str));
-	else if (!ft_strncmp(str, "\"y\"", 3))
-		v->y = ft_atof(get_value(str));
-	else if (!ft_strncmp(str, "\"z\"", 3))
-		v->z = ft_atof(get_value(str));
 }

@@ -6,7 +6,7 @@
 #    By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/15 01:15:01 by jrouilly          #+#    #+#              #
-#    Updated: 2017/04/26 16:37:16 by vcaquant         ###   ########.fr        #
+#    Updated: 2017/05/04 22:13:54 by vcaquant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,8 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_PARSER)parse_utils_2.c \
 			$(PATH_PARSER)parse_compose.c \
 			$(PATH_PARSER)secu_parse.c \
+			$(PATH_PARSER)parse_secu_count.c \
+			$(PATH_PARSER)parse_param.c \
 			$(PATH_GFX)gfx.c \
 			$(PATH_GFX)gfx_image.c \
 			$(PATH_GFX)gfx_pixel.c \
