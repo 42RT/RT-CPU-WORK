@@ -48,8 +48,8 @@ void		ft_welcome(t_env *e)
 
 	pos.x = 0;
 	pos.y = 0;
-	pos.w = e->set->width + 200;
-	pos.h = e->set->height + 250;
+	pos.w = e->set->width;
+	pos.h = e->set->height;
 	event_filter();
 	img = SDL_LoadBMP("ressources/background.bmp");
 	if (img)
