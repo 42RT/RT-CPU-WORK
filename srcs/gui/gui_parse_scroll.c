@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui_parse_button.c                                 :+:      :+:    :+:   */
+/*   gui_parse_scroll.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,52 +12,37 @@
 
 #include <gui.h>
 
-t_button	*gui_parse_button(int fd, int nb)
+void		gui_parse_scroll_suite(t_scroll *scroll, char **tmp, char **tmp2)
 {
-	t_button	*button;
-	char		**tmp;
-	char		*line;
-	int			i;
-
-	button = gui_button_init();
-	i = 0;
-	while (i < nb)
+	if (!ft_strcmp(tmp[0], "\t\ttag"))
 	{
-		get_next_line(fd, &line);
-		tmp = ft_strsplit(line, ':');
-		if (!ft_strcmp(tmp[0], "\t\tx"))
-			button->dest.x = ft_atoi(tmp[1]);
-		if (!ft_strcmp(tmp[0], "\t\ty"))
-			button->dest.y = ft_atoi(tmp[1]);
-		if (!ft_strcmp(tmp[0], "\t\taction"))
-		{
-			tmp = ft_strsplit(tmp[1], '"');
-			button->action = tmp[1];
-		}
-		if (!ft_strcmp(tmp[0], "\t\ttxt"))
-		{
-			tmp = ft_strsplit(tmp[1], '"');
-			button->txt->content = tmp[1];
-		}
-		if (!ft_strcmp(tmp[0], "\t\ttxt_anchor"))
-		{
-			tmp = ft_strsplit(tmp[1], '"');
-			button->txt->anchor = tmp[1];
-		}
-		if (!ft_strcmp(tmp[0], "\t\ttxt_align"))
-			button->txt->align = ft_atoi(tmp[1]);
-		i++;
+		tmp2 = ft_strsplit(tmp[1], '"');
+		scroll->tag = ft_strdup(tmp2[1]);
 	}
-	return (button);
+	else if (!ft_strcmp(tmp[0], "\t\ttxt"))
+	{
+		tmp2 = ft_strsplit(tmp[1], '"');
+		scroll->txt->content = ft_strdup(tmp2[1]);
+	}
+	else if (!ft_strcmp(tmp[0], "\t\ttxt_anchor"))
+	{
+		tmp2 = ft_strsplit(tmp[1], '"');
+		scroll->txt->anchor = ft_strdup(tmp2[1]);
+	}
+	else
+		gui_error(16);
+	gui_free_array((void **)tmp2, 2);
 }
 
 t_scroll	*gui_parse_scroll(int fd, int nb)
 {
 	t_scroll	*scroll;
 	char		**tmp;
+	char		**tmp2;
 	char		*line;
 	int			i;
 
+	tmp2 = NULL;
 	scroll = gui_scroll_init();
 	i = 0;
 	while (i < nb)
@@ -68,23 +53,11 @@ t_scroll	*gui_parse_scroll(int fd, int nb)
 			scroll->dest.x = ft_atoi(tmp[1]);
 		else if (!ft_strcmp(tmp[0], "\t\ty"))
 			scroll->dest.y = ft_atoi(tmp[1]);
-		else if (!ft_strcmp(tmp[0], "\t\ttag"))
-		{
-			tmp = ft_strsplit(tmp[1], '"');
-			scroll->tag = tmp[1];
-		}
-		else if (!ft_strcmp(tmp[0], "\t\ttxt"))
-		{
-			tmp = ft_strsplit(tmp[1], '"');
-			scroll->txt->content = tmp[1];
-		}
-		else if (!ft_strcmp(tmp[0], "\t\ttxt_anchor"))
-		{
-			tmp = ft_strsplit(tmp[1], '"');
-			scroll->txt->anchor = tmp[1];
-		}
 		else if (!ft_strcmp(tmp[0], "\t\ttxt_align"))
 			scroll->txt->align = ft_atoi(tmp[1]);
+		else
+			gui_parse_scroll_suite(scroll, tmp, tmp2);
+		gui_free_array((void **)tmp, 2);
 		i++;
 	}
 	return (scroll);
@@ -505,398 +478,4 @@ char	**gui_get_scroll_value(t_scroll *scroll)
 		value[9] = "valeur10";
 		return (value);
 	}
-}
-
-char	*gui_get_textbox_X(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->pos.x));
-}
-
-char	*gui_get_textbox_Y(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->pos.y));
-}
-
-char	*gui_get_textbox_Z(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->pos.z));
-}
-
-char	*gui_get_textbox_AX(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->ang.x / M_PI_2 * 90));
-}
-
-char	*gui_get_textbox_AY(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->ang.y / M_PI_2 * 90));
-}
-
-char	*gui_get_textbox_AZ(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->ang.z / M_PI_2 * 90));
-}
-
-char	*gui_get_textbox_R(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->color.r));
-}
-
-char	*gui_get_textbox_G(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->color.g));
-}
-
-char	*gui_get_textbox_B(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->color.b));
-}
-
-char	*gui_get_textbox_A(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->transparency));
-}
-
-char	*gui_get_textbox_SIZ(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->size));
-}
-
-
-char	*gui_get_textbox_RFR(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_ftoa(tmp->refract_ind, 3));
-}
-
-char	*gui_get_textbox_RFL(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->reflect_k));
-}
-
-void	gui_get_textbox_value(t_textbox *textbox)
-{
-	t_env *e;
-
-	e = get_env();
-	gui_textbox_get_len(textbox);
-	if (!ft_strcmp(textbox->tag, "__X"))
-		textbox->value = gui_get_textbox_X();
-	else if (!ft_strcmp(textbox->tag, "__Y"))
-		textbox->value = gui_get_textbox_Y();
-	else if (!ft_strcmp(textbox->tag, "__Z"))
-		textbox->value = gui_get_textbox_Z();
-	else if (!ft_strcmp(textbox->tag, "_AX"))
-		textbox->value = gui_get_textbox_AX();
-	else if (!ft_strcmp(textbox->tag, "_AY"))
-		textbox->value = gui_get_textbox_AY();
-	else if (!ft_strcmp(textbox->tag, "_AZ"))
-		textbox->value = gui_get_textbox_AZ();
-	else if (!ft_strcmp(textbox->tag, "__R"))
-		textbox->value = gui_get_textbox_R();
-	else if (!ft_strcmp(textbox->tag, "__G"))
-		textbox->value = gui_get_textbox_G();
-	else if (!ft_strcmp(textbox->tag, "__B"))
-		textbox->value = gui_get_textbox_B();
-	else if (!ft_strcmp(textbox->tag, "__A"))
-		textbox->value = gui_get_textbox_A();
-	else if (!ft_strcmp(textbox->tag, "SIZ"))
-		textbox->value = gui_get_textbox_SIZ();
-	else if (!ft_strcmp(textbox->tag, "RFR"))
-		textbox->value = gui_get_textbox_RFR();
-	else if (!ft_strcmp(textbox->tag, "RFL"))
-		textbox->value = gui_get_textbox_RFL();
-	else if (!ft_strcmp(textbox->tag, "CPX"))
-		textbox->value = ft_itoa(e->set->cam->pos.x);
-	else if (!ft_strcmp(textbox->tag, "CPY"))
-		textbox->value = ft_itoa(e->set->cam->pos.y);
-	else if (!ft_strcmp(textbox->tag, "CPZ"))
-		textbox->value = ft_itoa(e->set->cam->pos.z);
-	else if (!ft_strcmp(textbox->tag, "CAX"))
-		textbox->value = ft_itoa(e->set->cam->ang.x);
-	else if (!ft_strcmp(textbox->tag, "CAY"))
-		textbox->value = ft_itoa(e->set->cam->ang.y);
-	else if (!ft_strcmp(textbox->tag, "CAZ"))
-		textbox->value = ft_itoa(e->set->cam->ang.z);
-	else
-		event_txb_value_clear(textbox, textbox->maxlen);
-}
-
-t_textbox	*gui_parse_textbox(int fd, int nb)
-{
-	t_textbox	*textbox;
-	char		**tmp;
-	char		*line;
-	int			i;
-
-	textbox = gui_textbox_init();
-	i = 0;
-	while (i < nb)
-	{
-		get_next_line(fd, &line);
-		tmp = ft_strsplit(line, ':');
-		if (!ft_strcmp(tmp[0], "\t\tx"))
-			textbox->dest.x = ft_atoi(tmp[1]);
-		else if (!ft_strcmp(tmp[0], "\t\ty"))
-			textbox->dest.y = ft_atoi(tmp[1]);
-		else if (!ft_strcmp(tmp[0], "\t\ttag"))
-		{
-			tmp = ft_strsplit(tmp[1], '"');
-			if (!(textbox->tag = (char *)malloc(sizeof(char) * 3)))
-				error(1);
-			textbox->tag = tmp[1];
-		}
-		else if (!ft_strcmp(tmp[0], "\t\tmin"))
-		{
-			textbox->min = ft_atoi(tmp[1]);
-			if (textbox->min >= 0)
-				textbox->reserved = 0;
-			else
-				textbox->reserved = 1;
-		}
-		else if (!ft_strcmp(tmp[0], "\t\tmax"))
-			textbox->max = ft_atoi(tmp[1]);
-		else if (!ft_strcmp(tmp[0], "\t\ttxt"))
-		{
-			tmp = ft_strsplit(tmp[1], '"');
-			textbox->txt->content = tmp[1];
-		}
-		else if (!ft_strcmp(tmp[0], "\t\ttxt_anchor"))
-		{
-			tmp = ft_strsplit(tmp[1], '"');
-			textbox->txt->anchor = tmp[1];
-		}
-		else if (!ft_strcmp(tmp[0], "\t\ttxt_align"))
-			textbox->txt->align = ft_atoi(tmp[1]);
-		i++;
-	}
-	return (textbox);
-}
-
-t_checkbox	*gui_parse_checkbox(int fd, int nb)
-{
-	t_checkbox	*checkbox;
-	char		**tmp;
-	char		*line;
-	int			i;
-
-	i = 0;
-	if (!(checkbox = (t_checkbox *)malloc(sizeof(t_checkbox))))
-		error(1);
-	if (!(checkbox->txt = (t_txt *)malloc(sizeof(t_txt))))
-		error(1);
-	checkbox->nature = CBX;
-	checkbox->surface = NULL;
-	checkbox->bmp = NULL;
-	while (i < nb)
-	{
-		get_next_line(fd, &line);
-		tmp = ft_strsplit(line, ':');
-		if (!ft_strcmp(tmp[0], "\t\tx"))
-			checkbox->dest.x = ft_atoi(tmp[1]);
-		else if (!ft_strcmp(tmp[0], "\t\ty"))
-			checkbox->dest.y = ft_atoi(tmp[1]);
-		else if (!ft_strcmp(tmp[0], "\t\ttag"))
-		{
-			tmp = ft_strsplit(tmp[1], '"');
-			if ((checkbox->tag = (char *)malloc(sizeof(char) * 3)) == NULL)
-				error(1);
-			checkbox->tag = tmp[1];
-		}
-		else if (!ft_strcmp(tmp[0], "\t\ttxt"))
-		{
-			tmp = ft_strsplit(tmp[1], '"');
-			checkbox->txt->content = tmp[1];
-		}
-		else if (!ft_strcmp(tmp[0], "\t\ttxt_anchor"))
-		{
-			tmp = ft_strsplit(tmp[1], '"');
-			checkbox->txt->anchor = tmp[1];
-		}
-		else if (!ft_strcmp(tmp[0], "\t\ttxt_align"))
-			checkbox->txt->align = ft_atoi(tmp[1]);
-		i++;
-	}
-	return (checkbox);
 }
