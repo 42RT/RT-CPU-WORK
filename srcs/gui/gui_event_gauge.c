@@ -12,12 +12,25 @@
 
 #include <gui.h>
 
+void	event_is_posttraitment(t_env *e, t_gui *gui, int i)
+{
+	if (!CMP(PARAM_GAU->tag, "LUM"))
+		e->set->luminosity = PARAM_GAU->active_value;
+	if (!CMP(PARAM_GAU->tag, "CON"))
+		e->set->contrast = PARAM_GAU->active_value;
+	if (!CMP(PARAM_GAU->tag, "SAT"))
+		e->set->saturation = PARAM_GAU->active_value;
+	if (!CMP(PARAM_GAU->tag, "SAT") || !CMP(PARAM_GAU->tag, "CON")
+	|| !CMP(PARAM_GAU->tag, "LUM"))
+		posttraitment(e);
+}
+
 int		event_is_param_gauge(SDL_Event event, t_gui *gui, t_env *e)
 {
 	int	i;
 
 	i = 0;
-	while (i < PARAM->gauge_qt)
+	while (PARAM->gauge_qt > i)
 	{
 		if ((HIT.x >= PARAM_GAU->dest.x) && (HIT.y >= PARAM_GAU->dest.y) &&
 		(HIT.x <= PARAM_GAU->dest.x + PARAM_GAU->dest.w) &&
@@ -28,12 +41,7 @@ int		event_is_param_gauge(SDL_Event event, t_gui *gui, t_env *e)
 			+ 5;
 			PARAM_GAU->active_value = gui_gauge_get_norm(PARAM_GAU);
 			gui_main_refresh(gui);
-			if (!CMP(PARAM_GAU->tag, "LUM"))
-				e->set->luminosity = PARAM_GAU->active_value;
-			if (!CMP(PARAM_GAU->tag, "CON"))
-				e->set->contrast = PARAM_GAU->active_value;
-			if (!CMP(PARAM_GAU->tag, "LUM") || !CMP(PARAM_GAU->tag, "CON"))
-				posttraitment(e);
+			event_is_posttraitment(e, gui, i);
 			return (1);
 		}
 		i++;

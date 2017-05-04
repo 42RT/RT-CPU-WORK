@@ -67,10 +67,12 @@ void		gui_gauge_get_value(t_gauge *gauge)
 	e = get_env();
 	if (!ft_strcmp(gauge->tag, "DPH"))
 		gauge->active_value = e->set->deph;
-	if (!ft_strcmp(gauge->tag, "FOV"))
+	else if (!ft_strcmp(gauge->tag, "FOV"))
 		gauge->active_value = e->set->fov;
-	if (!ft_strcmp(gauge->tag, "CON"))
+	else if (!ft_strcmp(gauge->tag, "CON"))
 		gauge->active_value = e->set->contrast;
+	else if (!ft_strcmp(gauge->tag, "SAT"))
+		gauge->active_value = e->set->saturation;
 	else if (!ft_strcmp(gauge->tag, "LUM"))
 		gauge->active_value = e->set->luminosity;
 	else if (!ft_strcmp(gauge->tag, "MLT"))

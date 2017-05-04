@@ -73,9 +73,7 @@ t_item	*get_next_item(char **str)
 {
 	char	*file;
 	t_item	*item;
-	int		i;
 
-	i = 0;
 	file = *str;
 	item = (t_item *)malloc(sizeof(t_item));
 	item->type = ft_strdup_trim(file);

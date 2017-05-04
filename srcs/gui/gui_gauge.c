@@ -78,7 +78,8 @@ void		gui_gauge_convert_value(t_gauge *gauge)
 		gauge->txt->content = ft_itoa((int)value);
 	else if (!ft_strcmp(gauge->tag, "FOV"))
 		gauge->txt->content = ft_itoa((int)value);
-	else if (!ft_strcmp(gauge->tag, "CON") || !ft_strcmp(gauge->tag, "LUM"))
+	else if (!ft_strcmp(gauge->tag, "CON") || !ft_strcmp(gauge->tag, "LUM")
+	|| !ft_strcmp(gauge->tag, "SAT"))
 		gauge->txt->content = ft_ftoa(value, 2);
 	else
 		gauge->txt->content = ft_itoa((int)value);
