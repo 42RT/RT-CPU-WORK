@@ -92,10 +92,10 @@
 # define GLOBAL				2
 
 # define BUFF_NB			4
-# define MIN_DEF_X			800
-# define MIN_DEF_Y			600
-# define MAX_DEF_X			2500
-# define MAX_DEF_Y			1400
+# define MIN_DEF_X			42
+# define MIN_DEF_Y			42
+# define MAX_DEF_X			2560
+# define MAX_DEF_Y			1440
 
 # define SPHERE				1
 # define PLANE				2

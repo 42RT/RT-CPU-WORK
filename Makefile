@@ -20,10 +20,13 @@ PATH_TEXTURES =	$(PATH_SRC)textures/
 PATH_OBJECTS =	$(PATH_SRC)objects/
 PATH_LIB =		lib/
 UNAME_S =		$(shell uname -s)
-THREADS =		$(shell grep -c ^processor /proc/cpuinfo)
+DEBUG =			1
 
 INCLUDES =		-I lib/libft/includes -I lib/libvec/include -I includes
 CFLAGS =		-Wall -Wextra -Werror
+ifeq ($(DEBUG), 1)
+	CFLAGS += -g
+endif
 LDFLAGS =		-lm -L ./$(PATH_LIB)libft -lft -L ./$(PATH_LIB)libvec -lpthread
 
 SRC =		$(PATH_PARSER)parse.c \
@@ -146,11 +149,13 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GUI)gui_event_gauge.c
 
 ifeq ($(UNAME_S),Darwin)
-	INC 	+=	-I ~/.brew/Cellar/sdl2/2.0.5/include/SDL2 \
-			-I ~/.brew/Cellar/sdl2_ttf/2.0.14/include/SDL2
-	LDFLAGS +=	-L ~/.brew/Cellar/sdl2/2.0.5/lib -lSDL2 \
-			-L ~/.brew/Cellar/sdl2_ttf/2.0.14/lib -lSDL2_ttf
+	THREADS	=	$(shell sysctl -n machdep.cpu.thread_count)
+	INC 	+=	-I ~/.brew/Cellar/sdl2/2.0.5/include/SDL2
+	INC		+=	-I ~/.brew/Cellar/sdl2_ttf/2.0.14/include/SDL2
+	LDFLAGS +=	-L ~/.brew/Cellar/sdl2/2.0.5/lib -lSDL2
+	LDFLAGS	+=	-L ~/.brew/Cellar/sdl2_ttf/2.0.14/lib -lSDL2_ttf
 else ifeq ($(UNAME_S),Linux)
+	THREADS =	$(shell grep -c ^processor /proc/cpuinfo)
 	LDFLAGS +=	-lSDL2 -lSDL2_ttf
 endif
 
@@ -187,7 +192,8 @@ fclean:
 re:			fclean all
 
 debug:		fclean
-	@make -C libft/ re > /dev/null
+	@make -C $(PATH_LIB)libft re > /dev/null
+	@make -C $(PATH_LIB)libvec re > /dev/null 2>&1
 	@echo "\033[34mCompiling $(NAME) (debug mode): \033[0m"
-	@gcc -g $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LDFLAGS)
+	@gcc -g $(CFLAGS) -o $(NAME) $(OBJ) $(LDFLAGS)
 	@echo "\033[1;32m$(NAME) Compiled ! (debug mode)\n\033[0m"
