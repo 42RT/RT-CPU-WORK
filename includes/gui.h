@@ -394,6 +394,19 @@ void		event_textbox_edit(t_gui *gui, t_textbox *textbox, char *color);
 void		gui_get_textbox_value(t_textbox *textbox);
 void		gui_textbox_value_clear(t_textbox *textbox, int len);
 void		gui_reparse_textbox_value(t_gui *gui, char *target);
+char		*gui_get_textbox_X(void);
+char		*gui_get_textbox_Y(void);
+char		*gui_get_textbox_Z(void);
+char		*gui_get_textbox_AX(void);
+char		*gui_get_textbox_AY(void);
+char		*gui_get_textbox_AZ(void);
+char		*gui_get_textbox_R(void);
+char		*gui_get_textbox_G(void);
+char		*gui_get_textbox_B(void);
+char		*gui_get_textbox_A(void);
+char		*gui_get_textbox_SIZ(void);
+char		*gui_get_textbox_RFR(void);
+char		*gui_get_textbox_RFL(void);
 
 /* SCROLL */
 t_scroll	*gui_scroll_init(void);
