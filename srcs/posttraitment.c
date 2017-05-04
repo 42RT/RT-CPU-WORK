@@ -12,7 +12,7 @@
 
 #include <raytracer.h>
 
-t_color	pt_luminosity(t_color c, float k)
+static t_color	pt_luminosity(t_color c, float k)
 {
 	int		tmp;
 
@@ -30,7 +30,7 @@ t_color	pt_luminosity(t_color c, float k)
 	return (c);
 }
 
-t_color	pt_contrast(t_color c, float k)
+static t_color	pt_contrast(t_color c, float k)
 {
 	int		tmp;
 
@@ -48,7 +48,28 @@ t_color	pt_contrast(t_color c, float k)
 	return (c);
 }
 
-void	posttraitment(t_env *e)
+static t_color	pt_saturation(t_color c, float k)
+{
+	int		tmp;
+	int		mean;
+
+	if (k <= 0)
+		return (int_to_tcolor(0));
+	mean = c.r + c.g + c.b; 
+	mean /= 3;
+	tmp = c.r;
+	tmp = (tmp - mean) * k;
+	c.r = limit_nb(tmp < -mean ? 0 : tmp + mean, 255);
+	tmp = c.g;
+	tmp = (tmp - mean) * k;
+	c.g = limit_nb(tmp < -mean ? 0 : tmp + mean, 255);
+	tmp = c.b;
+	tmp = (tmp - mean) * k;
+	c.b = limit_nb(tmp < -mean ? 0 : tmp + mean, 255);
+	return (c);
+}
+
+void			posttraitment(t_env *e)
 {
 	unsigned int	x;
 	unsigned int	y;
@@ -65,6 +86,8 @@ void	posttraitment(t_env *e)
 			c = gfx_get_pixel_color(e->gfx->buff[BUFF_NB], x, y);
 			if (e->set->contrast != 0.5)
 				c = pt_contrast(c, log(e->set->contrast + 0.5) / 2 + 1);
+			if (e->set->saturation != 0.5)
+				c = pt_saturation(c, exp(e->set->contrast * 2 - 1));
 			if (e->set->luminosity != 0)
 				c = pt_luminosity(c, exp(e->set->luminosity));
 			gfx_pixel_put_to_image(e->gfx->buff[e->gfx->act], x, y, c);

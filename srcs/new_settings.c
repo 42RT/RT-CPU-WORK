@@ -34,6 +34,7 @@ static void	set_def_cam(t_settings *res)
 	res->verbose = 0;
 	res->luminosity = 0;
 	res->contrast = 0.5;
+	res->saturation = 0.5;
 }
 
 t_settings	*new_settings(void)
