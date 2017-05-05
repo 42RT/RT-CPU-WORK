@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/23 18:06:04 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/02/07 14:23:30 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/05/05 12:24:06 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void		trace_cylinder(t_obj *obj, t_vector o, t_vector v)
 {
 	t_equation	eq;
 
+	sub_vector(&o, &(obj->pos));
 	rotate_vector2(&o, &(obj->ang));
 	rotate_vector2(&v, &(obj->ang));
-	sub_vector(&o, &(obj->pos));
 	exp_compute(&o, &(obj->exp));
 	eq.a = powf(v.x, 2) + powf(v.y, 2);
 	eq.b = 2 * (o.x * v.x + o.y * v.y);
