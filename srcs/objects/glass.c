@@ -6,7 +6,7 @@
 /*   By: rfriscca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 14:27:46 by rfriscca          #+#    #+#             */
-/*   Updated: 2017/03/10 14:28:26 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/05/05 11:59:28 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	create_neg_plane(t_obj *obj)
 	obj->compose = new_obj();
 	obj->compose->type = PLANE;
 	obj->compose->negative = 1;
-	obj->compose->ang.x = -M_PI_2;
+	obj->compose->ang.x = M_PI_2;
 	obj->compose->func = get_func(obj->compose->type, obj->compose->negative);
 	obj->compose->normale = get_normale(obj->compose->type);
 }
