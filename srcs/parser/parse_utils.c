@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/04 22:34:32 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/05 14:57:53 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_item	*get_next_item(char **str)
 	if (!item)
 		exit(EXIT_SUCCESS);
 	file = ft_strchr(file, '{');
+	file++;
 	file += (*file != 0);
 	file = while_item(item, file);
 	while (*file && (*file == ' ' || *file == '\n' || *file == '\r'

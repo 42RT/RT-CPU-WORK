@@ -8,6 +8,17 @@
 	}
 }
 
+"glass": {
+	"angle": {
+		"x": 90,
+		"y": 0
+	},
+	"position": {
+		"x": 1000,
+		"y": 0
+	}
+}
+
 "cube": {
 	"color": 0xff0000,
 	"size": 1000,
