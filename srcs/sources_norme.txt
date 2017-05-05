@@ -1,7 +1,7 @@
 Norme: ./srcs/aff_light.c
 Norme: ./srcs/anti_aliasing_2.c
-Norme: ./srcs/aff_obj.c
 Norme: ./srcs/anti_aliasing.c
+Norme: ./srcs/aff_obj.c
 Norme: ./srcs/aff_settings.c
 Norme: ./srcs/bmp.c
 Error (line 53): bad spacing before write_pixels
@@ -20,6 +20,7 @@ Error (line 71): line has 83 characters
 Error (line 74): line has 83 characters
 Error (line 135): comment not well formatted
 Error (line 142): line has 104 characters
+Norme: ./srcs/error.c
 Norme: ./srcs/console.c
 Error (line 53): function console_aff has 38 lines
 Error (line 58, col 12): bad spacing
@@ -27,12 +28,13 @@ Error (line 64): Empty line
 Error (line 73): Empty line
 Error (line 82): Empty line
 Error (line 90): Empty line
-Norme: ./srcs/error.c
 Norme: ./srcs/expose_hook.c
 Norme: ./srcs/copy_utils.c
-Error (line 119): C++ comment
 Norme: ./srcs/display.c
 Error: 6 functions in the file
+Norme: ./srcs/ft_aff.c
+Error (line 30): bad indentation
+Norme: ./srcs/ft_aff_utils.c
 Norme: ./srcs/event.c
 Error: global scope bad aligned
 Error: 7 functions in the file
@@ -45,15 +47,13 @@ Norme: ./srcs/ft_err.c
 Norme: ./srcs/ft_read.c
 Error: file must end with a single empty line
 Error (line 20): comment not well formatted
-Norme: ./srcs/ft_aff_utils.c
-Error (line 41): line has 82 characters
-Norme: ./srcs/ft_aff.c
-Error (line 30): bad indentation
-Error (line 36): C++ comment
-Error (line 36): line has 98 characters
-Error (line 71): C++ comment
+Norme: ./srcs/ft_aff_multi.c
 Norme: ./srcs/get_utils.c
 Error (line 22): function get_func has 26 lines
+Norme: ./srcs/ft_aff_quick.c
+Error: file must end with a single empty line
+Error (line 15): C++ comment
+Error (line 119, col 0): no newline after block
 Norme: ./srcs/hdr_colors_convert.c
 Norme: ./srcs/loading.c
 Error: file must end with a single empty line
@@ -78,13 +78,14 @@ Error (line 122): C++ comment
 Error (line 123, col 0): no empty line before block
 Error (line 136): comment not well formatted
 Norme: ./srcs/main.c
-Error (line 47): Empty line
+Error (line 39): bad indentation
+Error (line 39): C++ comment
+Error (line 40): bad indentation
+Error (line 40): C++ comment
 Norme: ./srcs/key_hook.c
 Error (line 77): C++ comment
 Error (line 78): C++ comment
 Norme: ./srcs/new_settings.c
-Norme: ./srcs/ft_aff_multi.c
-Error: 6 functions in the file
 Norme: ./srcs/reload.c
 Error (line 47): declarations must be followed by one empty line in reload
 Error (line 58, col 7): Spacing after call to exit
@@ -93,25 +94,42 @@ Error (line 62): C++ comment
 Error (line 63): C++ comment
 Error (line 64, col 0): no empty line before block
 Norme: ./srcs/render.c
-Error (line 45): bad indentation
-Norme: ./srcs/posttraitment.c
+Error (line 30): function ft_render has 30 lines
+Error (line 37): C++ comment
+Error (line 47): bad indentation
+Error (line 51): Empty line
+Error (line 55): Empty line
+Error (line 58): C++ comment
+Norme: ./srcs/thread_utils.c
 Norme: ./srcs/smooth.c
 Error (line 23): missing newline after if
 Error (line 23): C++ comment
 Error (line 45, col 4): missing space after return
-Norme: ./srcs/thread_utils.c
-Error: 6 functions in the file
-Error (line 73): line has 84 characters
-Error (line 89): line has 85 characters
+Norme: ./srcs/posttraitment.c
+Error (line 58): spaces at the end of line
+Error (line 72): function posttraitment has 28 lines
+Error (line 72): declarations must be followed by one empty line in posttraitment
+Error (line 77): C++ comment
+Error (line 78): Empty line
+Error (line 79): C++ comment
+Error (line 98): C++ comment
+Error (line 98): line has 106 characters
+Error (line 99): C++ comment
+Error (line 101): C++ comment
+Error (line 101): line has 98 characters
+Error (line 102, col 0): no empty line before block
 Norme: ./srcs/utils.c
 Error (line 51): new_ray have 5 parameters
 Norme: ./srcs/vec_utils.c
+Norme: ./srcs/vec_utils_2.c
 Norme: ./srcs/trace_lights.c
 Error: global scope bad aligned
 Error (line 53): C++ comment
 Error (line 53): line has 102 characters
 Error (line 54): C++ comment
 Error (line 54): line has 85 characters
+Norme: ./srcs/vec_utils_3.c
+Error: global scope bad aligned
 Norme: ./srcs/utility.c
 Error: global scope bad aligned
 Error: 7 functions in the file
@@ -175,9 +193,6 @@ Error (line 216): C++ comment
 Error (line 217): C++ comment
 Error (line 218): C++ comment
 Error (line 221): C++ comment
-Norme: ./srcs/vec_utils_3.c
-Error: global scope bad aligned
-Norme: ./srcs/vec_utils_2.c
 Norme: ./srcs/utils_2.c
 Error: 7 functions in the file
 Error (line 144): C++ comment

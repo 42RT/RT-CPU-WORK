@@ -1,6 +1,5 @@
 Norme: ./srcs/gfx/gfx.c
-Error (line 48): C++ comment
-Error (line 48): line has 117 characters
+Error (line 17): function gfx_init has 27 lines
 Norme: ./srcs/gfx/gfx_pixel.c
 Error: global scope bad aligned
 Error (line 15): comment not well formatted
@@ -15,11 +14,9 @@ Error (line 16): bad spacing before get_alpha_color
 Error (line 34): C++ comment
 Error (line 38): bad indentation
 Error (line 38): C++ comment
-Error (line 49): C++ comment
-Error (line 49): line has 107 characters
-Error (line 61): C++ comment
-Error (line 61): line has 87 characters
 Norme: ./srcs/gfx/gfx_image.c
 Error: 6 functions in the file
-Error (line 60): C++ comment
-Error (line 60): line has 87 characters
+Error (line 44): spaces at the end of line
+Error (line 44, col 11): bad character after ;
+Error (line 48): comment not well formatted
+Error (line 63): line has 87 characters

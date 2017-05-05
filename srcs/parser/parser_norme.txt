@@ -1,42 +1,27 @@
 Norme: ./srcs/parser/parse_file.c
 Norme: ./srcs/parser/parse.c
-Error (line 19): Space before function name
-Error (line 19, col 4): bad spacing
-Error (line 72): function parse has 37 lines
+Error: 6 functions in the file
+Error (line 69): bad indentation
+Error (line 69): C++ comment
+Error (line 70): bad indentation
+Error (line 70): C++ comment
+Error (line 71): bad indentation
+Error (line 71): C++ comment
+Error (line 72): bad indentation
+Error (line 72): C++ comment
+Error (line 75): Space before function name
+Error (line 75, col 4): bad spacing
 Norme: ./srcs/parser/parse_light.c
-Error (line 34): Space before function name
-Error (line 34, col 3): bad spacing
-Norme: ./srcs/parser/parse_sav.c
-Norme: ./srcs/parser/parse_obj_utils.c
 Norme: ./srcs/parser/parse_compose.c
-Error (line 17): Space before function name
 Error (line 17): function parse_item_compo has 31 lines
-Error (line 17, col 3): bad spacing
-Error (line 37): bad indentation
-Error (line 37): must begin only by tabulations
-Error (line 38): bad indentation
-Error (line 38): must begin only by tabulations
-Error (line 41): bad indentation
-Error (line 41): must begin only by tabulations
-Error (line 78): Space before function name
-Error (line 78): function parse_compose has 38 lines
-Error (line 78, col 3): bad spacing
-Norme: ./srcs/parser/parse_settings.c
-Error (line 41): function parse_settings has 28 lines
+Norme: ./srcs/parser/parse_sav.c
+Norme: ./srcs/parser/parse_obj.c
+Norme: ./srcs/parser/parse_obj_utils.c
+Norme: ./srcs/parser/parse_secu_count.c
+Norme: ./srcs/parser/parse_param.c
 Norme: ./srcs/parser/parse_utils_2.c
 Error (line 26): function add_next_set has 31 lines
+Norme: ./srcs/parser/parse_settings.c
 Norme: ./srcs/parser/parse_settings_utils.c
-Norme: ./srcs/parser/parse_obj.c
-Error: 7 functions in the file
-Error (line 101): Space before function name
-Error (line 101, col 4): bad spacing
-Error (line 109): Space before function name
-Error (line 109, col 3): bad spacing
-Error (line 117): function parse_object has 38 lines
 Norme: ./srcs/parser/parse_utils.c
-Error: 6 functions in the file
-Error (line 54): function get_next_item has 28 lines
 Norme: ./srcs/parser/secu_parse.c
-Error: 6 functions in the file
-Error (line 30): bad indentation
-Error (line 93): function first_chek has 30 lines
