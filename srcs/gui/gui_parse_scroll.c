@@ -16,6 +16,7 @@ void		gui_parse_scroll_suite(t_scroll *scroll, char **tmp)
 {
 	char	**tmp2;
 
+	tmp2 = NULL;
 	if (!ft_strcmp(tmp[0], "\t\ttag"))
 	{
 		tmp2 = ft_strsplit(tmp[1], '"');

@@ -16,6 +16,7 @@ void	gui_parse_gauge_suite(t_gauge *gauge, char **tmp)
 {
 	char	**tmp2;
 
+	tmp2 = NULL;
 	if (!CMP(tmp[0], "\t\ttag"))
 	{
 		tmp2 = ft_strsplit(tmp[1], '"');
