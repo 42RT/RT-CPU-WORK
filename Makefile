@@ -133,6 +133,10 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GUI)gui_parse_button.c \
 			$(PATH_GUI)gui_parse_checkbox.c \
 			$(PATH_GUI)gui_parse_scroll.c \
+			$(PATH_GUI)gui_parse_scroll_2.c \
+			$(PATH_GUI)gui_parse_scroll_3.c \
+			$(PATH_GUI)gui_parse_scroll_4.c \
+			$(PATH_GUI)gui_parse_scroll_5.c \
 			$(PATH_GUI)gui_parse_textbox.c \
 			$(PATH_GUI)gui_parse_textbox_2.c \
 			$(PATH_GUI)gui_parse_textbox_3.c \

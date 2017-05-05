@@ -429,6 +429,18 @@ void		gui_scroll_write_list(t_gui *gui, t_scroll *scroll, int motion);
 void		gui_scroll_value_write(t_gui *gui, t_scroll *scroll, char *color);
 char		**gui_get_scroll_value(t_scroll *scroll);
 void		gui_reparse_scroll_value(t_gui *gui, char *target, int ptid, int pti);
+char		**gui_get_scroll_value(t_scroll *scroll);
+char		**gui_get_scroll_scene(t_scroll *scroll, t_gui *gui);
+char		**gui_get_scroll_object(t_scroll *scroll, t_env *e);
+char		**gui_get_scroll_aa(t_scroll *scroll);
+char		**gui_get_scroll_res(t_scroll *scroll);
+char		**gui_get_scroll_texture_nml(t_scroll *scroll);
+char		**gui_get_scroll_texture_pcd(t_scroll *scroll);
+char		**gui_get_scroll_texture_mtr(t_scroll *scroll);
+char		**gui_get_scroll_res(t_scroll *scroll);
+char		**gui_get_5_4_3(t_scroll *scroll, t_env *e);
+char		**gui_get_16_9_10(t_scroll *scroll, t_env *e);
+char		**gui_get_exotic_res(t_scroll *scroll, t_env *e);
 
 /* CHECKBOX */
 void		gui_checkbox_get_state(t_checkbox *checkbox);
