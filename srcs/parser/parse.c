@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:02:31 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/04 22:21:51 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/04 23:40:55 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,32 @@ void		verif_set_validity(t_env *e)
 		e->set->fov = 170;
 }
 
+void 		parse_distrib(t_env *e, t_item *item)
+{
+	int		i;
+
+	i = -1;
+	if (!item)
+		parse_error();
+	else if (!ft_strncmp(item->type, "\"settings\"", 10))
+		parse_settings(e, item, i);
+	else if (!ft_strncmp(item->type, "\"light\"", 7))
+		parse_light(e, item);
+	else if (obj_gettype(item->type) != NONE)
+		parse_object(e, item);
+	else
+		ft_printf("\033[31m%s Not found\n\033[0m", item->type);
+	while (++i < item->setnb)
+		free(item->set[i]);
+	free(item->type);
+	free(item);
+}
+
 void		parse(t_env *e, char *filename)
 {
 	char	*file;
 	t_item	*item;
-	int		i;
 
-	i = -1;
 	ft_check_valid_file(filename);
 	first_chek(e, filename);
 	file = ft_getfile(filename);
@@ -85,21 +104,7 @@ void		parse(t_env *e, char *filename)
 	{
 		if ((item = get_next_item(&file)) == NULL)
 			parse_error();
-		if (!item)
-			parse_error();
-		else if (!ft_strncmp(item->type, "\"settings\"", 10))
-			parse_settings(e, item, i);
-		else if (!ft_strncmp(item->type, "\"light\"", 7))
-			parse_light(e, item);
-		else if (obj_gettype(item->type) != NONE)
-			parse_object(e, item);
-		else
-			ft_printf("\033[31m%s Not found\n\033[0m", item->type);
-		while (++i < item->setnb)
-			free(item->set[i]);
-		i = -1;
-		free(item->type);
-		free(item);
+		parse_distrib(e, item);
 	}
 	verif_set_validity(e);
 	ft_printf("File \"%s\" parsed.\n", filename);

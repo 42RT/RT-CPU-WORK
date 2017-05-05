@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 03:28:43 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/04 22:12:12 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/04 23:50:00 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char				*ft_getfile(char *name);
 void				parse_light(t_env *e, t_item *item);
 int					parse_dis(t_item *it, t_vector *v, int i,
 								void (*f)(t_vector *, char *));
+int					parse_compare(t_env *e, t_item *item, t_obj *obj, int i);
 void				parse_object_other(t_obj *obj, char *str);
 void				parse_obj_exp(t_vector *v, char *str);
 void				parse_obj_color(t_obj *obj, char *str);
