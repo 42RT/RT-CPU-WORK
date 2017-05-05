@@ -26,6 +26,7 @@ void		gui_parse_checkbox_suite(t_checkbox *checkbox, char **tmp)
 {
 	char	**tmp2;
 
+	tmp2 = NULL;
 	if (!CMP(tmp[0], "\t\ttag"))
 	{
 		tmp2 = ft_strsplit(tmp[1], '"');
@@ -42,10 +43,7 @@ void		gui_parse_checkbox_suite(t_checkbox *checkbox, char **tmp)
 		checkbox->txt->anchor = ft_strdup(tmp2[1]);
 	}
 	else
-	{
-		printf("%s\n", tmp[0]);
 		gui_error(16);
-	}
 	gui_free_array((void **)tmp2, 2);
 }
 

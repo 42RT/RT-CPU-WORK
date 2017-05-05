@@ -16,6 +16,7 @@ void		gui_parse_freetxt_suite(t_freetxt *freetxt, char **tmp)
 {
 	char	**tmp2;
 
+	tmp2 = NULL;
 	if (!CMP(tmp[0], "\t\ttag"))
 	{
 		tmp2 = ft_strsplit(tmp[1], '"');
