@@ -12,22 +12,25 @@
 
 #include <gui.h>
 
-void		gui_parse_cnt_txb_suite(t_textbox **txb, int fd, int qt, int id)
+t_textbox	**gui_parse_container_textbox(int fd, int qt, int id)
 {
-	t_gui	*gui;
-	int		i;
-	char	*line;
+	t_textbox	**textbox;
+	char		*line;
+	int			i;
 
-	gui = get_gui();
+	get_next_line(fd, &line);
+	if (ft_strcmp(line, "\ttextbox:"))
+		gui_error(12);
+	if (!(textbox = (t_textbox **)malloc(sizeof(t_textbox *) * qt)))
+		error(1);
 	i = 0;
 	while (i < qt)
 	{
-		txb[i] = gui_parse_textbox(fd, 8);
-		txb[i]->p = id;
-		txb[i]->id = i;
-		gui_get_textbox_value(txb[i]);
-		gui_textbox_set(txb[i], gui->dest);
-		i++;
+		textbox[i] = gui_parse_textbox(fd, 8);
+		textbox[i]->p = id;
+		textbox[i]->id = i;
+		gui_get_textbox_value(textbox[i]);
+		gui_textbox_set(textbox[i++], gui_get_container_rect(id));
 		if (i < qt)
 		{
 			get_next_line(fd, &line);
@@ -35,23 +38,10 @@ void		gui_parse_cnt_txb_suite(t_textbox **txb, int fd, int qt, int id)
 				gui_error(11);
 		}
 	}
-}
-
-t_textbox	**gui_parse_container_textbox(int fd, int qt, int id)
-{
-	t_textbox	**textbox;
-	char		*line;
-
-	get_next_line(fd, &line);
-	if (ft_strcmp(line, "\ttextbox:"))
-		gui_error(12);
-	if (!(textbox = (t_textbox **)malloc(sizeof(t_textbox *) * qt)))
-		error(1);
-	gui_parse_cnt_txb_suite(textbox, fd, qt, id);
 	return (textbox);
 }
 
-t_checkbox	**gui_parse_container_checkbox(int fd, int qt)
+t_checkbox	**gui_parse_container_checkbox(int fd, int qt, int id)
 {
 	t_checkbox	**checkbox;
 	char		*line;
@@ -65,9 +55,11 @@ t_checkbox	**gui_parse_container_checkbox(int fd, int qt)
 	i = 0;
 	while (i < qt)
 	{
-		checkbox[i] = gui_parse_checkbox(fd, 6);
+		checkbox[i] = gui_parse_checkbox(fd, 7);
+		checkbox[i]->p = id;
+		checkbox[i]->id = i;
 		checkbox[i]->selected = 0;
-		i++;
+		gui_checkbox_set(checkbox[i++], gui_get_container_rect(id));
 		if (i < qt)
 		{
 			get_next_line(fd, &line);
@@ -90,13 +82,13 @@ void		gui_parse_container(t_gui *gui, int fd, int id)
 	if (CONTAINER->textbox_qt > 0)
 		TEXTBOX = gui_parse_container_textbox(fd, CONTAINER->textbox_qt, id);
 	if (CONTAINER->checkbox_qt > 0)
-		CHECKBOX = gui_parse_container_checkbox(fd, CONTAINER->checkbox_qt);
+		CHECKBOX = gui_parse_container_checkbox(fd, CONTAINER->checkbox_qt, id);
 	get_next_line(fd, &line);
 	if (ft_strcmp(line, "\t,"))
 		gui_error(10);
 }
 
-void	gui_parse_main_builder(t_gui *gui, int fd, int nb)
+void		gui_parse_main_builder(t_gui *gui, int fd, int nb)
 {
 	int		id;
 

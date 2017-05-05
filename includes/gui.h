@@ -353,10 +353,17 @@ void		gui_parse_def_button(t_gui *gui, int fd, int nb);
 void		gui_parse_container_info(t_gui *gui, int fd, int id, int nb);
 t_button	**gui_parse_container_button(int fd, int qt, int id);
 t_scroll	**gui_parse_container_scroll(int fd, int qt, int id);
+t_textbox	**gui_parse_container_textbox(int fd, int qt, int id);
+t_checkbox	**gui_parse_container_checkbox(int fd, int qt, int id);
+t_gauge		**gui_parse_container_gauge(int fd, int qt, int id);
+t_freetxt	**gui_parse_container_freetxt(int fd, int qt, int id);
 t_button	*gui_parse_button(int fd, int nb);
 t_scroll	*gui_parse_scroll(int fd, int nb);
 t_textbox	*gui_parse_textbox(int fd, int nb);
 t_checkbox	*gui_parse_checkbox(int fd, int nb);
+t_gauge		*gui_parse_gauge(int fd, int nb);
+t_freetxt	*gui_parse_freetxt(int fd, int nb);
+void		gui_parse_scroll_suite(t_scroll *scroll, char **tmp);
 
 
 /* DRAW */
@@ -386,7 +393,7 @@ void		gui_font_build(t_gui *gui);
 /* BUTTON */
 t_button	*gui_button_init(void);
 void		gui_button_build(t_gui *gui);
-void		gui_button_set(t_button *button);
+void		gui_button_set(t_button *button, SDL_Rect dest);
 void		gui_button_create_all(t_gui *gui);
 void		gui_button_selected(t_gui *gui, t_button *button);
 void		gui_button_free(t_button *button);
@@ -403,24 +410,24 @@ void		event_textbox_edit(t_gui *gui, t_textbox *textbox, char *color);
 void		gui_get_textbox_value(t_textbox *textbox);
 void		gui_textbox_value_clear(t_textbox *textbox, int len);
 void		gui_reparse_textbox_value(t_gui *gui, char *target);
-char		*gui_get_textbox_X(void);
-char		*gui_get_textbox_Y(void);
-char		*gui_get_textbox_Z(void);
-char		*gui_get_textbox_AX(void);
-char		*gui_get_textbox_AY(void);
-char		*gui_get_textbox_AZ(void);
-char		*gui_get_textbox_R(void);
-char		*gui_get_textbox_G(void);
-char		*gui_get_textbox_B(void);
-char		*gui_get_textbox_A(void);
-char		*gui_get_textbox_SIZ(void);
-char		*gui_get_textbox_RFR(void);
-char		*gui_get_textbox_RFL(void);
+char		*gui_get_textbox_x(void);
+char		*gui_get_textbox_y(void);
+char		*gui_get_textbox_z(void);
+char		*gui_get_textbox_ax(void);
+char		*gui_get_textbox_ay(void);
+char		*gui_get_textbox_az(void);
+char		*gui_get_textbox_r(void);
+char		*gui_get_textbox_g(void);
+char		*gui_get_textbox_b(void);
+char		*gui_get_textbox_a(void);
+char		*gui_get_textbox_siz(void);
+char		*gui_get_textbox_rfr(void);
+char		*gui_get_textbox_rfl(void);
 
 /* SCROLL */
 t_scroll	*gui_scroll_init(void);
 void		gui_scroll_build(t_gui *gui);
-void		gui_scroll_set(t_scroll *scroll);
+void		gui_scroll_set(t_scroll *scroll, SDL_Rect dest);
 void		gui_scroll_set_halign(t_scroll *scroll);
 void		gui_scroll_create_all(t_gui *gui);
 void		gui_scroll_toggle(t_gui *gui, t_scroll *scroll);
@@ -443,6 +450,8 @@ char		**gui_get_16_9_10(t_scroll *scroll, t_env *e);
 char		**gui_get_exotic_res(t_scroll *scroll, t_env *e);
 
 /* CHECKBOX */
+t_checkbox	*gui_checkbox_init(void);
+void		gui_checkbox_set(t_checkbox *checkbox, SDL_Rect dest);
 void		gui_checkbox_get_state(t_checkbox *checkbox);
 void		gui_reset_checkbox_state(t_gui *gui, char *target);
 
@@ -520,4 +529,5 @@ void		gui_anti_aliasing_set(int x, int y, int w, int h);
 char		*str_tolower(char *str);
 void		gui_txt_to_texture(char *content, char *style, char *color);
 void		gui_free_array(void **array, int dimension);
+SDL_Rect	gui_get_container_rect(int id);
 #endif

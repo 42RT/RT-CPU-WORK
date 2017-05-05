@@ -58,4 +58,16 @@ void	gui_free_array(void **array, int dimension)
 	while (i < dimension)
 		free(array[i++]);
 	free(array);
+	array = NULL;
+}
+
+SDL_Rect	gui_get_container_rect(int id)
+{
+	t_gui	*gui;
+
+	gui = get_gui();
+	if (id == -1)
+		return (PARAM->dest);
+	else
+		return (CONTAINER->dest);
 }

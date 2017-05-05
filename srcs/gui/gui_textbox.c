@@ -68,9 +68,8 @@ void		gui_textbox_set(t_textbox *textbox, SDL_Rect dest)
 	t_gui	*gui;
 
 	gui = get_gui();
-	textbox->dest.w = textbox->maxlen * (PARAM->dest.w / 32);
+	textbox->dest.w = textbox->maxlen * (dest.w / 32);
 	textbox->dest.h = DEF->txb_h;
-	if (textbox->p >= 0)
-		textbox->dest.y += BLOCK[textbox->p]->dest.y;
+	textbox->dest.y += dest.y;
 	gui_textbox_set_halign(textbox, dest);
 }

@@ -48,7 +48,7 @@ void		gui_reset_checkbox_state(t_gui *gui, char *target)
 		gui_reset_checkbox_state_suite(gui, 0, 0);
 }
 
-t_checkbox	*gui_param_checkbox_init(void)
+t_checkbox	*gui_checkbox_init(void)
 {
 	t_checkbox	*checkbox;
 
@@ -62,27 +62,24 @@ t_checkbox	*gui_param_checkbox_init(void)
 	return (checkbox);
 }
 
-void		gui_param_checkbox_set_halign(t_checkbox *checkbox)
+void		gui_checkbox_set_halign(t_checkbox *checkbox, SDL_Rect dest)
 {
-	t_gui	*gui;
-
-	gui = get_gui();
 	if (checkbox->dest.x == GUI_ALIGN_LEFT)
-		checkbox->dest.x = PARAM->dest.x;
+		checkbox->dest.x = dest.x;
 	else if (checkbox->dest.x == GUI_ALIGN_MID)
-		checkbox->dest.x = (PARAM->dest.w / 2) - (checkbox->dest.w / 2);
+		checkbox->dest.x = (dest.w / 2) - (checkbox->dest.w / 2);
 	else if (checkbox->dest.x == GUI_ALIGN_RIGHT)
-		checkbox->dest.x = PARAM->dest.w - checkbox->dest.w;
+		checkbox->dest.x = dest.w - checkbox->dest.w;
 	else
 		checkbox->dest.x = checkbox->dest.x;
 }
 
-void		gui_param_checkbox_set(t_checkbox *checkbox)
+void		gui_checkbox_set(t_checkbox *checkbox, SDL_Rect dest)
 {
 	t_gui	*gui;
 
 	gui = get_gui();
 	checkbox->dest.w = DEF->cbx_size;
 	checkbox->dest.h = DEF->cbx_size;
-	gui_param_checkbox_set_halign(checkbox);
+	gui_checkbox_set_halign(checkbox, dest);
 }

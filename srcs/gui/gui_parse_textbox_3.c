@@ -12,7 +12,7 @@
 
 #include <gui.h>
 
-char	*gui_get_textbox_AZ(void)
+char	*gui_get_textbox_az(void)
 {
 	t_env	*e;
 	t_gui	*gui;
@@ -31,7 +31,7 @@ char	*gui_get_textbox_AZ(void)
 	return (ft_itoa(tmp->ang.z / M_PI_2 * 90));
 }
 
-char	*gui_get_textbox_R(void)
+char	*gui_get_textbox_r(void)
 {
 	t_env	*e;
 	t_gui	*gui;
@@ -50,7 +50,7 @@ char	*gui_get_textbox_R(void)
 	return (ft_itoa(tmp->color.r));
 }
 
-char	*gui_get_textbox_G(void)
+char	*gui_get_textbox_g(void)
 {
 	t_env	*e;
 	t_gui	*gui;
@@ -69,7 +69,7 @@ char	*gui_get_textbox_G(void)
 	return (ft_itoa(tmp->color.g));
 }
 
-char	*gui_get_textbox_B(void)
+char	*gui_get_textbox_b(void)
 {
 	t_env	*e;
 	t_gui	*gui;
@@ -88,7 +88,7 @@ char	*gui_get_textbox_B(void)
 	return (ft_itoa(tmp->color.b));
 }
 
-char	*gui_get_textbox_A(void)
+char	*gui_get_textbox_a(void)
 {
 	t_env	*e;
 	t_gui	*gui;

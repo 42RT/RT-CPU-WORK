@@ -134,7 +134,7 @@ PARAM MENU BUILDER:
 		min: 1
 		max: 32
 		txt: "Threads"
-		txt_anchor:"parent"
+		txt_anchor: "parent"
 		txt_align: 0
 		,
 		x: 2

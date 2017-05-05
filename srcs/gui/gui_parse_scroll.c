@@ -12,8 +12,10 @@
 
 #include <gui.h>
 
-void		gui_parse_scroll_suite(t_scroll *scroll, char **tmp, char **tmp2)
+void		gui_parse_scroll_suite(t_scroll *scroll, char **tmp)
 {
+	char	**tmp2;
+
 	if (!ft_strcmp(tmp[0], "\t\ttag"))
 	{
 		tmp2 = ft_strsplit(tmp[1], '"');
@@ -38,11 +40,9 @@ t_scroll	*gui_parse_scroll(int fd, int nb)
 {
 	t_scroll	*scroll;
 	char		**tmp;
-	char		**tmp2;
 	char		*line;
 	int			i;
 
-	tmp2 = NULL;
 	scroll = gui_scroll_init();
 	i = 0;
 	while (i < nb)
@@ -56,14 +56,14 @@ t_scroll	*gui_parse_scroll(int fd, int nb)
 		else if (!ft_strcmp(tmp[0], "\t\ttxt_align"))
 			scroll->txt->align = ft_atoi(tmp[1]);
 		else
-			gui_parse_scroll_suite(scroll, tmp, tmp2);
+			gui_parse_scroll_suite(scroll, tmp);
 		gui_free_array((void **)tmp, 2);
 		i++;
 	}
 	return (scroll);
 }
 
-char	**gui_get_scroll_value_def(t_scroll *scroll)
+char		**gui_get_scroll_value_def(t_scroll *scroll)
 {
 	char	**value;
 
@@ -76,7 +76,7 @@ char	**gui_get_scroll_value_def(t_scroll *scroll)
 	return (value);
 }
 
-char	**gui_get_scroll_value(t_scroll *scroll)
+char		**gui_get_scroll_value(t_scroll *scroll)
 {
 	t_gui	*gui;
 	t_env	*e;
