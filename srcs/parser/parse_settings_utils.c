@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:16:12 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/03 18:56:29 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/05 17:18:24 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	parse_other_setting(t_env *e, char *str)
 		e->set->luminosity = ft_atof(get_value(str));
 	else if (!ft_strncmp(str, "\"contrast\"", 10))
 		e->set->contrast = ft_atof(get_value(str));
+	else
+		ft_printf("\033[31m%s Not found\n\033[0m", str);
 }
 
 void	parse_set_focus(t_env *e, char *str)

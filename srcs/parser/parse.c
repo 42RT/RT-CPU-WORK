@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:02:31 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/04 23:40:55 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/05 21:37:30 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,23 @@ void		verif_set_validity(t_env *e)
 		e->set->fov = 10;
 	if (e->set->fov > 170)
 		e->set->fov = 170;
+	// if (e->set->aa < 0)
+	// 	e->set->aa = 0;
+	// else if (e->set->aa > 16)
+	// 	e->set->aa = 16;
 }
 
-void 		parse_distrib(t_env *e, t_item *item)
+void 		verif_obj_validity(t_obj *obj)
+{
+	if (obj->pos.x > 99999 || obj->pos.x < -99999)
+		obj->pos.x = DEF_OBJ_POSX;
+	if (obj->pos.y > 99999 || obj->pos.y < -99999)
+		obj->pos.y = DEF_OBJ_POSY;
+	if (obj->pos.z > 99999 || obj->pos.z < -99999)
+		obj->pos.z = DEF_OBJ_POSZ;
+}
+
+void		parse_distrib(t_env *e, t_item *item)
 {
 	int		i;
 

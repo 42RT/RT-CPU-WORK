@@ -6,7 +6,7 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 16:44:43 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/05/04 22:04:34 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/05 17:25:32 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ void	first_chek(t_env *e, char *str)
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		e->nb_line++;
+		if ((ft_strcchr(line, '\"', '\0') == NULL) && line[0] != '\0' &&
+				(ft_strcchr(line, '}', '\0') == NULL))
+			code_error_parser(e, -11);
 		coma_count(e, line);
 		ac = ac_count(e, ac, line);
 		gui = gui_count(e, gui, line);
@@ -96,5 +99,7 @@ void	code_error_parser(t_env *e, int error)
 		ft_printf("Character after a Coma, line %d\n", e->nb_line);
 	else if (error == -10)
 		ft_printf("No Object in file\n");
+	else if (error == -11)
+		ft_printf("Bad syntax line %d\n", e->nb_line);
 	exit(EXIT_SUCCESS);
 }

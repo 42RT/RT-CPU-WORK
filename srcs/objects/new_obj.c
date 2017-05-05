@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 06:55:02 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/02/24 12:46:11 by rfriscca         ###   ########.fr       */
+/*   Updated: 2017/05/05 21:17:08 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static void	set_def_obj_pos(t_obj *obj)
 
 void		new_obj_extend(t_obj *res)
 {
-	res->reflect_k = DEF_REFLECT_K;
-	res->transparency = DEF_REFRACT_K;
-	res->refract_ind = DEF_REFRACT_IND;
+	res->reflect_k = MIN_REFLECT_K;
+	res->transparency = MIN_REFRACT_K;
+	res->refract_ind = MIN_REFRACT_IND;
 	res->texture = NULL;
 	res->procedural = NULL;
 	res->normalmap = NULL;

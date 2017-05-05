@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:06:23 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/04 21:50:34 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/05 17:15:42 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	parse_object_other(t_obj *obj, char *str)
 		obj->procedural = ft_strdup(get_value(str));
 	else if (!ft_strncmp(str, "\"normalmap\"", 11))
 		obj->normalmap = ft_strdup(get_value(str));
+	else
+		ft_printf("\033[31m%s Not found\n\033[0m", str);
 }
 
 void	parse_obj_exp(t_vector *v, char *str)
@@ -48,6 +50,11 @@ void	parse_obj_exp(t_vector *v, char *str)
 		v->y = ft_atof(get_value(str));
 	else if (!ft_strncmp(str, "\"z\"", 3))
 		v->z = ft_atof(get_value(str));
+	else
+	{
+		ft_printf("Bad name in Exp\n");
+		exit(EXIT_SUCCESS);
+	}
 }
 
 void	parse_obj_color(t_obj *obj, char *str)

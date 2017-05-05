@@ -6,7 +6,7 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 16:08:30 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/05/04 23:50:31 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/05 16:37:44 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,11 @@ int		parse_compose(t_env *e, t_item *item, t_obj *obj, int i)
 	i = 0;
 	while (++i < item->setnb)
 		i = parse_compare(e, item, obj, i);
-	obj->type = obj_gettype(item->set[0]);
+	if ((obj->type = obj_gettype(item->set[0])) == NONE)
+	{
+		ft_printf("No A Good Object in Compose\n");
+		exit(EXIT_SUCCESS);
+	}
 	if (obj->type == 128)
 		obj->cap2 = 1000;
 	if (obj->type == GLASS)

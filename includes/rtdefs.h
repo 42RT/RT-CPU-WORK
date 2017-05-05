@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 06:39:09 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/02/23 17:16:10 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/05 21:30:17 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,14 @@
 # define MAX_THREADS		32
 
 # define DEF_OBJ_POSX		0.0
+# define MIN_OBJ_POSX		-99999.0
+# define MAX_OBJ_POSX		99999.0
 # define DEF_OBJ_POSY		0.0
+# define MIN_OBJ_POSY		-99999.0
+# define MAX_OBJ_POSY		99999.0
 # define DEF_OBJ_POSZ		0.0
+# define MIN_OBJ_POSZ		-99999.0
+# define MAX_OBJ_POSZ		99999.0
 # define DEF_OBJ_ANGX		0.0
 # define DEF_OBJ_ANGY		0.0
 # define DEF_OBJ_ANGZ		0.0
@@ -66,9 +72,12 @@
 # define DEF_COLOR_REFR		0xFFFFFF
 # define DEF_SIZE			1.0
 # define DEF_MOD			1.0
-# define DEF_REFLECT_K		0.2
-# define DEF_REFRACT_K		0.0
-# define DEF_REFRACT_IND	1.0
+# define MIN_REFLECT_K		0.0
+# define MAX_REFLECT_K		255.0
+# define MIN_REFRACT_K		0.0
+# define MAX_REFRACT_K		255.0
+# define MIN_REFRACT_IND	1.0
+# define MAX_REFRACT_IND	4.0
 # define DEF_CAP1           0
 # define DEF_CAP2           0
 

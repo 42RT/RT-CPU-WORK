@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:04:33 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/05 09:51:20 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/05 21:33:03 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	parse_object(t_env *e, t_item *item)
 	obj->func = get_func(obj->type, obj->negative);
 	obj->normale = get_normale(obj->type);
 	obj->base = new_base();
+	verif_obj_validity(obj);
 	if (obj->type)
 		add_obj(e, obj);
 	e->yon = 1;
