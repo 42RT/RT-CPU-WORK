@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:06:23 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/05 17:15:42 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/06 20:47:05 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@
 
 void	parse_object_other(t_obj *obj, char *str)
 {
-	if (!ft_strncmp(str, "\"size\"", 6))
-		obj->size = ft_atoi(get_value(str));
-	else if (!ft_strncmp(str, "\"mod\"", 5))
-		obj->mod = ft_atof(get_value(str));
-	else if (!ft_strncmp(str, "\"reflect_k\"", 11))
+	if (!ft_strncmp(str, "\"reflect_k\"", 11))
 		obj->reflect_k = ft_atof(get_value(str));
 	else if (!ft_strncmp(str, "\"transparency\"", 11))
 		obj->transparency = ft_atof(get_value(str));
@@ -32,12 +28,16 @@ void	parse_object_other(t_obj *obj, char *str)
 		obj->negative = (!ft_strncmp(str, "1", 1)
 						|| !ft_strncmp(str, "true", 4));
 	}
-	else if (!ft_strncmp(str, "\"texture\"", 9))
-		obj->texture = ft_strdup(get_value(str));
+	else if (!ft_strncmp(str, "\"texture\"", 9) && ft_strchr(str, ',') != NULL)
+		ft_putstr(obj->texture = ft_strtrim_coma(get_value(str)));
+	else if (!ft_strncmp(str, "\"texture\"", 9) && ft_strchr(str, ',') == NULL)
+		ft_putstr(obj->texture = ft_strdup(get_value(str)));
 	else if (!ft_strncmp(str, "\"procedural\"", 12))
 		obj->procedural = ft_strdup(get_value(str));
-	else if (!ft_strncmp(str, "\"normalmap\"", 11))
-		obj->normalmap = ft_strdup(get_value(str));
+	else if (!ft_strncmp(str, "\"normalmap\"", 11) && ft_strchr(str, ',') != NULL)
+		ft_putstr(obj->normalmap = ft_strtrim_coma(get_value(str)));
+	else if (!ft_strncmp(str, "\"normalmap\"", 11) && ft_strchr(str, ',') == NULL)
+		ft_putstr(obj->normalmap = ft_strdup(get_value(str)));
 	else
 		ft_printf("\033[31m%s Not found\n\033[0m", str);
 }

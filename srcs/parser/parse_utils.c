@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/06 18:21:24 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/06 23:33:23 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strtrim_coma(char const *s)
 	ptr = (char *)(s - 1);
 	while (*ptr == ':')
 		++ptr;
-	result = (char *)malloc(ft_strlen(ptr) * sizeof(char));
+	result = (char *)malloc(ft_strlen(ptr - 1) * sizeof(char));
 	ptr -= 1;
 	i = -1;
 	while (*++ptr)
@@ -51,8 +51,6 @@ char	*get_value(char *str)
 		ft_printf("Bad value\n");
 		exit(EXIT_SUCCESS);
 	}
-	if (ft_strchr(str, ',') != NULL)
-		str = ft_strtrim_coma(str);
 	return (str);
 }
 

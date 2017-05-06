@@ -6,7 +6,7 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/04 22:13:01 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/05/06 13:47:31 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/06 20:48:20 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ int		parse_compare(t_env *e, t_item *item, t_obj *obj, int i)
 		i = parse_dis2(item, obj, i, (parse_cap));
 	else if (!ft_strncmp(item->set[i], "\"compose\"", 9))
 		i = parse_compose(e, item, obj, i);
+	else if (!ft_strncmp(item->set[i], "\"size\"", 6))
+		obj->size = ft_atoi(get_value(item->set[i]));
+	else if (!ft_strncmp(item->set[i], "\"mod\"", 5))
+		obj->mod = ft_atof(get_value(item->set[i]));
 	else
 		parse_object_other(obj, item->set[i]);
 	return (i);
