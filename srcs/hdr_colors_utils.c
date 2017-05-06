@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expose_hook.c                                      :+:      :+:    :+:   */
+/*   hdr_colors_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/19 19:11:46 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/12/19 19:12:25 by jrouilly         ###   ########.fr       */
+/*   Created: 2017/03/12 00:22:41 by jrouilly          #+#    #+#             */
+/*   Updated: 2017/03/12 00:22:42 by jrouilly         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <gfx.h>
-#include <raytracer.h>
+#include <hdr_colors.h>
 
-int		expose_hook(t_env *e)
+t_color		void_tcolor(void)
 {
-	gfx_blitz_image(e->gfx, 0, 0, e->gfx->buff[BUFF_NB]);
-	gfx_flip_screen(e->gfx);
-	return (0);
+	t_color	res;
+
+	res.r = 0;
+	res.g = 0;
+	res.b = 0;
+	res.e = 0;
+	res.a = 0xFF;
+	return (res);
+}
+
+int			is_void_tcolor(t_color color)
+{
+	return (!(color.r || color.g || color.b));
 }

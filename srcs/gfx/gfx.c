@@ -14,10 +14,21 @@
 #include <libft.h>
 #include <gfx.h>
 
+static void		init_gfx_buffers(t_gfx *gfx, int buff_nb, int res_x, int res_y)
+{
+	int				i;
+
+	i = -1;
+	buff_nb = (buff_nb < 6 ? buff_nb : 5);
+	while (++i < buff_nb)
+		gfx->buff[i] = gfx_new_image(gfx, res_x, res_y);
+	while (++i < 8)
+		gfx->buff[i] = 0;
+}
+
 t_gfx			*gfx_init(char *title, int res_x, int res_y, int buff_nb)
 {
 	t_gfx			*res;
-	int				i;
 
 	res = (void *)malloc(sizeof(t_gfx));
 	res->title = ft_strdup(title);
@@ -34,12 +45,7 @@ t_gfx			*gfx_init(char *title, int res_x, int res_y, int buff_nb)
 	res->texture = SDL_CreateTexture(res->renderer, SDL_PIXELFORMAT_ARGB8888,
 										SDL_TEXTUREACCESS_STREAMING,
 										res_x, res_y);
-	i = -1;
-	buff_nb = (buff_nb < 6 ? buff_nb : 5);
-	while (++i < buff_nb)
-		res->buff[i] = gfx_new_image(res, res_x, res_y);
-	while (++i < 8)
-		res->buff[i] = 0;
+	init_gfx_buffers(res, buff_nb, res_x, res_y);
 	res->act = 0;
 	res->expose = 1;
 	return (res->renderer ? res : 0);

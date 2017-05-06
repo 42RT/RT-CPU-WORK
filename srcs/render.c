@@ -27,6 +27,17 @@ void		ft_render_preview(t_env *e)
 	posttraitment(e);
 }
 
+void		render_loop(t_env *e)
+{
+	if (!(e->set->display & PROGRESSIVE))
+		loading_bar(e, e->render_progression,
+					int_to_tcolor(0x1010A0), int_to_tcolor(0));
+	else
+		posttraitment(e);
+	event_poll(e);
+	usleep(16000);
+}
+
 void		ft_render(t_env *e)
 {
 	int				thread_ret;
@@ -34,7 +45,6 @@ void		ft_render(t_env *e)
 	gfx_fill_image(e->gfx->buff[BUFF_NB], e->set->width,
 								e->set->height, int_to_tcolor(0));
 	*(e->worker_stop) = 0;
-	//e->gfx->expose = 1;
 	e->render_progression = 0;
 	e->worker = SDL_CreateThread(ft_aff, "rt_worker", e);
 	ft_render_preview(e);
@@ -42,17 +52,7 @@ void		ft_render(t_env *e)
 			&& (e->set->display || e->set->threads > 1))
 			|| (e->y < e->set->height && e->x < e->set->width
 			&& e->set->display == LEGACY && e->set->threads <= 1)))
-	{
-		if (!(e->set->display & PROGRESSIVE))
-				loading_bar(e, e->render_progression,
-							int_to_tcolor(0x1010A0), int_to_tcolor(0));
-		else
-			posttraitment(e);
-
-		event_poll(e);
-		usleep(16000);
-	}
-
+		render_loop(e);
 	if (!*(e->worker_stop))
 		SDL_WaitThread(e->worker, &thread_ret);
 	usleep(64000);//////////////// semaphore

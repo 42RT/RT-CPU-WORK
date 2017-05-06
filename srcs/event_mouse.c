@@ -15,7 +15,7 @@
 void	event_mouse_wheel(SDL_Event event, t_gui *gui)
 {
 	if (!event_scroll_mouse_wheel(event, gui))
-		return;
+		return ;
 }
 
 void	event_mouse_click(SDL_Event event, t_gui *gui)

@@ -63,5 +63,6 @@ void				aff_light(t_light *light);
 t_obj				*new_obj(void);
 t_settings			*new_settings(void);
 t_light				*new_light(void);
+void				parse_error(void);
 
 #endif

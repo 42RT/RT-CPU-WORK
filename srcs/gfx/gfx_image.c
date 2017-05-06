@@ -41,78 +41,8 @@ void			gfx_destroy_image(t_img *img)
 	if (img)
 	{
 		free(img->data);
-		free(img);		
+		free(img);
 	}
-}
-
-/*void			gfx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
-{
-	int				i;
-	int				j;
-	unsigned int	color[4];
-
-	if (!gfx->expose)
-		return ;
-	i = -1;
-	while (++i + y < gfx->buff[0]->height && i < img->height)
-	{
-		j = -1;
-		while (++j + x < gfx->buff[0]->width && j < img->width)
-		{
-			color[0] = img->data[img->width * i + j].a;
-			color[1] = img->data[img->width * i + j].r; // masques binaires sur mac ??
-			color[2] = img->data[img->width * i + j].g;
-			color[3] = img->data[img->width * i + j].b;
-			SDL_SetRenderDrawColor(gfx->renderer, color[1], color[2],
-									color[3], color[0]);
-			SDL_RenderDrawPoint(gfx->renderer, j + x, i + y);
-		}
-	}
-}*/
-
-void			gfx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
-{
-	static int		*map = 0;
-	int				i;
-	int				res;
-	SDL_Rect		dst;
-
-	if (!gfx->expose)
-		return ;
-	dst.x = x;
-	dst.y = y;
-	dst.w = gfx->buff[0]->width;
-	dst.h = gfx->buff[0]->height;
-	res = gfx->buff[0]->width * gfx->buff[0]->height;
-	if (!map)
-		map = (int *)malloc(res * sizeof(int));
-	i = -1;
-	while (++i < res)
-		map[i] = *((int *)(img->data + i));
-	SDL_UpdateTexture(gfx->texture, 0, map, 4 * gfx->buff[0]->width);
-	SDL_RenderCopy(gfx->renderer, gfx->texture, 0, &dst);
-}
-
-void			gfx_blitz_black_image(t_gfx *gfx, int x, int y)
-{
-	int		i;
-	int		j;
-
-	SDL_SetRenderDrawColor(gfx->renderer, 0, 0, 0, 255);
-	i = -1;
-	while (++i + y < gfx->buff[0]->height)
-	{
-		j = -1;
-		while (++j + x < gfx->buff[0]->width)
-			SDL_RenderDrawPoint(gfx->renderer, j + x, i + y);
-	}
-	SDL_RenderPresent(gfx->renderer);
-}
-
-void			gfx_display_image(t_gfx *gfx, int x, int y, t_img *img)
-{
-	gfx_blitz_image(gfx, x, y, img);
-	SDL_RenderPresent(gfx->renderer);
 }
 
 void			gfx_fill_image(t_img *img, unsigned int width,

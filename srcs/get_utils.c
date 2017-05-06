@@ -21,10 +21,10 @@ t_env			*get_env(void)
 
 void			*get_func(unsigned int i, int negative)
 {
-	if (i == SPHERE && negative == 0)
-		return (&trace_sphere);
-	else if (i == PLANE && negative == 0)
-		return (&trace_floor);
+	if (i == SPHERE)
+		return (negative ? (void *)&neg_sphere : (void *)&trace_sphere);
+	else if (i == PLANE)
+		return (negative ? (void *)&neg_floor : (void *)&trace_floor);
 	else if (i == DPLANE)
 		return (&trace_dfloor);
 	else if ((i == CYLINDER || i == GLASS) && negative == 0)
@@ -35,10 +35,6 @@ void			*get_func(unsigned int i, int negative)
 		return (&trace_disk);
 	else if (i == SQUARE)
 		return (&trace_square);
-	else if (i == PLANE && negative == 1)
-		return (&neg_floor);
-	else if (i == SPHERE && negative == 1)
-		return (&neg_sphere);
 	else if (i == CYLINDER && negative == 1)
 		return (&neg_cylinder);
 	else if (i == CUBE)

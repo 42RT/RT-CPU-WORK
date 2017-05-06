@@ -12,22 +12,11 @@
 
 #include <gfx.h>
 
-/*void			gfx_pixel_put_to_image(t_img *img, int x, int y,
-											unsigned int color)
+void		gfx_pixel_put_to_image(t_img *img, int x, int y,
+									t_color color)
 {
-	if (!(color >> 24) || (color >> 24) == 255)
+	if (color.a == 255 || 1)
 		img->data[img->width * y + x] = color;
-	else
-		img->data[img->width * y + x] = get_alpha_color(img->data[img->width
-														* y + x], color);
-}
-*/
-
-// a refaire en addition + alpha comme plus haut
-void			gfx_pixel_put_to_image(t_img *img, int x, int y,
-											t_color color)
-{
-	img->data[img->width * y + x] = color;
 }
 
 t_color		gfx_get_pixel_color(t_img *img, int x, int y)
@@ -35,12 +24,13 @@ t_color		gfx_get_pixel_color(t_img *img, int x, int y)
 	return (img->data[img->width * y + x]);
 }
 
-// a refaire
-void			gfx_pixel_put(t_gfx *gfx, int x, int y, t_color color)
+/*
+** unused for now, need rework
+*/
+
+void		gfx_pixel_put(t_gfx *gfx, int x, int y, t_color color)
 {
-	(void)gfx;
-	(void)x;
-	(void)y;
-	(void)color;
-	//mlx_pixel_put(gfx->mlx, gfx->win, x, y, color);
+	SDL_SetRenderDrawColor(gfx->renderer, color.b, color.g,
+									color.r, color.a);
+	SDL_RenderDrawPoint(gfx->renderer, x, y);
 }

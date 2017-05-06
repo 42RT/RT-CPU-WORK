@@ -14,6 +14,12 @@
 #include <libft.h>
 #include <parser.h>
 
+void		parse_error(void)
+{
+	ft_putstr("Not a valid file\n");
+	exit(EXIT_SUCCESS);
+}
+
 char		*ft_newstrcat_free(char *dest, char *src)
 {
 	char	*res;

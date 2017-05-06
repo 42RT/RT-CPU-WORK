@@ -48,20 +48,17 @@ t_vector		*reflect_vector(t_obj *obj, t_vector *o, t_vector *v,
 	return (v);
 }
 
-t_color			new_ray(t_env *e, t_vector *o, t_vector *v, t_obj *obj,
+t_color			new_ray(t_env *e, t_vector *vec[2], t_obj *obj,
 						unsigned int deph)
 {
 	t_obj		*start;
-	t_vector	*vec[2];
 
 	start = obj;
 	while (obj)
 	{
-		trace_ray(e, obj, o, v);
+		trace_ray(e, obj, vec[0], vec[1]);
 		obj = obj->next;
 	}
-	vec[0] = o;
-	vec[1] = v;
 	return (ray_effect(e, vec, start, deph));
 }
 

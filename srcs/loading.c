@@ -19,13 +19,12 @@ void	loading_bar(t_env *e, float percent, t_color color,
 	static int		old;
 
 	if ((int)(percent * 2) == old)
-		return;
+		return ;
 	old = (int)(percent * 2);
 	area.x = e->set->width / 2 - 102;
 	area.y = e->set->height / 2 - 7;
 	area.w = 204;
 	area.h = 14;
-
 	SDL_SetRenderDrawColor(e->gfx->renderer, bgcolor.r,	bgcolor.g, bgcolor.b,
 							255);
 	SDL_RenderFillRect(e->gfx->renderer, &area);
@@ -37,6 +36,5 @@ void	loading_bar(t_env *e, float percent, t_color color,
 	area.w = (int)(percent * 2);
 	SDL_RenderDrawRect(e->gfx->renderer, &area);
 	SDL_RenderFillRect(e->gfx->renderer, &area);
-	//ajouter pourcentage
 	SDL_RenderPresent(e->gfx->renderer);
 }

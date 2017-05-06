@@ -12,7 +12,7 @@
 
 #include <raytracer.h>
 
-int			ft_aff_quick(t_env *e, t_obj *obj)// ecran noir ???
+int			ft_aff_quick(t_env *e, t_obj *obj)
 {
 	t_color	color;
 

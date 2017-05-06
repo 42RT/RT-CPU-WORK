@@ -12,7 +12,7 @@
 
 #include <raytracer.h>
 
-static unsigned int		trace_lights_3_compose(t_obj *obj, float len)
+static unsigned int	trace_lights_3_compose(t_obj *obj, float len)
 {
 	t_obj	*first_compose;
 
@@ -29,7 +29,7 @@ static unsigned int		trace_lights_3_compose(t_obj *obj, float len)
 	return (1);
 }
 
-static void				trace_lights_3_extend(int *ref, t_color *color,
+static void			trace_lights_3_extend(int *ref, t_color *color,
 	t_trace_lights_data data, t_ray_data d)
 {
 	t_env	*e;
@@ -50,15 +50,16 @@ static void				trace_lights_3_extend(int *ref, t_color *color,
 			data.obj->dst < data.len && data.obj->dst > EPS)
 		{
 			*ref = 1;
-			color_mix_k(color, d.shorter->color, data.obj->transparency); // verifier si float ou int
-			color_mix_k(color, void_tcolor(), 255 - data.obj->transparency); // idem
+			color_mix_k(color, d.shorter->color, data.obj->transparency);
+			color_mix_k(color, void_tcolor(), 255 - data.obj->transparency);
 		}
 		else if (data.obj->dst + EPS < data.len && data.obj->dst > 1)
 			*ref = -1;
 	}
 }
 
-static t_color	trace_lights_3(t_env *e, t_ray_data d, t_vector *v, float len)
+static t_color		trace_lights_3(t_env *e, t_ray_data d, t_vector *v,
+									float len)
 {
 	t_obj				*first_compose;
 	int					ref;

@@ -229,8 +229,7 @@ typedef struct		s_trace_lights_data
 */
 t_color				compute_color(t_env *e, t_obj *obj, unsigned int deph);
 t_color				trace_lights(t_env *e, t_ray_data d, t_light *light);
-
-t_color				new_ray(t_env *e, t_vector *o, t_vector *v, t_obj *obj,
+t_color				new_ray(t_env *e, t_vector *vec[2], t_obj *obj,
 							unsigned int deph);
 void				trace_ray(t_env *e, t_obj *obj, t_vector *o, t_vector *v);
 t_color				ray_effect(t_env *e, t_vector *vec[2], t_obj *obj,
@@ -242,6 +241,11 @@ void				launch_threads_quick(t_th_data *data);
 void				change_cam(t_env *e);
 void				reload(t_env *e);
 int					get_pos(int *map, int res, int *nb);
+t_obj				*get_shorter(t_obj *obj);
+t_color				safe_refract_color(t_env *e, t_ray_data *d,
+										unsigned int deph);
+t_color				safe_reflect_color(t_env *e, t_ray_data *d,
+										unsigned int deph);
 
 /*
 ** Various utils

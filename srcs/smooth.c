@@ -20,7 +20,7 @@ static void	smooth_quickrender_mix(t_env *e, unsigned int x, unsigned int y)
 
 	color = gfx_get_pixel_color(e->gfx->buff[BUFF_NB],
 								x - (x & 1), y - (y & 1));
-	if (x < (e->set->width - 2) && y < (e->set->height - 2) && 0) // delete & 0
+	if (x < (e->set->width - 2) && y < (e->set->height - 2) && 0)
 	{
 		c2 = gfx_get_pixel_color(e->gfx->buff[BUFF_NB],
 									x + (x & 1), y + (y & 1));
@@ -42,7 +42,7 @@ void		smooth_quickrender(t_env *e)
 		while (x < e->set->width)
 		{
 			if (*(e->worker_stop))
-				return;
+				return ;
 			if (x < (e->set->width - 3))
 				smooth_quickrender_mix(e, x + 1, y);
 			if (y < (e->set->height - 3))

@@ -79,41 +79,18 @@ t_obj			*get_shorter(t_obj *obj)
 	return (res);
 }
 
-t_color			compute_color(t_env *e, t_obj *obj, unsigned int deph)
-{
-	t_obj		*start;
-	t_vector	v;
-	t_vector	o;
-	t_vector	*vec[2];
-	t_obj		*shorter;
-
-	compute_vector(e, &v);
-	start = obj;
-	o.x = e->set->cam->pos.x;
-	o.y = e->set->cam->pos.y;
-	o.z = e->set->cam->pos.z;
-	while (obj)
-	{
-		trace_ray(e, obj, &o, &v);
-		obj = obj->next;
-	}
-	shorter = get_shorter(start);
-	e->last_dst = shorter ? shorter->dst : e->set->focus_dst;
-	vec[0] = &o;
-	vec[1] = &v;
-	return (ray_effect(e, vec, start, deph));
-}
-
 t_color			safe_reflect_color(t_env *e, t_ray_data *d, unsigned int deph)
 {
 	t_color		c;
 	t_vector	save_o;
 	t_vector	save_v;
+	t_vector	*arg[2];
 
 	vec_cpy(d->o, &save_o);
 	vec_cpy(d->v, &save_v);
-	c = new_ray(e, d->o, reflect_vector(d->shorter, d->o, d->v, &(d->n)),
-				d->start, deph);
+	arg[0] = d->o;
+	arg[1] = reflect_vector(d->shorter, d->o, d->v, &(d->n));
+	c = new_ray(e, arg, d->start, deph);
 	vec_cpy(&save_o, d->o);
 	vec_cpy(&save_v, d->v);
 	c.a = 255;
@@ -126,76 +103,19 @@ t_color			safe_refract_color(t_env *e, t_ray_data *d, unsigned int deph)
 	float		refract;
 	t_vector	save_o;
 	t_vector	save_v;
+	t_vector	*arg[2];
 
 	vec_cpy(d->o, &save_o);
 	vec_cpy(d->v, &save_v);
 	refract = e->last_refract;
 	e->last_refract = d->shorter->refract_ind;
 	e->inside_obj = 0;
-	c = new_ray(e, d->o, refract_vector(d->v, d->o, refract, d->shorter),
-				d->start, deph);
+	arg[0] = d->o;
+	arg[1] = refract_vector(d->v, d->o, refract, d->shorter);
+	c = new_ray(e, arg, d->start, deph);
 	e->last_refract = 1;
 	vec_cpy(&save_o, d->o);
 	vec_cpy(&save_v, d->v);
 	c.a = 255;
 	return (c);
-}
-
-//int				mod_dazzle(t_light *light, int color, t_ray_data *d)
-//{
-//	float		dot;
-//	t_vector	v;
-//
-//	while (light)
-//	{
-//		v = normalize(sub_vector(&obj_to_light, o));
-//		light = light->next;
-//	}
-//}
-
-t_color			ray_effect(t_env *e, t_vector *vec[2], t_obj *start,
-							unsigned int deph)
-{
-	t_ray_data	d;
-	t_color		color;
-	float		dst;
-
-	if (!start)
-		return (void_tcolor());
-	d.shorter = get_shorter(start);
-	if (!d.shorter || d.shorter->dst > 1e7)
-		return (void_tcolor());
-	color = d.shorter->color;
-	translate_vector(vec[0], vec[1], d.shorter->dst);
-	dst = d.shorter->dst;
-	d.o = vec[0];
-	d.v = vec[1];
-	d.start = start;
-	(d.shorter->normale)(&(d.n), vec[0], d.shorter);
-//	color_mix_k(&color, trace_lights(e, d, e->light), 192);
-	//color = mod_dazzle(e->lights, color, &d); // passerpar copie ??
-	color = trace_lights(e, d, e->light);
-	if (--deph > 0 && d.shorter)
-	{
-//		if (d.shorter->type & (SPHERE | CONE | CYLINDER) || d.shorter->type == CUBE)
-//			color = color_attenuate(color, vec_dot_abs(vec[1], &(d.n)));
-//		if (d.shorter->type & (SPHERE | CONE | CYLINDER) || d.shorter->type == CUBE)
-//			color_add(&color, safe_reflect_color(e, &d, deph), 150);
-//		if (d.shorter->type & (SPHERE | CONE | CYLINDER) || d.shorter->type == CUBE)
-//			color_mix_k(&color, safe_refract_color(e, &d, deph), d.shorter->refract_k);
-//		if (d.shorter->type & (SPHERE | CONE | CYLINDER) || d.shorter->type == CUBE)
-//			color_mix_k(&color, safe_reflect_color(e, &d, deph), d.shorter->reflect_k);
-
-
-		if (d.shorter->transparency > 0)
-			color_mix_k(&color, safe_refract_color(e, &d, deph), d.shorter->transparency);
-		if (d.shorter->reflect_k > 0 && e->inside_obj == 0)
-			color_add(&color, safe_reflect_color(e, &d, deph),
-								d.shorter->reflect_k);
-	}
-	e->inside_obj = 0;
-	color = mod_light(color, dst, 256);
-	(void)dst;
-	(void)deph;
-	return (color);
 }

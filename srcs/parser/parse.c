@@ -16,12 +16,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-void		parse_error(void)
-{
-	ft_putstr("Not a valid file\n");
-	exit(EXIT_SUCCESS);
-}
-
 void		ft_check_valid_file(char *str)
 {
 	int		fd;

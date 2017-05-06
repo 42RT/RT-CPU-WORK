@@ -52,7 +52,7 @@ t_vector	*refract_vector(t_vector *v, t_vector *o, float ref1, t_obj *obj)
 	return (v);
 }
 
-void			translate_vector(t_vector *origin, t_vector *dest, float dst)
+void		translate_vector(t_vector *origin, t_vector *dest, float dst)
 {
 	origin->x += dst * dest->x;
 	origin->y += dst * dest->y;

@@ -44,6 +44,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_PARSER)parse_param.c \
 			$(PATH_GFX)gfx.c \
 			$(PATH_GFX)gfx_image.c \
+			$(PATH_GFX)gfx_image_display.c \
 			$(PATH_GFX)gfx_pixel.c \
 			$(PATH_GFX)gfx_utils.c \
 			$(PATH_SRC)main.c \
@@ -60,7 +61,6 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_SRC)ft_aff_utils.c \
 			$(PATH_SRC)event.c \
 			$(PATH_SRC)event_mouse.c \
-			$(PATH_SRC)expose_hook.c \
 			$(PATH_SRC)loading.c \
 			$(PATH_SRC)console.c \
 			$(PATH_SRC)console_write.c \
@@ -87,8 +87,10 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_SRC)bmp.c \
 			$(PATH_SRC)utils.c \
 			$(PATH_SRC)utils_2.c \
+			$(PATH_SRC)utils_3.c \
 			$(PATH_SRC)hdr_colors.c \
 			$(PATH_SRC)hdr_colors_convert.c \
+			$(PATH_SRC)hdr_colors_utils.c \
 			$(PATH_SRC)color_utils.c \
 			$(PATH_SRC)copy_utils.c \
 			$(PATH_SRC)get_utils.c \

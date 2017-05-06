@@ -12,7 +12,6 @@
 
 #include <gfx.h>
 
-// a refaire en alpha
 unsigned int	get_alpha_color(unsigned int origin, unsigned int color)
 {
 	unsigned int	res;
@@ -29,13 +28,6 @@ unsigned int	get_alpha_color(unsigned int origin, unsigned int color)
 	res += ((origin & 0xFF) * (255 - k)) >> 8;
 	res += ((color & 0xFF) * k) >> 8;
 	return (res);
-}
-
-void			gfx_flip_screen(t_gfx *gfx) // useless ??
-{
-	if (!gfx->expose)
-		return ;
-	//mlx_put_image_to_window(gfx->mlx, gfx->win, gfx->screen, 0, 0);
 }
 
 void			gfx_change_screen(t_gfx *gfx, unsigned int nb)

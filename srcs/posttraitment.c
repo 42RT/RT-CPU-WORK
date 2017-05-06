@@ -55,7 +55,7 @@ static t_color	pt_saturation(t_color c, float k)
 
 	if (k <= 0)
 		return (int_to_tcolor(0));
-	mean = c.r + c.g + c.b; 
+	mean = c.r + c.g + c.b;
 	mean /= 3;
 	tmp = c.r;
 	tmp = (tmp - mean) * k;
@@ -74,9 +74,7 @@ void			posttraitment(t_env *e)
 	unsigned int	x;
 	unsigned int	y;
 	t_color			c;
-//	unsigned int	start;
 
-//	start = (unsigned int)clock();
 	y = 0;
 	while (y < e->set->height)
 	{
@@ -95,8 +93,5 @@ void			posttraitment(t_env *e)
 		}
 		y++;
 	}
-//	ft_printf("\nposttraitment time: %dms\n", (((unsigned int)clock() - start) * 1000) / CLOCKS_PER_SEC);
-//	start = (unsigned int)clock();
 	gfx_display_image(e->gfx, 0, 0, e->gfx->buff[e->gfx->act]);
-//	ft_printf("display time: %dms\n", (((unsigned int)clock() - start) * 1000) / CLOCKS_PER_SEC);
 }

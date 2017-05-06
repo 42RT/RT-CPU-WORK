@@ -12,16 +12,29 @@
 
 #include <gui.h>
 
-void	event_poll(t_env *e)
+void		event_poll(t_env *e)
 {
 	while (gfx_poll(e->gfx))
 		event(e, e->gfx->event);
 }
 
-void	wait_event(t_env *e)
+void		wait_event(t_env *e)
 {
 	while (gfx_loop(e->gfx))
 		event(e, e->gfx->event);
+}
+
+static int	event_console(SDL_Event event, t_env *env, int console_mode,
+							int old)
+{
+	if (event.key.keysym.sym == SDLK_BACKQUOTE
+		|| event.key.keysym.sym == 178)
+		console_mode = !console_mode;
+	if (console_mode)
+		console_mode = rt_console(event.key.keysym.sym, env, !old);
+	if (!console_mode)
+		gfx_display_image(env->gfx, 0, 0, env->gfx->buff[env->gfx->act]);
+	return (console_mode);
 }
 
 static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
@@ -42,21 +55,14 @@ static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 			ft_render(env);
 		}
 		else if (!env->background)
-		{
-			if (event.key.keysym.sym == SDLK_BACKQUOTE || event.key.keysym.sym == 178)
-				console_mode = !console_mode;
-			if (console_mode)
-				console_mode = rt_console(event.key.keysym.sym, env, !old);
-			if (!console_mode)
-				gfx_display_image(env->gfx, 0, 0, env->gfx->buff[env->gfx->act]);
-		}
+			console_mode = event_console(event, env, console_mode, old);
 	}
 	if (gui->widget_active && (event.window.windowID == gui->winID))
 		event_txb_insert(event, gui, gui->widget_active);
 	return (0);
 }
 
-int		event(t_env *env, SDL_Event event)
+int			event(t_env *env, SDL_Event event)
 {
 	t_gui *gui;
 
