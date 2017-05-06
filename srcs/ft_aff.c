@@ -69,6 +69,12 @@ int			ft_aff(void *data)
 	return (0);
 }
 
+void		ft_aff_random_extend(int *map)
+{
+	print_percentage(-1);
+	free(map);
+}
+
 int			ft_aff_random(t_env *e, t_obj *obj, int multithread)
 {
 	int				*map;
@@ -94,7 +100,6 @@ int			ft_aff_random(t_env *e, t_obj *obj, int multithread)
 		ft_printf("Rendering finished\n");
 		return (1);
 	}
-	print_percentage(-1);
-	free(map);
+	ft_aff_random_extend(map);
 	return (0);
 }

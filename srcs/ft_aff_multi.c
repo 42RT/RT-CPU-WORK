@@ -66,6 +66,12 @@ int			ft_aff_multithread_line(t_env *e)
 	return (1);
 }
 
+void		free_env(t_env *e)
+{
+	destroy_obj_list(e->obj);
+	free(e);
+}
+
 void		ft_aff_rand(t_th_data *a, t_env *e)
 {
 	int		pos;
@@ -92,8 +98,7 @@ void		ft_aff_rand(t_th_data *a, t_env *e)
 			pthread_mutex_unlock(&(a->mutex));
 		}
 	}
-	destroy_obj_list(e->obj);
-	free(e);
+	free_env(e);
 }
 
 void		ft_aff_line(t_th_data *a, t_env *e)
