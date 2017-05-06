@@ -12,7 +12,7 @@
 
 #include <gui.h>
 
-char	*str_tolower(char *str)
+char		*str_tolower(char *str)
 {
 	unsigned int	i;
 	char			*tmp;
@@ -32,7 +32,7 @@ char	*str_tolower(char *str)
 	return (tmp);
 }
 
-void	gui_txt_to_texture(char *content, char *style, char *color)
+void		gui_txt_to_texture(char *content, char *style, char *color)
 {
 	t_gui		*gui;
 	SDL_Surface	*tmp;
@@ -50,7 +50,7 @@ void	gui_txt_to_texture(char *content, char *style, char *color)
 	SDL_FreeSurface(tmp);
 }
 
-void	gui_free_array(void **array, int dimension)
+void		gui_free_array(void **array, int dimension)
 {
 	int	i;
 
@@ -58,4 +58,16 @@ void	gui_free_array(void **array, int dimension)
 	while (i < dimension)
 		free(array[i++]);
 	free(array);
+	array = NULL;
+}
+
+SDL_Rect	gui_get_container_rect(int id)
+{
+	t_gui	*gui;
+
+	gui = get_gui();
+	if (id == -1)
+		return (PARAM->dest);
+	else
+		return (CONTAINER->dest);
 }

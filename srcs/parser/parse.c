@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:02:31 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/05 21:37:30 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/06 01:44:05 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,8 @@ void		verif_set_validity(t_env *e)
 		e->set->fov = 10;
 	if (e->set->fov > 170)
 		e->set->fov = 170;
-	// if (e->set->aa < 0)
-	// 	e->set->aa = 0;
-	// else if (e->set->aa > 16)
-	// 	e->set->aa = 16;
+	if (e->set->aa > 16)
+		e->set->aa = 16;
 }
 
 void 		verif_obj_validity(t_obj *obj)
@@ -80,6 +78,20 @@ void 		verif_obj_validity(t_obj *obj)
 		obj->pos.y = DEF_OBJ_POSY;
 	if (obj->pos.z > 99999 || obj->pos.z < -99999)
 		obj->pos.z = DEF_OBJ_POSZ;
+	if (obj->ang.x > 180 * M_PI_2 / 90 || obj->ang.x < -180 * M_PI_2 / 90)
+		obj->ang.x = DEF_OBJ_ANGX;
+	if (obj->ang.y > 180 * M_PI_2 / 90 || obj->ang.y < -180 * M_PI_2 / 90)
+		obj->ang.y = DEF_OBJ_ANGY;
+	if (obj->ang.z > 180 * M_PI_2 / 90 || obj->ang.z < -180 * M_PI_2 / 90)
+		obj->ang.z = DEF_OBJ_ANGZ;
+	if (obj->size > 9999)
+		obj->size = DEF_SIZE;
+	if (obj->transparency > 255 || obj->transparency < 0)
+		obj->transparency = MIN_REFRACT_K;
+	if (obj->reflect_k > 255 || obj->reflect_k < 0)
+		obj->reflect_k = MIN_REFLECT_K;
+	if (obj->refract_ind > 4 || obj->refract_ind < 1)
+		obj->refract_ind = MIN_REFRACT_IND;
 }
 
 void		parse_distrib(t_env *e, t_item *item)

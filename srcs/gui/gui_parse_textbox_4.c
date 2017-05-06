@@ -12,7 +12,7 @@
 
 #include <gui.h>
 
-char	*gui_get_textbox_SIZ(void)
+char	*gui_get_textbox_siz(void)
 {
 	t_env	*e;
 	t_gui	*gui;
@@ -31,8 +31,7 @@ char	*gui_get_textbox_SIZ(void)
 	return (ft_itoa(tmp->size));
 }
 
-
-char	*gui_get_textbox_RFR(void)
+char	*gui_get_textbox_rfr(void)
 {
 	t_env	*e;
 	t_gui	*gui;
@@ -51,7 +50,7 @@ char	*gui_get_textbox_RFR(void)
 	return (ft_ftoa(tmp->refract_ind, 3));
 }
 
-char	*gui_get_textbox_RFL(void)
+char	*gui_get_textbox_rfl(void)
 {
 	t_env	*e;
 	t_gui	*gui;

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui_parse_checkbox.c                               :+:      :+:    :+:   */
+/*   gui_parse_freetxt.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,17 +12,7 @@
 
 #include <gui.h>
 
-void		gui_parse_checkbox_state(t_checkbox *checkbox, char **tmp)
-{
-	if (!CMP(tmp[1], " false"))
-		checkbox->selected = 0;
-	else if (!CMP(tmp[1], " true"))
-		checkbox->selected = 1;
-	else
-		gui_error(17);
-}
-
-void		gui_parse_checkbox_suite(t_checkbox *checkbox, char **tmp)
+void		gui_parse_freetxt_suite(t_freetxt *freetxt, char **tmp)
 {
 	char	**tmp2;
 
@@ -30,48 +20,40 @@ void		gui_parse_checkbox_suite(t_checkbox *checkbox, char **tmp)
 	if (!CMP(tmp[0], "\t\ttag"))
 	{
 		tmp2 = ft_strsplit(tmp[1], '"');
-		checkbox->tag = ft_strdup(tmp2[1]);
+		freetxt->tag = ft_strdup(tmp2[1]);
 	}
 	else if (!CMP(tmp[0], "\t\ttxt"))
 	{
 		tmp2 = ft_strsplit(tmp[1], '"');
-		checkbox->txt->content = ft_strdup(tmp2[1]);
-	}
-	else if (!CMP(tmp[0], "\t\ttxt_anchor"))
-	{
-		tmp2 = ft_strsplit(tmp[1], '"');
-		checkbox->txt->anchor = ft_strdup(tmp2[1]);
+		freetxt->txt->content = ft_strdup(tmp2[1]);
 	}
 	else
+	{
+		printf("%s\n", tmp[0]);
 		gui_error(16);
+	}
 	gui_free_array((void **)tmp2, 2);
 }
 
-t_checkbox	*gui_parse_checkbox(int fd, int nb)
+t_freetxt	*gui_parse_freetxt(int fd, int nb)
 {
-	t_checkbox	*checkbox;
+	t_freetxt	*freetxt;
 	char		**tmp;
 	char		*line;
-	int			i;
 
-	checkbox = gui_checkbox_init();
-	i = 0;
-	while (i < nb)
+	freetxt = gui_freetxt_init();
+	while (nb > 0)
 	{
 		get_next_line(fd, &line);
 		tmp = ft_strsplit(line, ':');
 		if (!CMP(tmp[0], "\t\tx"))
-			checkbox->dest.x = ft_atoi(tmp[1]);
+			freetxt->dest.x = ft_atoi(tmp[1]);
 		else if (!CMP(tmp[0], "\t\ty"))
-			checkbox->dest.y = ft_atoi(tmp[1]);
-		else if (!CMP(tmp[0], "\t\ttxt_align"))
-			checkbox->txt->align = ft_atoi(tmp[1]);
-		else if (!CMP(tmp[0], "\t\tselected"))
-			gui_parse_checkbox_state(checkbox, tmp);
+			freetxt->dest.y = ft_atoi(tmp[1]);
 		else
-			gui_parse_checkbox_suite(checkbox, tmp);
+			gui_parse_freetxt_suite(freetxt, tmp);
 		gui_free_array((void **)tmp, 2);
-		i++;
+		nb--;
 	}
-	return (checkbox);
+	return (freetxt);
 }

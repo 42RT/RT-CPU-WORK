@@ -23,8 +23,6 @@ int	event_is_scroll_suite(SDL_Event event, t_gui *gui, int id, int i)
 			i = 0;
 			while (i < BLOCK[id]->scroll_qt)
 			{
-				if (SCROLL[i] == gui->widget_active)
-					return (event_scroll_value_select(gui, event, SCROLL[i]));
 				if ((event.button.x >= SCROLL_B->dest.x) &&
 				(event.button.x <= SCROLL_B->dest.x + SCROLL_B->dest.w) &&
 				(event.button.y >= SCROLL_B->dest.y) &&
@@ -33,6 +31,8 @@ int	event_is_scroll_suite(SDL_Event event, t_gui *gui, int id, int i)
 					gui_scroll_toggle(gui, SCROLL[i]);
 					return (1);
 				}
+				else if (SCROLL[i] == gui->widget_active)
+					return (event_scroll_value_select(gui, event, SCROLL[i]));
 				i++;
 			}
 			id++;
@@ -82,6 +82,7 @@ int	event_scroll_value_found(t_gui *gui, SDL_Event ev, t_scroll *scl)
 	tmp = ft_strjoin("scene/", scl->value[scl->active_value]);
 	scene = ft_strjoin(tmp, ".rts");
 	free(tmp);
+	tmp = NULL;
 	if (!ft_strcmp(scl->tag, "SCN") && (ft_strcmp(scene, e->scene)))
 		gui_rt_reload(e, gui, scene);
 	else
@@ -91,9 +92,10 @@ int	event_scroll_value_found(t_gui *gui, SDL_Event ev, t_scroll *scl)
 			gui_reparse_textbox_value(gui, "ALL");
 			gui_reparse_scroll_value(gui, "ALL", 0, 1);
 		}
-		gui_scroll_toggle(gui, scl);
 	}
+	gui_scroll_toggle(gui, scl);
 	free(scene);
+	scene = NULL;
 	return (1);
 }
 

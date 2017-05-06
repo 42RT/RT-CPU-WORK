@@ -66,15 +66,14 @@ void		gui_scroll_set_halign(t_scroll *scroll)
 		scroll->dest.x = scroll->dest.x;
 }
 
-void		gui_scroll_set(t_scroll *scroll)
+void		gui_scroll_set(t_scroll *scroll, SDL_Rect dest)
 {
 	t_gui	*gui;
 
 	gui = get_gui();
 	scroll->dest.w = DEF->scl_w;
 	scroll->dest.h = DEF->scl_h;
-	if (scroll->p != -1)
-		scroll->dest.y += BLOCK[scroll->p]->dest.y;
+	scroll->dest.y += dest.y;
 	gui_scroll_set_halign(scroll);
 	scroll->button->dest.x = scroll->dest.x + scroll->dest.w;
 	scroll->button->dest.y = scroll->dest.y;

@@ -15,13 +15,13 @@
 void		gui_get_textbox_value_suite(t_textbox *textbox, t_env *e)
 {
 	if (!ft_strcmp(textbox->tag, "__A"))
-		textbox->value = gui_get_textbox_A();
+		textbox->value = gui_get_textbox_a();
 	else if (!ft_strcmp(textbox->tag, "SIZ"))
-		textbox->value = gui_get_textbox_SIZ();
+		textbox->value = gui_get_textbox_siz();
 	else if (!ft_strcmp(textbox->tag, "RFR"))
-		textbox->value = gui_get_textbox_RFR();
+		textbox->value = gui_get_textbox_rfr();
 	else if (!ft_strcmp(textbox->tag, "RFL"))
-		textbox->value = gui_get_textbox_RFL();
+		textbox->value = gui_get_textbox_rfl();
 	else if (!ft_strcmp(textbox->tag, "CPX"))
 		textbox->value = ft_itoa(e->set->cam->pos.x);
 	else if (!ft_strcmp(textbox->tag, "CPY"))
@@ -45,23 +45,23 @@ void		gui_get_textbox_value(t_textbox *textbox)
 	e = get_env();
 	gui_textbox_get_len(textbox);
 	if (!ft_strcmp(textbox->tag, "__X"))
-		textbox->value = gui_get_textbox_X();
+		textbox->value = gui_get_textbox_x();
 	else if (!ft_strcmp(textbox->tag, "__Y"))
-		textbox->value = gui_get_textbox_Y();
+		textbox->value = gui_get_textbox_y();
 	else if (!ft_strcmp(textbox->tag, "__Z"))
-		textbox->value = gui_get_textbox_Z();
+		textbox->value = gui_get_textbox_z();
 	else if (!ft_strcmp(textbox->tag, "_AX"))
-		textbox->value = gui_get_textbox_AX();
+		textbox->value = gui_get_textbox_ax();
 	else if (!ft_strcmp(textbox->tag, "_AY"))
-		textbox->value = gui_get_textbox_AY();
+		textbox->value = gui_get_textbox_ay();
 	else if (!ft_strcmp(textbox->tag, "_AZ"))
-		textbox->value = gui_get_textbox_AZ();
+		textbox->value = gui_get_textbox_az();
 	else if (!ft_strcmp(textbox->tag, "__R"))
-		textbox->value = gui_get_textbox_R();
+		textbox->value = gui_get_textbox_r();
 	else if (!ft_strcmp(textbox->tag, "__G"))
-		textbox->value = gui_get_textbox_G();
+		textbox->value = gui_get_textbox_g();
 	else if (!ft_strcmp(textbox->tag, "__B"))
-		textbox->value = gui_get_textbox_B();
+		textbox->value = gui_get_textbox_b();
 	else
 		gui_get_textbox_value_suite(textbox, e);
 }

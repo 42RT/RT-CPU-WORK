@@ -31,6 +31,8 @@ void	gui_expand_error(int n)
 		ft_printf("PARSE : \033[31mCannot Create file.\033[0m : %d\n", errno);
 	else if (n == 16)
 		ft_printf("PARSE : \033[31mWidget property doesnt match\033[0m\n");
+	else if (n == 17)
+		ft_printf("PARSE : \033[31mForbidden widget value\033[0m\n");
 	else
 		gui_expand_error2(n);
 }

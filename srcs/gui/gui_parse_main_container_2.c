@@ -87,7 +87,7 @@ t_button	**gui_parse_container_button(int fd, int qt, int id)
 		button[i] = gui_parse_button(fd, 6);
 		button[i]->p = id;
 		button[i]->id = i;
-		gui_button_set(button[i++]);
+		gui_button_set(button[i++], gui_get_container_rect(id));
 		if (i < qt)
 		{
 			get_next_line(fd, &line);
@@ -116,7 +116,7 @@ t_scroll	**gui_parse_container_scroll(int fd, int qt, int id)
 		scroll[i]->p = id;
 		scroll[i]->id = i;
 		scroll[i]->value = gui_get_scroll_value(scroll[i]);
-		gui_scroll_set(scroll[i++]);
+		gui_scroll_set(scroll[i++], gui_get_container_rect(id));
 		if (i < qt)
 		{
 			get_next_line(fd, &line);
@@ -125,4 +125,33 @@ t_scroll	**gui_parse_container_scroll(int fd, int qt, int id)
 		}
 	}
 	return (scroll);
+}
+
+t_gauge		**gui_parse_container_gauge(int fd, int qt, int id)
+{
+	t_gauge	**gauge;
+	char	*line;
+	int		i;
+
+	get_next_line(fd, &line);
+	if (CMP(line, "\tgauge:"))
+		gui_error(12);
+	if (!(gauge = (t_gauge **)malloc(sizeof(t_gauge *) * qt)))
+		error(1);
+	i = 0;
+	while (i < qt)
+	{
+		gauge[i] = gui_parse_gauge(fd, 8);
+		gauge[i]->p = id;
+		gauge[i]->id = i;
+		gui_gauge_set(gauge[i]);
+		gui_gauge_get_value(gauge[i++]);
+		if (i < qt)
+		{
+			get_next_line(fd, &line);
+			if (CMP(line, "\t\t,"))
+				gui_error(11);
+		}
+	}
+	return (gauge);
 }

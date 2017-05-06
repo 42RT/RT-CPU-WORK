@@ -51,7 +51,6 @@ void	gui_get_scl_texture_nml_3(t_scroll *scroll, char **value, t_obj *obj)
 	}
 }
 
-
 char	**gui_get_scl_texture_nml_2(t_scroll *scroll, t_env *e, t_gui *gui)
 {
 	char	**value;

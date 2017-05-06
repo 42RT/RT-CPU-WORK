@@ -41,24 +41,24 @@ void		gui_button_set_halign(t_button *button)
 		button->dest.x = button->dest.x;
 }
 
-void		gui_button_set_valign(t_button *button)
+void		gui_button_set_valign(t_button *button, SDL_Rect dest)
 {
 	t_gui	*gui;
 
 	gui = get_gui();
 	if (button->dest.y == GUI_ALIGN_LEFT)
-		button->dest.y = BLOCK[button->p]->dest.y;
+		button->dest.y = dest.y;
 	else if (button->dest.y == GUI_ALIGN_MID)
-		button->dest.y = BLOCK[button->p]->dest.y
+		button->dest.y = dest.y
 		+ (BLOCK[button->p]->dest.h / 7);
 	else if (button->dest.y == GUI_ALIGN_RIGHT)
-		button->dest.y = BLOCK[button->p]->dest.y + BLOCK[button->p]->dest.h
+		button->dest.y = dest.y + dest.h
 		- DEF->btn_h;
 	else
 		button->dest.y = button->dest.y;
 }
 
-void		gui_button_set(t_button *button)
+void		gui_button_set(t_button *button, SDL_Rect dest)
 {
 	t_gui	*gui;
 
@@ -66,5 +66,5 @@ void		gui_button_set(t_button *button)
 	button->dest.w = DEF->btn_w;
 	button->dest.h = DEF->btn_h;
 	gui_button_set_halign(button);
-	gui_button_set_valign(button);
+	gui_button_set_valign(button, dest);
 }
