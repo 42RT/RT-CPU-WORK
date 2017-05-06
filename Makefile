@@ -48,6 +48,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GFX)gfx_utils.c \
 			$(PATH_SRC)main.c \
 			$(PATH_SRC)ft_err.c \
+			$(PATH_SRC)blur.c \
 			$(PATH_SRC)anti_aliasing.c \
 			$(PATH_SRC)anti_aliasing_2.c \
 			$(PATH_SRC)smooth.c \
@@ -58,6 +59,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_SRC)ft_aff_multi.c \
 			$(PATH_SRC)ft_aff_utils.c \
 			$(PATH_SRC)event.c \
+			$(PATH_SRC)event_mouse.c \
 			$(PATH_SRC)expose_hook.c \
 			$(PATH_SRC)loading.c \
 			$(PATH_SRC)console.c \

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   event.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/06 02:44:21 by jrouilly          #+#    #+#             */
+/*   Updated: 2017/05/06 02:44:25 by jrouilly         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <gui.h>
 
 void	event_poll(t_env *e)
@@ -10,29 +22,6 @@ void	wait_event(t_env *e)
 {
 	while (gfx_loop(e->gfx))
 		event(e, e->gfx->event);
-}
-
-void	event_mouse_wheel(SDL_Event event, t_gui *gui)
-{
-	if (!event_scroll_mouse_wheel(event, gui))
-		return;
-}
-
-void	event_mouse_click(SDL_Event event, t_gui *gui)
-{
-	t_env	*e;
-
-	e = get_env();
-	if (event.button.button == SDL_BUTTON_LEFT)
-	{
-		if (!event_is_gauge(event, gui, e))
-			if (!event_is_scroll(event, gui))
-				if (!event_is_checkbox(event, gui))
-					if (!event_is_button(event, gui, 0, 0))
-						if (!event_is_textbox(event, gui))
-							if (gui->widget_active)
-								event_widget_deselect(gui);
-	}
 }
 
 static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
@@ -65,17 +54,6 @@ static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 	if (gui->widget_active && (event.window.windowID == gui->winID))
 		event_txb_insert(event, gui, gui->widget_active);
 	return (0);
-}
-
-void	event_mouse_motion(SDL_Event event, t_gui *gui)
-{
-	t_scroll	*tmp;
-
-	if (WIDGET && *(int *)WIDGET == SCL)
-	{
-		tmp = WIDGET;
-		event_scroll_mouse_over(event, gui, tmp);
-	}
 }
 
 int		event(t_env *env, SDL_Event event)

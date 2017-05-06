@@ -497,6 +497,9 @@ void		gui_param_text_build(t_gui *gui);
 void		gui_error(int n);
 
 /* EVENT */
+void		event_mouse_wheel(SDL_Event event, t_gui *gui);
+void		event_mouse_click(SDL_Event event, t_gui *gui);
+void		event_mouse_motion(SDL_Event event, t_gui *gui);
 void		gui_pending_action_prevent(t_gui *gui);
 int			event_scroll_mouse_wheel(SDL_Event event, t_gui *gui);
 int			event_is_scroll(SDL_Event event, t_gui *gui);

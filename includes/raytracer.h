@@ -13,10 +13,10 @@
 #ifndef RAYTRACER_H
 # define RAYTRACER_H
 
+# include <pthread.h>
 # include <libft.h>
 # include <gfx.h>
 # include <rtdefs.h>
-# include <pthread.h>
 
 # ifdef __APPLE__
 #  define DEF_MULTITHREAD	1
