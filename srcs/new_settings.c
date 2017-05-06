@@ -17,8 +17,10 @@
 
 static void	set_def_cam(t_settings *res)
 {
-	res->cam = (t_cam *)malloc(sizeof(t_cam));
-	res->cam2 = (t_cam *)malloc(sizeof(t_cam));
+	if (!(res->cam = (t_cam *)malloc(sizeof(t_cam))))
+		error(1);
+	if (!(res->cam2 = (t_cam *)malloc(sizeof(t_cam))))
+		error(1);
 	res->cam->pos.x = DEF_CAM_POSX;
 	res->cam->pos.y = DEF_CAM_POSY;
 	res->cam->pos.z = DEF_CAM_POSZ;
@@ -41,9 +43,8 @@ t_settings	*new_settings(void)
 {
 	t_settings	*res;
 
-	res = (t_settings *)malloc(sizeof(t_settings));
-	if (!res)
-		return (0);
+	if (!(res = (t_settings *)malloc(sizeof(t_settings))))
+		error(1);
 	res->width = DEF_WIDTH;
 	res->height = DEF_HEIGHT;
 	res->aa = DEF_AA;

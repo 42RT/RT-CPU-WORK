@@ -28,9 +28,8 @@ t_light		*new_light(void)
 {
 	t_light	*res;
 
-	res = (t_light *)malloc(sizeof(t_light));
-	if (!res)
-		return (0);
+	if (!(res = (t_light *)malloc(sizeof(t_light))))
+		error(1);
 	set_def_light_pos(res);
 	res->color = int_to_tcolor(DEF_LIGHT_COLOR);
 	res->mod = DEF_LIGHT_MOD;

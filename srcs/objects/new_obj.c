@@ -45,9 +45,8 @@ t_obj		*new_obj(void)
 {
 	t_obj	*res;
 
-	res = (t_obj *)malloc(sizeof(t_obj));
-	if (!res)
-		return (0);
+	if (!(res = (t_obj *)malloc(sizeof(t_obj))))
+		error(1);
 	res->negative = 0;
 	set_def_obj_pos(res);
 	res->color = int_to_tcolor(DEF_COLOR);

@@ -22,6 +22,8 @@ int				**new_base(void)
 	res[0] = (int *)malloc(3 * sizeof(int));
 	res[1] = (int *)malloc(3 * sizeof(int));
 	res[2] = (int *)malloc(3 * sizeof(int));
+	if (!res || !res[0] || !res[1] || !res[2])
+		error(1);
 	res[0][0] = 1;
 	res[0][1] = 0;
 	res[0][2] = 0;

@@ -71,7 +71,8 @@ int			*init_map(int nb)
 	int		*res;
 	int		i;
 
-	res = (int *)malloc(nb * sizeof(int));
+	if (!(res = (int *)malloc(nb * sizeof(int))))
+		error(1);
 	i = -1;
 	while (++i < nb)
 		res[i] = 1;

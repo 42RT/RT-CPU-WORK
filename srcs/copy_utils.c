@@ -35,7 +35,8 @@ t_obj		*copy_obj_elem(t_obj *obj)
 {
 	t_obj	*res;
 
-	res = (t_obj *)malloc(sizeof(t_obj));
+	if (!(res = (t_obj *)malloc(sizeof(t_obj))))
+		error(1);
 	res->type = obj->type;
 	res->func = obj->func;
 	res->normale = obj->normale;
@@ -102,7 +103,8 @@ t_env		*copy_env(t_env *e)
 {
 	t_env *res;
 
-	res = (t_env *)malloc(sizeof(t_env));
+	if (!(res = (t_env *)malloc(sizeof(t_env))))
+		error(1);
 	res->gfx = e->gfx;
 	res->set = e->set;
 	res->obj = copy_obj(e->obj);
