@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:02:31 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/06 01:44:05 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/06 11:59:52 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,9 @@ void		verif_set_validity(t_env *e)
 		e->set->fov = 10;
 	if (e->set->fov > 170)
 		e->set->fov = 170;
-	if (e->set->aa > 16)
-		e->set->aa = 16;
 }
 
-void 		verif_obj_validity(t_obj *obj)
+void		verif_obj_validity(t_obj *obj)
 {
 	if (obj->pos.x > 99999 || obj->pos.x < -99999)
 		obj->pos.x = DEF_OBJ_POSX;
