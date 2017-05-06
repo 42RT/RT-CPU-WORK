@@ -6,7 +6,7 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 16:08:30 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/05/06 13:15:27 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/06 14:26:09 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ t_obj	*add_compose(t_obj *obj)
 	return (obj);
 }
 
+void	error_compose(void)
+{
+	ft_printf("No A Good Object in Compose\n");
+	exit(EXIT_SUCCESS);
+}
+
 int		parse_compose(t_env *e, t_item *item, t_obj *obj, int i)
 {
 	int		j;
@@ -85,10 +91,7 @@ int		parse_compose(t_env *e, t_item *item, t_obj *obj, int i)
 	while (++i < item->setnb)
 		i = parse_compare(e, item, obj, i);
 	if ((obj->type = obj_gettype(item->set[0])) == NONE)
-	{
-		ft_printf("No A Good Object in Compose\n");
-		exit(EXIT_SUCCESS);
-	}
+		error_compose();
 	if (obj->type == 128)
 		obj->cap2 = 1000;
 	if (obj->type == GLASS)
@@ -100,5 +103,6 @@ int		parse_compose(t_env *e, t_item *item, t_obj *obj, int i)
 		load_texture(obj);
 	if (obj->normalmap)
 		load_normalmap(obj);
+	verif_obj_validity(obj);
 	return (j);
 }
