@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/06 13:57:38 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/06 17:42:16 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int		init(t_env *e, char *scene)
 {
 	e->set = new_settings();
 	e->obj = 0;
+	e->yon = 0;
 	e->neg_obj = 0;
 	parse(e, scene);
 	parse(e, "set.rtc");
