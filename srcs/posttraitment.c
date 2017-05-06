@@ -85,7 +85,7 @@ void			posttraitment(t_env *e)
 			if (e->set->contrast != 0.5)
 				c = pt_contrast(c, log(e->set->contrast + 0.5) / 2 + 1);
 			if (e->set->saturation != 0.5)
-				c = pt_saturation(c, exp(e->set->contrast * 2 - 1));
+				c = pt_saturation(c, exp(e->set->saturation * 2 - 1));
 			if (e->set->luminosity != 0)
 				c = pt_luminosity(c, exp(e->set->luminosity));
 			gfx_pixel_put_to_image(e->gfx->buff[e->gfx->act], x, y, c);
