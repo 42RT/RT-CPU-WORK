@@ -79,6 +79,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_OBJECTS)glass.c \
 			$(PATH_OBJECTS)obj_utils.c \
 			$(PATH_OBJECTS)swap_cap.c \
+			$(PATH_OBJECTS)free_obj.c \
 			$(PATH_SRC)new_settings.c \
 			$(PATH_SRC)aff_light.c \
 			$(PATH_SRC)aff_obj.c \

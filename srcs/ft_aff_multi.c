@@ -36,6 +36,7 @@ int			ft_aff_multithread(t_env *e)
 	}
 	e->remaining = 0;
 	ft_printf("\rRendering finished !\n");
+	free(data.map);
 	return (1);
 }
 
@@ -61,6 +62,7 @@ int			ft_aff_multithread_line(t_env *e)
 	}
 	e->remaining = 0;
 	ft_printf("\rRendering finished !\n");
+	free(data.map);
 	return (1);
 }
 
@@ -90,6 +92,7 @@ void		ft_aff_rand(t_th_data *a, t_env *e)
 			pthread_mutex_unlock(&(a->mutex));
 		}
 	}
+	destroy_obj_list(e->obj);
 	free(e);
 }
 
@@ -111,5 +114,6 @@ void		ft_aff_line(t_th_data *a, t_env *e)
 			fill_pixel(e, e->obj);
 		}
 	}
+	destroy_obj_list(e->obj);
 	free(e);
 }

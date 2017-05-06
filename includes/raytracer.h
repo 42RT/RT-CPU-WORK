@@ -265,6 +265,7 @@ void				posttraitment(t_env *e);
 void				smooth_quickrender(t_env *e);
 void				print_time(unsigned int start);
 void				print_percentage(int percent);
+void				destroy_obj_list(t_obj *obj);
 
 /*
 ** Init

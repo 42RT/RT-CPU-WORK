@@ -95,5 +95,6 @@ int			ft_aff_random(t_env *e, t_obj *obj, int multithread)
 		return (1);
 	}
 	print_percentage(-1);
+	free(map);
 	return (0);
 }
