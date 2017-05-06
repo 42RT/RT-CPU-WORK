@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 06:39:09 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/05 21:30:17 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/05 22:56:23 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@
 # define DEF_COLOR2			0x00FF00
 # define DEF_COLOR3			0x0000FF
 # define DEF_COLOR_REFR		0xFFFFFF
-# define DEF_SIZE			1.0
+# define DEF_SIZE			100.0
 # define DEF_MOD			1.0
 # define MIN_REFLECT_K		0.0
 # define MAX_REFLECT_K		255.0
