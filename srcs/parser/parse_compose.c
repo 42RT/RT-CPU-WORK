@@ -6,13 +6,20 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 16:08:30 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/05/05 16:37:44 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/06 13:15:27 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <rtdefs.h>
 #include <parser.h>
+
+int		item_compo(t_item *item, int i, int j)
+{
+	item->next->set[j] = item->set[i];
+	item->next->setnb++;
+	return (i);
+}
 
 int		parse_item_compo(t_item *item, int i)
 {
@@ -27,23 +34,15 @@ int		parse_item_compo(t_item *item, int i)
 	{
 		while (++i < item->setnb)
 		{
-			if (k == 0)
-			{
-				if (ft_strcchr(item->set[i], '{', '\n') != NULL)
-					k++;
-			}
+			if (ft_strcchr(item->set[i], '{', '\n') != NULL && k == 0)
+				k++;
 			if (ft_strcchr(item->set[i], ',', '\n') == NULL &&
 				ft_strcchr(item->set[i], '{', '\n') == NULL && k == 0)
-			{
-				item->next->set[j] = item->set[i];
-				item->next->setnb++;
-				return (i);
-			}
+				return (item_compo(item, i, j));
 			else if (ft_strcchr(item->set[i], ',', '\n') == NULL &&
 					ft_strcchr(item->set[i], '{', '\n') == NULL && k > 0)
 				k--;
-			item->next->set[j++] = item->set[i];
-			item->next->setnb++;
+			i = item_compo(item, i, j++);
 		}
 	}
 	return (i);

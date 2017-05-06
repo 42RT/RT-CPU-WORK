@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/05 13:31:49 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/06 13:27:17 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ char		*ft_newstrcat_free(char *dest, char *src)
 	return (res);
 }
 
+char		*pass_s(char *s, char c)
+{
+	s += ft_strlen_trim2(s);
+	s += (*s && *s == c);
+	while (*s && (*s == ' ' || *s == '\n' || *s == '\r' || *s == '\t'))
+		++s;
+	return (s);
+}
+
 int			add_next_set(t_item *item, char **file)
 {
 	char	*buff[2];
@@ -42,24 +51,16 @@ int			add_next_set(t_item *item, char **file)
 	if (!s)
 		return (0);
 	buff[0] = ft_strndup(s, ft_strlen_trim2(s));
-	s += ft_strlen_trim2(s);
-	s += (*s && *s == ':');
-	while (*s && (*s == ' ' || *s == '\n' || *s == '\r' || *s == '\t'))
-		++s;
+	s = pass_s(s, ':');
 	if (ft_strncmp(buff[0], "},", 2))
 	{
 		if (!s)
 			return (0);
 		buff[1] = ft_strndup(s, ft_strlen_trim2(s));
-		s += ft_strlen_trim2(s);
-		s += (*s && *s == ',');
-		while (*s && (*s == ' ' || *s == '\n' || *s == '\r' || *s == '\t'))
-			++s;
+		s = pass_s(s, ',');
 		item->set[item->setnb++] = ft_newstrcat_free(buff[0], buff[1]);
-		free(buff[0]);
 	}
-	else
-		free(buff[0]);
+	free(buff[0]);
 	*file = s;
 	return (1);
 }
