@@ -14,5 +14,9 @@
 
 void	ft_putnbr(int n)
 {
-	ft_putstr(ft_itoa(n));
+	char	*string;
+
+	string = ft_itoa(n);
+	ft_putstr(string);
+	free(string);
 }
