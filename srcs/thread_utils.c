@@ -19,8 +19,16 @@ static int	thread_aff(void *arg)
 	t_env		*e;
 
 	a = (t_th_data *)arg;
+	while (pthread_mutex_lock(&(a->mutex)) != 0)
+		;
+	++a->th_nb;
+	pthread_mutex_unlock(&(a->mutex));
 	e = copy_env(a->e);
 	ft_aff_rand(a, e);
+	while (pthread_mutex_lock(&(a->mutex)) != 0)
+		;
+	--a->th_nb;
+	pthread_mutex_unlock(&(a->mutex));
 	return (0);
 }
 
@@ -30,8 +38,16 @@ static int	thread_aff_line(void *arg)
 	t_env		*e;
 
 	a = (t_th_data *)arg;
+	while (pthread_mutex_lock(&(a->mutex)) != 0)
+		;
+	++a->th_nb;
+	pthread_mutex_unlock(&(a->mutex));
 	e = copy_env(a->e);
 	ft_aff_line(a, e);
+	while (pthread_mutex_lock(&(a->mutex)) != 0)
+		;
+	--a->th_nb;
+	pthread_mutex_unlock(&(a->mutex));
 	return (0);
 }
 

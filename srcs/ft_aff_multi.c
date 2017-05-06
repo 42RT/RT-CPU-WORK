@@ -17,6 +17,7 @@ int			ft_aff_multithread(t_env *e)
 	t_th_data	data;
 
 	data.mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+	data.th_nb = 0;
 	data.res = e->set->width * e->set->height;
 	data.nb = data.res;
 	e->render_progression = 0;
@@ -27,8 +28,9 @@ int			ft_aff_multithread(t_env *e)
 	{
 		if (*(e->worker_stop))
 		{
+			while (data.th_nb > 0)
+				;
 			print_percentage(-1);
-			usleep(128000);
 			return (0);
 		}
 		e->render_progression = 100.0 - ((data.nb * 100) / data.res);
@@ -45,6 +47,7 @@ int			ft_aff_multithread_line(t_env *e)
 	t_th_data	data;
 
 	data.mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+	data.th_nb = 0;
 	data.map = init_map(e->set->width * e->set->height);
 	data.nb = e->set->height;
 	data.e = e;
@@ -53,7 +56,8 @@ int			ft_aff_multithread_line(t_env *e)
 	{
 		if (*(e->worker_stop))
 		{
-			usleep(128000);
+			while (data.th_nb > 0)
+				;
 			print_percentage(-1);
 			return (0);
 		}
@@ -94,6 +98,12 @@ void		ft_aff_rand(t_th_data *a, t_env *e)
 			fill_pixel(e, e->obj);
 			while (pthread_mutex_lock(&(a->mutex)) != 0)
 				;
+			if (!a->nb)
+			{
+				pthread_mutex_unlock(&(a->mutex));
+				free_env(e);
+				return ;
+			}
 			--a->nb;
 			pthread_mutex_unlock(&(a->mutex));
 		}
@@ -109,6 +119,13 @@ void		ft_aff_line(t_th_data *a, t_env *e)
 	{
 		while (pthread_mutex_lock(&(a->mutex)) != 0)
 			;
+		if (!a->nb)
+		{
+			pthread_mutex_unlock(&(a->mutex));
+			destroy_obj_list(e->obj);
+			free(e);
+			return ;
+		}
 		y = a->nb;
 		--a->nb;
 		pthread_mutex_unlock(&(a->mutex));

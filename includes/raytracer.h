@@ -207,6 +207,7 @@ typedef struct		s_th_data
 	int				res;
 	int				nb;
 	pthread_mutex_t	mutex;
+	int				th_nb;
 }					t_th_data;
 
 typedef struct		s_ray_data

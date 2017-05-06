@@ -27,7 +27,6 @@ void		print_percentage(int percent)
 		ft_putchar('%');
 		old = percent;
 	}
-	old %= 100;
 }
 
 void		print_time(unsigned int start)
