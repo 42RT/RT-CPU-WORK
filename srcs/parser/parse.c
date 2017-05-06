@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:02:31 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/06 11:59:52 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/06 17:39:28 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void		parse(t_env *e, char *filename)
 	first_chek(e, filename);
 	file = ft_getfile(filename);
 	e->file = file;
+	e->yon = 0;
 	if (!file)
 		parse_error();
 	while (file && *file)
