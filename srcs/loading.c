@@ -25,7 +25,7 @@ void	loading_bar(t_env *e, float percent, t_color color,
 	area.y = e->set->height / 2 - 7;
 	area.w = 204;
 	area.h = 14;
-	SDL_SetRenderDrawColor(e->gfx->renderer, bgcolor.r,	bgcolor.g, bgcolor.b,
+	SDL_SetRenderDrawColor(e->gfx->renderer, bgcolor.r, bgcolor.g, bgcolor.b,
 							255);
 	SDL_RenderFillRect(e->gfx->renderer, &area);
 	SDL_SetRenderDrawColor(e->gfx->renderer, color.r, color.g, color.b, 255);

@@ -50,6 +50,7 @@ static void	write_header(int fd, int w, int h)
 /*
 ** care about endian
 */
+
 static void	write_pixels(int fd, int w, int h, t_img *img)
 {
 	int				y;

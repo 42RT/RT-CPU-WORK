@@ -38,6 +38,10 @@ void		render_loop(t_env *e)
 	usleep(16000);
 }
 
+/*
+** usleep(64000);//////////////// semaphore
+*/
+
 void		ft_render(t_env *e)
 {
 	int				thread_ret;
@@ -55,7 +59,7 @@ void		ft_render(t_env *e)
 		render_loop(e);
 	if (!*(e->worker_stop))
 		SDL_WaitThread(e->worker, &thread_ret);
-	usleep(64000);//////////////// semaphore
+	usleep(64000);
 	posttraitment(e);
 	e->worker = 0;
 	*(e->worker_stop) = 1;
