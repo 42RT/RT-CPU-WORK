@@ -61,6 +61,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_SRC)expose_hook.c \
 			$(PATH_SRC)loading.c \
 			$(PATH_SRC)console.c \
+			$(PATH_SRC)console_write.c \
 			$(PATH_OBJECTS)cone.c \
 			$(PATH_OBJECTS)cylinder.c \
 			$(PATH_OBJECTS)dfloor.c \

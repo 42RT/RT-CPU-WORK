@@ -27,7 +27,8 @@ int			ft_aff_std(t_env *e)
 			if (*(e->worker_stop))
 			{
 				usleep(100000);
-					return (0);
+				print_percentage(-1);
+				return (0);
 			}
 			fill_pixel(e, e->obj);
 			++e->x;
@@ -93,5 +94,6 @@ int			ft_aff_random(t_env *e, t_obj *obj, int multithread)
 		ft_printf("Rendering finished\n");
 		return (1);
 	}
+	print_percentage(-1);
 	return (0);
 }

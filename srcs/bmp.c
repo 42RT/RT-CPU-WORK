@@ -52,8 +52,8 @@ static void	write_header(int fd, int w, int h)
 */
 static void	write_pixels(int fd, int w, int h, t_img *img)
 {
-	int 			y;
-	int 			x;
+	int				y;
+	int				x;
 	unsigned int	*map;
 
 	map = (unsigned int *)malloc(w * h * sizeof(unsigned int));

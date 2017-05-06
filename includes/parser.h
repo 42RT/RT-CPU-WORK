@@ -26,7 +26,7 @@ typedef struct		s_item
 	struct s_item	*next;
 }					t_item;
 
-void 				verif_obj_validity(t_obj *obj);
+void				verif_obj_validity(t_obj *obj);
 int					parse_compose(t_env *e, t_item *item, t_obj *obj, int i);
 char				*ft_getfile(char *name);
 void				parse_light(t_env *e, t_item *item);

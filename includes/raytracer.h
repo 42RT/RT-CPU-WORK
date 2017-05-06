@@ -413,6 +413,13 @@ void				*get_func(unsigned int i, int negative);
 */
 int					rt_console(int keycode, t_env *e, int free_buff);
 int					save_image(t_img *img, char *name);
+TTF_Font			*font_init(char *name);
+void				write_console(int keycode, char *str);
+void				console_draw_area(t_env *e, SDL_Rect *area);
+void				console_write_prompt(t_env *e, SDL_Rect *area,
+											SDL_Color *color, TTF_Font *font);
+void				console_write_userdata(t_env *e, SDL_Rect *area,
+											char *str, TTF_Font *font);
 
 void				error(int n);
 void				delete_all_obj(t_env *e);

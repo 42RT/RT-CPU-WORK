@@ -27,6 +27,7 @@ int			ft_aff_multithread(t_env *e)
 	{
 		if (*(e->worker_stop))
 		{
+			print_percentage(-1);
 			usleep(128000);
 			return (0);
 		}
@@ -52,6 +53,7 @@ int			ft_aff_multithread_line(t_env *e)
 		if (*(e->worker_stop))
 		{
 			usleep(128000);
+			print_percentage(-1);
 			return (0);
 		}
 		e->render_progression = 100.0 - ((data.nb * 100) / e->set->height);

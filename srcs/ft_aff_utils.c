@@ -16,6 +16,11 @@ void		print_percentage(int percent)
 {
 	static int	old = 0;
 
+	if (percent == -1)
+	{
+		ft_printf("\rRendering canceled !\n");
+		return ;
+	}
 	if (percent != old)
 	{
 		ft_printf("%sRendering: %d ", (percent != 0 ? "\r" : ""), percent);
