@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/27 03:45:28 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/03 18:48:22 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/06 02:38:09 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int		get_3d_mode(char *str)
 
 void	parse_set_3d(t_env *e, char *str)
 {
-	if (!ft_strncmp(str, "d3_mode", 7))
+	if (!ft_strncmp(str, "\"d3_mode\"", 9))
 		e->set->d3_mode = get_3d_mode(get_value(str));
-	else if (!ft_strncmp(str, "d3_offset", 9))
+	else if (!ft_strncmp(str, "\"d3_offset\"", 11))
 		e->set->d3_offset = ft_atoi(get_value(str));
-	else if (!ft_strncmp(str, "d3_conv", 7))
+	else if (!ft_strncmp(str, "\"d3_conv\"", 9))
 		e->set->d3_conv = ft_atof(get_value(str));
 }
 
@@ -47,7 +47,7 @@ void	parse_settings(t_env *e, t_item *item, int i)
 			parse_set_cam(e, item->set[i]);
 		else if (!ft_strncmp(item->set[i], "\"focus", 6))
 			parse_set_focus(e, item->set[i]);
-		else if (!ft_strncmp(item->set[i], "\"d3\"", 4))
+		else if (!ft_strncmp(item->set[i], "\"d3", 3))
 			parse_set_3d(e, item->set[i]);
 		else if (!ft_strncmp(item->set[i], "\"width\"", 7))
 			e->set->width = ft_abs(ft_atoi(get_value(item->set[i])));
