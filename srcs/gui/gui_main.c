@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 00:23:15 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_gui		*gui_init(void)
 		gui->img = SDL_CreateRenderer(gui->win, -1, SDL_RENDERER_SOFTWARE);
 	else
 		gui_error(4);
-	gui->winID = SDL_GetWindowID(gui->win);
+	gui->win_id = SDL_GetWindowID(gui->win);
 	gui->tmp_lim = 0;
 	gui_build_main(gui);
 	SDL_RenderPresent(gui->img);

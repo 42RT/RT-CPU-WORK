@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 00:14:18 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	gui_get_scl_texture_nml_3(t_scroll *scroll, char **value, t_obj *obj)
 			value[i++] = ft_strdup(tmp[0]);
 			if (!ft_strcmp(value[i - 1], obj->texture))
 				scroll->active_value = i - 1;
-			free(tmp);
+			gui_free_array((void **)tmp, 2);
 		}
 	}
 }

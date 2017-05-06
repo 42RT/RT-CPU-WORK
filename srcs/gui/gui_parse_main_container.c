@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 00:20:33 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_textbox	**gui_parse_container_textbox(int fd, int qt, int id)
 	return (textbox);
 }
 
-t_checkbox	**gui_parse_container_checkbox(int fd, int qt, int id)
+t_checkbox	**gui_parse_container_cbx(int fd, int qt, int id)
 {
 	t_checkbox	**checkbox;
 	char		*line;
@@ -82,7 +82,7 @@ void		gui_parse_container(t_gui *gui, int fd, int id)
 	if (CONTAINER->textbox_qt > 0)
 		TEXTBOX = gui_parse_container_textbox(fd, CONTAINER->textbox_qt, id);
 	if (CONTAINER->checkbox_qt > 0)
-		CHECKBOX = gui_parse_container_checkbox(fd, CONTAINER->checkbox_qt, id);
+		CHECKBOX = gui_parse_container_cbx(fd, CONTAINER->checkbox_qt, id);
 	get_next_line(fd, &line);
 	if (ft_strcmp(line, "\t,"))
 		gui_error(10);

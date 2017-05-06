@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/06 18:03:35 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 00:19:37 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	gui_parse_param_builder(t_gui *gui, int fd, int nb)
 	if (PARAM->textbox_qt > 0)
 		PARAM->textbox = gui_parse_container_textbox(fd, PARAM->textbox_qt, -1);
 	if (PARAM->checkbox_qt > 0)
-		PARAM->checkbox = gui_parse_container_checkbox(fd, PARAM->checkbox_qt, -1);
+		PARAM->checkbox = gui_parse_container_cbx(fd, PARAM->checkbox_qt, -1);
 	if (PARAM->gauge_qt > 0)
 		PARAM->gauge = gui_parse_container_gauge(fd, PARAM->gauge_qt, -1);
 	if (PARAM->freetxt_qt > 0)

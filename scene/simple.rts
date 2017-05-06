@@ -61,7 +61,7 @@
 		"y": 1500,
 		"z": -1000
 	},
-	"texture": divers10,
+	"texture": poolwater,
 	"exp": {
 		"y": 1.0
 	}

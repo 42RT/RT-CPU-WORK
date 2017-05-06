@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/06 02:44:21 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/06 02:44:25 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/05/07 00:22:52 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 		else if (!env->background)
 			console_mode = event_console(event, env, console_mode, old);
 	}
-	if (gui->widget_active && (event.window.windowID == gui->winID))
+	if (gui->widget_active && (event.window.windowID == gui->win_id))
 		event_txb_insert(event, gui, gui->widget_active);
 	return (0);
 }
@@ -74,7 +74,7 @@ int			event(t_env *env, SDL_Event event)
 		event_keydown(event, env, gui);
 	else
 	{
-		if (event.window.windowID == gui->winID && gui->action == 0)
+		if (event.window.windowID == gui->win_id && gui->action == 0)
 		{
 			if (event.type == SDL_MOUSEBUTTONDOWN)
 				event_mouse_click(event, gui);

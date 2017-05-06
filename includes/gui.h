@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gui.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/07 00:28:34 by rdieulan          #+#    #+#             */
+/*   Updated: 2017/05/07 00:33:10 by rdieulan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GUI_H
 # define GUI_H
 
@@ -315,7 +327,7 @@ typedef struct		s_gui
 {
 	SDL_Window		*win;
 	SDL_Renderer	*img;
-	unsigned int	winID;
+	unsigned int	win_id;
 	SDL_Event		gui_event;
 	SDL_DisplayMode	*display;
 	SDL_Rect		dest;
@@ -337,11 +349,16 @@ typedef struct		s_gui
 	int				tmp_lim;
 }					t_gui;
 
-/* INIT */
+/*
+** INIT
+*/
 t_gui				*get_gui(void);
 t_gui				*gui_init(void);
 
-/* PARSE */
+/*
+** PARSE
+*/
+
 void				gui_parse_builder(t_gui *gui, char *file);
 void				gui_parse_param_builder(t_gui *gui, int fd, int nb);
 void				gui_parse_main_builder(t_gui *gui, int fd, int nb);
@@ -357,7 +374,7 @@ int nb);
 t_button			**gui_parse_container_button(int fd, int qt, int id);
 t_scroll			**gui_parse_container_scroll(int fd, int qt, int id);
 t_textbox			**gui_parse_container_textbox(int fd, int qt, int id);
-t_checkbox			**gui_parse_container_checkbox(int fd, int qt, int id);
+t_checkbox			**gui_parse_container_cbx(int fd, int qt, int id);
 t_gauge				**gui_parse_container_gauge(int fd, int qt, int id);
 t_freetxt			**gui_parse_container_freetxt(int fd, int qt, int id);
 t_button			*gui_parse_button(int fd, int nb);
@@ -368,12 +385,16 @@ t_gauge				*gui_parse_gauge(int fd, int nb);
 t_freetxt			*gui_parse_freetxt(int fd, int nb);
 void				gui_parse_scroll_suite(t_scroll *scroll, char **tmp);
 
-
-/* DRAW */
+/*
+** DRAW
+*/
 void				gui_pixel_put(t_gui *gui, int x, int y);
 SDL_Color			gui_color(char *choice);
 
-/* WIDGET COMMON */
+/*
+** WIDGET
+*/
+
 void				event_widget_deselect(t_gui *gui);
 void				gui_widget_draw_depth(SDL_Rect widget, int px,
 char *color);
@@ -385,18 +406,30 @@ void				gui_widget_texture_get_bmp(void *widget, char *file);
 void				gui_widget_display(void *widget);
 void				gui_widget_write_txt(void *widget, char *color);
 
-/* BACKGROUND */
+/*
+** BACKGROUND
+*/
+
 void				gui_background_get_set_n_display(t_gui *gui);
 
-/* CONTAINER */
+/*
+** CONTAINER
+*/
+
 void				gui_container_build(t_gui *gui, int mode, int px);
 void				gui_container_write_txt(void *widget, char *color);
 
-/* FONT */
+/*
+** FONT
+*/
+
 void				gui_font_init(t_gui *gui, char *ttf, int size);
 void				gui_font_build(t_gui *gui);
 
-/* BUTTON */
+/*
+** BUTTON
+*/
+
 t_button			*gui_button_init(void);
 void				gui_button_build(t_gui *gui);
 void				gui_button_set(t_button *button, SDL_Rect dest);
@@ -405,7 +438,10 @@ void				gui_button_selected(t_gui *gui, t_button *button);
 void				gui_button_free(t_button *button);
 void				gui_write_button(char *text, t_button *button, char *color);
 
-/* TEXTBOX */
+/*
+** TEXTBOX
+*/
+
 t_textbox			*gui_textbox_init(void);
 void				gui_textbox_build(t_gui *gui);
 void				gui_textbox_set(t_textbox *textbox, SDL_Rect dest);
@@ -432,7 +468,10 @@ char				*gui_get_textbox_siz(void);
 char				*gui_get_textbox_rfr(void);
 char				*gui_get_textbox_rfl(void);
 
-/* SCROLL */
+/*
+** SCROLL
+*/
+
 t_scroll			*gui_scroll_init(void);
 void				gui_scroll_build(t_gui *gui);
 void				gui_scroll_set(t_scroll *scroll, SDL_Rect dest);
@@ -460,30 +499,45 @@ char				**gui_get_5_4_3(t_scroll *scroll, t_env *e);
 char				**gui_get_16_9_10(t_scroll *scroll, t_env *e);
 char				**gui_get_exotic_res(t_scroll *scroll, t_env *e);
 
-/* CHECKBOX */
+/*
+** CHECKBOX
+*/
+
 t_checkbox			*gui_checkbox_init(void);
 void				gui_checkbox_set(t_checkbox *checkbox, SDL_Rect dest);
 void				gui_checkbox_get_state(t_checkbox *checkbox);
 void				gui_reset_checkbox_state(t_gui *gui, char *target);
 
-/* GAUGE */
+/*
+** GAUGE
+*/
+
 void				gui_gauge_convert_value(t_gauge *gauge);
 void				gui_gauge_get_value(t_gauge *gauge);
 float				gui_gauge_get_norm(t_gauge *gauge);
 void				gui_reset_gauge_value(t_gui *gui, char *target);
 
-/* FREETXT */
+/*
+** FREETXT
+*/
+
 t_freetxt			*gui_freetxt_init(void);
 void				gui_freetxt_set(t_freetxt *freetxt, SDL_Rect dest);
 void				gui_freetxt_write(t_freetxt *freetxt, char *color);
 
-/* HELP */
+/*
+** HELP
+*/
+
 void				gui_help_toggle(t_gui *gui);
 void				gui_help_open(t_gui *gui);
 void				gui_help_close(t_gui *gui);
 void				gui_write_help(t_gui *gui, char *text, int align, int y);
 
-/* PARAM */
+/*
+** PARAM
+*/
+
 void				gui_param_toggle(t_gui *gui);
 void				gui_param_open(t_gui *gui);
 void				gui_param_close(t_gui *gui);
@@ -506,10 +560,16 @@ void				gui_gauge_set(t_gauge *gauge);
 void				gui_param_gauge_create_all(t_gui *gui);
 void				gui_param_text_build(t_gui *gui);
 
-/* ERROR HANDLING */
+/*
+** ERROR HANDLING
+*/
+
 void				gui_error(int n);
 
-/* EVENT */
+/*
+** EVENT
+*/
+
 void				event_mouse_wheel(SDL_Event event, t_gui *gui);
 void				event_mouse_click(SDL_Event event, t_gui *gui);
 void				event_mouse_motion(SDL_Event event, t_gui *gui);
@@ -536,7 +596,10 @@ void				event_txb_value_rot(t_textbox *textbox, char nb);
 void				event_txb_value_move(t_textbox *textbox);
 void				event_button_perform_action(t_gui *gui, char *action);
 
-/* OTHER */
+/*
+** OTHER
+*/
+
 void				gui_main_refresh(t_gui *gui);
 void				gui_rt_reload(t_env *e, t_gui *gui, char *scene);
 void				gui_rt_reload_object(t_env *e, t_gui *gui);
