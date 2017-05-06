@@ -68,7 +68,6 @@ t_gui		*gui_init(void)
 {
 	t_gui	*gui;
 
-	setbuf(stdout, NULL);
 	if (TTF_WasInit() || (TTF_Init() == 0))
 		ft_printf("\033[1;32mTTF INITIALIZED\033[0m\n");
 	else

@@ -63,6 +63,7 @@ int			main(int ac, char **av)
 {
 	t_env		*e;
 
+	setbuf(stdout, NULL);
 	e = get_env();
 	generate_noise(e);
 	e->inside_obj = 0;

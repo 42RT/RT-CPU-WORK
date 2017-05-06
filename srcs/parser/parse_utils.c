@@ -42,9 +42,8 @@ char	*ft_strtrim_coma(char const *s)
 
 char	*get_value(char *str)
 {
-	// char	*tmp;
+	char	*tmp;
 
-	// tmp = str;
 	while (*str && *str != ':')
 		++str;
 	if (*str)
@@ -55,13 +54,8 @@ char	*get_value(char *str)
 		exit(EXIT_SUCCESS);
 	}
 	if (ft_strchr(str, ',') != NULL)
-	{
-		str = ft_strtrim_coma(str);
-		// tmp = ft_strtrim_coma(str);
-		// str = tmp;
-		// free(tmp);
-	}
-	return (str);
+		tmp = ft_strtrim_coma(str);
+	return (tmp);
 }
 
 char	*while_item(t_item *item, char *file)
