@@ -65,7 +65,7 @@ void		console_draw_area(t_env *e, SDL_Rect *area)
 void		console_write_prompt(t_env *e, SDL_Rect *area, SDL_Color *color,
 									TTF_Font *font)
 {
-	SDL_Surface 		*text;
+	SDL_Surface			*text;
 	SDL_Texture			*texture;
 
 	area->x = 7;
@@ -81,7 +81,7 @@ void		console_write_prompt(t_env *e, SDL_Rect *area, SDL_Color *color,
 void		console_write_userdata(t_env *e, SDL_Rect *area, char *str,
 									TTF_Font *font)
 {
-	SDL_Surface 		*text;
+	SDL_Surface			*text;
 	SDL_Texture			*texture;
 
 	area->x += area->w;

@@ -42,7 +42,7 @@ static void		init_t_ray_data(t_ray_data *d, t_obj *start, t_vector *vec[2])
 {
 	d->o = vec[0];
 	d->v = vec[1];
-	d->start = start;	
+	d->start = start;
 }
 
 t_color			ray_effect(t_env *e, t_vector *vec[2], t_obj *start,

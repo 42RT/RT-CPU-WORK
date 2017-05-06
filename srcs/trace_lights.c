@@ -94,7 +94,7 @@ static t_color		trace_lights_3(t_env *e, t_ray_data d, t_vector *v,
 ** data.z = angle = angle entre rayon lumiere + normale de l'objet
 */
 
-static t_color	trace_lights_2(t_env *e, t_ray_data d, t_light *light)
+static t_color		trace_lights_2(t_env *e, t_ray_data d, t_light *light)
 {
 	t_vector	v2;
 	t_vector	obj_to_light;
@@ -122,7 +122,7 @@ static t_color	trace_lights_2(t_env *e, t_ray_data d, t_light *light)
 	return (shadow(d.shorter->color, data));
 }
 
-t_color			trace_lights(t_env *e, t_ray_data d, t_light *light)
+t_color				trace_lights(t_env *e, t_ray_data d, t_light *light)
 {
 	t_color		color;
 	t_color		save_color;

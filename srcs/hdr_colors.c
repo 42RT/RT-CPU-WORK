@@ -13,8 +13,12 @@
 #include <libft.h>
 #include <hdr_colors.h>
 
+/*
+** rajouter e
+*/
+
 void			color_add(t_color *src, t_color color,
-							unsigned int k) // rajouter e
+							unsigned int k)
 {
 	int			c;
 

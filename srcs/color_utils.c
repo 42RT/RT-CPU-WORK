@@ -18,7 +18,6 @@ t_color			mod_light(t_color color, float dst, float coef2)
 	float		coef;
 	t_color		res;
 
-
 	res.a = 0xFF;
 	coef = (1 + coef2) / (dst / 100 + coef2);
 	res.r = color.r * coef;
@@ -27,7 +26,12 @@ t_color			mod_light(t_color color, float dst, float coef2)
 	return (res);
 }
 
-void			get_spec(t_color *color, t_light light,	t_vector v, t_env *e)
+/*
+** get_spec before color_mix_k
+** //	*color = color_add_k(*color, lcolor, 0.4);
+*/
+
+void			get_spec(t_color *color, t_light light, t_vector v, t_env *e)
 {
 	float		angle;
 	t_color		lcolor;
@@ -39,7 +43,6 @@ void			get_spec(t_color *color, t_light light,	t_vector v, t_env *e)
 	sub_vector(&cam_to_light, &light.pos);
 	angle = vec_dot(&cam_to_light, &v);
 	lcolor = color_attenuate(lcolor, powf(angle, SPEC));
-//	*color = color_add_k(*color, lcolor, 0.4);
 	color_mix_k(color, lcolor, 100);
 }
 
@@ -48,6 +51,7 @@ void			get_spec(t_color *color, t_light light,	t_vector v, t_env *e)
 ** data.y = refangle = angle entre rayon reflechi + vecteur directeur
 ** data.z = angle = angle entre rayon lumiere + normale de l'objet
 */
+
 t_color			calc_color(t_vector data, t_color color,
 							t_obj *obj, t_light *light)
 {
@@ -77,7 +81,7 @@ t_color			calc_color(t_vector data, t_color color,
 	return (newcolor);
 }
 
-t_color				shadow(t_color obj_color, t_vector data)
+t_color			shadow(t_color obj_color, t_vector data)
 {
 	t_color			color;
 	float			objr;

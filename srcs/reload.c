@@ -56,7 +56,7 @@ void		reload(t_env *e)
 	if (e->set->verbose)
 		print_debug(e);
 	if (!gfx_reload(e->gfx, e->set->width, e->set->height, BUFF_NB + 1))
-		exit (1);
+		exit(1);
 	loading_bar(e, 0, int_to_tcolor(0x1010A0), int_to_tcolor(0));
 	ft_render(e);
 }
