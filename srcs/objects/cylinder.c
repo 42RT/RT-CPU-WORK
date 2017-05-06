@@ -56,9 +56,9 @@ void		neg_cylinder(t_obj *obj, t_equation *eq)
 
 	if (eq->delta >= 0)
 	{
+		sub_vector(&eq->o, &obj->pos);
 		rotate_vector2(&eq->v, &obj->ang);
 		rotate_vector2(&eq->o, &obj->ang);
-		sub_vector(&eq->o, &obj->pos);
 		point.x = eq->v.x * eq->x1 + eq->o.x - obj->pos.x;
 		point.y = eq->v.y * eq->x1 + eq->o.y - obj->pos.y;
 		point.z = 0;

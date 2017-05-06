@@ -2,97 +2,57 @@ Norme: ./srcs/gui/gui_background.c
 Norme: ./srcs/gui/gui_button_2.c
 Norme: ./srcs/gui/gui_checkbox_2.c
 Norme: ./srcs/gui/gui_button.c
+Norme: ./srcs/gui/gui_error.c
 Norme: ./srcs/gui/gui_checkbox.c
 Norme: ./srcs/gui/gui_event.c
-Norme: ./srcs/gui/gui_error.c
 Norme: ./srcs/gui/gui_event_checkbox.c
+Norme: ./srcs/gui/gui_apply.c
 Norme: ./srcs/gui/gui_event_gauge.c
 Norme: ./srcs/gui/gui_event_button.c
-Norme: ./srcs/gui/gui_apply.c
 Norme: ./srcs/gui/gui_event_scroll_2.c
 Norme: ./srcs/gui/gui_event_textbox.c
 Norme: ./srcs/gui/gui_freetxt.c
-Norme: ./srcs/gui/gui_event_textbox_2.c
 Norme: ./srcs/gui/gui_event_scroll.c
+Norme: ./srcs/gui/gui_event_textbox_2.c
 Norme: ./srcs/gui/gui_help.c
 Norme: ./srcs/gui/gui_gauge.c
-Norme: ./srcs/gui/gui_gauge_2.c
 Norme: ./srcs/gui/gui_param.c
+Norme: ./srcs/gui/gui_gauge_2.c
 Norme: ./srcs/gui/gui_param_3.c
-Norme: ./srcs/gui/gui_main.c
 Norme: ./srcs/gui/gui_param_2.c
+Norme: ./srcs/gui/gui_main.c
 Norme: ./srcs/gui/gui_event_textbox_3.c
-Norme: ./srcs/gui/gui_parse_button.c
 Norme: ./srcs/gui/gui_parse_builder_3.c
-Norme: ./srcs/gui/gui_parse_checkbox.c
+Norme: ./srcs/gui/gui_parse_button.c
+Norme: ./srcs/gui/gui_parse_freetxt.c
 Norme: ./srcs/gui/gui_parse_builder_2.c
+Norme: ./srcs/gui/gui_parse_checkbox.c
+Norme: ./srcs/gui/gui_parse_gauge.c
+Norme: ./srcs/gui/gui_parse_main_container_3.c
 Norme: ./srcs/gui/gui_parse_builder.c
 Norme: ./srcs/gui/gui_parse_main_container.c
-Error: global scope bad aligned
+Norme: ./srcs/gui/gui_parse_param.c
+Error (line 74): line has 84 characters
 Norme: ./srcs/gui/gui_parse_scroll.c
-Error: global scope bad aligned
 Norme: ./srcs/gui/gui_parse_main_container_2.c
-Norme: ./srcs/gui/gui_parse_scroll_4.c
-Error (line 32): bad spacing after gui_get_scl_texture_nml_3
-Error (line 54): multiple empty lines
-Error (line 55): bad spacing before gui_get_scl_texture_nml_2
 Norme: ./srcs/gui/gui_parse_scroll_3.c
+Norme: ./srcs/gui/gui_parse_scroll_4.c
 Norme: ./srcs/gui/gui_parse_scroll_2.c
 Norme: ./srcs/gui/gui_parse_textbox_2.c
-Error (line 15, col 0): gui_get_textbox_X not unixcase
-Error (line 34, col 0): gui_get_textbox_Y not unixcase
-Error (line 53, col 0): gui_get_textbox_Z not unixcase
-Error (line 72, col 0): gui_get_textbox_AX not unixcase
-Error (line 91, col 0): gui_get_textbox_AY not unixcase
-Norme: ./srcs/gui/gui_parse_scroll_5.c
 Norme: ./srcs/gui/gui_parse_textbox_4.c
-Error (line 15): bad spacing after gui_get_textbox_SIZ
-Error (line 15, col 0): gui_get_textbox_SIZ not unixcase
-Error (line 34): multiple empty lines
-Error (line 35): bad spacing before gui_get_textbox_RFR
-Error (line 35, col 0): gui_get_textbox_RFR not unixcase
-Error (line 54, col 0): gui_get_textbox_RFL not unixcase
+Norme: ./srcs/gui/gui_parse_scroll_5.c
 Norme: ./srcs/gui/gui_parse_textbox_3.c
-Error (line 15, col 0): gui_get_textbox_AZ not unixcase
-Error (line 34, col 0): gui_get_textbox_R not unixcase
-Error (line 53, col 0): gui_get_textbox_G not unixcase
-Error (line 72, col 0): gui_get_textbox_B not unixcase
-Error (line 91, col 0): gui_get_textbox_A not unixcase
 Norme: ./srcs/gui/gui_pixel_put.c
-Norme: ./srcs/gui/gui_save.c
 Norme: ./srcs/gui/gui_refresher.c
+Norme: ./srcs/gui/gui_save.c
 Norme: ./srcs/gui/gui_parse_textbox.c
-Norme: ./srcs/gui/gui_scroll.c
 Norme: ./srcs/gui/gui_scroll_2.c
 Norme: ./srcs/gui/gui_scroll_3.c
+Norme: ./srcs/gui/gui_scroll.c
+Norme: ./srcs/gui/gui_ttf.c
 Norme: ./srcs/gui/gui_textbox_2.c
 Norme: ./srcs/gui/gui_tool.c
-Norme: ./srcs/gui/gui_ttf.c
 Norme: ./srcs/gui/gui_textbox.c
 Norme: ./srcs/gui/gui_ttf_3.c
 Norme: ./srcs/gui/gui_widget_tool.c
 Norme: ./srcs/gui/gui_ttf_2.c
-Norme: ./srcs/gui/gui_parse_param.c
-Error: 7 functions in the file
-Error: 42 header not at top of the file
-Error (line 3): function gui_parse_param_scroll has 59 lines
-Error (line 50): line has 177 characters
-Error (line 63): C++ comment
-Error (line 66): function gui_parse_param_checkbox has 66 lines
-Error (line 76): line has 83 characters
-Error (line 120): line has 201 characters
-Error (line 133): C++ comment
-Error (line 136): function gui_parse_param_button has 58 lines
-Error (line 183): line has 180 characters
-Error (line 195): C++ comment
-Error (line 198): function gui_parse_param_textbox has 72 lines
-Error (line 255): line has 215 characters
-Error (line 270): C++ comment
-Error (line 274): function gui_parse_param_gauge has 63 lines
-Error (line 325): line has 215 characters
-Error (line 338): C++ comment
-Error (line 341): function gui_parse_param_freetxt has 51 lines
-Error (line 381): line has 124 characters
-Error (line 393): C++ comment
-Error (line 396): function gui_parse_param_builder has 55 lines
-Error (line 440): line has 232 characters
