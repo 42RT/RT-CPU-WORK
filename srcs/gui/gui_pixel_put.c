@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:38:38 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ SDL_Color	gui_color_data_set(int r, int g, int b, int a)
 
 SDL_Color	gui_color(char *choice)
 {
-	if (!ft_strcmp(choice, "white"))
+	if (!CMP(choice, "white"))
 		return (gui_color_data_set(255, 255, 255, 255));
-	if (!ft_strcmp(choice, "black"))
+	if (!CMP(choice, "black"))
 		return (gui_color_data_set(0, 0, 0, 255));
-	if (!ft_strcmp(choice, "red brick"))
+	if (!CMP(choice, "red brick"))
 		return (gui_color_data_set(130, 5, 5, 255));
-	if (!ft_strcmp(choice, "red"))
+	if (!CMP(choice, "red"))
 		return (gui_color_data_set(255, 0, 0, 255));
-	if (!ft_strcmp(choice, "purple deep"))
+	if (!CMP(choice, "purple deep"))
 		return (gui_color_data_set(31, 17, 70, 255));
-	if (!ft_strcmp(choice, "teal"))
+	if (!CMP(choice, "teal"))
 		return (gui_color_data_set(43, 202, 189, 255));
 	else
 		return (gui_color_data_set(0, 0, 0, 0));

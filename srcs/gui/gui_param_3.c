@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 18:13:36 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 05:47:14 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 10:38:06 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	gui_param_text_build_suite(t_gui *gui)
 		gui_widget_write_txt(PARAM_GAU, "white");
 		PARAM_GAU->txt->align = 315;
 		tmp = ft_strdup(PARAM_GAU->txt->content);
-		gui_free_array((void ***)&PARAM_GAU->txt->content, 0);
+		gui_free_str(&(PARAM_GAU->txt->content));
 		gui_gauge_convert_value(PARAM_GAU);
 		gui_widget_write_txt(PARAM_GAU, "white");
-		gui_free_array((void ***)&PARAM_GAU->txt->content, 0);
+		gui_free_str(&(PARAM_GAU->txt->content));
 		PARAM_GAU->txt->content = ft_strdup(tmp);
-		gui_free_array((void ***)&tmp, 0);
+		gui_free_str(&tmp);
 		PARAM_GAU->txt->align = GUI_ALIGN_LEFT;
 		i++;
 	}

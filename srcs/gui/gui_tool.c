@@ -6,31 +6,11 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 01:22:10 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:49:26 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <gui.h>
-
-char		*str_tolower(char *str)
-{
-	unsigned int	i;
-	char			*tmp;
-
-	i = 0;
-	if (!(tmp = (char *)malloc(sizeof(char) * 10)))
-		error(1);
-	while (i < ft_strlen(str))
-	{
-		if (str[i] >= 65 && str[i] <= 90)
-			tmp[i] = str[i] + 32;
-		else
-			tmp[i] = str[i];
-		i++;
-	}
-	tmp[i] = '\0';
-	return (tmp);
-}
 
 void		gui_txt_to_texture(char *content, char *style, char *color)
 {
@@ -50,15 +30,27 @@ void		gui_txt_to_texture(char *content, char *style, char *color)
 	SDL_FreeSurface(tmp);
 }
 
-void		gui_free_array(void ***array, int dimension)
+void		gui_free_carray(char ***array, int dimension)
 {
 	int	i;
 
 	i = 0;
-	while (i < dimension)
-		free((*array)[i++]);
-	free(*array);
-	*array = NULL;
+	if (array && *array)
+	{
+		while (i < dimension)
+			free((*array)[i++]);
+		free(*array);
+		*array = NULL;
+	}
+}
+
+void		gui_free_str(char **str)
+{
+	if (str)
+	{
+		free(*str);
+		*str = NULL;
+	}
 }
 
 SDL_Rect	gui_get_container_rect(int id)

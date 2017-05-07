@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 04:05:55 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 10:52:39 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void	event_txb_value_allowed(t_textbox *textbox)
 	{
 		tmp = ft_itoa(textbox->max);
 		event_txb_value_force(textbox, tmp);
-		gui_free_array((void ***)&tmp, 0);
+		gui_free_str(&tmp);
 	}
 	else if (ft_atoi(textbox->value) < textbox->min)
 	{
 		tmp = ft_itoa(textbox->min);
 		event_txb_value_force(textbox, tmp);
-		gui_free_array((void ***)&tmp, 0);
+		gui_free_str(&tmp);
 	}
 	else
 		return ;

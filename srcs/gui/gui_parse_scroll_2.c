@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 06:37:06 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:35:00 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ char	**gui_get_scl_scn_suite(t_scroll *scroll, t_env *e, t_gui *gui, int i)
 				scroll->active_value = i;
 			tmp = ft_strsplit(GUI_SYS->rfile->d_name, '.');
 			value[i++] = ft_strdup(tmp[0]);
-			gui_free_array((void ***)&tmp, 2);
-			free(lu);
+			gui_free_carray(&tmp, 2);
+			gui_free_str(&lu);
 		}
 	}
 	if (closedir(GUI_SYS->dir) == -1)
@@ -48,13 +48,13 @@ char	**gui_get_scroll_scene(t_scroll *scroll, t_gui *gui)
 
 	e = get_env();
 	GUI_SYS->output = popen("find ./scene/*.rts | wc -l", "r");
-	if ((lu = (char *)malloc(sizeof(char) * 10)) == NULL)
+	if (!(lu = (char *)malloc(sizeof(char) * 10)))
 		error(1);
 	fread(lu, sizeof(char), 10, GUI_SYS->output);
 	lu_trim = ft_strdup_trim(lu);
 	scroll->nb_value = ft_atoi(lu_trim);
-	free(lu);
-	free(lu_trim);
+	gui_free_str(&lu);
+	gui_free_str(&lu_trim);
 	scroll->active_value = -1;
 	scroll->mod = 0;
 	return (gui_get_scl_scn_suite(scroll, e, gui, 0));

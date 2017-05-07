@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 00:20:33 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 10:45:24 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ t_textbox	**gui_parse_container_textbox(int fd, int qt, int id)
 	int			i;
 
 	get_next_line(fd, &line);
-	if (ft_strcmp(line, "\ttextbox:"))
+	if (CMP(line, "\ttextbox:"))
 		gui_error(12);
+	gui_free_str(&line);
 	if (!(textbox = (t_textbox **)malloc(sizeof(t_textbox *) * qt)))
 		error(1);
 	i = 0;
@@ -32,11 +33,7 @@ t_textbox	**gui_parse_container_textbox(int fd, int qt, int id)
 		gui_get_textbox_value(textbox[i]);
 		gui_textbox_set(textbox[i++], gui_get_container_rect(id));
 		if (i < qt)
-		{
-			get_next_line(fd, &line);
-			if (ft_strcmp(line, "\t\t,"))
-				gui_error(11);
-		}
+			gui_parse_widget_coma(fd);
 	}
 	return (textbox);
 }
@@ -48,8 +45,9 @@ t_checkbox	**gui_parse_container_cbx(int fd, int qt, int id)
 	int			i;
 
 	get_next_line(fd, &line);
-	if (ft_strcmp(line, "\tcheckbox:"))
-		gui_error(10);
+	if (CMP(line, "\tcheckbox:"))
+		gui_error(12);
+	gui_free_str(&line);
 	if (!(checkbox = (t_checkbox **)malloc(sizeof(t_checkbox *) * qt)))
 		error(1);
 	i = 0;
@@ -61,19 +59,13 @@ t_checkbox	**gui_parse_container_cbx(int fd, int qt, int id)
 		checkbox[i]->selected = 0;
 		gui_checkbox_set(checkbox[i++], gui_get_container_rect(id));
 		if (i < qt)
-		{
-			get_next_line(fd, &line);
-			if (ft_strcmp(line, "\t\t,"))
-				gui_error(11);
-		}
+			gui_parse_widget_coma(fd);
 	}
 	return (checkbox);
 }
 
 void		gui_parse_container(t_gui *gui, int fd, int id)
 {
-	char	*line;
-
 	gui_parse_container_info(gui, fd, id, 11);
 	if (CONTAINER->button_qt > 0)
 		BUTTON = gui_parse_container_button(fd, CONTAINER->button_qt, id);
@@ -83,9 +75,7 @@ void		gui_parse_container(t_gui *gui, int fd, int id)
 		TEXTBOX = gui_parse_container_textbox(fd, CONTAINER->textbox_qt, id);
 	if (CONTAINER->checkbox_qt > 0)
 		CHECKBOX = gui_parse_container_cbx(fd, CONTAINER->checkbox_qt, id);
-	get_next_line(fd, &line);
-	if (ft_strcmp(line, "\t,"))
-		gui_error(10);
+	gui_parse_container_coma(fd);
 }
 
 void		gui_parse_main_builder(t_gui *gui, int fd, int nb)

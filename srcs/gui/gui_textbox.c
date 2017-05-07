@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:46:12 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,19 @@ void		gui_textbox_get_len(t_textbox *textbox)
 	char	*tag;
 
 	tag = ft_strdup(textbox->tag);
-	if (!ft_strcmp(tag, "__X") || !ft_strcmp(tag, "__Y")
-	|| !ft_strcmp(tag, "__Z") || !ft_strcmp(tag, "CPX")
-	|| !ft_strcmp(tag, "CPY") || !ft_strcmp(tag, "CPZ")
-	|| !ft_strcmp(tag, "CAX") || !ft_strcmp(tag, "CAY")
-	|| !ft_strcmp(tag, "CAZ"))
+	if (!CMP(tag, "__X") || !CMP(tag, "__Y") || !CMP(tag, "__Z")
+	|| !CMP(tag, "CPX") || !CMP(tag, "CPY") || !CMP(tag, "CPZ")
+	|| !CMP(tag, "CAX") || !CMP(tag, "CAY") || !CMP(tag, "CAZ"))
 		textbox->maxlen = 6;
-	if (!ft_strcmp(tag, "_AX") || !ft_strcmp(tag, "_AY")
-		|| !ft_strcmp(tag, "_AZ") || !ft_strcmp(tag, "SIZ"))
+	if (!CMP(tag, "_AX") || !CMP(tag, "_AY") || !CMP(tag, "_AZ")
+	|| !CMP(tag, "SIZ"))
 		textbox->maxlen = 4;
-	if (!ft_strcmp(tag, "__R") || !ft_strcmp(tag, "__G")
-		|| !ft_strcmp(tag, "__B") || !ft_strcmp(tag, "__A")
-		|| !ft_strcmp(tag, "RFL"))
+	if (!CMP(tag, "__R") || !CMP(tag, "__G") || !CMP(tag, "__B")
+	|| !CMP(tag, "__A") || !CMP(tag, "RFL"))
 		textbox->maxlen = 3;
-	if (!ft_strcmp(tag, "RFR"))
+	if (!CMP(tag, "RFR"))
 		textbox->maxlen = 5;
-	free(tag);
+	gui_free_str(&tag);
 }
 
 void		gui_textbox_set_halign(t_textbox *textbox, SDL_Rect dest)

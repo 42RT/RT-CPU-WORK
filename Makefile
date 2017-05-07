@@ -6,7 +6,7 @@
 #    By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/15 01:15:01 by jrouilly          #+#    #+#              #
-#    Updated: 2017/05/07 06:24:06 by rdieulan         ###   ########.fr        #
+#    Updated: 2017/05/07 11:36:54 by rdieulan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,6 +134,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GUI)gui_parse_builder_2.c \
 			$(PATH_GUI)gui_parse_builder_3.c \
 			$(PATH_GUI)gui_parse_builder_4.c \
+			$(PATH_GUI)gui_parse_builder_5.c \
 			$(PATH_GUI)gui_parse_param.c \
 			$(PATH_GUI)gui_parse_main_container.c \
 			$(PATH_GUI)gui_parse_main_container_2.c \
@@ -151,6 +152,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_GUI)gui_parse_textbox_2.c \
 			$(PATH_GUI)gui_parse_textbox_3.c \
 			$(PATH_GUI)gui_parse_textbox_4.c \
+			$(PATH_GUI)gui_parse_textbox_5.c \
 			$(PATH_GUI)gui_apply.c \
 			$(PATH_GUI)gui_save.c \
 			$(PATH_GUI)gui_pixel_put.c \

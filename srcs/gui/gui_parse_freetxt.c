@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 01:28:48 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 10:48:42 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,8 @@ void		gui_parse_freetxt_suite(t_freetxt *freetxt, char **tmp)
 		freetxt->txt->content = ft_strdup(tmp2[1]);
 	}
 	else
-	{
-		printf("%s\n", tmp[0]);
 		gui_error(16);
-	}
-	gui_free_array((void ***)&tmp2, 2);
+	gui_free_carray(&tmp2, 2);
 }
 
 t_freetxt	*gui_parse_freetxt(int fd, int nb)
@@ -52,7 +49,8 @@ t_freetxt	*gui_parse_freetxt(int fd, int nb)
 			freetxt->dest.y = ft_atoi(tmp[1]);
 		else
 			gui_parse_freetxt_suite(freetxt, tmp);
-		gui_free_array((void ***)&tmp, 2);
+		gui_free_carray(&tmp, 2);
+		gui_free_str(&line);
 		nb--;
 	}
 	return (freetxt);

@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 00:28:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 06:25:52 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 10:36:18 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,6 +386,8 @@ t_checkbox			*gui_parse_checkbox(int fd, int nb);
 t_gauge				*gui_parse_gauge(int fd, int nb);
 t_freetxt			*gui_parse_freetxt(int fd, int nb);
 void				gui_parse_scroll_suite(t_scroll *scroll, char **tmp);
+void				gui_parse_widget_coma(int fd);
+void				gui_parse_container_coma(int fd);
 
 /*
 ** DRAW
@@ -613,6 +615,7 @@ void				gui_reset(t_gui *gui, char *target);
 void				gui_anti_aliasing_set(int x, int y, int w, int h);
 char				*str_tolower(char *str);
 void				gui_txt_to_texture(char *content, char *style, char *color);
-void				gui_free_array(void ***array, int dimension);
+void				gui_free_carray(char ***array, int dimension);
+void				gui_free_str(char **str);
 SDL_Rect			gui_get_container_rect(int id);
 #endif

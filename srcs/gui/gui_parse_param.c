@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 01:27:31 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:09:19 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,42 +27,41 @@ void	gui_init_param(t_gui *gui)
 
 void	gui_parse_param_setting(t_gui *gui, char **tmp)
 {
-	if (!ft_strcmp(tmp[0], "\tx"))
+	if (!CMP(tmp[0], "\tx"))
 		PARAM->dest.x = ft_atoi(tmp[1]);
-	else if (!ft_strcmp(tmp[0], "\ty"))
+	else if (!CMP(tmp[0], "\ty"))
 		PARAM->dest.y = ft_atoi(tmp[1]);
-	else if (!ft_strcmp(tmp[0], "\tw"))
+	else if (!CMP(tmp[0], "\tw"))
 		PARAM->dest.w = ft_atoi(tmp[1]);
-	else if (!ft_strcmp(tmp[0], "\th"))
+	else if (!CMP(tmp[0], "\th"))
 		PARAM->dest.h = ft_atoi(tmp[1]);
-	else if (!ft_strcmp(tmp[0], "\tbutton_qt"))
+	else if (!CMP(tmp[0], "\tbutton_qt"))
 		PARAM->button_qt = ft_atoi(tmp[1]);
-	else if (!ft_strcmp(tmp[0], "\tscroll_qt"))
+	else if (!CMP(tmp[0], "\tscroll_qt"))
 		PARAM->scroll_qt = ft_atoi(tmp[1]);
-	else if (!ft_strcmp(tmp[0], "\ttextbox_qt"))
+	else if (!CMP(tmp[0], "\ttextbox_qt"))
 		PARAM->textbox_qt = ft_atoi(tmp[1]);
-	else if (!ft_strcmp(tmp[0], "\tcheckbox_qt"))
+	else if (!CMP(tmp[0], "\tcheckbox_qt"))
 		PARAM->checkbox_qt = ft_atoi(tmp[1]);
-	else if (!ft_strcmp(tmp[0], "\tgauge_qt"))
+	else if (!CMP(tmp[0], "\tgauge_qt"))
 		PARAM->gauge_qt = ft_atoi(tmp[1]);
-	else if (!ft_strcmp(tmp[0], "\tfreetxt_qt"))
+	else if (!CMP(tmp[0], "\tfreetxt_qt"))
 		PARAM->freetxt_qt = ft_atoi(tmp[1]);
 }
 
 void	gui_parse_param_builder(t_gui *gui, int fd, int nb)
 {
 	char	**tmp;
-	int		i;
 	char	*line;
 
 	gui_init_param(gui);
-	i = 0;
-	while (nb > i++)
+	while (0 < nb--)
 	{
 		get_next_line(fd, &line);
 		tmp = ft_strsplit(line, ':');
 		gui_parse_param_setting(gui, tmp);
-		gui_free_array((void ***)&tmp, 2);
+		gui_free_carray(&tmp, 2);
+		gui_free_str(&line);
 	}
 	if (PARAM->button_qt > 0)
 		PARAM->button = gui_parse_container_button(fd, PARAM->button_qt, -1);

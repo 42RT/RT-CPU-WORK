@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui_parse_textbox_4.c                              :+:      :+:    :+:   */
+/*   gui_parse_textbox_3.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include <gui.h>
 
-char	*gui_get_textbox_siz(void)
+char	*gui_get_textbox_az(void)
 {
 	t_env	*e;
 	t_gui	*gui;
@@ -28,10 +28,10 @@ char	*gui_get_textbox_siz(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_itoa(tmp->size));
+	return (ft_itoa(tmp->ang.z / M_PI_2 * 90));
 }
 
-char	*gui_get_textbox_rfr(void)
+char	*gui_get_textbox_r(void)
 {
 	t_env	*e;
 	t_gui	*gui;
@@ -47,10 +47,10 @@ char	*gui_get_textbox_rfr(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_ftoa(tmp->refract_ind, 3));
+	return (ft_itoa(tmp->color.r));
 }
 
-char	*gui_get_textbox_rfl(void)
+char	*gui_get_textbox_g(void)
 {
 	t_env	*e;
 	t_gui	*gui;
@@ -66,5 +66,43 @@ char	*gui_get_textbox_rfl(void)
 		tmp = tmp->next;
 		i++;
 	}
-	return (ft_itoa(tmp->reflect_k));
+	return (ft_itoa(tmp->color.g));
+}
+
+char	*gui_get_textbox_b(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (ft_itoa(tmp->color.b));
+}
+
+char	*gui_get_textbox_a(void)
+{
+	t_env	*e;
+	t_gui	*gui;
+	t_obj	*tmp;
+	int		i;
+
+	e = get_env();
+	gui = get_gui();
+	tmp = e->obj;
+	i = 0;
+	while (i < gui->container[0]->scroll[1]->active_value)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (ft_itoa(tmp->transparency));
 }

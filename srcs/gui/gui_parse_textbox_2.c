@@ -1,108 +1,78 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui_parse_textbox_2.c                              :+:      :+:    :+:   */
+/*   gui_parse_textbox.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:36:31 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <gui.h>
 
-char	*gui_get_textbox_x(void)
+void		gui_parse_textbox_3(t_textbox *textbox, char **tmp)
 {
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
+	char	**tmp2;
 
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
+	if (!CMP(tmp[0], "\t\ttxt"))
 	{
-		tmp = tmp->next;
-		i++;
+		tmp2 = ft_strsplit(tmp[1], '"');
+		textbox->txt->content = ft_strdup(tmp2[1]);
 	}
-	return (ft_itoa(tmp->pos.x));
+	else if (!CMP(tmp[0], "\t\ttxt_anchor"))
+	{
+		tmp2 = ft_strsplit(tmp[1], '"');
+		textbox->txt->anchor = ft_strdup(tmp2[1]);
+	}
+	else if (!ft_strcmp(tmp[0], "\t\ttag"))
+	{
+		tmp2 = ft_strsplit(tmp[1], '"');
+		textbox->tag = ft_strdup(tmp2[1]);
+	}
+	else
+		gui_error(16);
+	gui_free_carray(&tmp2, 2);
 }
 
-char	*gui_get_textbox_y(void)
+void		gui_parse_textbox_2(t_textbox *textbox, char **tmp)
 {
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
+	if (!CMP(tmp[0], "\t\ttxt_align"))
+		textbox->txt->align = ft_atoi(tmp[1]);
+	else if (!CMP(tmp[0], "\t\tmin"))
 	{
-		tmp = tmp->next;
-		i++;
+		textbox->min = ft_atoi(tmp[1]);
+		if (textbox->min >= 0)
+			textbox->reserved = 0;
+		else
+			textbox->reserved = 1;
 	}
-	return (ft_itoa(tmp->pos.y));
+	else if (!CMP(tmp[0], "\t\tmax"))
+		textbox->max = ft_atoi(tmp[1]);
+	else
+		gui_parse_textbox_3(textbox, tmp);
 }
 
-char	*gui_get_textbox_z(void)
+t_textbox	*gui_parse_textbox(int fd, int nb)
 {
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
+	t_textbox	*textbox;
+	char		**tmp;
+	char		*line;
 
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
+	textbox = gui_textbox_init();
+	while (0 < nb--)
 	{
-		tmp = tmp->next;
-		i++;
+		get_next_line(fd, &line);
+		tmp = ft_strsplit(line, ':');
+		if (!ft_strcmp(tmp[0], "\t\tx"))
+			textbox->dest.x = ft_atoi(tmp[1]);
+		else if (!ft_strcmp(tmp[0], "\t\ty"))
+			textbox->dest.y = ft_atoi(tmp[1]);
+		else
+			gui_parse_textbox_2(textbox, tmp);
+		gui_free_carray(&tmp, 2);
+		gui_free_str(&line);
 	}
-	return (ft_itoa(tmp->pos.z));
-}
-
-char	*gui_get_textbox_ax(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->ang.x / M_PI_2 * 90));
-}
-
-char	*gui_get_textbox_ay(void)
-{
-	t_env	*e;
-	t_gui	*gui;
-	t_obj	*tmp;
-	int		i;
-
-	e = get_env();
-	gui = get_gui();
-	tmp = e->obj;
-	i = 0;
-	while (i < gui->container[0]->scroll[1]->active_value)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (ft_itoa(tmp->ang.y / M_PI_2 * 90));
+	return (textbox);
 }

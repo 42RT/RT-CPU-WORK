@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 17:48:19 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 02:13:05 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 10:35:48 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		gui_background_get_set_n_display(t_gui *gui)
 
 	path = ft_strjoin(PATH->texture, "bg_deadrealm.bmp");
 	BG->surface = SDL_LoadBMP(path);
-	gui_free_array((void ***)&path, 0);
+	gui_free_str(&path);
 	if (!BG->surface)
 		gui_error(2);
 	BG->bmp = SDL_CreateTextureFromSurface(gui->img, BG->surface);

@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:39:13 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	gui_rt_reload_object(t_env *e, t_gui *gui)
 
 void	gui_rt_reload(t_env *e, t_gui *gui, char *scene)
 {
-	free(e->scene);
+	gui_free_str(&(e->scene));
 	e->scene = ft_strdup(scene);
 	reload(e);
 	SDL_RaiseWindow(e->gfx->win);

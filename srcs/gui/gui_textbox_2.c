@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:48:02 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	gui_reparse_textbox_value_suite(t_gui *gui, int id, int i)
 			i = 0;
 			while (i < BLOCK[id]->textbox_qt)
 			{
-				free(TEXTBOX[i]->value);
+				gui_free_str(&(TEXTBOX[i]->value));
 				gui_get_textbox_value(TEXTBOX[i]);
 				i++;
 			}
@@ -41,7 +41,7 @@ void	gui_reparse_textbox_value(t_gui *gui, char *target)
 		i = 0;
 		while (i < PARAM->textbox_qt)
 		{
-			free(PARAM_TXB->value);
+			gui_free_str(&(PARAM_TXB->value));
 			gui_get_textbox_value(PARAM_TXB);
 			i++;
 		}

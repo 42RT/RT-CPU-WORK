@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 16:40:46 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:22 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:53:45 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	gui_widget_write_txt(void *widget, char *color)
 	t_gui	*gui;
 
 	gui = get_gui();
-	if (!ft_strcmp(((REF *)widget)->txt->anchor, "this"))
+	if (!CMP(((REF *)widget)->txt->anchor, "this"))
 		gui_widget_write_anchored_txt(gui, widget, color);
 	else
 		gui_container_write_txt(widget, color);
@@ -85,7 +85,7 @@ void	gui_widget_write_txt(void *widget, char *color)
 void	gui_scroll_value_write(t_gui *gui, t_scroll *scroll, char *color)
 {
 	gui_font_init(gui, "Starjedi", 16);
-	if (!ft_strcmp(scroll->tag, "SCN") && scroll->active_value == -1)
+	if (!CMP(scroll->tag, "SCN") && scroll->active_value == -1)
 		gui_txt_to_texture("default", "SOLID", color);
 	else
 		gui_txt_to_texture(scroll->value[scroll->active_value], "SOLID", color);

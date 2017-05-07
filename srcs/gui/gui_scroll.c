@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 18:13:36 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 17:32:04 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 12:00:42 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,6 @@ t_scroll	*gui_scroll_init(void)
 	scroll->bmp = NULL;
 	scroll->button = gui_scroll_button_init();
 	return (scroll);
-}
-
-void		gui_scroll_value_free(char **value, int nb)
-{
-	int	i;
-
-	i = nb - 1;
-	while (i >= 0)
-		value[i--] = NULL;
 }
 
 void		gui_scroll_set_halign(t_scroll *scroll)

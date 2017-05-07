@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 01:28:06 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 10:49:15 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void		gui_parse_checkbox_suite(t_checkbox *checkbox, char **tmp)
 {
 	char	**tmp2;
 
-	tmp2 = NULL;
 	if (!CMP(tmp[0], "\t\ttag"))
 	{
 		tmp2 = ft_strsplit(tmp[1], '"');
@@ -44,7 +43,7 @@ void		gui_parse_checkbox_suite(t_checkbox *checkbox, char **tmp)
 	}
 	else
 		gui_error(16);
-	gui_free_array((void ***)&tmp2, 2);
+	gui_free_carray(&tmp2, 2);
 }
 
 t_checkbox	*gui_parse_checkbox(int fd, int nb)
@@ -56,7 +55,7 @@ t_checkbox	*gui_parse_checkbox(int fd, int nb)
 
 	checkbox = gui_checkbox_init();
 	i = 0;
-	while (i < nb)
+	while (nb > i++)
 	{
 		get_next_line(fd, &line);
 		tmp = ft_strsplit(line, ':');
@@ -70,8 +69,8 @@ t_checkbox	*gui_parse_checkbox(int fd, int nb)
 			gui_parse_checkbox_state(checkbox, tmp);
 		else
 			gui_parse_checkbox_suite(checkbox, tmp);
-		gui_free_array((void ***)&tmp, 2);
-		i++;
+		gui_free_carray(&tmp, 2);
+		gui_free_str(&line);
 	}
 	return (checkbox);
 }

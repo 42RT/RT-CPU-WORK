@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 01:30:17 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:22:14 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	gui_get_scl_texture_nml_3(t_scroll *scroll, char **value, t_obj *obj)
 	i = 1;
 	while ((GUI_SYS->rfile = readdir(GUI_SYS->dir)))
 	{
-		if (ft_strcmp(GUI_SYS->rfile->d_name, ".")
-		&& ft_strcmp(GUI_SYS->rfile->d_name, ".."))
+		if (CMP(GUI_SYS->rfile->d_name, ".")
+		&& CMP(GUI_SYS->rfile->d_name, ".."))
 		{
 			tmp = ft_strsplit(GUI_SYS->rfile->d_name, '.');
 			value[i++] = ft_strdup(tmp[0]);
-			if (!ft_strcmp(value[i - 1], obj->texture))
+			if (!CMP(value[i - 1], obj->texture))
 				scroll->active_value = i - 1;
-			gui_free_array((void ***)&tmp, 2);
+			gui_free_carray(&tmp, 2);
 		}
 	}
 }
@@ -87,8 +87,8 @@ char	**gui_get_scroll_texture_nml(t_scroll *scroll)
 	fread(lu, sizeof(char), 10, GUI_SYS->output);
 	lu_trim = ft_strdup_trim(lu);
 	scroll->nb_value = ft_atoi(lu_trim) + 1;
-	free(lu);
-	free(lu_trim);
+	gui_free_str(&lu);
+	gui_free_str(&lu_trim);
 	scroll->active_value = 0;
 	scroll->mod = 0;
 	return (gui_get_scl_texture_nml_2(scroll, e, gui));

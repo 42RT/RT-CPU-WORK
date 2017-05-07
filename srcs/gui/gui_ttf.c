@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 16:40:46 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:22 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:52:02 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	gui_font_init(t_gui *gui, char *ttf, int size)
 
 	tmp = ft_strjoin(PATH->font, ttf);
 	path = ft_strjoin(tmp, ".ttf");
-	free(tmp);
+	gui_free_str(&tmp);
 	TTF->font = TTF_OpenFont(path, size);
-	free(path);
+	gui_free_str(&path);
 	if (TTF->font == NULL)
 		gui_error(6);
 	TTF_SizeText(TTF->font, "editor", NULL, &TTF->h_px);

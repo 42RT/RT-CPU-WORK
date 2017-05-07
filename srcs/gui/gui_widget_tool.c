@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 05:23:43 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:54:56 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	gui_widget_texture_get_bmp(void *widget, char *file)
 	gui = get_gui();
 	path = ft_strjoin(PATH->texture, file);
 	((REF *)widget)->surface = SDL_LoadBMP(path);
-	free(path);
+	gui_free_str(&path);
 	if (!((REF *)widget)->surface)
 		gui_error(2);
 	((REF *)widget)->bmp = SDL_CreateTextureFromSurface(gui->img,

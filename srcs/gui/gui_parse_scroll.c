@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 01:29:37 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:12:16 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		gui_parse_scroll_suite(t_scroll *scroll, char **tmp)
 	}
 	else
 		gui_error(16);
-	gui_free_array((void ***)&tmp2, 2);
+	gui_free_carray(&tmp2, 2);
 }
 
 t_scroll	*gui_parse_scroll(int fd, int nb)
@@ -42,11 +42,9 @@ t_scroll	*gui_parse_scroll(int fd, int nb)
 	t_scroll	*scroll;
 	char		**tmp;
 	char		*line;
-	int			i;
 
 	scroll = gui_scroll_init();
-	i = 0;
-	while (i < nb)
+	while (0 < nb--)
 	{
 		get_next_line(fd, &line);
 		tmp = ft_strsplit(line, ':');
@@ -58,8 +56,8 @@ t_scroll	*gui_parse_scroll(int fd, int nb)
 			scroll->txt->align = ft_atoi(tmp[1]);
 		else
 			gui_parse_scroll_suite(scroll, tmp);
-		gui_free_array((void ***)&tmp, 2);
-		i++;
+		gui_free_carray(&tmp, 2);
+		gui_free_str(&line);
 	}
 	return (scroll);
 }

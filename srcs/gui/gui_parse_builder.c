@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 06:34:17 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 10:38:58 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,30 @@ void	gui_parse_builder(t_gui *gui, char *file)
 		while ((ret = get_next_line(fd, &line)) > 0)
 		{
 			gui_find_header(gui, fd, line);
-			gui_free_array((void ***)&line, 0);
+			gui_free_str(&line);
 		}
 		close(fd);
 	}
 	else
 		gui_error(9);
+}
+
+void	gui_parse_widget_coma(int fd)
+{
+	char	*line;
+
+	get_next_line(fd, &line);
+	if (CMP(line, "\t\t,"))
+		gui_error(11);
+	gui_free_str(&line);
+}
+
+void	gui_parse_container_coma(int fd)
+{
+	char	*line;
+
+	get_next_line(fd, &line);
+	if (CMP(line, "\t,"))
+		gui_error(10);
+	gui_free_str(&line);
 }
