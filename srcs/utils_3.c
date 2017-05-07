@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <raytracer.h>
 
-void		free_env(t_env *e)
+void			free_env(t_env *e)
 {
 	destroy_obj_list(e->obj);
 	free(e);
