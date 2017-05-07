@@ -38,7 +38,7 @@ t_gfx			*gfx_init(char *title, int res_x, int res_y, int buff_nb)
 		return ((void *)(intptr_t)ft_error("Failed to init SDL TTF"));
 	res->win = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED, res_x, res_y, SDL_WINDOW_SHOWN);
-	res->winID = SDL_GetWindowID(res->win);
+	res->win_id = SDL_GetWindowID(res->win);
 	if (!res->win)
 		return (0);
 	res->renderer = SDL_CreateRenderer(res->win, -1, SDL_RENDERER_ACCELERATED);

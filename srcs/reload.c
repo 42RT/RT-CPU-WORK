@@ -16,16 +16,7 @@
 
 void		delete_all_obj(t_env *e)
 {
-	t_obj	*act;
-	t_obj	*next;
-
-	act = e->obj;
-	while (act)
-	{
-		next = act->next;
-		free(act);
-		act = next;
-	}
+	destroy_obj_list_2(e->obj);
 	e->obj = 0;
 }
 

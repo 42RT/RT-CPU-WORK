@@ -14,7 +14,6 @@
 #include <gfx.h>
 #include <raytracer.h>
 
-
 void			gfx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
 {
 	static int		*map = 0;

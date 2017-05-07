@@ -60,9 +60,9 @@ t_obj		*new_obj(void)
 	res->def.x = 0;
 	res->def.y = 0;
 	res->def.z = 0;
-	res->coef_ambient = 0.1;
-	res->coef_diffuse = 0.9;
-	res->coef_spec = 0.0;
+	res->coef_ambient = DEF_AMB;
+	res->coef_diffuse = DEF_DIF;
+	res->coef_spec = DEF_SPE;
 	res->dst = 1e8;
 	new_obj_extend(res);
 	return (res);
