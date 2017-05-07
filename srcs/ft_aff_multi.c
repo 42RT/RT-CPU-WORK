@@ -12,35 +12,40 @@
 
 #include <raytracer.h>
 
+int			init_th_data(t_th_data *data, t_env *e, int nb)
+{
+	data.e = e;
+	data.nb = nb;
+	data.mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+	return (0);
+}
+
 int			ft_aff_multithread(t_env *e)
 {
-	t_th_data	data;
+	t_th_data	d;
 
-	data.mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
-	data.th_nb = 0;
-	data.res = e->set->width * e->set->height;
-	data.nb = data.res;
+	d.th_nb = init_th_data(d, e, e->set->width * e->set->height);
+	d.res = d.nb;
 	e->render_progression = 0;
-	data.map = init_map(data.res);
-	data.e = e;
-	launch_threads(&data);
-	while (data.nb)
+	d.map = init_map(d.res);
+	launch_threads(&d);
+	while (d.nb)
 	{
 		if (*(e->worker_stop))
 		{
-			while (data.th_nb > 0)
+			while (d.th_nb > 0)
 				;
 			print_percentage(-1);
 			return (0);
 		}
-		e->render_progression = 100.0 - ((data.nb * 100) / data.res);
+		e->render_progression = 100.0 - ((d.nb * 100) / d.res);
 		print_percentage((int)e->render_progression);
 	}
 	e->remaining = 0;
-	while (data.th_nb > 0)
+	while (d.th_nb > 0)
 		;
 	ft_printf("\rRendering finished !\n");
-	free(data.map);
+	free(d.map);
 	return (1);
 }
 
@@ -48,11 +53,8 @@ int			ft_aff_multithread_line(t_env *e)
 {
 	t_th_data	data;
 
-	data.mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
-	data.th_nb = 0;
+	data.th_nb = init_th_data(d, e, e->set->height);
 	data.map = init_map(e->set->width * e->set->height);
-	data.nb = e->set->height;
-	data.e = e;
 	launch_threads_line(&data);
 	while (data.nb)
 	{
