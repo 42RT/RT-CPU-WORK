@@ -34,6 +34,18 @@ void		print_debug(t_env *e)
 	}
 }
 
+static void	ft_load_icon(t_env *e)
+{
+	SDL_Surface	*img;
+
+	img = SDL_LoadBMP("ressources/icon.bmp");
+	if (img)
+	{
+		SDL_SetWindowIcon(e->gfx->win, img);
+		SDL_FreeSurface(img);
+	}
+}
+
 void		ft_welcome(t_env *e)
 {
 	SDL_Surface	*img;
@@ -44,6 +56,7 @@ void		ft_welcome(t_env *e)
 	pos.y = 0;
 	pos.w = e->set->width;
 	pos.h = e->set->height;
+	ft_load_icon(e);
 	img = SDL_LoadBMP("ressources/background.bmp");
 	if (img)
 	{
