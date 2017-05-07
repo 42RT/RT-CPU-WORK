@@ -118,7 +118,6 @@ void	parse_object(t_env *e, t_item *item)
 		load_normalmap(obj);
 	obj->func = get_func(obj->type, obj->negative);
 	obj->normale = get_normale(obj->type);
-	obj->base = new_base();
 	verif_obj_validity(obj);
 	if (obj->type)
 		add_obj(e, obj);

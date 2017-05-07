@@ -48,10 +48,6 @@ void	free_obj_2(t_obj *obj)
 		SDL_FreeSurface(obj->nm_surface);
 	if (obj->tex_surface)
 		SDL_FreeSurface(obj->tex_surface);
-	while (++i < 3 && obj->base[i])
-		free(obj->base[i]);
-	if (obj->base)
-		free(obj->base);
 	free(obj);
 }
 
