@@ -42,7 +42,7 @@ typedef struct		s_gfx
 	SDL_Event		event;
 	char			*title;
 	void			*win;
-	unsigned int	winID;
+	unsigned int	win_id;
 	void			*renderer;
 	void			*texture;
 	int				act;

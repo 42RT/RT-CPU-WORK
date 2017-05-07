@@ -43,7 +43,7 @@ static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 	int			old;
 
 	old = console_mode;
-	if (event.window.windowID == env->gfx->winID)
+	if (event.window.windowID == env->gfx->win_id)
 	{
 		if (event.key.keysym.sym == SDLK_ESCAPE)
 		{
