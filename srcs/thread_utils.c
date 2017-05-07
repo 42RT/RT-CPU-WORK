@@ -60,7 +60,9 @@ static int	thread_aff_line(void *arg)
 void		launch_threads(t_th_data *data)
 {
 	int			i;
+	int			j;
 
+	j = 0;
 	i = -1;
 	while (++i < data->e->set->threads)
 	{
