@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/06 23:33:23 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/07 08:52:26 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char	*ft_strtrim_coma(char const *s)
 	ptr = (char *)(s - 1);
 	while (*ptr == ':')
 		++ptr;
-	result = (char *)malloc(ft_strlen(ptr - 1) * sizeof(char));
+	if (!(result = (char *)malloc(ft_strlen(ptr - 1) * sizeof(char))))
+		error(1);
 	ptr -= 1;
 	i = -1;
 	while (*++ptr)
@@ -81,7 +82,8 @@ t_item	*get_next_item(char **str)
 	if (ft_strcchr(*str, '\"', '\n') == NULL)
 		exit(EXIT_SUCCESS);
 	file = *str;
-	item = (t_item *)malloc(sizeof(t_item));
+	if (!(item = (t_item *)malloc(sizeof(t_item))))
+		error(1);
 	item->type = ft_strdup_trim(file);
 	item->setnb = 0;
 	if (!item)

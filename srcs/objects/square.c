@@ -24,7 +24,7 @@ void	trace_square(t_obj *obj, t_vector o, t_vector v)
 	rotate_vector2(&v, &(obj->ang));
 	exp_compute(&o, &(obj->exp));
 	exp_compute(&v, &(obj->exp));
-	t = (obj->pos.y - o.y) / v.y;
+	t = -o.y / v.y;
 	x = t * v.x + o.x;
 	z = t * v.z + o.z;
 	obj->dst = -1;

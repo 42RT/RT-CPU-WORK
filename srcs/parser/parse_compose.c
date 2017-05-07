@@ -6,7 +6,7 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 16:08:30 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/05/07 06:24:15 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/07 08:49:07 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int		parse_item_compo(t_item *item, int i)
 
 	j = 0;
 	k = 0;
-	item->next = (t_item *)malloc(sizeof(t_item));
+	if (!(item->next = (t_item *)malloc(sizeof(t_item))))
+		error(1);
 	item->next->setnb = 0;
 	if (!ft_strncmp(item->set[i], "\"compose\"", 9))
 	{
