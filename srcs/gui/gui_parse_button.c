@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 01:27:02 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_button	*gui_parse_button(int fd, int nb)
 		get_next_line(fd, &line);
 		tmp = ft_strsplit(line, ':');
 		gui_parse_button_suite(button, tmp);
-		gui_free_array((void **)tmp, 2);
+		gui_free_array((void ***)&tmp, 2);
 		i++;
 	}
 	return (button);

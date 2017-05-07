@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 01:22:10 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ void		gui_txt_to_texture(char *content, char *style, char *color)
 	SDL_FreeSurface(tmp);
 }
 
-void		gui_free_array(void **array, int dimension)
+void		gui_free_array(void ***array, int dimension)
 {
 	int	i;
 
 	i = 0;
 	while (i < dimension)
-		free(array[i++]);
-	free(array);
-	array = NULL;
+		free((*array)[i++]);
+	free(*array);
+	*array = NULL;
 }
 
 SDL_Rect	gui_get_container_rect(int id)

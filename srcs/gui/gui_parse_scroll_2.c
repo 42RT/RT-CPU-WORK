@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 06:37:06 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**gui_get_scl_scn_suite(t_scroll *scroll, t_env *e, t_gui *gui, int i)
 				scroll->active_value = i;
 			tmp = ft_strsplit(GUI_SYS->rfile->d_name, '.');
 			value[i++] = ft_strdup(tmp[0]);
-			gui_free_array((void **)tmp, 2);
+			gui_free_array((void ***)&tmp, 2);
 			free(lu);
 		}
 	}
@@ -120,7 +120,7 @@ char	**gui_get_scroll_aa(t_scroll *scroll)
 	t_env	*e;
 
 	e = get_env();
-	scroll->nb_value = 6;
+	scroll->nb_value = 7;
 	if (!(value = (char **)malloc(sizeof(char *) * scroll->nb_value)))
 		error(1);
 	value[0] = ft_strdup("0");
@@ -129,6 +129,7 @@ char	**gui_get_scroll_aa(t_scroll *scroll)
 	value[3] = ft_strdup("8");
 	value[4] = ft_strdup("16");
 	value[5] = ft_strdup("32");
+	value[6] = ft_strdup("64");
 	if (e->set->aa == 0)
 		scroll->active_value = 0;
 	else

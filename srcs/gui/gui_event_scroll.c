@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/06 18:03:35 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 04:06:20 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ int	event_scroll_value_found(t_gui *gui, SDL_Event ev, t_scroll *scl)
 		+ (scl->mod * GUI_LIST_STEP)) / GUI_LIST_STEP;
 	tmp = ft_strjoin("scene/", scl->value[scl->active_value]);
 	scene = ft_strjoin(tmp, ".rts");
-	free(tmp);
-	tmp = NULL;
+	gui_free_array((void ***)&tmp, 0);
 	if (!ft_strcmp(scl->tag, "SCN") && (ft_strcmp(scene, e->scene)))
 		gui_rt_reload(e, gui, scene);
 	else
@@ -94,8 +93,7 @@ int	event_scroll_value_found(t_gui *gui, SDL_Event ev, t_scroll *scl)
 		}
 	}
 	gui_scroll_toggle(gui, scl);
-	free(scene);
-	scene = NULL;
+	gui_free_array((void ***)&scene, 0);
 	return (1);
 }
 

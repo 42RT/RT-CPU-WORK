@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 01:29:15 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	gui_parse_gauge_suite(t_gauge *gauge, char **tmp)
 	}
 	else
 		gui_error(16);
-	gui_free_array((void **)tmp2, 2);
+	gui_free_array((void ***)&tmp2, 2);
 }
 
 t_gauge	*gui_parse_gauge(int fd, int nb)
@@ -60,7 +60,7 @@ t_gauge	*gui_parse_gauge(int fd, int nb)
 			gauge->txt->align = ft_atoi(tmp[1]);
 		else
 			gui_parse_gauge_suite(gauge, tmp);
-		gui_free_array((void **)tmp, 2);
+		gui_free_array((void ***)&tmp, 2);
 		nb--;
 	}
 	return (gauge);

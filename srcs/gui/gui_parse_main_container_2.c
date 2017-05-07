@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 01:26:44 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void		gui_parse_container_info(t_gui *gui, int fd, int id, int nb)
 			CONTAINER->dest.w = ft_atoi(tmp[1]);
 		else
 			gui_parse_container_info_suite(tmp, id);
-		gui_free_array((void **)tmp, 2);
+		gui_free_array((void ***)&tmp, 2);
 		i++;
 	}
 	if (CONTAINER->txt->align == -1)

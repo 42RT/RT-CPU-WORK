@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 04:18:08 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		gui_apply_numerical(t_gui *gui, t_obj *tmp)
 
 void		gui_apply_object_suite(t_gui *gui, t_obj *tmp)
 {
-	if (!ft_strcmp(GUI_SCL_MTR_VALUE, "none"))
+	if (!CMP(GUI_SCL_MTR_VALUE, "none"))
 		tmp->normalmap = NULL;
 	else
 		tmp->normalmap = ft_strdup(GUI_SCL_MTR_VALUE);
@@ -79,7 +79,7 @@ void		gui_apply_setting(t_gui *gui)
 	e->set->oldh = e->set->height;
 	e->set->width = ft_atoi((const char *)res[0]);
 	e->set->height = ft_atoi((const char *)res[1]);
-	gui_free_array((void **)res, 2);
+	gui_free_array((void ***)&res, 2);
 	ptr = ft_strdup(GUI_SCL_AA_VALUE);
 	e->set->aa = ft_atoi((const char *)ptr);
 	free(ptr);

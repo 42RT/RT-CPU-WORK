@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 02:19:13 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ void		gui_button_set_valign(t_button *button, SDL_Rect dest)
 		button->dest.y = dest.y
 		+ (BLOCK[button->p]->dest.h / 7);
 	else if (button->dest.y == GUI_ALIGN_RIGHT)
-		button->dest.y = dest.y + dest.h
-		- DEF->btn_h;
+		button->dest.y = dest.y + dest.h - DEF->btn_h;
 	else
 		button->dest.y = button->dest.y;
 }

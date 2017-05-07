@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 00:28:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 00:33:10 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 06:25:52 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,7 +346,6 @@ typedef struct		s_gui
 	int				txb_action;
 	int				anchor_x;
 	int				anchor_y;
-	int				tmp_lim;
 }					t_gui;
 
 /*
@@ -362,6 +361,7 @@ t_gui				*gui_init(void);
 void				gui_parse_builder(t_gui *gui, char *file);
 void				gui_parse_param_builder(t_gui *gui, int fd, int nb);
 void				gui_parse_main_builder(t_gui *gui, int fd, int nb);
+void				gui_parse_help_builder(t_gui *gui, int fd, int nb);
 void				gui_find_header(t_gui *gui, int fd, char *line);
 void				gui_parse_window(t_gui *gui, int fd, int nb);
 void				gui_parse_path(t_gui *gui, int fd, int nb);
@@ -369,6 +369,8 @@ void				gui_parse_def_font(t_gui *gui, int fd, int nb);
 void				gui_parse_def_textbox(t_gui *gui, int fd, int nb);
 void				gui_parse_def_scroll(t_gui *gui, int fd, int nb);
 void				gui_parse_def_button(t_gui *gui, int fd, int nb);
+void				gui_parse_def_gauge(t_gui *gui, int fd, int nb);
+void				gui_parse_def_checkbox(t_gui *gui, int fd, int nb);
 void				gui_parse_container_info(t_gui *gui, int fd, int id,
 int nb);
 t_button			**gui_parse_container_button(int fd, int qt, int id);
@@ -388,6 +390,7 @@ void				gui_parse_scroll_suite(t_scroll *scroll, char **tmp);
 /*
 ** DRAW
 */
+
 void				gui_pixel_put(t_gui *gui, int x, int y);
 SDL_Color			gui_color(char *choice);
 
@@ -610,6 +613,6 @@ void				gui_reset(t_gui *gui, char *target);
 void				gui_anti_aliasing_set(int x, int y, int w, int h);
 char				*str_tolower(char *str);
 void				gui_txt_to_texture(char *content, char *style, char *color);
-void				gui_free_array(void **array, int dimension);
+void				gui_free_array(void ***array, int dimension);
 SDL_Rect			gui_get_container_rect(int id);
 #endif
