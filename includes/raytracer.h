@@ -268,6 +268,7 @@ void				smooth_quickrender(t_env *e);
 void				print_time(unsigned int start);
 void				print_percentage(int percent);
 void				destroy_obj_list(t_obj *obj);
+void				destroy_obj_list_2(t_obj *obj);
 int					init_th_data(t_th_data *data, t_env *e, int nb);
 void				free_env(t_env *e);
 

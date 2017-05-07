@@ -32,3 +32,35 @@ void	destroy_obj_list(t_obj *obj)
 	if (obj)
 		free_obj(obj);
 }
+
+void	free_obj_2(t_obj *obj)
+{
+	int		i;
+
+	i = -1;
+	if (obj->texture)
+		free(obj->texture);
+	if (obj->normalmap)
+		free(obj->normalmap);
+	if (obj->procedural)
+		free(obj->procedural);
+	if (obj->nm_surface)
+		SDL_FreeSurface(obj->nm_surface);
+	if (obj->tex_surface)
+		SDL_FreeSurface(obj->tex_surface);
+	while (++i < 3 && obj->base[i])
+		free(obj->base[i]);
+	if (obj->base)
+		free(obj->base);
+	free(obj);
+}
+
+void	destroy_obj_list_2(t_obj *obj)
+{
+	if (obj->compose)
+		destroy_obj_list(obj->compose);
+	if (obj->next)
+		destroy_obj_list(obj->next);
+	if (obj)
+		free_obj_2(obj);
+}
