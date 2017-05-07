@@ -25,6 +25,9 @@ static int	thread_aff(void *arg)
 	pthread_mutex_unlock(&(a->mutex));
 	e = copy_env(a->e);
 	ft_aff_rand(a, e);
+	if (e->file)
+		free(e->file);
+	free_env(e);
 	while (pthread_mutex_lock(&(a->mutex)) != 0)
 		;
 	--a->th_nb;
@@ -44,6 +47,9 @@ static int	thread_aff_line(void *arg)
 	pthread_mutex_unlock(&(a->mutex));
 	e = copy_env(a->e);
 	ft_aff_line(a, e);
+	if (e->file)
+		free(e->file);
+	free_env(e);
 	while (pthread_mutex_lock(&(a->mutex)) != 0)
 		;
 	--a->th_nb;
@@ -54,12 +60,11 @@ static int	thread_aff_line(void *arg)
 void		launch_threads(t_th_data *data)
 {
 	int			i;
-	SDL_Thread	*thread_ptr;
 
 	i = -1;
 	while (++i < data->e->set->threads)
 	{
-		if ((thread_ptr = SDL_CreateThread(thread_aff, "workers", data)) == 0)
+		if ((data->thread[i] = SDL_CreateThread(thread_aff, "workers", data)) == 0)
 		{
 			*(data->e->worker_stop) = 1;
 			return ;
@@ -70,12 +75,11 @@ void		launch_threads(t_th_data *data)
 void		launch_threads_line(t_th_data *data)
 {
 	int			i;
-	SDL_Thread	*thread_ptr;
 
 	i = -1;
 	while (++i < data->e->set->threads)
 	{
-		if ((thread_ptr = SDL_CreateThread(thread_aff_line,
+		if ((data->thread[i] = SDL_CreateThread(thread_aff_line,
 											"workers", data)) == 0)
 		{
 			*(data->e->worker_stop) = 1;

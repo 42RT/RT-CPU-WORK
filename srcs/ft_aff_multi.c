@@ -68,14 +68,13 @@ int			ft_aff_multithread_line(t_env *e)
 	return (1);
 }
 
-static void	ft_aff_rand_wait(t_env *e, t_th_data *a)
+static void	ft_aff_rand_wait(t_th_data *a)
 {
 	while (pthread_mutex_lock(&(a->mutex)) != 0)
 		;
 	if (!a->nb)
 	{
 		pthread_mutex_unlock(&(a->mutex));
-		free_env(e);
 		return ;
 	}
 	--a->nb;
@@ -102,10 +101,9 @@ void		ft_aff_rand(t_th_data *a, t_env *e)
 			e->y = pos / e->set->width;
 			e->x = pos % e->set->width;
 			fill_pixel(e, e->obj);
-			ft_aff_rand_wait(e, a);
+			ft_aff_rand_wait(a);
 		}
 	}
-	free_env(e);
 }
 
 void		ft_aff_line(t_th_data *a, t_env *e)
@@ -119,7 +117,6 @@ void		ft_aff_line(t_th_data *a, t_env *e)
 		if (!a->nb)
 		{
 			pthread_mutex_unlock(&(a->mutex));
-			free_env(e);
 			return ;
 		}
 		y = a->nb;
@@ -130,5 +127,4 @@ void		ft_aff_line(t_th_data *a, t_env *e)
 		while (++e->x < e->set->width)
 			fill_pixel(e, e->obj);
 	}
-	free_env(e);
 }

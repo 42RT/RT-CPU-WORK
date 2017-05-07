@@ -208,6 +208,7 @@ typedef struct		s_th_data
 	int				nb;
 	pthread_mutex_t	mutex;
 	int				th_nb;
+	SDL_Thread		*thread[64];
 }					t_th_data;
 
 typedef struct		s_ray_data
