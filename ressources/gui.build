@@ -53,21 +53,21 @@ PARAM MENU BUILDER:
 	freetxt_qt: 2
 	scroll:
 		x: 2
-		y: 45
+		y: 15
 		tag: "RES"
 		txt: "resolution"
 		txt_anchor: "parent"
 		txt_align: 0
 		,
 		x: 2
-		y: 70
+		y: 45
 		tag: "_AA"
 		txt: "Anti-aliasing"
 		txt_anchor: "parent"
 		txt_align: 0
 	textbox:
 		x: 0
-		y: 390
+		y: 370
 		tag: "CPX"
 		min: -99999
 		max: 99999
@@ -76,7 +76,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 1
-		y: 390
+		y: 370
 		tag: "CPY"
 		min: -99999
 		max: 99999
@@ -85,7 +85,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 2
-		y: 390
+		y: 370
 		tag: "CPZ"
 		min: -99999
 		max: 99999
@@ -94,7 +94,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 0
-		y: 460
+		y: 440
 		tag: "CAX"
 		min: -99999
 		max: 99999
@@ -103,7 +103,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 1
-		y: 460
+		y: 440
 		tag: "CAY"
 		min: -99999
 		max: 99999
@@ -112,7 +112,7 @@ PARAM MENU BUILDER:
 		txt_align: 0
 		,
 		x: 2
-		y: 460
+		y: 440
 		tag: "CAZ"
 		min: -99999
 		max: 99999

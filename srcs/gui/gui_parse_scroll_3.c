@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 16:38:24 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**gui_get_16_9_10(t_scroll *scroll, t_env *e)
 	value[2] = ft_strdup("1280x720");
 	value[3] = ft_strdup("1680x1050");
 	value[4] = ft_strdup("1920x1080");
-	value[5] = ft_strdup("1920:1200");
+	value[5] = ft_strdup("1920x1200");
 	value[6] = ft_strdup("2560x1440");
 	value[7] = ft_strdup("2560x1600");
 	value[8] = ft_strdup("3840x2160");

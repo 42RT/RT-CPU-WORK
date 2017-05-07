@@ -19,6 +19,10 @@
 
 # define RAND_TRY			7
 
+# define DEF_AMB			0.1
+# define DEF_DIF			0.9
+# define DEF_SPE			0.0
+
 # define DEF_WIDTH			800
 # define DEF_HEIGHT			600
 # define DEF_AA				0

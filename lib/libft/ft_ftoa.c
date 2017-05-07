@@ -6,7 +6,7 @@
 /*   By: jrouilly <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 13:14:20 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/04/27 13:14:22 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/05/07 16:29:26 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,25 @@ char	*ft_ftoa(float nb, int precision)
 	char	*str;
 	char	*entier;
 	char	*decimal;
-	char	*tmp;
+	int		i;
 
-	tmp = ft_itoa((int)nb);
-	nb = nb - (int)nb;
-	nb = nb * pow(10, precision);
-	entier = ft_strjoin(tmp, ".");
-	free(tmp);
+	i = 0;
+	entier = ft_itoa((int)nb);
+	nb -= (int)nb;
 	if (nb < 0)
 		nb *= -1;
-	decimal = ft_itoa((int)nb);
+	if (!(decimal = (char *)malloc(sizeof(char) * (precision + 2))))
+		return (NULL);
+	decimal[i] = '.';
+	while (i < precision)
+	{
+		nb *= 10;
+		decimal[1 + i++] = (int)nb + 48;
+		nb -= (int)nb;
+	}
+	decimal[1 + i] = '\0';
 	str = ft_strjoin(entier, decimal);
-	free(entier);
-	free(decimal);
+	ft_strdel(&entier);
+	ft_strdel(&decimal);
 	return (str);
 }
