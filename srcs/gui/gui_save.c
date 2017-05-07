@@ -31,6 +31,6 @@ void	gui_save_object(t_gui *gui, t_env *e)
 {
 	(void)gui;
 	system(gui_old_path(e->scene));
-	if (!save_scene(e))
-		gui_error(15);
+//	if (!save_scene(e))
+//		gui_error(15);
 }

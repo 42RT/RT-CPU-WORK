@@ -13,6 +13,12 @@
 #include <stdlib.h>
 #include <raytracer.h>
 
+void		free_env(t_env *e)
+{
+	destroy_obj_list(e->obj);
+	free(e);
+}
+
 t_color			compute_color(t_env *e, t_obj *obj, unsigned int deph)
 {
 	t_obj		*start;

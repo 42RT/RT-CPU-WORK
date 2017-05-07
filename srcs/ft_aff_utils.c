@@ -12,6 +12,14 @@
 
 #include <raytracer.h>
 
+int			init_th_data(t_th_data *data, t_env *e, int nb)
+{
+	data->e = e;
+	data->nb = nb;
+	data->mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+	return (0);
+}
+
 void		print_percentage(int percent)
 {
 	static int	old = 0;
