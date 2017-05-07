@@ -16,9 +16,10 @@ int			ft_aff_multithread(t_env *e)
 {
 	t_th_data	data;
 
+	printf("432423\n");
 	data.th_nb = init_th_data(&data, e, e->set->width * e->set->height);
 	data.res = data.nb;
-	e->render_progression = 0;
+	*(e->render_progression) = 0;
 	data.map = init_map(data.res);
 	launch_threads(&data);
 	while (data.nb)
@@ -30,8 +31,8 @@ int			ft_aff_multithread(t_env *e)
 			print_percentage(-1);
 			return (0);
 		}
-		e->render_progression = 100.0 - ((data.nb * 100) / data.res);
-		print_percentage((int)e->render_progression);
+		*(e->render_progression) = 100.0 - ((data.nb * 100) / data.res);
+		print_percentage((int)*(e->render_progression));
 	}
 	e->remaining = 0;
 	while (data.th_nb > 0)
@@ -57,8 +58,8 @@ int			ft_aff_multithread_line(t_env *e)
 			print_percentage(-1);
 			return (0);
 		}
-		e->render_progression = 100.0 - ((data.nb * 100) / e->set->height);
-		print_percentage((int)e->render_progression);
+		*(e->render_progression) = 100.0 - ((data.nb * 100) / e->set->height);
+		print_percentage(*(e->render_progression));
 	}
 	e->remaining = 0;
 	while (data.th_nb > 0)

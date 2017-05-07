@@ -35,8 +35,8 @@ int			ft_aff_std(t_env *e)
 		}
 		++e->y;
 		change_cam(e);
-		e->render_progression = (float)(e->y * 100) / e->set->height;
-		print_percentage((int)e->render_progression);
+		*(e->render_progression) = (int)((e->y * 100) / e->set->height);
+		print_percentage(*(e->render_progression));
 	}
 	return (1);
 }
@@ -55,7 +55,7 @@ int			ft_aff(void *data)
 	start = (unsigned int)time(NULL);
 	if (ret && e->set->display == (PROGRESSIVE | RANDOM))
 		ret = ft_aff_random(e, e->obj, DEF_MULTITHREAD);
-	else if (ret && e->set->threads > 1 && e->set->display & RANDOM)
+	else if (ret && e->set->threads > 1 && (e->set->display & RANDOM))
 		ret = ft_aff_multithread(e);
 	else if (ret && e->set->threads > 1)
 		ret = ft_aff_multithread_line(e);
@@ -89,8 +89,8 @@ int			ft_aff_random(t_env *e, t_obj *obj, int multithread)
 		e->y = pos / e->set->width;
 		e->x = pos % e->set->width;
 		fill_pixel(e, obj);
-		e->render_progression = 100 - ((e->remaining * 100) / res);
-		print_percentage((int)e->render_progression);
+		*(e->render_progression) = 100 - ((e->remaining * 100) / res);
+		print_percentage(*(e->render_progression));
 	}
 	if (!*(e->worker_stop))
 	{

@@ -167,7 +167,7 @@ typedef struct		s_env
 	char			*file;
 	float			last_refract;
 	int				remaining;
-	float			render_progression;
+	int				*render_progression;
 	float			x;
 	float			y;
 	int				noise[NOISE_HEIGHT][NOISE_WIDTH];
