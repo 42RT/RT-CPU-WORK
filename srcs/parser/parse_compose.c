@@ -6,7 +6,7 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 16:08:30 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/05/07 05:41:14 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/07 06:24:15 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_obj	*add_compose(t_obj *obj)
 	return (obj);
 }
 
-void 	obj_distrib(t_obj *obj)
+void	obj_distrib(t_obj *obj)
 {
 	if (obj->type == 128)
 		obj->cap2 = 1000;
