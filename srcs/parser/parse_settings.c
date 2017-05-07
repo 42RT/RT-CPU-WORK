@@ -61,5 +61,6 @@ void	parse_settings(t_env *e, t_item *item, int i)
 			e->set->reflect = ft_abs(ft_atoi(get_value(item->set[i])));
 		else
 			parse_other_setting(e, item->set[i]);
+		e->set->display |= PROGRESSIVE;
 	}
 }

@@ -13,7 +13,6 @@
 	"focus_range": 7000,
 	"focus_k": 7,
 	"preview": 0,
-	"progressive_display": 0,
 	"random_renderer": 0,
 	"threads": 32,
 	"verbose": 0
