@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 18:13:36 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 17:32:04 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 06:41:11 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	gui_param_build(t_gui *gui)
 	gui_param_checkbox_create_all(gui);
 	gui_param_textbox_create_all(gui);
 	gui_param_gauge_create_all(gui);
+	printf("gauge\n");
 	gui_param_text_build(gui);
 }
 
@@ -51,9 +52,5 @@ void	gui_param_refresh(t_gui *gui)
 	PARAM->active = 1;
 	gui_button_selected(gui, BLOCK[9]->button[0]);
 	gui_param_get_bmp_n_display(gui);
-	gui_param_scroll_create_all(gui);
-	gui_param_textbox_create_all(gui);
-	gui_param_checkbox_create_all(gui);
-	gui_param_gauge_create_all(gui);
-	gui_param_text_build(gui);
+	gui_param_build(gui);
 }

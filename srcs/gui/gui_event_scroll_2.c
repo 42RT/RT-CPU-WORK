@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/06 18:03:35 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 04:00:03 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ int		event_scroll_mouse_wheel(SDL_Event event, t_gui *gui)
 		else if (event.wheel.y < 0)
 			event_scroll_down(gui, tmp);
 		else
+		{
+			tmp = NULL;
 			return (0);
+		}
+		tmp = NULL;
 		return (1);
 	}
 	return (0);

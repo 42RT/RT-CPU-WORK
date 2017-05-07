@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 18:13:36 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 17:32:04 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 05:47:14 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,18 @@ void	gui_param_text_build_suite(t_gui *gui)
 		gui_widget_write_txt(PARAM_GAU, "white");
 		PARAM_GAU->txt->align = 315;
 		tmp = ft_strdup(PARAM_GAU->txt->content);
-		free(PARAM_GAU->txt->content);
+		gui_free_array((void ***)&PARAM_GAU->txt->content, 0);
 		gui_gauge_convert_value(PARAM_GAU);
 		gui_widget_write_txt(PARAM_GAU, "white");
-		free(PARAM_GAU->txt->content);
+		gui_free_array((void ***)&PARAM_GAU->txt->content, 0);
 		PARAM_GAU->txt->content = ft_strdup(tmp);
-		free(tmp);
+		gui_free_array((void ***)&tmp, 0);
 		PARAM_GAU->txt->align = GUI_ALIGN_LEFT;
 		i++;
 	}
 	i = 0;
 	while (PARAM->freetxt_qt > i)
 		gui_freetxt_write(PARAM->freetxt[i++], "white");
-	TTF_CloseFont(TTF->font);
 }
 
 void	gui_param_text_build(t_gui *gui)
@@ -56,4 +55,5 @@ void	gui_param_text_build(t_gui *gui)
 	while (PARAM->checkbox_qt > i)
 		gui_widget_write_txt(PARAM->checkbox[i++], "white");
 	gui_param_text_build_suite(gui);
+	TTF_CloseFont(TTF->font);
 }

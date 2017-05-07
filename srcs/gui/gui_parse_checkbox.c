@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 01:28:06 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		gui_parse_checkbox_suite(t_checkbox *checkbox, char **tmp)
 	}
 	else
 		gui_error(16);
-	gui_free_array((void **)tmp2, 2);
+	gui_free_array((void ***)&tmp2, 2);
 }
 
 t_checkbox	*gui_parse_checkbox(int fd, int nb)
@@ -70,7 +70,7 @@ t_checkbox	*gui_parse_checkbox(int fd, int nb)
 			gui_parse_checkbox_state(checkbox, tmp);
 		else
 			gui_parse_checkbox_suite(checkbox, tmp);
-		gui_free_array((void **)tmp, 2);
+		gui_free_array((void ***)&tmp, 2);
 		i++;
 	}
 	return (checkbox);

@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/06 18:03:35 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 03:38:49 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	event_button_perform_action_suite(t_gui *gui, char *action, t_env *env)
 {
 	if (!ft_strcmp(action, "APPLY") && gui->action == 0)
 	{
-		gui_pending_action_prevent(gui);
 		gui_apply_object(gui);
 		gui_apply_setting(gui);
 		gui_rt_reload_object(env, gui);
@@ -55,7 +54,6 @@ void	event_button_perform_action(t_gui *gui, char *action)
 	}
 	else if (ft_strstr(action, "SAVE") != NULL)
 	{
-		gui_pending_action_prevent(gui);
 		gui_save_object(gui, env);
 		gui->action = 0;
 	}

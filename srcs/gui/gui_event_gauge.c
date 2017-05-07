@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/06 18:03:35 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 03:52:34 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int		event_is_param_gauge(SDL_Event event, t_gui *gui, t_env *e)
 			PARAM_GAU->active_value = (PARAM_GAU_C->dest.x - PARAM_GAU->dest.x)
 			+ 5;
 			PARAM_GAU->active_value = gui_gauge_get_norm(PARAM_GAU);
-			gui_main_refresh(gui);
 			event_is_posttraitment(e, gui, i);
+			gui_main_refresh(gui);
 			return (1);
 		}
 		i++;

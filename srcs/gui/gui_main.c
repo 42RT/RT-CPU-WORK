@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 00:23:15 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 05:37:43 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void		gui_build_main(t_gui *gui)
 {
 	ft_printf("GUI : \033[33mBUILDING CONTENT ...\033[0m\n");
 	gui_background_get_set_n_display(gui);
-	ft_printf("GUI : \033[33mContainer \033[0m: ");
-	ft_printf("\033[1;32mOK\033[0m\n");
 	ft_printf("GUI : \033[33mTextbox \033[0m: ");
 	gui_textbox_create_all(gui);
 	ft_printf("\033[1;32mOK\033[0m\n");
@@ -76,17 +74,14 @@ t_gui		*gui_init(void)
 	gui = get_gui();
 	if (SDL_GetCurrentDisplayMode(0, gui->display) != 0)
 		gui_error(1);
-	gui->display->w = 1920;
-	gui->display->h = 1080;
 	gui_parse_builder(gui, "./ressources/gui.build");
-	gui->win = SDL_CreateWindow("Tool box", gui->dest.x, gui->dest.y,
+	gui->win = SDL_CreateWindow("GUI", gui->dest.x, gui->dest.y,
 			gui->dest.w, gui->dest.h, SDL_WINDOW_SHOWN);
 	if (gui->win)
 		gui->img = SDL_CreateRenderer(gui->win, -1, SDL_RENDERER_SOFTWARE);
 	else
 		gui_error(4);
 	gui->win_id = SDL_GetWindowID(gui->win);
-	gui->tmp_lim = 0;
 	gui_build_main(gui);
 	SDL_RenderPresent(gui->img);
 	return (gui);

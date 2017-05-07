@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/17 21:29:24 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 05:18:29 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ t_textbox	*gui_parse_textbox(int fd, int nb)
 		}
 		else
 			gui_parse_textbox_suite(textbox, tmp);
-		gui_free_array((void **)tmp, 2);
+		gui_free_array((void ***)&tmp, 2);
 	}
 	return (textbox);
 }

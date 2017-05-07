@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 00:19:37 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 01:27:31 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	gui_parse_param_builder(t_gui *gui, int fd, int nb)
 		get_next_line(fd, &line);
 		tmp = ft_strsplit(line, ':');
 		gui_parse_param_setting(gui, tmp);
-		gui_free_array((void **)tmp, 2);
+		gui_free_array((void ***)&tmp, 2);
 	}
 	if (PARAM->button_qt > 0)
 		PARAM->button = gui_parse_container_button(fd, PARAM->button_qt, -1);
