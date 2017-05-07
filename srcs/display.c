@@ -51,7 +51,11 @@ void		fill_pixel(t_env *e, t_obj *obj)
 {
 	t_color	color;
 
-	if (e->set->aa >= 16)
+	if (e->set->aa >= 64)
+		color = aa_64(e, obj, e->set->deph);
+	else if (e->set->aa >= 32)
+		color = aa_32(e, obj, e->set->deph);
+	else if (e->set->aa >= 16)
 		color = aa_16(e, obj, e->set->deph);
 	else if (e->set->aa >= 8)
 		color = aa_8(e, obj, e->set->deph);
