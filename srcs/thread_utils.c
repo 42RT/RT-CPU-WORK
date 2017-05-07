@@ -64,7 +64,8 @@ void		launch_threads(t_th_data *data)
 	i = -1;
 	while (++i < data->e->set->threads)
 	{
-		if ((data->thread[i] = SDL_CreateThread(thread_aff, "workers", data)) == 0)
+		if ((data->thread[i] = SDL_CreateThread(thread_aff, "workers",
+												data)) == 0)
 		{
 			*(data->e->worker_stop) = 1;
 			return ;
@@ -85,7 +86,7 @@ void		launch_threads_line(t_th_data *data)
 	while (++i < data->e->set->threads)
 	{
 		if ((data->thread[i] = SDL_CreateThread(thread_aff_line,
-											"workers", data)) == 0)
+												"workers", data)) == 0)
 		{
 			*(data->e->worker_stop) = 1;
 			return ;
