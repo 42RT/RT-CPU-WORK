@@ -135,7 +135,7 @@ t_color				trace_lights(t_env *e, t_ray_data d, t_light *light)
 		choose_texture(&d, turb);
 	while (light)
 	{
-		color_add(&color, trace_lights_2(e, d, light), 128);
+		color_mix_k(&color, trace_lights_2(e, d, light), 128);
 		light = light->next;
 	}
 	d.shorter->color = save_color;
