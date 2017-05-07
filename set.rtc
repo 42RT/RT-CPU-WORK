@@ -14,7 +14,7 @@
 	"focus_k": 7,
 	"preview": 0,
 	"progressive_display": 1,
-	"random_renderer": 1,
+	"random_renderer": 0,
 	"threads": 32,
 	"verbose": 0
 }

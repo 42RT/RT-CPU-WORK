@@ -62,10 +62,7 @@ int			ft_aff(void *data)
 	else if (ret)
 		ret = ft_aff_std(e);
 	if (ret)
-	{
-		usleep(32000);
 		print_time(start);
-	}
 	return (0);
 }
 

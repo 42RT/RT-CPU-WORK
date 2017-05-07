@@ -45,20 +45,20 @@ t_gfx			*gfx_reload(t_gfx *gfx, int res_x, int res_y,
 	if (res_x != gfx->buff[0]->width || res_y != gfx->buff[0]->height)
 	{
 		gfx->expose = 0;
-		SDL_SetWindowSize(gfx->win, res_x, res_y);
 		SDL_DestroyTexture(gfx->texture);
+		SDL_SetWindowSize(gfx->win, res_x, res_y);
 		gfx->texture = SDL_CreateTexture(gfx->renderer,
 											SDL_PIXELFORMAT_ARGB8888,
 											SDL_TEXTUREACCESS_STREAMING,
 											res_x, res_y);
 		i = -1;
-		buff_nb = (buff_nb < 5 ? buff_nb : 4);
+		buff_nb = (buff_nb < 6 ? buff_nb : 5);
 		while (++i < buff_nb)
 		{
 			gfx_destroy_image(gfx->buff[i]);
 			gfx->buff[i] = gfx_new_image(gfx, res_x, res_y);
 		}
-		while (++i < 4)
+		while (++i < 8)
 			gfx->buff[i] = 0;
 		gfx->expose = 1;
 	}

@@ -37,6 +37,8 @@ int			ft_aff_multithread(t_env *e)
 		print_percentage((int)e->render_progression);
 	}
 	e->remaining = 0;
+	while (data.th_nb > 0)
+		;
 	ft_printf("\rRendering finished !\n");
 	free(data.map);
 	return (1);
@@ -65,6 +67,8 @@ int			ft_aff_multithread_line(t_env *e)
 		print_percentage((int)e->render_progression);
 	}
 	e->remaining = 0;
+	while (data.th_nb > 0)
+		;
 	ft_printf("\rRendering finished !\n");
 	free(data.map);
 	return (1);
@@ -73,6 +77,7 @@ int			ft_aff_multithread_line(t_env *e)
 void		free_env(t_env *e)
 {
 	destroy_obj_list(e->obj);
+	// leaks ? lights ?
 	free(e);
 }
 
@@ -115,15 +120,14 @@ void		ft_aff_line(t_th_data *a, t_env *e)
 {
 	int		y;
 
-	while (a->nb > 0 && !*(e->worker_stop))
+	while (a->nb > 0 && e && !*(e->worker_stop))
 	{
 		while (pthread_mutex_lock(&(a->mutex)) != 0)
 			;
 		if (!a->nb)
 		{
 			pthread_mutex_unlock(&(a->mutex));
-			destroy_obj_list(e->obj);
-			free(e);
+			free_env(e);
 			return ;
 		}
 		y = a->nb;
@@ -136,6 +140,5 @@ void		ft_aff_line(t_th_data *a, t_env *e)
 			fill_pixel(e, e->obj);
 		}
 	}
-	destroy_obj_list(e->obj);
-	free(e);
+	free_env(e);
 }

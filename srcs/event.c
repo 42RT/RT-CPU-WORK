@@ -46,7 +46,11 @@ static int	event_keydown(SDL_Event event, t_env *env, t_gui *gui)
 	if (event.window.windowID == env->gfx->winID)
 	{
 		if (event.key.keysym.sym == SDLK_ESCAPE)
+		{
+			if (env->worker)
+				print_percentage(-1);
 			gfx_exit(env->gfx, 0);
+		}
 		if (env->background && (event.key.keysym.sym == SDLK_RETURN
 								|| event.key.keysym.sym == SDLK_SPACE))
 		{

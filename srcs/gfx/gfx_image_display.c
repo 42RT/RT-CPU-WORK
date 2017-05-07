@@ -14,11 +14,12 @@
 #include <gfx.h>
 #include <raytracer.h>
 
+
 void			gfx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
 {
 	static int		*map = 0;
 	int				i;
-	int				res;
+	static int		res = 0;
 	SDL_Rect		dst;
 
 	if (!gfx->expose)
@@ -27,6 +28,11 @@ void			gfx_blitz_image(t_gfx *gfx, int x, int y, t_img *img)
 	dst.y = y;
 	dst.w = gfx->buff[0]->width;
 	dst.h = gfx->buff[0]->height;
+	if (res != dst.w * dst.h && map)
+	{
+		free(map);
+		map = 0;
+	}
 	res = gfx->buff[0]->width * gfx->buff[0]->height;
 	if (!map)
 		map = (int *)malloc(res * sizeof(int));
