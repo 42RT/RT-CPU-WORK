@@ -16,7 +16,6 @@ int			ft_aff_multithread(t_env *e)
 {
 	t_th_data	data;
 
-	printf("432423\n");
 	data.th_nb = init_th_data(&data, e, e->set->width * e->set->height);
 	data.res = data.nb;
 	*(e->render_progression) = 0;

@@ -54,7 +54,6 @@ void	event_button_perform_action(t_gui *gui, char *action)
 	}
 	else if (ft_strstr(action, "SAVE") != NULL)
 	{
-		gui_save_object(gui, env);
 		gui->action = 0;
 	}
 	else

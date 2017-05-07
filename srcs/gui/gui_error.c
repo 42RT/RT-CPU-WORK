@@ -39,7 +39,6 @@ void	gui_expand_error(int n)
 
 void	gui_error(int n)
 {
-	printf("GUI ERROR : ");
 	if (n == 1)
 		ft_printf("Unable to get display informations : %s\n", SDL_GetError());
 	else if (n == 2)

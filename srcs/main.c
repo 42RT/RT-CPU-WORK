@@ -14,26 +14,6 @@
 #include <raytracer.h>
 #include <gui.h>
 
-void		print_debug(t_env *e)
-{
-	t_obj	*obj;
-	t_light	*light;
-
-	aff_settings(e->set);
-	obj = e->obj;
-	while (obj)
-	{
-		aff_obj(obj);
-		obj = obj->next;
-	}
-	light = e->light;
-	while (light)
-	{
-		aff_light(light);
-		light = light->next;
-	}
-}
-
 static void	ft_load_icon(t_env *e)
 {
 	SDL_Surface	*img;
@@ -92,8 +72,6 @@ int			main(int ac, char **av)
 							e->set->height, BUFF_NB + 1);
 	if (!e->gfx)
 		return (0);
-	if (e->set->verbose)
-		print_debug(e);
 	ft_welcome(e);
 	SDL_RaiseWindow(e->gfx->win);
 	while (1)

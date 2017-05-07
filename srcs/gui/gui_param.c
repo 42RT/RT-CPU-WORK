@@ -18,7 +18,6 @@ void	gui_param_build(t_gui *gui)
 	gui_param_checkbox_create_all(gui);
 	gui_param_textbox_create_all(gui);
 	gui_param_gauge_create_all(gui);
-	printf("gauge\n");
 	gui_param_text_build(gui);
 }
 

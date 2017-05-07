@@ -49,14 +49,14 @@ void		print_time(unsigned int start)
 	hour = min / 60;
 	min %= 60;
 	if (hour)
-		printf("Rendering time: %u hour%s, %u minute%s and %u second%s.\n",
+		ft_printf("Rendering time: %d hour%s, %d minute%s and %d second%s.\n",
 				hour, hour > 1 ? "s" : "", min, min > 1 ? "s" : "", sec,
 				sec > 1 ? "s" : "");
 	else if (min)
-		printf("Rendering time: %u minute%s and %u second%s.\n", min,
+		ft_printf("Rendering time: %d minute%s and %d second%s.\n", min,
 				min > 1 ? "s" : "", sec, sec > 1 ? "s" : "");
 	else if (sec)
-		printf("Rendering time: %u second%s.\n", sec, sec > 1 ? "s" : "");
+		ft_printf("Rendering time: %d second%s.\n", sec, sec > 1 ? "s" : "");
 	else
-		printf("Rendering time: <1 second.\n");
+		ft_printf("Rendering time: <1 second.\n");
 }
