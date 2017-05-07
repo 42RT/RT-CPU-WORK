@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:04:33 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/06 23:29:04 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/07 05:43:05 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,6 @@ void	parse_object(t_env *e, t_item *item)
 	obj->normale = get_normale(obj->type);
 	obj->base = new_base();
 	verif_obj_validity(obj);
-	if (obj->texture)
-	{
-		ft_putchar('\n');
-		ft_putstr(obj->texture);
-		ft_putstr("truc");
-		ft_putchar('\n');
-	}
 	if (obj->type)
 		add_obj(e, obj);
 	e->yon = 1;

@@ -6,7 +6,7 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 16:44:43 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/05/05 17:25:32 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/07 05:32:49 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 #include <parser.h>
 #include <unistd.h>
 #include <fcntl.h>
+
+void	error_compose(void)
+{
+	ft_printf("No A Good Object in Compose\n");
+	exit(EXIT_SUCCESS);
+}
 
 void	check_coma(t_env *e, char *str)
 {

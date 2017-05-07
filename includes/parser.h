@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 03:28:43 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/06 18:56:12 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/07 05:33:03 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct		s_item
 	struct s_item	*next;
 }					t_item;
 
+void				error_compose(void);
 char				*ft_strtrim_coma(char const *s);
 void				verif_obj_validity(t_obj *obj);
 int					parse_compose(t_env *e, t_item *item, t_obj *obj, int i);

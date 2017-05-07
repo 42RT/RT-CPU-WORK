@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:06:23 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/07 00:20:28 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/07 01:16:19 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,20 @@ void	parse_object_other(t_obj *obj, char *str)
 		obj->refract_ind = ft_atof(get_value(str));
 	else if (!ft_strncmp(str, "\"negative\"", 10))
 	{
-		str = get_value(str);
-		obj->negative = (!ft_strncmp(str, "1", 1)
-						|| !ft_strncmp(str, "true", 4));
+		obj->negative = (!ft_strncmp(get_value(str), "1", 1)
+						|| !ft_strncmp(get_value(str), "true", 4));
 	}
-	else if (!ft_strncmp(str, "\"texture\"", 9) && ft_strchr(str, ',') != NULL)
+	else if (!ft_strncmp(str, "\"texture\"", 9) && ft_strchr(str, ','))
 		obj->texture = ft_strtrim_coma(get_value(str));
-	else if (!ft_strncmp(str, "\"texture\"", 9) && ft_strchr(str, ',') == NULL)
+	else if (!ft_strncmp(str, "\"texture\"", 9) && !ft_strchr(str, ','))
 		obj->texture = ft_strdup(get_value(str));
-	else if (!ft_strncmp(str, "\"procedural\"", 12)
-		&& ft_strchr(str, ',') != NULL)
+	else if (!ft_strncmp(str, "\"procedural\"", 12) && ft_strchr(str, ','))
 		obj->procedural = ft_strtrim_coma(get_value(str));
-	else if (!ft_strncmp(str, "\"procedural\"", 12)
-		&& ft_strchr(str, ',') == NULL)
+	else if (!ft_strncmp(str, "\"procedural\"", 12) && !ft_strchr(str, ','))
 		obj->procedural = ft_strdup(get_value(str));
-	else if (!ft_strncmp(str, "\"normalmap\"", 11)
-		&& ft_strchr(str, ',') != NULL)
+	else if (!ft_strncmp(str, "\"normalmap\"", 11) && ft_strchr(str, ','))
 		obj->normalmap = ft_strtrim_coma(get_value(str));
-	else if (!ft_strncmp(str, "\"normalmap\"", 11)
-		&& ft_strchr(str, ',') == NULL)
+	else if (!ft_strncmp(str, "\"normalmap\"", 11) && !ft_strchr(str, ','))
 		obj->normalmap = ft_strdup(get_value(str));
 	else
 		ft_printf("\033[31m%s Not found\n\033[0m", str);
