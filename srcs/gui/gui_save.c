@@ -29,23 +29,8 @@ char	*gui_old_path(char *path)
 
 void	gui_save_object(t_gui *gui, t_env *e)
 {
-	int	fd1;
-	int	fd2;
-
-	errno = 0;
 	(void)gui;
 	system(gui_old_path(e->scene));
-	if ((fd1 = open(e->scene, O_RDONLY)) != -1)
-	{
-		if ((fd2 = creat("scene/tmpsave.rts", O_CREAT | S_IRWXU |
-			S_IRWXG | S_IRWXO)) != -1)
-		{
-			close(fd1);
-			close(fd2);
-		}
-		else
-			gui_error(15);
-	}
-	else
-		gui_error(9);
+	if (!save_scene(e))
+		gui_error(15);
 }

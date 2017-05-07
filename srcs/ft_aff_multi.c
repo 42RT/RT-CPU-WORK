@@ -77,7 +77,6 @@ int			ft_aff_multithread_line(t_env *e)
 void		free_env(t_env *e)
 {
 	destroy_obj_list(e->obj);
-	// leaks ? lights ?
 	free(e);
 }
 
@@ -136,9 +135,7 @@ void		ft_aff_line(t_th_data *a, t_env *e)
 		e->y = e->set->height - y;
 		e->x = -1;
 		while (++e->x < e->set->width)
-		{
 			fill_pixel(e, e->obj);
-		}
 	}
 	free_env(e);
 }
