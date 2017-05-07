@@ -13,6 +13,9 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+
+# define INIT_PROGNAME	extern const char *__progname
+# define PROGNAME		__progname
 # define BUFF_SIZE		32
 # define RD_BUFFSIZE	1
 # include <string.h>

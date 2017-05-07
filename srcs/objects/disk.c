@@ -25,7 +25,7 @@ void	trace_disk(t_obj *obj, t_vector o, t_vector v)
 	exp_compute(&o, &(obj->exp));
 	exp_compute(&v, &(obj->exp));
 	obj->color = obj->color2;
-	t = (obj->pos.y - o.y) / v.y;
+	t = -o.y / v.y;
 	x = t * v.x + o.x;
 	z = t * v.z + o.z;
 	obj->dst = -1;
