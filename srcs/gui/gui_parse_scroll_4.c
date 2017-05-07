@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 16:02:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 11:22:14 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 13:14:43 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,28 @@ char	**gui_get_scroll_texture_nml(t_scroll *scroll)
 	scroll->active_value = 0;
 	scroll->mod = 0;
 	return (gui_get_scl_texture_nml_2(scroll, e, gui));
+}
+
+char	**gui_get_scroll_aa(t_scroll *scroll)
+{
+	char	**value;
+	t_env	*e;
+
+	e = get_env();
+	scroll->nb_value = 7;
+	if (!(value = (char **)malloc(sizeof(char *) * scroll->nb_value)))
+		error(1);
+	value[0] = ft_strdup("0");
+	value[1] = ft_strdup("2");
+	value[2] = ft_strdup("4");
+	value[3] = ft_strdup("8");
+	value[4] = ft_strdup("16");
+	value[5] = ft_strdup("32");
+	value[6] = ft_strdup("64");
+	if (e->set->aa == 0)
+		scroll->active_value = 0;
+	else
+		scroll->active_value = log2(e->set->aa);
+	scroll->mod = 0;
+	return (value);
 }

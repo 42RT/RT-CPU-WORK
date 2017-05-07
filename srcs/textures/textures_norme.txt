@@ -1,3 +1,0 @@
-Norme: ./srcs/textures/perlin_noise_init.c
-Norme: ./srcs/textures/procedural.c
-Norme: ./srcs/textures/get_textures.c

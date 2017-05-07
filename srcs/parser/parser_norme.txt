@@ -1,16 +1,13 @@
 Norme: ./srcs/parser/parse_file.c
 Norme: ./srcs/parser/parse_light.c
+Norme: ./srcs/parser/parse_compose.c
 Norme: ./srcs/parser/parse.c
 Norme: ./srcs/parser/parse_obj.c
-Norme: ./srcs/parser/parse_compose.c
-Error (line 17): function parse_item_compo has 31 lines
-Norme: ./srcs/parser/parse_sav.c
 Norme: ./srcs/parser/parse_secu_count.c
 Norme: ./srcs/parser/parse_obj_utils.c
-Norme: ./srcs/parser/parse_param.c
 Norme: ./srcs/parser/parse_settings.c
+Norme: ./srcs/parser/parse_param.c
 Norme: ./srcs/parser/parse_utils_2.c
-Error (line 32): function add_next_set has 31 lines
 Norme: ./srcs/parser/parse_utils.c
 Norme: ./srcs/parser/parse_settings_utils.c
 Norme: ./srcs/parser/secu_parse.c

@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 12:10:59 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 14:46:37 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,4 @@ void	gui_save_object(t_gui *gui, t_env *e)
 {
 	(void)gui;
 	system(gui_old_path(e->scene));
-//	if (!save_scene(e))
-//		gui_error(15);
 }

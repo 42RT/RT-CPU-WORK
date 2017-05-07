@@ -1,5 +1,7 @@
-Norme: ./srcs/gfx/gfx.c
 Norme: ./srcs/gfx/gfx_pixel.c
+Norme: ./srcs/gfx/gfx.c
 Norme: ./srcs/gfx/gfx_image.c
 Norme: ./srcs/gfx/gfx_image_display.c
+Error (line 17): multiple empty lines
+Error (line 18): bad spacing before gfx_blitz_image
 Norme: ./srcs/gfx/gfx_utils.c
