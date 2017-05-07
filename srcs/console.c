@@ -40,8 +40,8 @@ int			rt_console(int keycode, t_env *e, int free_buff)
 
 	if (free_buff)
 		ft_bzero(str, 50);
-	if ((keycode >= 'a' && keycode <= 'z') || keycode == SDLK_ESCAPE
-			|| keycode == SDLK_SPACE)
+	if ((keycode >= 'a' && keycode <= 'z') || (keycode >= '0' && keycode <= '9')
+		|| keycode == SDLK_ESCAPE || keycode == SDLK_SPACE)
 		write_console(keycode, str);
 	if (keycode == SDLK_BACKSPACE)
 		str[ft_strlen(str) - 1] = 0;
