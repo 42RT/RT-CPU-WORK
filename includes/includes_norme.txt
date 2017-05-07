@@ -1,9 +1,0 @@
-Norme: ./includes/gfx.h
-Error (line 45, col 14): winID not unixcase
-Norme: ./includes/osx_keyset.h
-Norme: ./includes/hdr_colors.h
-Norme: ./includes/rtdefs.h
-Norme: ./includes/x11_keyset.h
-Norme: ./includes/parser.h
-Norme: ./includes/raytracer.h
-Norme: ./includes/gui.h
