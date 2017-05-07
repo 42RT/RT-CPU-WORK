@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 18:13:36 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 12:00:42 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/07 12:33:11 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ t_scroll	*gui_scroll_init(void)
 	t_scroll	*scroll;
 
 	if (!(scroll = (t_scroll *)malloc(sizeof(t_scroll))))
-		error(1);
-	if (!(scroll->tag = (char *)malloc(sizeof(char) * 3)))
 		error(1);
 	if (!(scroll->txt = (t_txt *)malloc(sizeof(t_txt))))
 		error(1);
