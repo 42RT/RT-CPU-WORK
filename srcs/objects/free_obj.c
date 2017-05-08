@@ -35,9 +35,6 @@ void	destroy_obj_list(t_obj *obj)
 
 void	free_obj_2(t_obj *obj)
 {
-	int		i;
-
-	i = -1;
 	if (obj->texture)
 		free(obj->texture);
 	if (obj->normalmap)
