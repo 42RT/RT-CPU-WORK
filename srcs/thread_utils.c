@@ -57,6 +57,18 @@ static int	thread_aff_line(void *arg)
 	return (0);
 }
 
+void		free_threads(t_th_data *data)
+{
+	int		thread_ret;
+	int		i;
+
+	while (data->th_nb > 0)
+		;
+	i = -1;
+	while (++i < data->e->set->threads && data->thread[i])
+		SDL_WaitThread(data->thread[i], &thread_ret);
+}
+
 void		launch_threads(t_th_data *data)
 {
 	int			i;

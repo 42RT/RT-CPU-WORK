@@ -240,6 +240,7 @@ void				fill_pixel(t_env *e, t_obj *obj);
 void				launch_threads(t_th_data *data);
 void				launch_threads_line(t_th_data *data);
 void				launch_threads_quick(t_th_data *data);
+void				free_threads(t_th_data *data);
 void				change_cam(t_env *e);
 void				reload(t_env *e);
 int					get_pos(int *map, int res, int *nb);
