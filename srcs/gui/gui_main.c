@@ -74,7 +74,7 @@ t_gui		*gui_init(void)
 	gui = get_gui();
 	if (SDL_GetCurrentDisplayMode(0, gui->display) != 0)
 		gui_error(1);
-	gui_parse_builder(gui, "./ressources/gui.build");
+	gui_parse_builder(gui, "./ressources/.gui.build");
 	gui->win = SDL_CreateWindow("GUI", gui->dest.x, gui->dest.y,
 			gui->dest.w, gui->dest.h, SDL_WINDOW_SHOWN);
 	if (gui->win)
