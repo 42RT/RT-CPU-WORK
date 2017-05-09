@@ -1,7 +1,7 @@
 "settings": {
-	"width": 1600,
-	"height": 900,
-	"antialiasing": 16,
+	"width": 800,
+	"height": 600,
+	"antialiasing": 0,
 	"cam_pos_x": -1000.0,
 	"cam2_pos_x": -1000.0,
 	"cam_pos_z": 3000,
@@ -14,6 +14,6 @@
 	"focus_k": 7,
 	"preview": 0,
 	"random_renderer": 1,
-	"threads": 16,
+	"threads": 4,
 	"verbose": 0
 }

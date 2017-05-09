@@ -61,6 +61,8 @@ void	event_txb_insert_2(SDL_Event event, t_gui *gui, t_textbox *textbox)
 
 void	event_txb_insert(SDL_Event event, t_gui *gui, t_textbox *textbox)
 {
+	if (textbox->nature != 1)
+		return ;
 	gui->txb_action = 1;
 	if (SCCODE == 87 && textbox->reserved == 1)
 	{
