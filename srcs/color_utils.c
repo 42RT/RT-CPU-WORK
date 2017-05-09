@@ -52,8 +52,7 @@ void			get_spec(t_color *color, t_light light, t_vector v, t_env *e)
 ** data.z = angle = angle entre rayon lumiere + normale de l'objet
 */
 
-t_color			calc_color(t_vector data, t_color color,
-							t_obj *obj, t_light *light)
+t_color			calc_color(t_vector data, t_color color, t_light *light)
 {
 	t_color		newcolor;
 	float		lcolor[3];
@@ -66,15 +65,15 @@ t_color			calc_color(t_vector data, t_color color,
 	lcolor[0] = (float)(light->color.r);
 	lcolor[1] = (float)(light->color.g);
 	lcolor[2] = (float)(light->color.b);
-	ocolor[0] = obj->coef_ambient * RAMBIENT * ocolor[0] + obj->coef_diffuse *
-		ocolor[0] * lcolor[0] * data.z + lcolor[0] * obj->coef_spec *
-		pow(data.y, SPEC);
-	ocolor[1] = obj->coef_ambient * GAMBIENT * ocolor[1] + obj->coef_diffuse *
-		ocolor[1] * lcolor[1] * data.z + lcolor[1] * obj->coef_spec *
-		pow(data.y, SPEC);
-	ocolor[2] = obj->coef_ambient * BAMBIENT * ocolor[2] + obj->coef_diffuse *
-		ocolor[2] * lcolor[2] * data.z + lcolor[2] * obj->coef_spec *
-		pow(data.y, SPEC);
+	ocolor[0] = light->coef_ambient * RAMBIENT * ocolor[0] +
+		light->coef_diffuse * ocolor[0] * lcolor[0] * data.z + lcolor[0] *
+		light->coef_spec * pow(data.y, SPEC);
+	ocolor[1] = light->coef_ambient * GAMBIENT * ocolor[1] +
+		light->coef_diffuse * ocolor[1] * lcolor[1] * data.z + lcolor[1] *
+		light->coef_spec * pow(data.y, SPEC);
+	ocolor[2] = light->coef_ambient * BAMBIENT * ocolor[2] +
+		light->coef_diffuse * ocolor[2] * lcolor[2] * data.z + lcolor[2] *
+		light->coef_spec * pow(data.y, SPEC);
 	newcolor.r = (unsigned char)ocolor[0];
 	newcolor.g = (unsigned char)ocolor[1];
 	newcolor.b = (unsigned char)ocolor[2];

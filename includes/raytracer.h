@@ -110,9 +110,6 @@ typedef struct		s_obj
 	int				negative;
 	int				cap1;
 	int				cap2;
-	float			coef_ambient;
-	float			coef_diffuse;
-	float			coef_spec;
 	SDL_Surface		*surface;
 	SDL_Surface		*nm_surface;
 	SDL_Surface		*tex_surface;
@@ -143,6 +140,9 @@ typedef struct		s_obj
 typedef struct		s_light
 {
 	int				type;
+	float			coef_ambient;
+	float			coef_diffuse;
+	float			coef_spec;
 	t_vector		pos;
 	t_vector		ang;
 	t_color			color;
@@ -403,7 +403,7 @@ void				not_vec(t_vector *v);
 void				get_spec(t_color *color, t_light light,
 					t_vector v, t_env *e);
 t_color				calc_color(t_vector data, t_color color,
-								t_obj *obj, t_light *light);
+								t_light *light);
 t_color				shadow(t_color color, t_vector data);
 
 /*

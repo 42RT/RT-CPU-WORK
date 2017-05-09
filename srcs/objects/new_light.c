@@ -36,6 +36,9 @@ t_light		*new_light(void)
 	res->k1 = DEF_LIGHT_K1;
 	res->k2 = DEF_LIGHT_K2;
 	res->k3 = DEF_LIGHT_K3;
+	res->coef_ambient = DEF_AMB;
+	res->coef_diffuse = DEF_DIF;
+	res->coef_spec = DEF_SPE;
 	res->next = 0;
 	return (res);
 }

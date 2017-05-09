@@ -53,9 +53,6 @@ t_obj		*copy_obj_elem(t_obj *obj)
 	res->reflect_k = obj->reflect_k;
 	res->transparency = obj->transparency;
 	res->refract_ind = obj->refract_ind;
-	res->coef_ambient = obj->coef_ambient;
-	res->coef_diffuse = obj->coef_diffuse;
-	res->coef_spec = obj->coef_spec;
 	res->dst = obj->dst;
 	return (copy_obj_elem_2(res, obj));
 }
