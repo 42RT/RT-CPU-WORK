@@ -35,7 +35,6 @@ int			ft_aff_multithread(t_env *e)
 	e->remaining = 0;
 	free_threads(&data);
 	ft_printf("\rRendering finished !\n");
-	free(data.map);
 	return (1);
 }
 
@@ -60,7 +59,6 @@ int			ft_aff_multithread_line(t_env *e)
 	e->remaining = 0;
 	free_threads(&data);
 	ft_printf("\rRendering finished !\n");
-	free(data.map);
 	return (1);
 }
 

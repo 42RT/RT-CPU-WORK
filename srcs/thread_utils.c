@@ -64,6 +64,7 @@ void		free_threads(t_th_data *data)
 
 	while (data->th_nb > 0)
 		;
+	free(data->map);
 	i = -1;
 	while (++i < data->e->set->threads && data->thread[i])
 		SDL_WaitThread(data->thread[i], &thread_ret);
