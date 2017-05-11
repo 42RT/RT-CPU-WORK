@@ -37,18 +37,7 @@
 			},
 			"negative": 1,
 			"color": 0x0000ff,
-			"size": 700,
-			"compose": {
-				"cylindre": {
-					"position": {
-				   		"x": 85,
-			       		"y": 10,
-				   		"z": 500
-					},
-					"color": 0x00ff00,
-					"size": 200
-				}
-			}
+			"size": 700
 		}
 	}
 }
@@ -61,15 +50,16 @@
 		"y": 1500,
 		"z": -1000
 	},
-	"texture": poolwater,
 	"exp": {
 		"y": 1.0
-	}
+	},
+	"texture": poolwater
 }
 
 "cylindre": {
 	"color": 0x0000ff,
 	"size": 500,
+	"refract_ind": 5,
 	"position": {
 		"x": 200,
 		"y": 1000,
@@ -92,10 +82,10 @@
 		"y": 750,
 		"z": -3000
 	},
+	"normalmap": normalmap,
 	"angle": {
 		"x": 90
-	},
-	"normalmap": normalmap
+	}
 }
 
 "light": {

@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 15:59:32 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/06 13:27:17 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/11 12:19:18 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include <libft.h>
 #include <parser.h>
 
-void		parse_error(void)
+void	parse_error(void)
 {
 	ft_putstr("Not a valid file\n");
 	exit(EXIT_SUCCESS);
 }
 
-char		*ft_newstrcat_free(char *dest, char *src)
+char	*ft_newstrcat_free(char *dest, char *src)
 {
 	char	*res;
 
@@ -29,7 +29,22 @@ char		*ft_newstrcat_free(char *dest, char *src)
 	return (res);
 }
 
-char		*pass_s(char *s, char c)
+void 	parse_rgb(t_color *c, char *str)
+{
+	if (!ft_strncmp(str, "\"r\"", 3))
+		c->r = ft_atoi(get_value(str));
+	else if (!ft_strncmp(str, "\"g\"", 3))
+		c->g = ft_atoi(get_value(str));
+	else if (!ft_strncmp(str, "\"b\"", 3))
+		c->b = ft_atoi(get_value(str));
+	else
+	{
+		ft_printf("Bad name in RGB\n");
+		exit(EXIT_SUCCESS);
+	}
+}
+
+char	*pass_s(char *s, char c)
 {
 	s += ft_strlen_trim2(s);
 	s += (*s && *s == c);
@@ -38,7 +53,7 @@ char		*pass_s(char *s, char c)
 	return (s);
 }
 
-int			add_next_set(t_item *item, char **file)
+int		add_next_set(t_item *item, char **file)
 {
 	char	*buff[2];
 	char	*s;

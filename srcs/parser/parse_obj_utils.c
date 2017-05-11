@@ -6,13 +6,21 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/11 16:06:23 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/07 01:16:19 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/11 12:17:30 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <parser.h>
 #include <stdlib.h>
+
+int		parse_dis(t_item *it, t_vector *v, int i, void (*f)(t_vector *, char *))
+{
+	while (ft_strchr(it->set[i + 1], ',') != NULL)
+		f(v, it->set[++i]);
+	f(v, it->set[++i]);
+	return (i);
+}
 
 void	parse_object_other(t_obj *obj, char *str)
 {

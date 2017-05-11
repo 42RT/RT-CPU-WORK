@@ -6,7 +6,7 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 16:08:30 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/05/07 08:49:07 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/11 12:14:58 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		parse_item_compo(t_item *item, int i)
 	item->next->setnb = 0;
 	if (!ft_strncmp(item->set[i], "\"compose\"", 9))
 	{
+		i = item_compo(item, ++i, j++);
 		while (++i < item->setnb)
 		{
 			if (ft_strcchr(item->set[i], '{', '\n') != NULL && k == 0)
