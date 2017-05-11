@@ -6,27 +6,29 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 03:38:01 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/11 11:50:48 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/11 18:20:33 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <raytracer.h>
 #include <parser.h>
+#include <gui.h>
 
 char	*get_obj_name(t_obj *obj)
 {
 	static char	**tbl = 0;
-	char		*tmp[2];
+	char		**tmp;
 	int			i;
 
+	if (!(tmp = (char **)malloc(sizeof(char *) * 2)))
+		error(1);
 	if (!tbl)
 	{
 		tmp[0] = ft_strdup("sphere;plan;dplane;cylindre;cone;disk;square;");
 		tmp[1] = ft_newstrcat(tmp[0], "cube;paraboloid;glass;");
 		tbl = ft_strsplit(tmp[1], ';');
-		free(tmp[0]);
-		free(tmp[1]);
+		gui_free_carray(&tmp, 2);
 	}
 	i = -1;
 	while (++i < 10)

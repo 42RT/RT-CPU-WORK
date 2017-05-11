@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 00:28:34 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 10:36:18 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/11 18:10:54 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -610,7 +610,7 @@ void				gui_rt_reload(t_env *e, t_gui *gui, char *scene);
 void				gui_rt_reload_object(t_env *e, t_gui *gui);
 void				gui_apply_object(t_gui *gui);
 void				gui_apply_setting(t_gui *gui);
-void				gui_save_object(t_gui *gui, t_env *e);
+void				gui_save_object(t_env *e);
 void				gui_reset(t_gui *gui, char *target);
 void				gui_anti_aliasing_set(int x, int y, int w, int h);
 char				*str_tolower(char *str);

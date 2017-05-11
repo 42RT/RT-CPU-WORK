@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 17:25:36 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/01/29 09:22:02 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/05/11 18:14:40 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
+void				ft_putfloat_fd(float n, int precision, int fd);
 int					ft_error(char const *s);
 int					get_next_line(int const fd, char **line);
 int					ft_printf(const char *format, ...);

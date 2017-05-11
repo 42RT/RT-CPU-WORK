@@ -6,7 +6,7 @@
 /*   By: vcaquant <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 16:36:00 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/05/11 16:36:02 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/11 18:15:38 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	save_dis_nbr(float obj, char *str, int fd, int tab)
 	ft_putstr_fd("\"", fd);
 	ft_putstr_fd(str, fd);
 	ft_putstr_fd("\": ", fd);
-	ft_putnbr_fd(obj, fd);
+	ft_putfloat_fd(obj, 1, fd);
 	ft_putstr_fd(",\n", fd);
 }
 
