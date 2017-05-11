@@ -1,98 +1,210 @@
-"plan": {
-	"color": 0xffffff,
-	"color2": 0xffffff,
-	"color3": 0xffffff,
-	"size": 500,
+"square": {
+	"normalmap": normalmap,
 	"position": {
-		"y": 1500
-	}
-}
-
-"glass": {
+		"x": 0,
+		"y": 750,
+		"z": -3000
+	},
 	"angle": {
 		"x": 90,
-		"y": 0
+		"y": 0,
+		"z": 0
 	},
-	"position": {
-		"x": 1000,
-		"y": 0
-	}
-}
-
-"cube": {
-	"color": 0xff0000,
-	"size": 1000,
-	"transparency": 0,
-	"position": {
-	   "x": 1000,
-       "y": 1000,
-	   "z": -2000
-    },
-	"compose": {
-		"sphere": {
-			"position": {
-		   		"x": 485,
-	       		"y": 510,
-		   		"z": 500
-			},
-			"negative": 1,
-			"color": 0x0000ff,
-			"size": 700
-		}
-	}
-}
-
-"sphere": {
-	"color": 0xffffff,
-	"size": 500,
-	"position": {
-		"x": -2000,
-		"y": 1500,
-		"z": -1000
+	"rgb": {
+		"r": 255,
+		"g": 66,
+		"b": 150
 	},
-	"exp": {
-		"y": 1.0
-	},
-	"texture": poolwater
-}
+	"size": 3000.0
+},
 
 "cylindre": {
-	"color": 0x0000ff,
-	"size": 500,
-	"refract_ind": 5,
+	"procedural": marble,
+	"cap": {
+		"cap1": 0,
+		"cap2": 1000
+	},
 	"position": {
 		"x": 200,
 		"y": 1000,
 		"z": 200
 	},
 	"angle": {
-		"x": 90
+		"x": 90,
+		"y": 0,
+		"z": 0
 	},
-	"procedural": marble,
+	"rgb": {
+		"r": 0,
+		"g": 0,
+		"b": 255
+	},
+	"size": 500.0
+},
+
+"sphere": {
+	"texture": poolwater,
+	"position": {
+		"x": -2000,
+		"y": 1500,
+		"z": -1000
+	},
+	"rgb": {
+		"r": 255,
+		"g": 255,
+		"b": 255
+	},
+	"size": 500.0
+},
+
+"cube": {
 	"cap": {
 		"cap1": 0,
 		"cap2": 1000
-	}
-}
-
-"square": {
-	"size": 3000,
-	"color": 0xff4200,
-	"position": {
-		"y": 750,
-		"z": -3000
 	},
-	"normalmap": normalmap,
+	"position": {
+		"x": 1000,
+		"y": 1000,
+		"z": -2000
+	},
+	"compose": {
+		"sphere": {
+			"negative": 1,
+			"position": {
+				"x": 485,
+				"y": 510,
+				"z": 500
+			},
+			"rgb": {
+				"r": 0,
+				"g": 0,
+				"b": 255
+			},
+			"size": 700.0
+		}
+	},
+	"rgb": {
+		"r": 255,
+		"g": 0,
+		"b": 0
+	},
+	"size": 1000.0
+},
+
+"glass": {
+	"cap": {
+		"cap1": 0,
+		"cap2": 400
+	},
+	"position": {
+		"x": 1000,
+		"y": 0,
+		"z": 0
+	},
 	"angle": {
-		"x": 90
-	}
-}
+		"x": 90,
+		"y": 0,
+		"z": 0
+	},
+	"compose": {
+		"sphere": {
+			"position": {
+				"x": 0,
+				"y": 0,
+				"z": -500
+			},
+			"compose": {
+				"plan": {
+					"negative": 1,
+					"angle": {
+						"x": 90,
+						"y": 0,
+						"z": 0
+					},
+					"rgb": {
+						"r": 255,
+						"g": 0,
+						"b": 0
+					},
+					"size": 100.0
+				}
+			},
+			"rgb": {
+				"r": 255,
+				"g": 0,
+				"b": 0
+			},
+			"size": 500.0
+		}
+	},
+	"compose": {
+		"cone": {
+			"cap": {
+				"cap1": 400,
+				"cap2": 500
+			},
+			"rgb": {
+				"r": 255,
+				"g": 0,
+				"b": 0
+			},
+			"size": 300.0
+		}
+	},
+	"compose": {
+		"disk": {
+			"position": {
+				"x": 0,
+				"y": 0,
+				"z": 400
+			},
+			"angle": {
+				"x": -90,
+				"y": 0,
+				"z": 0
+			},
+			"rgb": {
+				"r": 255,
+				"g": 0,
+				"b": 0
+			},
+			"size": 175.0
+		}
+	},
+	"rgb": {
+		"r": 255,
+		"g": 0,
+		"b": 0
+	},
+	"size": 100.0
+},
+
+"plan": {
+	"position": {
+		"x": 0,
+		"y": 1500,
+		"z": 0
+	},
+	"rgb": {
+		"r": 255,
+		"g": 255,
+		"b": 255
+	},
+	"size": 500.0
+},
 
 "light": {
-	"color": 0xffffff,
 	"position": {
 		"x": -1165,
 		"y": -2000,
 		"z": 0
-	}
+	},
+	"rgb": {
+		"r": 255,
+		"g": 255,
+		"b": 255
+	},
+	"coef_ambient": 0.1,
+	"coef_diffuse": 0.9,
+	"coef_spec": 0.0
 }

@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/11 18:03:57 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/11 18:29:56 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,13 @@ void	event_button_perform_action(t_gui *gui, char *action)
 	}
 	else if (!CMP(action, "SAVE"))
 	{
-		gui_save_object(e);
-		ft_printf("SCENE SAVED\n");
+		if (!CMP(e->scene, "scene/.default.rts"))
+			ft_printf("DEFAULT CANNOT BE SAVED\n");
+		else
+		{
+			gui_save_object(e);
+			ft_printf("SCENE SAVED\n");
+		}
 	}
 	else
 		event_button_perform_action_suite(gui, action, e);
