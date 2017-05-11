@@ -84,7 +84,6 @@ void	obj_distrib(t_obj *obj)
 		glass(obj);
 	obj->func = get_func(obj->type, obj->negative);
 	obj->normale = get_normale(obj->type);
-	obj->base = new_base();
 	if (obj->texture)
 		load_texture(obj);
 	if (obj->normalmap)

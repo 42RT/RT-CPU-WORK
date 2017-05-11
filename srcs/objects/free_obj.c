@@ -51,9 +51,9 @@ void	free_obj_2(t_obj *obj)
 void	destroy_obj_list_2(t_obj *obj)
 {
 	if (obj->compose)
-		destroy_obj_list(obj->compose);
+		destroy_obj_list_2(obj->compose);
 	if (obj->next)
-		destroy_obj_list(obj->next);
+		destroy_obj_list_2(obj->next);
 	if (obj)
 		free_obj_2(obj);
 }

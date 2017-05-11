@@ -106,7 +106,6 @@ typedef struct		s_obj
 	int				type;
 	void			(*func)();
 	void			(*normale)();
-	int				**base;
 	int				negative;
 	int				cap1;
 	int				cap2;
