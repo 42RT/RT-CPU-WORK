@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/01/06 18:03:35 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/11 21:02:59 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	event_txb_insert_3(SDL_Event event, t_gui *gui, t_textbox *textbox)
 		event_widget_deselect(gui);
 		gui->txb_action = 0;
 	}
-	else if (SCCODE == 43)
+	else if (SCCODE == 43 && PARAM->active == 0)
 	{
 		event_txb_switch_select(gui, textbox);
 		gui->txb_action = 0;
