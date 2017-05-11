@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/28 03:28:43 by jrouilly          #+#    #+#             */
-/*   Updated: 2017/05/07 05:33:03 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/11 12:21:24 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,27 @@ typedef struct		s_item
 	struct s_item	*next;
 }					t_item;
 
+int					save_scene(t_env *e);
+void				save_dis_nbr_nocoma(float obj, char *str, int fd, int tab);
+void				save_dis_cap(int cap1, int cap2, int fd, int tab);
+void				save_dis_angle(t_vector obj, int fd, int tab);
+void				save_dis_triple(t_vector obj, char *str, int fd, int tab);
+void				save_dis_str(char *str, char *name, int fd, int tab);
+void				save_dis_nbr(float obj, char *str, int fd, int tab);
+void				save_dis_next(t_obj *obj, int fd, int tab);
+void				save_dis_compose(t_obj *obj, int fd, int tab);
+void				save_dis_color(t_color color, int fd, int tab);
+void				write_obj(int fd, t_obj *obj, int tab);
+void				write_light_attributes(int fd, t_light *light, int tab);
+void				write_padding(int fd, int nb);
+char				*get_obj_name(t_obj *obj);
+void				save_objs(int fd, t_obj *obj);
+void				write_lights(int fd, t_light *light, int tab);
+void				save_lights(int fd, t_light *light);
+void				write_obj_attributes(int fd, t_obj *obj, int tab);
+int					parse_dis_rgb(t_item *it, t_color *c, int i,
+									void (*f)(t_color *, char *));
+void 				parse_rgb(t_color *c, char *str);
 void				error_compose(void);
 char				*ft_strtrim_coma(char const *s);
 void				verif_obj_validity(t_obj *obj);

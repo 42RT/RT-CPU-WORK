@@ -6,7 +6,7 @@
 #    By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/15 01:15:01 by jrouilly          #+#    #+#              #
-#    Updated: 2017/05/07 11:36:54 by rdieulan         ###   ########.fr        #
+#    Updated: 2017/05/11 12:11:04 by vcaquant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ PATH_GUI =		$(PATH_SRC)gui/
 PATH_PARSER =	$(PATH_SRC)parser/
 PATH_TEXTURES =	$(PATH_SRC)textures/
 PATH_OBJECTS =	$(PATH_SRC)objects/
+PATH_SAVE =		$(PATH_SRC)save/
 PATH_LIB =		lib/
 UNAME_S =		$(shell uname -s)
 DEBUG =			1
@@ -42,6 +43,10 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_PARSER)secu_parse.c \
 			$(PATH_PARSER)parse_secu_count.c \
 			$(PATH_PARSER)parse_param.c \
+			$(PATH_SAVE)save.c \
+			$(PATH_SAVE)save_distrib.c \
+			$(PATH_SAVE)save_distrib_2.c \
+			$(PATH_SAVE)save_write.c \
 			$(PATH_GFX)gfx.c \
 			$(PATH_GFX)gfx_image.c \
 			$(PATH_GFX)gfx_image_display.c \

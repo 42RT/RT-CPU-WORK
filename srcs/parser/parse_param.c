@@ -6,7 +6,7 @@
 /*   By: vcaquant <vcaquant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/04 22:13:01 by vcaquant          #+#    #+#             */
-/*   Updated: 2017/05/06 20:48:20 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/11 12:18:18 by vcaquant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int		parse_compare(t_env *e, t_item *item, t_obj *obj, int i)
 		i = parse_dis(item, &(obj->exp), i, (parse_obj_exp));
 	else if (!ft_strncmp(item->set[i], "\"color", 6))
 		parse_obj_color(obj, item->set[i]);
+	else if (!ft_strncmp(item->set[i], "\"rgb\"", 5))
+		i = parse_dis_rgb(item, &(obj->color), i, (parse_rgb));
 	else if (!ft_strncmp(item->set[i], "\"def\"", 5))
 		i = parse_dis(item, &(obj->def), i, (parse_pos));
 	else if (!ft_strncmp(item->set[i], "\"cap\"", 5))
