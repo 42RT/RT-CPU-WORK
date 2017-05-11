@@ -6,7 +6,7 @@
 /*   By: rdieulan <rdieulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/11 12:13:12 by vcaquant         ###   ########.fr       */
+/*   Updated: 2017/05/11 18:03:41 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ char	*gui_old_path(char *path)
 
 	tmp = ft_strjoin("cp ", path);
 	old = ft_strjoin(tmp, " ");
-	free(tmp);
+	gui_free_str(&tmp);
 	tmp = ft_strjoin(old, path);
-	free(old);
+	gui_free_str(&old);
 	old = ft_strjoin(tmp, ".old");
-	free(tmp);
+	gui_free_str(&tmp);
 	return (old);
 }
 
@@ -35,21 +35,20 @@ char	*gui_new_path(char *path)
 
 	tmp = ft_strjoin("rm ", path);
 	new = ft_strjoin(tmp, " |");
-	free(tmp);
+	gui_free_str(&tmp);
 	tmp = ft_strjoin(new, "mv ");
-	free(new);
+	gui_free_str(&new);
 	new = ft_strjoin(tmp, "scene/tmpsave.rts");
-	free(tmp);
+	gui_free_str(&tmp);
 	tmp = ft_strjoin(new, " ");
-	free(new);
+	gui_free_str(&new);
 	new = ft_strjoin(tmp, path);
-	free(tmp);
+	gui_free_str(&tmp);
 	return (new);
 }
 
-void	gui_save_object(t_gui *gui, t_env *e)
+void	gui_save_object(t_env *e)
 {
-	(void)gui;
 	system(gui_old_path(e->scene));
 	if (!save_scene(e))
 		gui_error(15);

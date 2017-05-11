@@ -74,5 +74,8 @@
 		"r": 255,
 		"g": 255,
 		"b": 255
-	}
+	},
+	"coef_ambient": 0,
+	"coef_diffuse": 0,
+	"coef_spec": 0
 }

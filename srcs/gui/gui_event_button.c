@@ -6,7 +6,7 @@
 /*   By: rdieulan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/13 13:58:16 by rdieulan          #+#    #+#             */
-/*   Updated: 2017/05/07 03:38:49 by rdieulan         ###   ########.fr       */
+/*   Updated: 2017/05/11 18:03:57 by rdieulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,50 @@
 
 void	event_button_perform_action_suite(t_gui *gui, char *action, t_env *env)
 {
-	if (!ft_strcmp(action, "APPLY") && gui->action == 0)
+	if (!CMP(action, "APPLY") && gui->action == 0)
 	{
 		gui_apply_object(gui);
 		gui_apply_setting(gui);
 		gui_rt_reload_object(env, gui);
 	}
-	else if (ft_strstr(action, "PARAM") != NULL)
+	else if (!CMP(action, "PARAM"))
 	{
 		if (HELP->active == 1)
 			gui_help_close(gui);
 		gui_param_toggle(gui);
 	}
-	else if (ft_strstr(action, "HELP") != NULL)
+	else if (!CMP(action, "HELP"))
 	{
 		if (PARAM->active == 1)
 			gui_param_close(gui);
 		gui_help_toggle(gui);
 	}
-	else if (ft_strstr(action, "EXIT") != NULL)
+	else if (!CMP(action, "EXIT"))
 		gfx_exit(env->gfx, 0);
 }
 
 void	event_button_perform_action(t_gui *gui, char *action)
 {
-	t_env *env;
+	t_env *e;
 
-	env = get_env();
+	e = get_env();
 	if (WIDGET)
 		event_widget_deselect(gui);
-	if (ft_strstr(action, "RESET") != NULL)
+	if (!CMP(action, "RESET"))
 	{
-		gui_pending_action_prevent(gui);
 		if (PARAM->active == 1)
 			gui_reset(gui, "PARAM");
 		else
 			gui_reset(gui, "MAIN");
 		gui_main_refresh(gui);
 	}
-	else if (ft_strstr(action, "SAVE") != NULL)
+	else if (!CMP(action, "SAVE"))
 	{
-		gui->action = 0;
+		gui_save_object(e);
+		ft_printf("SCENE SAVED\n");
 	}
 	else
-		event_button_perform_action_suite(gui, action, env);
+		event_button_perform_action_suite(gui, action, e);
 }
 
 int		event_is_button(SDL_Event event, t_gui *gui, int id, int i)
