@@ -37,8 +37,9 @@ void		ft_welcome(t_env *e)
 	pos.w = e->set->width;
 	pos.h = e->set->height;
 	ft_load_icon(e);
-	img = SDL_LoadBMP("ressources/background.bmp");
-	if (img)
+	if (!(img = SDL_LoadBMP("ressources/background.bmp")))
+		ft_printf("background.bmp doesn't exists\n");
+	else
 	{
 		texture = SDL_CreateTextureFromSurface(e->gfx->renderer, img);
 		if (texture)
@@ -47,9 +48,9 @@ void		ft_welcome(t_env *e)
 			SDL_RenderCopy(e->gfx->renderer, texture, NULL, &pos);
 			SDL_DestroyTexture(texture);
 			SDL_RenderPresent(e->gfx->renderer);
-			e->background = 1;
 		}
 	}
+	e->background = 1;
 }
 
 int			main(int ac, char **av)
