@@ -43,6 +43,7 @@ SRC =		$(PATH_PARSER)parse.c \
 			$(PATH_PARSER)secu_parse.c \
 			$(PATH_PARSER)parse_secu_count.c \
 			$(PATH_PARSER)parse_param.c \
+			$(PATH_PARSER)secu_parse_2.c \
 			$(PATH_SAVE)save.c \
 			$(PATH_SAVE)save_distrib.c \
 			$(PATH_SAVE)save_distrib_2.c \

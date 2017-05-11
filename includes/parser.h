@@ -28,6 +28,7 @@ typedef struct		s_item
 
 int					save_scene(t_env *e);
 void				save_dis_nbr_nocoma(float obj, char *str, int fd, int tab);
+void				secu_neg_obj(t_obj *obj);
 void				save_dis_cap(int cap1, int cap2, int fd, int tab);
 void				save_dis_angle(t_vector obj, int fd, int tab);
 void				save_dis_triple(t_vector obj, char *str, int fd, int tab);

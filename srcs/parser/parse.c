@@ -125,6 +125,7 @@ void		parse(t_env *e, char *filename)
 		parse_distrib(e, item);
 	}
 	verif_set_validity(e);
+	secu_neg_obj(e->obj);
 	ft_printf("File \"%s\" parsed.\n", filename);
 	free(e->file);
 }
