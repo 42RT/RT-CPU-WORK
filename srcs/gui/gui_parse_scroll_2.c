@@ -24,7 +24,7 @@ char	**gui_get_scl_scn_suite(t_scroll *scroll, t_env *e, t_gui *gui, int i)
 		gui_error(13);
 	while ((GUI_SYS->rfile = readdir(GUI_SYS->dir)))
 	{
-		if (GUI_SYS->rfile->d_name[0] != '.' 
+		if (GUI_SYS->rfile->d_name[0] != '.'
 		&& ft_strstr(GUI_SYS->rfile->d_name, ".rts"))
 		{
 			lu = ft_strjoin("scene/", GUI_SYS->rfile->d_name);

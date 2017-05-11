@@ -1,0 +1,157 @@
+"plan": {
+	"color": 0xffffff,
+	"size": 500,
+	"position": {
+		"y": 1500
+	}
+}
+
+"plan": {
+	"color": 0x01FEDC,
+	"size": 500,
+	"position": {
+		"z": -3000
+	},
+    "angle": {
+        "x": 90
+    }
+}
+
+"paraboloid": {
+	"color": 0xffffff,
+	"size": 500,
+	"position": {
+		"x": -7000,
+		"y": 1000,
+		"z": -1700
+	},
+	"angle": {
+        "x": 180
+	}
+}
+
+"square": {
+	"color": 0xffffff,
+	"size": 500,
+	"position": {
+		"x": -5000,
+		"y": 1000,
+		"z": -1700
+	},
+	"angle": {
+        "x": 90
+	},
+    "procedural": square
+}
+
+"square": {
+	"color": 0xffffff,
+	"size": 500,
+	"position": {
+		"x": -3000,
+		"y": 1000,
+		"z": -1700
+	},
+	"angle": {
+        "x": 90
+	},
+    "procedural": stripe
+}
+
+"square": {
+	"color": 0xffffff,
+	"size": 500,
+	"position": {
+		"x": -1000,
+		"y": 1000,
+		"z": -1700
+	},
+	"angle": {
+        "x": 90
+	},
+    "procedural": marble
+}
+
+"square": {
+	"color": 0xffffff,
+	"size": 500,
+	"position": {
+		"x": -7000,
+		"y": -1000,
+		"z": -1700
+	},
+	"angle": {
+        "x": 90
+	},
+    "texture": bricks
+}
+
+"square": {
+	"color": 0xffffff,
+	"size": 500,
+	"position": {
+		"x": -5000,
+		"y": -1000,
+		"z": -1700
+	},
+	"angle": {
+        "x": 90
+	},
+    "texture": dirt
+}
+
+"square": {
+	"color": 0xffffff,
+	"size": 500,
+	"position": {
+		"x": -3000,
+		"y": -1000,
+		"z": -1700
+	},
+	"angle": {
+        "x": 90
+	},
+    "texture": ironfloor
+}
+
+"square": {
+	"color": 0xffffff,
+	"size": 500,
+	"position": {
+		"x": -1000,
+		"y": -1000,
+		"z": -1700
+	},
+	"angle": {
+        "x": 90
+	},
+    "texture": moss
+}
+
+
+"light": {
+	"color": 0xffffff,
+	"position": {
+		"x": 7000,
+		"y": -1000,
+		"z": 0
+	}
+}
+
+"light": {
+	"color": 0xffffff,
+	"position": {
+		"x": 0,
+		"y": -1000,
+		"z": 0
+	}
+}
+
+"light": {
+	"color": 0xffffff,
+	"position": {
+		"x": -7000,
+		"y": -1000,
+		"z": 0
+	}
+}

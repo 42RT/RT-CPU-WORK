@@ -62,6 +62,8 @@ void	load_texture(t_obj *obj)
 	path = ft_strjoin("ressources/textures/", obj->texture);
 	path2 = ft_strjoin(path, ".bmp");
 	free(path);
+	if (obj->tex_surface)
+		SDL_FreeSurface(obj->tex_surface);
 	obj->surface = SDL_LoadBMP(path2);
 	if (obj->surface)
 	{
@@ -84,6 +86,8 @@ void	load_normalmap(t_obj *obj)
 	path = ft_strjoin("ressources/normalmap/", obj->normalmap);
 	path2 = ft_strjoin(path, ".bmp");
 	free(path);
+	if (obj->nm_surface)
+		SDL_FreeSurface(obj->nm_surface);
 	obj->surface = SDL_LoadBMP(path2);
 	if (obj->surface)
 	{

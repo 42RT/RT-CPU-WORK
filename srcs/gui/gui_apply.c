@@ -31,6 +31,10 @@ void		gui_apply_numerical(t_gui *gui, t_obj *tmp)
 
 void		gui_apply_object_suite(t_gui *gui, t_obj *tmp)
 {
+	if (!ft_strcmp(GUI_SCL_NML_VALUE, "none"))
+		tmp->texture = NULL;
+	else
+		tmp->texture = ft_strdup(GUI_SCL_NML_VALUE);
 	if (!CMP(GUI_SCL_MTR_VALUE, "none"))
 		tmp->normalmap = NULL;
 	else
@@ -56,14 +60,16 @@ void		gui_apply_object(t_gui *gui)
 		i++;
 	}
 	gui_apply_numerical(gui, tmp);
-	if (!ft_strcmp(GUI_SCL_PCD_VALUE, "none"))
+	if (tmp->procedural)
+		gui_free_str(&tmp->procedural);
+	if (tmp->texture)
+		gui_free_str(&tmp->texture);
+	if (tmp->normalmap)
+		gui_free_str(&tmp->normalmap);
+	if (!CMP(GUI_SCL_PCD_VALUE, "none"))
 		tmp->procedural = NULL;
 	else
 		tmp->procedural = ft_strdup(GUI_SCL_PCD_VALUE);
-	if (!ft_strcmp(GUI_SCL_NML_VALUE, "none"))
-		tmp->texture = NULL;
-	else
-		tmp->texture = ft_strdup(GUI_SCL_NML_VALUE);
 	gui_apply_object_suite(gui, tmp);
 }
 
