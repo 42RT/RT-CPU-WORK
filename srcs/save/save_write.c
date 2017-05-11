@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   save_write.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vcaquant <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/11 16:37:59 by vcaquant          #+#    #+#             */
+/*   Updated: 2017/05/11 16:38:03 by vcaquant         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <fcntl.h>
 #include <raytracer.h>
 #include <parser.h>
@@ -13,7 +25,7 @@ void	write_padding(int fd, int nb)
 
 void	write_obj_att_other(int fd, t_obj *obj, int tab)
 {
-    if (obj->texture != NULL)
+	if (obj->texture != NULL)
 		save_dis_str("texture", obj->texture, fd, tab);
 	if (obj->normalmap != NULL)
 		save_dis_str("normalmap", obj->normalmap, fd, tab);
@@ -46,14 +58,13 @@ void	write_obj_attributes(int fd, t_obj *obj, int tab)
 		save_dis_nbr(obj->refract_ind, "refract_ind", fd, tab);
 	if (obj->def.x != 0 || obj->def.y != 0 || obj->def.z != 0)
 		save_dis_triple(obj->def, "def", fd, tab);
-    write_obj_att_other(fd, obj, tab);
+	write_obj_att_other(fd, obj, tab);
 	if (obj->compose != NULL)
 	{
 		save_dis_compose(obj->compose, fd, tab);
 		if (obj->compose->next != NULL)
 			save_dis_next(obj->compose, fd, tab);
 	}
-
 	save_dis_color(obj->color, fd, tab);
 	save_dis_nbr_nocoma(obj->size, "size", fd, tab);
 }
@@ -67,9 +78,9 @@ void	write_light_attributes(int fd, t_light *light, int tab)
 	if (light->ang.x != 0 || light->ang.y != 0 || light->ang.z != 0)
 		save_dis_angle(light->ang, fd, tab);
 	save_dis_color(light->color, fd, tab);
-    save_dis_nbr(light->coef_ambient, "coef_ambient", fd, tab);
-    save_dis_nbr(light->coef_diffuse, "coef_diffuse", fd, tab);
-    save_dis_nbr_nocoma(light->coef_spec, "coef_spec", fd, tab);
+	save_dis_nbr(light->coef_ambient, "coef_ambient", fd, tab);
+	save_dis_nbr(light->coef_diffuse, "coef_diffuse", fd, tab);
+	save_dis_nbr_nocoma(light->coef_spec, "coef_spec", fd, tab);
 }
 
 void	write_obj(int fd, t_obj *obj, int tab)

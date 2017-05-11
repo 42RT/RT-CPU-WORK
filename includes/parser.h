@@ -46,7 +46,7 @@ void				save_lights(int fd, t_light *light);
 void				write_obj_attributes(int fd, t_obj *obj, int tab);
 int					parse_dis_rgb(t_item *it, t_color *c, int i,
 									void (*f)(t_color *, char *));
-void 				parse_rgb(t_color *c, char *str);
+void				parse_rgb(t_color *c, char *str);
 void				error_compose(void);
 char				*ft_strtrim_coma(char const *s);
 void				verif_obj_validity(t_obj *obj);

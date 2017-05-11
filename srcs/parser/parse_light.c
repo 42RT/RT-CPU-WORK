@@ -31,7 +31,8 @@ void	add_light(t_env *e, t_light *obj)
 	e->light = obj;
 }
 
-int		parse_dis_rgb(t_item *it, t_color *c, int i, void (*f)(t_color *, char *))
+int		parse_dis_rgb(t_item *it, t_color *c, int i,
+	void (*f)(t_color *, char *))
 {
 	while (ft_strchr(it->set[i + 1], ',') != NULL)
 		f(c, it->set[++i]);

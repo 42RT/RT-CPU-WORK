@@ -29,7 +29,7 @@ char	*ft_newstrcat_free(char *dest, char *src)
 	return (res);
 }
 
-void 	parse_rgb(t_color *c, char *str)
+void	parse_rgb(t_color *c, char *str)
 {
 	if (!ft_strncmp(str, "\"r\"", 3))
 		c->r = ft_atoi(get_value(str));
