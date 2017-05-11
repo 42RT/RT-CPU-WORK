@@ -6,7 +6,7 @@
 /*   By: jrouilly <jrouilly@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/20 17:50:17 by jrouilly          #+#    #+#             */
-/*   Updated: 2014/12/20 17:50:18 by jrouilly         ###   ########.fr       */
+/*   Updated: 2017/05/11 12:18:59 by rfriscca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	trace_disk(t_obj *obj, t_vector o, t_vector v)
 	rotate_vector2(&v, &(obj->ang));
 	exp_compute(&o, &(obj->exp));
 	exp_compute(&v, &(obj->exp));
-	obj->color = obj->color2;
 	t = -o.y / v.y;
 	x = t * v.x + o.x;
 	z = t * v.z + o.z;
